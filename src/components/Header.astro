@@ -3,11 +3,11 @@ import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../config';
 ---
 
-<header>
+<header class="flex justify-between px-4">
 	<h2>
 		{SITE_TITLE}
 	</h2>
-	<nav>
+	<nav class="flex space-x-4">
 		<HeaderLink href="/">Home</HeaderLink>
 		<HeaderLink href="/blog">Blog</HeaderLink>
 		<HeaderLink href="/about">About</HeaderLink>
