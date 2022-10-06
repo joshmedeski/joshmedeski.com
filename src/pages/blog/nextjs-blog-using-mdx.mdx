@@ -1,0 +1,21 @@
+---
+title: How to build a NextJS Blog using MDX
+published_on: ""
+description: Sample
+---
+
+Sample
+
+```javascript
+// next.config.js
+module.exports = {
+  reactStrictMode: true,
+  webpack: function (config) {
+    config.module.rules.push({
+      test: /\.mdx$/,
+      use: "raw-loader",
+    });
+    return config;
+  },
+};
+```
