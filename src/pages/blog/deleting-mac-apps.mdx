@@ -1,34 +1,46 @@
 ---
+layout: "../../layouts/BlogPost.astro"
 title: Deleting Mac Apps in Record Time
-published_on: "2014-04-11T08:00:00.169Z"
-description: Here's a quick and simple solution for deleting Mac apps in record time! It uses Alfred, my favorite productivity app
-thumbnail: ./app-cleaner-screenshot.png
+pubDate: "2014-04-11T08:00:00.169Z"
+description: "Here's a quick and simple solution for deleting Mac apps in record time! It uses Alfred, my favorite productivity app"
+heroImage: /images/posts/deleting-mac-apps/app-cleaner-screenshot.png
 ---
 
 Here's a quick and simple solution for deleting Mac apps in record time! It uses Alfred, my favorite productivity app, and a handy little app that scans your system for related files for a thorough uninstall.
 
 ## AppCleaner
 
-<Float>
-  <Img
-    src="/images/posts/deleting-mac-apps/app-cleaner-screenshot.png"
-    alt="App cleaner screenshot"
-    width={400}
-    height={312}
-  />
-</Float>
+<img
+  src="/images/posts/deleting-mac-apps/app-cleaner-screenshot.png"
+  alt="App cleaner screenshot"
+  class="sm:float-right ml-4 mb-2"
+  width={300}
+  height="auto"
+/>
 
 > ...a small application which allows you to thoroughly uninstall unwanted apps.
 
 AppCleaner is a powerful little app that scans your system for all the files and folders related to an application so you can thoroughly remove an app from your system.
 
-<a title="Download AppCleaner" href="http://www.freemacsoft.net/appcleaner/" target="_blank" rel="noopener">Download AppCleaner</a>
+<a
+  title="Download AppCleaner"
+  href="http://www.freemacsoft.net/appcleaner/"
+  target="_blank"
+  rel="noopener"
+>
+  Download AppCleaner
+</a>
 
 ## Alfred Workflow
 
 Jonas Eriksen (aiyodk) has created a Alfred workflow that implements Alfred's powerful search feature with AppCleaner. Simply type "un" and search for the app you want to uninstall.
 
-<a title="AppCleaner.alfredworkflow" href="https://github.com/aiyodk/Alfred-Extensions/raw/master/AlfredApp_2.x/AppCleaner/AppCleaner.alfredworkflow">Download the workflow</a>
+<a
+  title="AppCleaner.alfredworkflow"
+  href="https://github.com/aiyodk/Alfred-Extensions/raw/master/AlfredApp_2.x/AppCleaner/AppCleaner.alfredworkflow"
+>
+  Download the workflow
+</a>
 
 ## Instructions
 
@@ -38,23 +50,20 @@ Once you've installed AppCleaner and the Alfred workflow, follow these 2 easy st
 
 Type "un" then the name of the app you want to delete (in my case it's Candybar)
 
-<Img
+<img
   src="/images/posts/deleting-mac-apps/alfred-uninstall-action.png"
   alt="Alfred uninstall action"
-  width={753}
-  height={278}
 />
 
 ### 2. Delete the files in AppCleaner
 
-<Float>
-  <Img
-    src="/images/posts/deleting-mac-apps/app-cleaner-candybar-screenshot.png"
-    alt="App cleaning candybar screenshot"
-    width={500}
-    height={381}
-  />
-</Float>
+<img
+  src="/images/posts/deleting-mac-apps/app-cleaner-candybar-screenshot.png"
+  alt="App cleaning candybar screenshot"
+  class="sm:float-left mr-4 mb-2"
+  width={320}
+  height="auto"
+/>
 
 Next, AppCleaner will pop up with all the necessary files to delete to remove the app. Click the "delete" button and your all done!
 

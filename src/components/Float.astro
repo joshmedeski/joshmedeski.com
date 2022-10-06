@@ -1,0 +1,14 @@
+---
+const { position } = Astro.props;
+const getPositionClass = (position: string) => {
+  switch (position) {
+    case 'left':
+      return 'sm:float-left sm:ml-4 mt-0';
+    case 'right':
+    default:
+      return 'sm:float-right sm:ml-4 mt-0';
+  }
+}
+const positionClass = getPositionClass(position);
+---
+<div class={positionClass}><slot /></div>;

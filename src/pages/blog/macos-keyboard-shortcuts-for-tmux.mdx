@@ -1,12 +1,20 @@
 ---
+layout: "../../layouts/BlogPost.astro"
 title: macOS Keyboard Shortcuts for tmux
-published_on: "2021-07-16T17:55:00.000Z"
+pubDate: "2021-07-16T17:55:00.000Z"
 description: "It's easy to create custom macOS keyboard shortcuts with tmux key bindings using hex codes and Alacritty."
-thumbnail: "macos-keyboard-shortcuts-for-tmux-thumbnail.jpg"
 ---
 
 <div class="aspect-w-16 aspect-h-9">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/BLp61-Lq0kQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/BLp61-Lq0kQ"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  ></iframe>
 </div>
 
 As a longtime macOS user, I am used to using the command key to get a lot done. You're probably familar with `cmd+c` for copying to the clipboard, and `cmd+t` to create a new tab in Safari. Most power users agree that staying away from the mouse and keeping your hands on the keyboard for as long as possible will help you be faster and more efficient while working.
@@ -36,7 +44,8 @@ In order to simulate a keystroke, Alacritty uses hex codes, which is simply a co
 For our example, we need to get the hex code values for `<ctrl+b> c`. We will use `xxd` to record our keystrokes and dump the hex codes we need.
 
 First run the following command (outside of tmux):
-```
+
+```sh
 xxd -psd
 ```
 
@@ -55,7 +64,7 @@ Keystroke hex codes are bound to two character at a time. So from our code `0263
 
 Finally, we will use the `key` and `mods` keys to define the custom key binding. Add the following code to your `~/.config/alacritty/alacritty.yml` config file.
 
-```yml
+```yaml
 key_bindings:
   - { key: T, mods: Command, chars: "\x02\x63" }
 ```
@@ -106,4 +115,3 @@ key_bindings:
   # Toggle the zoom state of the current tmux pane
   - { key: Z, mods: Command, chars: "\x02\x7a" }
 ```
-
