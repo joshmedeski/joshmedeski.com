@@ -1,0 +1,21 @@
+---
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
+const publishers = await prisma.publisher.findMany({
+  where: { imageUrl: { not: null } },
+  select: {imageUrl: true, name: true}
+})
+---
+
+<section class="bg-slate-300 px-4 py-8">
+  <div class="mx-auto max-w-screen-lg text-center">
+    <h2 class="font-bold text-3xl mb-4">As Seen On</h2>
+    <section class="flex items-center justify-center space-x-6 flex-wrap">
+      {publishers.map(({imageUrl, name}) => (
+        <img src={imageUrl} alt={name} class="max-w-[200px] max-h-[70px]" />
+      ))}
+    </section>
+    <a href="/appearances" class="text-blue-500 hover:text-blue-700">View Appearances</a>
+  </div>
+</section>

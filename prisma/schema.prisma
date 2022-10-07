@@ -1,0 +1,42 @@
+// https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Appearance {
+  id          Int       @id @default(autoincrement())
+  title       String
+  url         String
+  publisher   Publisher @relation(fields: [publisherId], references: [id])
+  publisherId Int
+  date        DateTime?
+  imageUrl    String?
+  roles       AppearanceRoles[]
+}
+
+model AppearanceRole {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  appearances AppearanceRoles[]
+}
+
+model AppearanceRoles {
+  appearance Appearance @relation(fields: [appearanceId], references: [id])
+  appearanceId Int
+  role AppearanceRole @relation(fields: [roleId], references: [id])
+  roleId Int
+  @@id([appearanceId, roleId])
+}
+
+model Publisher {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  website  String?
+  imageUrl String?
+  appearances Appearance[]
+}
