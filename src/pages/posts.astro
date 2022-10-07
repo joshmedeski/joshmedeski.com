@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import PostCard from '../components/PostCard.astro'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../config';
 
 // Use Astro.glob() to fetch all posts, and then sort them by date.
@@ -13,22 +14,20 @@ const posts = (await Astro.glob('./posts/*.{md,mdx}')).sort(
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title="Posts" description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<section>
-				<ul>
-					{posts.map((post) => (
-						<li>
-							<time datetime={post.frontmatter.pubDate}>
-								{post.frontmatter.pubDate}
-							</time>
-							<a href={post.url}>{post.frontmatter.title}</a>
-						</li>
-					))}
-				</ul>
+			<section class="bg-slate-100 px-4 py-12">
+				<div class="mx-auto max-w-screen-lg">
+						<h2 class="font-bold text-3xl mb-4">All Posts</h2>
+					<section class="grid md:grid-cols-3 gap-4">
+						{posts.map((post) => (
+							<PostCard {...post} />
+						))}
+					</section>
+				</div>
 			</section>
 		</main>
 		<Footer />

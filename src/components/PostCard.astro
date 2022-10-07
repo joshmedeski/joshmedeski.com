@@ -1,0 +1,17 @@
+---
+import { BlogPostFrontmatter } from "../layouts/BlogPost.astro";
+export interface Props extends MarkdownInstance<BlogPostFrontmatter> {}
+const {url, frontmatter: {title, description, pubDate}} = Astro.props;
+---
+
+<a href={url} class="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between">
+  <h3 class="font-extrabold leading-none mb-1 text-xl text-blue-500">{title}</h3>
+  <p class="text-sm mb-2">{description}</p>
+  <time class="text-sm text-gray-600" datetime={pubDate}>
+    {new Date(pubDate).toLocaleDateString("en-US", {dateStyle: "long"})}
+  </time>
+</a>
+
+
+
+

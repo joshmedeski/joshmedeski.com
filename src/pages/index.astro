@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import RecentPosts from '../components/RecentPosts.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../config';
 ---
 
@@ -12,6 +13,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../config';
 	</head>
 	<body>
 		<Header title={SITE_TITLE} />
+		<RecentPosts />
 		<main class="p-6">
 			<h1>🧑‍🚀 Hello, Astronaut!</h1>
 			<p>

@@ -3,14 +3,16 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
+export interface BlogPostFrontmatter {
+	title: string;
+	description: string;
+	pubDate: string;
+	updatedDate?: string;
+	heroImage?: string;
+}
+
 export interface Props {
-	content: {
-		title: string;
-		description: string;
-		pubDate?: string;
-		updatedDate?: string;
-		heroImage?: string;
-	};
+	content: BlogPostFrontmatter
 }
 
 const {
@@ -46,7 +48,11 @@ const {
 					/>
 				)}
 				<h1 class="title">{title}</h1>
-				{pubDate && <time>{pubDate}</time>}
+				{pubDate && 
+					<time>
+						{new Date(pubDate).toLocaleDateString("en-US", {dateStyle: "long"})}
+					</time>
+				}
 				{updatedDate && <div>Last updated on <time>{updatedDate}</time></div>}
 				<hr/>
 				<slot />
