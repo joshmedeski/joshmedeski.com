@@ -1,31 +1,33 @@
 ---
 // TODO: redirect `/publications` to `/appearances`
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import PostCard from '../components/PostCard.astro'
-import { SITE_TITLE, SITE_DESCRIPTION } from '../config';
-import RecentPosts from '../components/RecentPosts.astro';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import PostCard from "../components/PostCard.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+import RecentPosts from "../components/RecentPosts.astro";
 
 // Use Astro.glob() to fetch all posts, and then sort them by date.
-const posts = (await Astro.glob('./posts/*.{md,mdx}')).sort(
-	(a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
+const posts = (await Astro.glob("./posts/*.{md,mdx}")).sort(
+  (a, b) =>
+    new Date(b.frontmatter.pubDate).valueOf() -
+    new Date(a.frontmatter.pubDate).valueOf()
 );
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<BaseHead title="Posts" description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-				<div class="mx-auto max-w-screen-lg">
-					<h1 class="font-extrabold text-3xl">Appearances</h1>
-					<p>Coming soon</p>
-				</div>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title="Posts" description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="mx-auto max-w-screen-lg">
+        <h1 class="font-extrabold text-3xl">Appearances</h1>
+        <p>Coming soon</p>
+      </div>
+    </main>
+    <Footer />
+  </body>
 </html>

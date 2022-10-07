@@ -9,4 +9,3 @@ export default defineConfig({
   site: "https://joshmedeski.com",
   integrations: [mdx(), sitemap(), tailwind()],
 });
-

@@ -4,11 +4,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "astro": "astro",
     "build": "astro build",
+    "dev": "astro dev",
+    "format": "prettier -w --plugin-search-dir=. .",
     "preview": "astro preview",
-    "astro": "astro"
+    "start": "astro dev"
   },
   "dependencies": {
     "@astrojs/mdx": "^0.11.4",
@@ -23,6 +24,8 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.7",
+    "prettier": "^2.7.1",
+    "prettier-plugin-astro": "^0.5.5",
     "prisma": "^4.4.0"
   }
 }
