@@ -1,17 +1,26 @@
 ---
 layout: "../layouts/BlogPost.astro"
 title: "About Me"
-description: "Lorem ipsum dolor sit amet"
-updatedDate: "August 08 2022"
-heroImage: "/placeholder-about.jpg"
+description: "Full-stack developer, teacher, speaker, and writer."
+heroImage: "/images/josh-sitting-with-man-made-of-legos.jpg"
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+At an early age, I always loved technology and problem solving. I would pull apart computers, read books about how cars are made and constantly ask my mom questions about the world around me. While growing up, I became fascinated with drawing, acting, graphic design and magic. I was a creative kid.
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+Josh sitting on a bench with a man made out of legos
+Paying my way through college as a professional magician, I quickly graduated with an art degree and entered the freelance world as a designer and web developer (while continuing to perform magic).
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+Over the years, I moved into front-end development full-time. I built a partnership with a successful entrepreneur in Houston and helped him build many products in different industries including medical eCommerce, promotional marketing, drug testing, and office hardware. I built a team of developers and become a team lead and manager.
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+Now, I am a full-stack developer specializing in JavaScript, including the Angular, React, and Express frameworks. I also continue to write and discuss productivity and personal development online.
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+## Personality Typings
+
+Personality typings and systems are fun. They are not a full measure of who a person is but they are a great way for me to explore my behaviors and motivations for more self-awareness. Here's a summary of the different systems I use and my types.
+
+- **Enneagram:** 7w6
+- **Myers Briggs:** The Protagonists (ENFJ-A)
+- **DiSC:** Influence
+- **Strengths Finder:** Includer, Input, Adaptability, Command
+- **Fascination Advantage:** Innovation & Mysticque
+- **Zodiac Sign:** Pisces
