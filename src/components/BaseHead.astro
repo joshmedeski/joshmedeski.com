@@ -5,7 +5,7 @@ export interface Props {
   image?: string;
 }
 import { SITE_TITLE } from "../config";
-const isProd = import.meta.env.PROD
+const isProd = import.meta.env.PROD;
 const { title, description, image = "/placeholder-social.jpg" } = Astro.props;
 ---
 
@@ -35,4 +35,12 @@ const { title, description, image = "/placeholder-social.jpg" } = Astro.props;
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
 <!-- Analytics -->
-{isProd && <script type="text/partytown" src="https://cdn.usefathom.com/script.js" data-site="VLMOLRDQ"></script>}
+{
+  isProd && (
+    <script
+      type="text/partytown"
+      src="https://cdn.usefathom.com/script.js"
+      data-site="VLMOLRDQ"
+    />
+  )
+}

@@ -46,7 +46,11 @@ const {
             </div>
           )
         }
-        {heroImage && !youtubeUrl && <img class="w-full" src={heroImage} alt={`${title} hero`} />}
+        {
+          heroImage && !youtubeUrl && (
+            <img class="w-full" src={heroImage} alt={`${title} hero`} />
+          )
+        }
       </div>
 
       <div class="mx-auto max-w-screen-md px-4 mb-6">
@@ -71,7 +75,9 @@ const {
         </div>
       </div>
 
-      <article class="prose mx-auto prose-a:text-blue-600 hover:prose-a:text-blue-500">
+      <article
+        class="prose mx-auto prose-a:text-blue-600 hover:prose-a:text-blue-500"
+      >
         <slot />
       </article>
     </main>

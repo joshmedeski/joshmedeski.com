@@ -7,7 +7,9 @@ const posts = (await Astro.glob<BlogPostFrontmatter>("../pages/posts/*.mdx"))
       new Date(b.frontmatter.pubDate).valueOf() -
       new Date(a.frontmatter.pubDate).valueOf()
   )
-  .slice(0, 6);
+  .slice(0, 6)
+  .filter(({ frontmatter: { draft } }) => (isProd ? !draft : true))
+  .slice(0, 3);
 ---
 
 <section class="bg-slate-100 px-4 py-12">
