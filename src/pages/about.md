@@ -2,17 +2,18 @@
 layout: "../layouts/BlogPost.astro"
 title: "About Me"
 description: "Full-stack developer, teacher, speaker, and writer."
-heroImage: "/images/josh-sitting-with-man-made-of-legos.jpg"
+heroImage: "/images/collage-of-josh.jpg"
 ---
 
 At an early age, I always loved technology and problem solving. I would pull apart computers, read books about how cars are made and constantly ask my mom questions about the world around me. While growing up, I became fascinated with drawing, acting, graphic design and magic. I was a creative kid.
 
-Josh sitting on a bench with a man made out of legos
 Paying my way through college as a professional magician, I quickly graduated with an art degree and entered the freelance world as a designer and web developer (while continuing to perform magic).
 
 Over the years, I moved into front-end development full-time. I built a partnership with a successful entrepreneur in Houston and helped him build many products in different industries including medical eCommerce, promotional marketing, drug testing, and office hardware. I built a team of developers and become a team lead and manager.
 
 Now, I am a full-stack developer specializing in JavaScript, including the Angular, React, and Express frameworks. I also continue to write and discuss productivity and personal development online.
+
+![ENFJ](/images/enfj.svg)
 
 ## Personality Typings
 

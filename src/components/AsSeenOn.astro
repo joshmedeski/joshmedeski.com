@@ -1,7 +1,6 @@
 ---
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-
 const publishers = await prisma.publisher.findMany({
   where: { imageUrl: { not: null } },
   select: { imageUrl: true, name: true },
