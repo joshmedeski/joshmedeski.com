@@ -12,7 +12,7 @@ const posts = (await Astro.glob("./posts/*.{md,mdx}"))
       new Date(b.frontmatter.pubDate).valueOf() -
       new Date(a.frontmatter.pubDate).valueOf()
   )
-  .filter(({ frontmatter: { draft } }) => (isProd ? !draft : true))
+  .filter(({ frontmatter: { draft } }) => (isProd ? !draft : true));
 ---
 
 <!DOCTYPE html>

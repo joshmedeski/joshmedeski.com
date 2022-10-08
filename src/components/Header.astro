@@ -1,14 +1,15 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../config";
-const isProd = import.meta.env.PROD
+const isProd = import.meta.env.PROD;
 ---
 
 <header class="flex align-center justify-between px-4 py-2 place-items-start">
-  <h2 class="font-bold text-lg m-0">
+  <h2 class="font-bold text-xl m-0">
     <a href="/">{SITE_TITLE}</a>
   </h2>
-  <nav class="flex space-x-4">
+  <a href="#menu">Menu</a>
+  <nav class="hidden md:visible flex space-x-4">
     <HeaderLink href="/">Home</HeaderLink>
     <HeaderLink href="/posts">Posts</HeaderLink>
     <HeaderLink href="/about">About</HeaderLink>
