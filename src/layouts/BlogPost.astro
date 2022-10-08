@@ -18,7 +18,15 @@ export interface Props {
 }
 
 const {
-  content: { title, description, pubDate, updatedDate, heroImage, heroClasses, youtubeUrl },
+  content: {
+    title,
+    description,
+    pubDate,
+    updatedDate,
+    heroImage,
+    heroClasses,
+    youtubeUrl,
+  },
 } = Astro.props;
 ---
 
@@ -49,11 +57,11 @@ const {
         }
         {
           heroImage && !youtubeUrl && (
-          <img
-            class:list={[heroClasses, "w-full"]}
-            src={heroImage} 
-            alt={`${title} hero`} 
-          />
+            <img
+              class:list={[heroClasses, "w-full"]}
+              src={heroImage}
+              alt={`${title} hero`}
+            />
           )
         }
       </div>
