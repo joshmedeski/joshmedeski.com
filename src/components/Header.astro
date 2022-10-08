@@ -8,16 +8,18 @@ const isProd = import.meta.env.PROD;
   <h2 class="font-bold text-xl m-0">
     <a href="/">{SITE_TITLE}</a>
   </h2>
-  <a href="#menu">Menu</a>
-  <nav class="hidden md:visible flex space-x-4">
-    <HeaderLink href="/">Home</HeaderLink>
-    <HeaderLink href="/posts">Posts</HeaderLink>
-    <HeaderLink href="/about">About</HeaderLink>
-    <HeaderLink href="https://twitter.com/joshmedeski" target="_blank"
-      >Twitter</HeaderLink
-    >
-    <HeaderLink href="https://github.com/joshmedeski" target="_blank"
-      >GitHub</HeaderLink
-    >
-  </nav>
+  <div>
+    <a href="#menu" class="block sm:hidden">Menu</a>
+    <nav class="hidden sm:block flex space-x-4">
+      <HeaderLink href="/">Home</HeaderLink>
+      <HeaderLink href="/posts">Posts</HeaderLink>
+      <HeaderLink href="/about">About</HeaderLink>
+      <HeaderLink href="https://twitter.com/joshmedeski" target="_blank"
+        >Twitter</HeaderLink
+      >
+      <HeaderLink href="https://github.com/joshmedeski" target="_blank"
+        >GitHub</HeaderLink
+      >
+    </nav>
+  </div>
 </header>
