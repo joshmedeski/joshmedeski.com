@@ -10,6 +10,7 @@ export interface BlogPostFrontmatter {
   updatedDate?: string;
   youtubeUrl?: string;
   heroImage?: string;
+  heroClasses?: string;
 }
 
 export interface Props {
@@ -17,7 +18,7 @@ export interface Props {
 }
 
 const {
-  content: { title, description, pubDate, updatedDate, heroImage, youtubeUrl },
+  content: { title, description, pubDate, updatedDate, heroImage, heroClasses, youtubeUrl },
 } = Astro.props;
 ---
 
@@ -28,7 +29,7 @@ const {
 
   <body>
     <Header />
-    <main>
+    <main class="mb-20">
       <div class="mx-auto max-w-screen-md mb-6">
         {
           youtubeUrl && (
@@ -48,7 +49,11 @@ const {
         }
         {
           heroImage && !youtubeUrl && (
-            <img class="w-full" src={heroImage} alt={`${title} hero`} />
+          <img
+            class:list={[heroClasses, "w-full"]}
+            src={heroImage} 
+            alt={`${title} hero`} 
+          />
           )
         }
       </div>
@@ -76,7 +81,7 @@ const {
       </div>
 
       <article
-        class="mx-4 prose mx-auto prose-a:text-blue-600 hover:prose-a:text-blue-500"
+        class="px-4 prose mx-auto max-w-screen-md prose-a:text-blue-600 hover:prose-a:text-blue-500"
       >
         <slot />
       </article>
