@@ -4,13 +4,16 @@ import { SITE_TITLE } from "../config";
 const isProd = import.meta.env.PROD;
 ---
 
-<header class="flex align-center justify-between px-4 py-2 place-items-start">
-  <h2 class="font-bold text-xl m-0">
-    <a href="/">{SITE_TITLE}</a>
+<header class="flex items-center justify-between px-4 py-2 place-items-start">
+  <h2 class="m-0"> 
+    <a href="/" class="flex items-center">
+      <img src="/images/josh-medeski-memoji.png" alt="Josh Medeski Memoji" class="mr-2 h-[40px] w-auto" />
+      <span class="font-extrabold text-2xl">{SITE_TITLE}</span>
+    </a>
   </h2>
   <div>
     <a href="#menu" class="block sm:hidden">Menu</a>
-    <nav class="hidden sm:block flex space-x-4">
+    <nav class="hidden sm:flex space-x-4">
       <HeaderLink href="/">Home</HeaderLink>
       <HeaderLink href="/posts">Posts</HeaderLink>
       <HeaderLink href="/about">About</HeaderLink>
