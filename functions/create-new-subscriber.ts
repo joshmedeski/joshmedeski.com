@@ -24,7 +24,7 @@ type Response = {
   utm_source: string;
 };
 
-const verifyValidEmail = (email: string | null) => {
+export const verifyValidEmail = (email: string | null) => {
   if (!email) throw new Error("Email is required");
   if (
     email.match(

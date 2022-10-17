@@ -6,10 +6,13 @@
   "scripts": {
     "astro": "astro",
     "build": "astro build",
+    "prebuild": "vitest --run",
     "dev": "astro dev",
     "format": "prettier -w --plugin-search-dir=. .",
     "preview": "astro preview",
-    "start": "astro dev"
+    "start": "astro dev",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@astrojs/mdx": "^0.11.4",
@@ -28,6 +31,7 @@
     "@tailwindcss/typography": "^0.5.7",
     "prettier": "^2.7.1",
     "prettier-plugin-astro": "^0.5.5",
-    "prisma": "^4.4.0"
+    "prisma": "^4.4.0",
+    "vitest": "^0.24.3"
   }
 }
