@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { verifyValidEmail } from "./create-new-subscriber";
+import { verifyValidEmail } from "../create-new-subscriber";
 
 describe("verifyValidEmail", () => {
   it("should be an invalid email", () => {
