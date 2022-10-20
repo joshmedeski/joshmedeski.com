@@ -2,6 +2,7 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import CalltoAction from "../components/CallToAction.jsx";
 
 export interface BlogPostFrontmatter {
   title: string;
@@ -94,6 +95,7 @@ const {
         <slot />
       </article>
     </main>
+    <CalltoAction client:visible />
     <Footer />
   </body>
 </html>

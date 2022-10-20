@@ -12,11 +12,11 @@ const posts = (await Astro.glob<BlogPostFrontmatter>("../pages/posts/*.mdx"))
   .slice(0, 6);
 ---
 
-<section class="bg-primary px-4 py-12">
+<section class="bg-neutral-200 px-4 py-12">
   <div class="mx-auto max-w-screen-lg">
     <div class="flex justify-between">
       <h2 class="font-bold text-3xl mb-4">Recent Posts</h2>
-      <a href="/posts" class="text-blue-500 hover:text-blue-700"
+      <a href="/posts" class="text-primary-500 hover:text-primary-700 underline"
         >View all posts</a
       >
     </div>

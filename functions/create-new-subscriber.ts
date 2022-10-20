@@ -1,11 +1,12 @@
 import { Handler } from "@netlify/functions";
+import fetch from "node-fetch";
 
 type Body = {
   email: string;
-  metadata: {};
-  notes: string;
-  referrer_url: string;
-  tags: string[];
+  metadata?: {};
+  notes?: string;
+  referrer_url?: string;
+  tags?: string[];
 };
 
 type Response = {
@@ -40,8 +41,9 @@ export const verifyValidEmail = (email: string | null) => {
 const createNewSubscriber = async (body: Body) => {
   try {
     return await fetch("https://api.buttondown.email/v1/subscribers", {
+      method: "POST",
       headers: {
-        content_type: "application/json",
+        "Content-Type": "application/json",
         Authorization: `Token ${process.env.BUTTONDOWN_API_KEY}`,
       },
       body: JSON.stringify(body),
@@ -49,16 +51,21 @@ const createNewSubscriber = async (body: Body) => {
       .then((response) => response.json())
       .then((body) => body as Response);
   } catch (error) {
+    console.log("error: ", error);
     throw new Error("Error creating subscriber");
   }
 };
 
 const handler: Handler = async (event) => {
   try {
+    console.log("event.body: ", event.body);
     if (!event.body) throw new Error("Body is required");
     const parsedBody = JSON.parse(event.body) as Body;
+    console.log("parsedBody: ", parsedBody);
     verifyValidEmail(parsedBody.email);
+    console.log("verified valid email");
     const createdSubscriber = await createNewSubscriber(parsedBody);
+    console.log("created subscriber", createdSubscriber);
     return {
       statusCode: 201,
       body: JSON.stringify(createdSubscriber),
