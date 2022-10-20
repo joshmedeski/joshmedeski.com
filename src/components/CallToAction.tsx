@@ -64,17 +64,15 @@ const CallToAction: FunctionalComponent = () => {
     const { value: email } = event.currentTarget[0] as HTMLInputElement;
     const referrer_url = window.location.href;
     try {
-      const createdSubscriber = await fetch(
-        `/.netlify/functions/create-new-subscriber`,
-        {
-          method: "POST",
-          body: JSON.stringify({ email, referrer_url }),
-        }
-      );
-      console.log("createdSubscriber: ", createdSubscriber);
+      await fetch(`/.netlify/functions/create-new-subscriber`, {
+        method: "POST",
+        body: JSON.stringify({ email, referrer_url }),
+      });
+      // TODO: add fathom to window type
+      // @ts-ignore
+      if (window.fathom) window.fathom.trackGoal("XYTTAMX5", 0);
       setIsSubscribed(true);
     } catch (error: any) {
-      console.log("error: ", error);
       setError(error.message ? error.message : "Error creating subscriber");
     }
   };
@@ -130,7 +128,11 @@ const CallToAction: FunctionalComponent = () => {
                       </span>
                     </Button>
                   </div>
-                  {error && <p className="text-error-500 text-sm">{error}</p>}
+                  {error && (
+                    <p className="ml-4 text-error-500 font-bold mt-4">
+                      {error}
+                    </p>
+                  )}
                 </form>
               )}
             </div>
