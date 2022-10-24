@@ -1,12 +1,39 @@
 import { Handler } from "@netlify/functions";
 import fetch from "node-fetch";
 
+class ClientError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ClientError";
+  }
+}
+
+const validateEmail = (email: string | null) => {
+  if (!email) throw new ClientError("Email is missing");
+  if (
+    email.match(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    )
+  ) {
+    return email;
+  } else {
+    throw new ClientError("Email is invalid");
+  }
+};
+
 type Body = {
   email: string;
   metadata?: {};
   notes?: string;
   referrer_url?: string;
   tags?: string[];
+};
+
+const validateBody = (body: string | null): Body => {
+  if (!body) throw new ClientError("Body is missing");
+  const parsedBody = JSON.parse(body) as Body;
+  validateEmail(parsedBody.email);
+  return parsedBody;
 };
 
 type Response = {
@@ -25,19 +52,6 @@ type Response = {
   utm_source: string;
 };
 
-export const verifyValidEmail = (email: string | null) => {
-  if (!email) throw new Error("Email is required");
-  if (
-    email.match(
-      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    )
-  ) {
-    return email;
-  } else {
-    throw new Error("Email is invalid");
-  }
-};
-
 const createNewSubscriber = async (body: Body) => {
   try {
     return await fetch("https://api.buttondown.email/v1/subscribers", {
@@ -49,40 +63,31 @@ const createNewSubscriber = async (body: Body) => {
       body: JSON.stringify(body),
     })
       .then((response) => response.json())
+      .then((response) => {
+        if (process.env.NODE_ENV !== "test") console.info(response);
+        // TODO: Handle non-201 responses (duplicate, error, etc...)
+        return response;
+      })
       .then((body) => body as Response);
-  } catch (error) {
-    console.log("error: ", error);
+  } catch (e: unknown) {
     throw new Error("Error creating subscriber");
   }
 };
 
 const handler: Handler = async (event) => {
   try {
-    console.log("event.body: ", event.body);
-    if (!event.body) throw new Error("Body is required");
-    const parsedBody = JSON.parse(event.body) as Body;
-    console.log("parsedBody: ", parsedBody);
-    verifyValidEmail(parsedBody.email);
-    console.log("verified valid email");
-    const createdSubscriber = await createNewSubscriber(parsedBody);
-    console.log("created subscriber", createdSubscriber);
+    const validatedBody = validateBody(event.body);
+    await createNewSubscriber(validatedBody);
     return {
       statusCode: 201,
-      body: JSON.stringify(createdSubscriber),
+      body: "Created new subscriber successfully",
     };
   } catch (e: unknown) {
-    if (e instanceof Error) {
-      return {
-        statusCode: 500,
-        body: e?.message,
-      };
-    } else {
-      return {
-        statusCode: 500,
-        body: "Error creating subscriber",
-      };
-    }
+    console.error(e);
+    let body = e instanceof Error ? e.message : "Error creating subscriber";
+    const statusCode = e instanceof ClientError ? 400 : 500;
+    return { statusCode, body };
   }
 };
 
-export { handler };
+export { validateEmail, validateBody, createNewSubscriber, handler };

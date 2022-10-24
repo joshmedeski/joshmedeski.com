@@ -11,12 +11,17 @@ const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
   return (
     <button
       className={clsx(
-        "inline-flex justify-center rounded-2xl bg-primary-600 p-4 text-base font-semibold text-white hover:bg-primary-500 focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 active:text-white/70",
+        "inline-flex justify-center rounded-2xl bg-primary-600 p-4 text-base font-semibold text-white",
+        "hover:bg-primary-500 active:text-white/70",
+        "focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500",
         className
       )}
       {...props}
     >
-      {children}
+      <span className="sr-only sm:not-sr-only">{children}</span>
+      <span className="sm:hidden">
+        <ArrowRightIcon className="h-6 w-6" />
+      </span>
     </button>
   );
 };
@@ -35,21 +40,6 @@ const ArrowRightIcon: FunctionComponent<JSX.SVGAttributes<SVGSVGElement>> = (
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
-
-const Container: FunctionComponent<JSX.HTMLAttributes<HTMLElement>> = ({
-  className,
-  children,
-  ...props
-}) => {
-  return (
-    <section
-      className={clsx("mx-auto max-w-6xl px-4 sm:px-6 lg:px-8", className)}
-      {...props}
-    >
-      {children}
-    </section>
   );
 };
 
@@ -79,7 +69,7 @@ const CallToAction: FunctionalComponent = () => {
 
   return (
     <section id="newsletter" aria-label="Newsletter">
-      <Container>
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div
           style={`background-image: url(${backgroundImage})`}
           className="bg-repeat rounded-2xl shadow-lg px-4 md:px-6 py-8 md:py-12 border-2 border-primary-100"
@@ -119,14 +109,7 @@ const CallToAction: FunctionalComponent = () => {
                       aria-label="Email address"
                       className="-my-2.5 flex-auto bg-transparent pl-6 pr-2.5 text-base text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
                     />
-                    <Button type="submit">
-                      <span className="sr-only sm:not-sr-only">
-                        Sign up today
-                      </span>
-                      <span className="sm:hidden">
-                        <ArrowRightIcon className="h-6 w-6" />
-                      </span>
-                    </Button>
+                    <Button type="submit">Sign up today</Button>
                   </div>
                   {error && (
                     <p className="ml-4 text-error-500 font-bold mt-4">
@@ -138,7 +121,7 @@ const CallToAction: FunctionalComponent = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </div>
     </section>
   );
 };

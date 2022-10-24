@@ -21,3 +21,4 @@ pnpm-debug.log*
 # netlify build files
 .netlify
 functions/.netlify
+coverage
