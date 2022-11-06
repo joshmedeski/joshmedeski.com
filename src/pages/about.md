@@ -2,8 +2,14 @@
 layout: "../layouts/BlogPost.astro"
 title: "About Me"
 description: "Full-stack developer, teacher, speaker, and writer."
-heroImage: "/images/collage-of-josh.jpg"
+categorySlug: "productivity"
 ---
+
+
+<img
+  alt="collage of Josh"
+  src="/images/collage-of-josh.jpg"
+/>
 
 At an early age, I always loved technology and problem solving. I would pull apart computers, read books about how cars are made and constantly ask my mom questions about the world around me. While growing up, I became fascinated with drawing, acting, graphic design and magic. I was a creative kid.
 
