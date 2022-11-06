@@ -2,11 +2,17 @@
 export interface Props {
   title: string;
   description: string;
+  themeColor?: string;
   image?: string;
 }
 import { SITE_TITLE } from "../config";
 const isProd = import.meta.env.PROD;
-const { title, description, image = "/placeholder-social.jpg" } = Astro.props;
+const {
+  title,
+  description,
+  themeColor,
+  image = "/placeholder-social.jpg",
+} = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -14,6 +20,7 @@ const { title, description, image = "/placeholder-social.jpg" } = Astro.props;
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
+<meta name="theme-color" content={themeColor ?? "#ffffff"} />
 
 <!-- Primary Meta Tags -->
 <title>{title} | {SITE_TITLE}</title>

@@ -3,9 +3,18 @@ import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../config";
 import TwitterIcon from "./icons/TwitterIcon.astro";
 import GitHubIcon from "./icons/GitHubIcon.astro";
+import clsx from "clsx";
+import YouTubeIcon from "./icons/YouTubeIcon.astro";
+export interface Props {
+  themeColor?: string;
+}
+const props = Astro.props;
 ---
 
-<header class="flex items-center justify-between px-4 py-2 place-items-start">
+<header
+  class={clsx("flex items-center justify-between px-4 py-2 place-items-start")}
+  style={`background-color: ${props.themeColor || "white"}`}
+>
   <h2 class="m-0">
     <a href="/" class="flex items-center">
       <img
@@ -21,7 +30,11 @@ import GitHubIcon from "./icons/GitHubIcon.astro";
     <nav class="hidden sm:flex space-x-4">
       <HeaderLink href="/">Home</HeaderLink>
       <HeaderLink href="/posts">Posts</HeaderLink>
+      <HeaderLink href="/categories">Categories</HeaderLink>
       <HeaderLink href="/about">About</HeaderLink>
+      <HeaderLink href="https://www.youtube.com/joshmedeski" target="_blank"
+        ><YouTubeIcon class="w-6" />
+      </HeaderLink>
       <HeaderLink href="https://twitter.com/joshmedeski" target="_blank">
         <TwitterIcon class="w-6" />
       </HeaderLink>

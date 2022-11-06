@@ -3,12 +3,21 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import CalltoAction from "../components/CallToAction.jsx";
+import clsx from "clsx";
+import type { Props as CatProps } from "../components/Category.astro";
+import { categories } from "../components/Categories.astro";
 
 export interface BlogPostFrontmatter {
   title: string;
   description: string;
   pubDate: string;
-  categories?: string[];
+  categorySlug?:
+    | "dotfiles"
+    | "development"
+    | "second-brain"
+    | "uses"
+    | "productivity"
+    | "personal-development";
   updatedDate?: string;
   youtubeUrl?: string;
   heroImage?: string;
@@ -26,24 +35,39 @@ const {
     pubDate,
     updatedDate,
     heroImage,
-    categories,
+    categorySlug,
     heroClasses,
     youtubeUrl,
   },
 } = Astro.props;
+const cat = categories.find((cat) => cat.slug === categorySlug) as CatProps;
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} image={heroImage} />
+    <BaseHead
+      title={title}
+      description={description}
+      image={heroImage}
+      themeColor={cat.style?.themeColor}
+    />
   </head>
 
   <body>
-    <Header />
-    <main class="mb-20">
-      <div class="mx-auto max-w-screen-md px-4 mb-10 text-center">
-        <h1 class="font-extrabold text-2xl md:text-4xl mb-2 mt-10">{title}</h1>
+    <Header themeColor={cat.style?.themeColor} />
+    <header
+      style={`background-color: ${cat.style?.themeColor}`}
+      class={clsx(!heroImage && !youtubeUrl && "pb-4")}
+    >
+      <div class="mx-auto max-w-screen-md px-4 mb-10 pt-10 text-center">
+        <a href={`/categories/${cat.slug}`}>
+          <cat.icon class="w-10 mx-auto mb-4" />
+        </a>
+        <h1 class="font-extrabold text-2xl md:text-4xl mb-2">{title}</h1>
         <div class="text-sm text-neutral-600 flex justify-center space-x-2">
+          <a href={`/categories/${cat.slug}`} class="ml-2">
+            {cat.title}
+          </a>
           {
             pubDate && (
               <time>
@@ -60,54 +84,51 @@ const {
               </div>
             )
           }
-          {
-            categories && (
-              <div class="text-neutral-600 flex space-x-2">
-                {categories.map((cat: string) => (
-                  <a href={`/${cat.toLowerCase()}`} class="underline">
-                    {cat}
-                  </a>
-                ))}
-              </div>
-            )
-          }
         </div>
       </div>
 
-      <div class="mx-auto max-w-screen-md mb-6">
-        {
-          youtubeUrl && (
-            <div class="shadow-lg mb-4 rounded-md">
-              <iframe
-                width="100%"
-                height="100%"
-                class="aspect-video w-full"
-                src={youtubeUrl}
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
+      {
+        (youtubeUrl || heroImage) && (
+          <div class="mx-auto max-w-screen-sm mb-10">
+            {youtubeUrl && (
+              <div class="shadow-lg mb-4 rounded-md">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  class="aspect-video w-full rounded-2xl bg-black shadow-lg"
+                  src={youtubeUrl}
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                />
+              </div>
+            )}
+            {heroImage && !youtubeUrl && (
+              <img
+                class:list={[heroClasses, "w-full rounded-2xl shadow-lg"]}
+                src={heroImage}
+                alt={`${title} hero`}
               />
-            </div>
-          )
-        }
-        {
-          heroImage && !youtubeUrl && (
-            <img
-              class:list={[heroClasses, "w-full rounded-md shadow-lg"]}
-              src={heroImage}
-              alt={`${title} hero`}
-            />
-          )
-        }
-      </div>
+            )}
+          </div>
+        )
+      }
+    </header>
 
+    <main
+      class={clsx(
+        "mb-20 mt-10 bg-white",
+        (heroImage || youtubeUrl) && "-mt-32 pt-36"
+      )}
+    >
       <article
-        class="px-4 prose mx-auto max-w-screen-md prose-a:text-blue-600 hover:prose-a:text-blue-500"
+        class="px-4 prose mx-auto max-w-screen-md prose-a:text-blue-600 hover:prose-a:text-blue-500 bg-white"
       >
         <slot />
       </article>
     </main>
+
     <CalltoAction client:visible />
     <Footer />
   </body>

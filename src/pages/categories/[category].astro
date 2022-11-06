@@ -1,0 +1,36 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SITE_DESCRIPTION } from "../../config";
+import Categories, { categories } from "../../components/Categories.astro";
+import type { Props as CatProps } from "../../components/Category.astro";
+import clsx from "clsx";
+export function getStaticPaths() {
+  return categories.map(({ slug: category }) => ({ params: { category } }));
+}
+const { category } = Astro.params;
+const cat = categories.find((cat) => cat.slug === category) as CatProps;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title="Posts"
+      description={SITE_DESCRIPTION}
+      themeColor={cat.style?.themeColor}
+    />
+  </head>
+  <body class="flex flex-col min-h-screen justify-between">
+    <Header themeColor={cat.style?.themeColor} />
+    <header class={clsx("text-center flex-grow", cat.style?.container)}>
+      <cat.icon class="mt-12 w-32 mx-auto" />
+      <h1 class="font-extrabold text-2xl md:text-4xl mb-2 mt-10">
+        {cat.title}
+      </h1>
+      <p>{cat.desc}</p>
+    </header>
+    <Footer />
+  </body>
+</html>

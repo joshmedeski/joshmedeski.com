@@ -4,19 +4,24 @@ import HeaderLink from "./HeaderLink.astro";
 const today = new Date();
 ---
 
-<nav id="menu" class="flex flex-wrap justify-center space-x-4 px-4 pt-20 pb-4">
-  <HeaderLink href="/">Home</HeaderLink>
-  <HeaderLink href="/posts">Posts</HeaderLink>
-  <HeaderLink href="/about">About</HeaderLink>
-  <HeaderLink href="https://twitter.com/joshmedeski" target="_blank"
-    >Twitter</HeaderLink
+<footer>
+  <nav
+    id="menu"
+    class="flex flex-wrap justify-center space-x-4 px-4 pt-20 pb-4"
   >
-  <HeaderLink href="https://github.com/joshmedeski" target="_blank"
-    >GitHub</HeaderLink
-  >
-</nav>
+    <HeaderLink href="/">Home</HeaderLink>
+    <HeaderLink href="/posts">Posts</HeaderLink>
+    <HeaderLink href="/about">About</HeaderLink>
+    <HeaderLink href="https://twitter.com/joshmedeski" target="_blank"
+      >Twitter</HeaderLink
+    >
+    <HeaderLink href="https://github.com/joshmedeski" target="_blank"
+      >GitHub</HeaderLink
+    >
+  </nav>
 
-<footer class="px-4 text-center pb-4">
-  &copy; {today.getFullYear()}
-  {SITE_TITLE}. All rights reserved.
+  <p class="px-4 text-center pb-4">
+    &copy; {today.getFullYear()}
+    {SITE_TITLE}. All rights reserved.
+  </p>
 </footer>

@@ -3,11 +3,12 @@ export interface Props {
   title: string;
   icon: Function;
   desc: string;
-  href?: string;
+  slug: string;
   style?: {
     title?: string;
     desc?: string;
     container?: string;
+    themeColor?: string;
   };
 }
 const props = Astro.props;
@@ -15,7 +16,7 @@ import clsx from "clsx";
 ---
 
 <a
-  href={props.href}
+  href={`/categories/${props.slug}`}
   class={clsx(
     "bg-white shadow-sm rounded-lg p-4 flex items-center",
     props.style?.container
