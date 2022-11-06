@@ -1,15 +1,15 @@
 const { rest } = require("msw");
 const { setupServer } = require("msw/node");
 
-export const server = setupServer(
+const server = setupServer(
   rest.post("https://api.buttondown.email/v1/subscribers", (req, res, ctx) => {
     return res(
       ctx.json({
         creation_date: "2022-10-24T19:21:28.855Z",
-        email: req.body.email,
+        email: req.json.email,
         id: "13399cbd-37a6-40f0-9d64-7b580a31ef02",
         notes: "",
-        referrer_url: req.body.referrer_url,
+        referrer_url: req.json.referrer_url,
         metadata: {},
         secondary_id: 20,
         subscriber_type: "regular",
