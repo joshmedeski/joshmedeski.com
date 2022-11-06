@@ -8,6 +8,7 @@ export interface BlogPostFrontmatter {
   title: string;
   description: string;
   pubDate: string;
+  categories?: string[];
   updatedDate?: string;
   youtubeUrl?: string;
   heroImage?: string;
@@ -25,6 +26,7 @@ const {
     pubDate,
     updatedDate,
     heroImage,
+    categories,
     heroClasses,
     youtubeUrl,
   },
@@ -39,6 +41,39 @@ const {
   <body>
     <Header />
     <main class="mb-20">
+      <div class="mx-auto max-w-screen-md px-4 mb-10 text-center">
+        <h1 class="font-extrabold text-2xl md:text-4xl mb-2 mt-10">{title}</h1>
+        <div class="text-sm text-neutral-600 flex justify-center space-x-2">
+          {
+            pubDate && (
+              <time>
+                {new Date(pubDate).toLocaleDateString("en-US", {
+                  dateStyle: "long",
+                })}
+              </time>
+            )
+          }
+          {
+            updatedDate && (
+              <div class="text-neutral-400">
+                Last updated on <time>{updatedDate}</time>
+              </div>
+            )
+          }
+          {
+            categories && (
+              <div class="text-neutral-600 flex space-x-2">
+                {categories.map((cat: string) => (
+                  <a href={`/${cat.toLowerCase()}`} class="underline">
+                    {cat}
+                  </a>
+                ))}
+              </div>
+            )
+          }
+        </div>
+      </div>
+
       <div class="mx-auto max-w-screen-md mb-6">
         {
           youtubeUrl && (
@@ -65,28 +100,6 @@ const {
             />
           )
         }
-      </div>
-
-      <div class="mx-auto max-w-screen-md px-4 mb-6">
-        <h1 class="font-extrabold text-2xl md:text-4xl">{title}</h1>
-        <div class="text-sm text-neutral-600">
-          {
-            pubDate && (
-              <time>
-                {new Date(pubDate).toLocaleDateString("en-US", {
-                  dateStyle: "long",
-                })}
-              </time>
-            )
-          }
-          {
-            updatedDate && (
-              <div class="text-neutral-400">
-                Last updated on <time>{updatedDate}</time>
-              </div>
-            )
-          }
-        </div>
       </div>
 
       <article

@@ -1,0 +1,38 @@
+---
+export interface Props {
+  title: string;
+  icon: Function;
+  desc: string;
+  href?: string;
+  style?: {
+    title?: string;
+    desc?: string;
+    container?: string;
+  };
+}
+const props = Astro.props;
+import clsx from "clsx";
+---
+
+<a
+  href={props.href}
+  class={clsx(
+    "bg-white shadow-sm rounded-lg p-4 flex items-center",
+    props.style?.container
+  )}
+>
+  <div class="w-10 mr-4">
+    <slot />
+  </div>
+  <div>
+    <h3
+      class={clsx(
+        "font-extrabold leading-none mb-1 text-xl",
+        props.style?.title
+      )}
+    >
+      {props.title}
+    </h3>
+    <p class={clsx("text-sm leading-none", props.style?.desc)}>{props.desc}</p>
+  </div>
+</a>

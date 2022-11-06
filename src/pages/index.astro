@@ -6,6 +6,7 @@ import CalltoAction from "../components/CallToAction.jsx";
 import RecentPosts from "../components/RecentPosts.astro";
 import AsSeenOn from "../components/AsSeenOn.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+import Categories from "../components/Categories.astro";
 ---
 
 <!DOCTYPE html>
@@ -14,12 +15,13 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <body>
-    <Header title={SITE_TITLE} />
+    <Header />
+    <Categories />
+    <RecentPosts />
+    <AsSeenOn />
     <section class="mt-6 mb-12">
       <CalltoAction client:visible />
     </section>
-    <RecentPosts />
-    <AsSeenOn />
     <Footer />
   </body>
 </html>

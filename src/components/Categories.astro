@@ -1,0 +1,96 @@
+---
+import DotfilesIcon from "./icons/DotfilesIcon.astro";
+import Category, { Props as CatProps } from "./Category.astro";
+import ProductivityIcon from "./icons/ProductivityIcon.astro";
+import SecondBrainIcon from "./icons/SecondBrainIcon.astro";
+import DevelopmentIcon from "./icons/DevelopmentIcon.astro";
+import UsesIcon from "./icons/UsesIcon.astro";
+import PersonalDevelopmentIcon from "./icons/PersonalDevelopmentIcon.astro";
+
+const categories: CatProps[] = [
+  {
+    icon: DotfilesIcon,
+    title: "Dotfiles",
+    desc: "My developer environment",
+    href: "/dotfiles",
+    style: {
+      container: "bg-orange-50 shadow-orange-100",
+      title: "text-orange-600",
+      desc: "text-orange-900",
+    },
+  },
+  {
+    icon: DevelopmentIcon,
+    title: "Development",
+    desc: "How I build websites and apps",
+    href: "/development",
+    style: {
+      container: "bg-indigo-50 shadow-indigo-100",
+      title: "text-indigo-600",
+      desc: "text-indigo-900",
+    },
+  },
+  {
+    icon: SecondBrainIcon,
+    title: "Second Brain",
+    desc: "Organizing my digital life",
+    href: "/second-brain",
+    style: {
+      container: "bg-pink-50 shadow-pink-100",
+      title: "text-pink-600",
+      desc: "text-pink-900",
+    },
+  },
+  {
+    icon: UsesIcon,
+    title: "Uses",
+    desc: "Gadgets and software I use",
+    href: "/uses",
+    style: {
+      container: "bg-slate-50 shadow-slate-100",
+      title: "text-slate-600",
+      desc: "text-slate-900",
+    },
+  },
+  {
+    icon: ProductivityIcon,
+    title: "Productivity",
+    desc: "How I get things done",
+    href: "/productivity",
+    style: {
+      container: "bg-green-50 shadow-green-100",
+      title: "text-green-500",
+      desc: "text-green-900",
+    },
+  },
+  {
+    icon: PersonalDevelopmentIcon,
+    title: "Personal Development",
+    desc: "Creating a meaningful life",
+    href: "/personal-development",
+    style: {
+      container: "bg-sky-50 shadow-sky-100",
+      title: "text-sky-600",
+      desc: "text-sky-900",
+    },
+  },
+];
+---
+
+<section class="bg-white px-4 py-12">
+  <div class="mx-auto max-w-screen-lg">
+    <div class="mb-6">
+      <h2 class="font-bold text-3xl text-center leading-none">Categories</h2>
+      <p class="text-center">These are a few of my favorite things.</p>
+    </div>
+    <section class="grid md:grid-cols-3 sm:grid-cols-2 gap-4">
+      {
+        categories.map((cat) => (
+          <Category {...cat}>
+            <cat.icon />
+          </Category>
+        ))
+      }
+    </section>
+  </div>
+</section>

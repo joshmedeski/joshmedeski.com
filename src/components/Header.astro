@@ -1,13 +1,18 @@
 ---
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../config";
-const isProd = import.meta.env.PROD;
+import TwitterIcon from "./icons/TwitterIcon.astro";
+import GitHubIcon from "./icons/GitHubIcon.astro";
 ---
 
 <header class="flex items-center justify-between px-4 py-2 place-items-start">
-  <h2 class="m-0"> 
+  <h2 class="m-0">
     <a href="/" class="flex items-center">
-      <img src="/images/josh-medeski-memoji.png" alt="Josh Medeski Memoji" class="mr-2 h-[40px] w-auto" />
+      <img
+        src="/images/josh-medeski-memoji.png"
+        alt="Josh Medeski Memoji"
+        class="mr-2 h-[40px] w-auto"
+      />
       <span class="font-extrabold text-2xl">{SITE_TITLE}</span>
     </a>
   </h2>
@@ -17,12 +22,12 @@ const isProd = import.meta.env.PROD;
       <HeaderLink href="/">Home</HeaderLink>
       <HeaderLink href="/posts">Posts</HeaderLink>
       <HeaderLink href="/about">About</HeaderLink>
-      <HeaderLink href="https://twitter.com/joshmedeski" target="_blank"
-        >Twitter</HeaderLink
-      >
+      <HeaderLink href="https://twitter.com/joshmedeski" target="_blank">
+        <TwitterIcon class="w-6" />
+      </HeaderLink>
       <HeaderLink href="https://github.com/joshmedeski" target="_blank"
-        >GitHub</HeaderLink
-      >
+        ><GitHubIcon class="w-6" />
+      </HeaderLink>
     </nav>
   </div>
 </header>
