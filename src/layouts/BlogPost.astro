@@ -5,7 +5,7 @@ import Footer from "../components/Footer.astro";
 import CalltoAction from "../components/CallToAction.jsx";
 import clsx from "clsx";
 import type { Props as CatProps } from "../components/Category.astro";
-import { categories } from "../components/Categories.astro";
+import Categories, { categories } from "../components/Categories.astro";
 
 export interface BlogPostFrontmatter {
   title: string;
@@ -135,6 +135,7 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as CatProps;
     </main>
 
     <CalltoAction client:visible />
+    <Categories />
     <Footer />
   </body>
 </html>
