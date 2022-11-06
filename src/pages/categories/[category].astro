@@ -17,7 +17,7 @@ const cat = categories.find((cat) => cat.slug === category) as CatProps;
 <html lang="en">
   <head>
     <BaseHead
-      title="Posts"
+      title={cat.title}
       description={SITE_DESCRIPTION}
       themeColor={cat.style?.themeColor}
     />
