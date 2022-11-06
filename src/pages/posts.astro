@@ -18,10 +18,14 @@ const posts = (await Astro.glob("./posts/*.{md,mdx}"))
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <BaseHead title="Posts" description={SITE_DESCRIPTION} />
+    <BaseHead
+      title="Posts"
+      description={SITE_DESCRIPTION}
+      themeColor="#f2f5f9"
+    />
   </head>
   <body>
-    <Header />
+    <Header themeColor="#f2f5f9" />
     <main>
       <section class="bg-neutral-100 px-4 py-12">
         <div class="mx-auto max-w-screen-lg">
