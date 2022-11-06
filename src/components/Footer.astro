@@ -1,6 +1,9 @@
 ---
 import { SITE_TITLE } from "../config";
 import HeaderLink from "./HeaderLink.astro";
+import GitHubIcon from "./icons/GitHubIcon.astro";
+import TwitterIcon from "./icons/TwitterIcon.astro";
+import YouTubeIcon from "./icons/YouTubeIcon.astro";
 const today = new Date();
 ---
 
@@ -11,13 +14,17 @@ const today = new Date();
   >
     <HeaderLink href="/">Home</HeaderLink>
     <HeaderLink href="/posts">Posts</HeaderLink>
+    <HeaderLink href="/categories">Categories</HeaderLink>
     <HeaderLink href="/about">About</HeaderLink>
-    <HeaderLink href="https://twitter.com/joshmedeski" target="_blank"
-      >Twitter</HeaderLink
-    >
+    <HeaderLink href="https://www.youtube.com/joshmedeski" target="_blank"
+      ><YouTubeIcon class="w-6" />
+    </HeaderLink>
+    <HeaderLink href="https://twitter.com/joshmedeski" target="_blank">
+      <TwitterIcon class="w-6" />
+    </HeaderLink>
     <HeaderLink href="https://github.com/joshmedeski" target="_blank"
-      >GitHub</HeaderLink
-    >
+      ><GitHubIcon class="w-6" />
+    </HeaderLink>
   </nav>
 
   <p class="px-4 text-center pb-4">
