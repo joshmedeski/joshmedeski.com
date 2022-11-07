@@ -5,7 +5,6 @@ description: "Full-stack developer, teacher, speaker, and writer."
 categorySlug: "productivity"
 ---
 
-
 <img
   alt="collage of Josh"
   src="/images/collage-of-josh.jpg"

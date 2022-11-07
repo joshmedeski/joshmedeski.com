@@ -3,10 +3,9 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import PostCard from "../components/PostCard.astro";
-import { SITE_DESCRIPTION } from "../config";
+import type { BlogPostFrontmatter } from "../layouts/BlogPost.astro";
 const isProd = import.meta.env.PROD;
-// Use Astro.glob() to fetch all posts, and then sort them by date.
-const posts = (await Astro.glob("./posts/*.{md,mdx}"))
+const posts = (await Astro.glob<BlogPostFrontmatter>("./posts/*.mdx"))
   .sort(
     (a, b) =>
       new Date(b.frontmatter.pubDate).valueOf() -
@@ -18,11 +17,7 @@ const posts = (await Astro.glob("./posts/*.{md,mdx}"))
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <BaseHead
-      title="Posts"
-      description={SITE_DESCRIPTION}
-      themeColor="#f2f5f9"
-    />
+    <BaseHead title="Posts" themeColor="#f2f5f9" />
   </head>
   <body>
     <Header themeColor="#f2f5f9" />

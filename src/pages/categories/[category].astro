@@ -5,12 +5,22 @@ import Footer from "../../components/Footer.astro";
 import { SITE_DESCRIPTION } from "../../config";
 import Categories, { categories } from "../../components/Categories.astro";
 import type { Props as CatProps } from "../../components/Category.astro";
+import type { BlogPostFrontmatter } from "../layouts/BlogPost.astro";
 import clsx from "clsx";
 export function getStaticPaths() {
   return categories.map(({ slug: category }) => ({ params: { category } }));
 }
 const { category } = Astro.params;
 const cat = categories.find((cat) => cat.slug === category) as CatProps;
+
+const posts = (await Astro.glob<BlogPostFrontmatter>("../pages/posts/*.mdx"))
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.pubDate).valueOf() -
+      new Date(a.frontmatter.pubDate).valueOf()
+  )
+  .filter(({ frontmatter: { categorySlug } }) => category === categorySlug)
+  .slice(0, 7);
 ---
 
 <!DOCTYPE html>

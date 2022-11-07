@@ -1,12 +1,14 @@
 ---
+import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+const isProd = import.meta.env.PROD;
+
 export interface Props {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   themeColor?: string;
   image?: string;
 }
-import { SITE_TITLE } from "../config";
-const isProd = import.meta.env.PROD;
+
 const {
   title,
   description,
@@ -24,8 +26,8 @@ const {
 
 <!-- Primary Meta Tags -->
 <title>{title} | {SITE_TITLE}</title>
-<meta name="title" content={title} />
-<meta name="description" content={description} />
+<meta name="title" content={title || "Home"} />
+<meta name="description" content={description || SITE_DESCRIPTION} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
