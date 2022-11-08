@@ -7,7 +7,7 @@ import clsx from "clsx";
 export interface Props extends MarkdownInstance<BlogPostFrontmatter> {}
 const {
   url,
-  frontmatter: { title, description, categorySlug, heroImage },
+  frontmatter: { title, description, categorySlug, heroImage, pubDate },
 } = Astro.props;
 const cat = categories.find((cat) => cat.slug === categorySlug) as CatProps;
 ---
@@ -17,23 +17,36 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as CatProps;
     <img
       src={heroImage}
       alt={title}
-      class="max-w-lg sm:mr-10 rounded-2xl shadow-md"
+      class="max-w-lg sm:mr-10 rounded-md shadow-md"
     />
 
     <div class="mt-10">
-      <div class="mb-2">
-        <span
-          class="font-extrabold text-sm rounded-full px-3 py-1 bg-indigo-500 text-white leading-none uppercase"
-        >
-          Latest
-        </span>
+      <div
+        class={clsx(
+          "flex justify-between mb-2 font-medium tracking-wide",
+          cat.style?.desc
+        )}
+      >
+        <div class="flex text-sm">
+          <cat.icon class="w-4 mr-2" />
+          <p class="mr-2 block">
+            {cat.title}
+          </p>
+          <time datetime={pubDate}>
+            {
+              new Date(pubDate).toLocaleDateString("en-US", {
+                dateStyle: "long",
+              })
+            }
+          </time>
+        </div>
       </div>
 
       <h3 class={clsx("font-extrabold leading-none mb-4 text-3xl")}>
         {title}
       </h3>
-      <p class="mb-2">{description}</p>
-      <div class={clsx("font-medium underline text-xl")}>Read</div>
+
+      <p class="mb-2 text-lg">{description}</p>
     </div>
   </a>
 </section>
