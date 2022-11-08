@@ -101,7 +101,7 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as CatProps;
                 <iframe
                   width="100%"
                   height="100%"
-                  class="aspect-video w-full rounded-2xl bg-black shadow-lg"
+                  class="aspect-video w-full rounded-md bg-black shadow-lg"
                   src={youtubeUrl}
                   title="YouTube video player"
                   frameborder="0"
@@ -112,7 +112,7 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as CatProps;
             )}
             {heroImage && !youtubeUrl && (
               <img
-                class:list={[heroClasses, "w-full rounded-2xl shadow-lg"]}
+                class:list={[heroClasses, "w-full rounded-md shadow-lg"]}
                 src={heroImage}
                 alt={`${title} hero`}
               />
