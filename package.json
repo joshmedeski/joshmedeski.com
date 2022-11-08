@@ -6,7 +6,6 @@
   "scripts": {
     "astro": "astro",
     "build": "astro build",
-    "prebuild": "vitest --run",
     "dev": "cross-env NODE_ENV=development binode --require ./mocks/index.cjs -- netlify-cli:netlify dev",
     "format": "prettier -w --plugin-search-dir=. .",
     "preview": "astro preview",
