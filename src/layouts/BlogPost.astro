@@ -112,7 +112,10 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as CatProps;
             )}
             {heroImage && !youtubeUrl && (
               <img
-                class:list={[heroClasses, "w-full rounded-md shadow-lg"]}
+                class:list={[
+                  heroClasses,
+                  "bg-black w-full rounded-md shadow-lg aspect-video",
+                ]}
                 src={heroImage}
                 alt={`${title} hero`}
               />
@@ -135,8 +138,8 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as CatProps;
       </article>
     </main>
 
-    <CalltoAction client:visible />
     <Categories />
+    <CalltoAction client:visible />
     <Footer />
   </body>
 </html>

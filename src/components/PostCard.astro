@@ -15,7 +15,11 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as CatProps;
 <a href={url} class="">
   {
     heroImage && (
-      <img src={heroImage} alt={title} class="rounded-md shadow-sm mb-4" />
+      <img
+        src={heroImage}
+        alt={title}
+        class="rounded-md shadow-sm mb-4 aspect-video bg-black"
+      />
     )
   }
   <div class="mx-2">

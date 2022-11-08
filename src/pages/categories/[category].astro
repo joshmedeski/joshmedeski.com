@@ -8,6 +8,8 @@ import type { Props as CatProps } from "../../components/Category.astro";
 import type { BlogPostFrontmatter } from "../../layouts/BlogPost.astro";
 import clsx from "clsx";
 import PostCard from "../../components/PostCard.astro";
+import Categories from "../../components/categories.astro";
+import CallToAction from "../../components/CallToAction";
 export function getStaticPaths() {
   return categories.map(({ slug: category }) => ({ params: { category } }));
 }
@@ -42,7 +44,7 @@ const posts = (await Astro.glob<BlogPostFrontmatter>("../posts/*.mdx"))
       <p>{cat.desc}</p>
     </header>
 
-    <section class="bg-neutral-50 px-4 py-12">
+    <section class={clsx("px-4 py-12", cat.style?.container)}>
       <div class="mx-auto max-w-screen-2xl">
         <section class="grid md:grid-cols-4 gap-8">
           {posts.map((post) => <PostCard {...post} />)}
@@ -50,6 +52,8 @@ const posts = (await Astro.glob<BlogPostFrontmatter>("../posts/*.mdx"))
       </div>
     </section>
 
+    <Categories />
+    <CallToAction client:visible />
     <Footer />
   </body>
 </html>
