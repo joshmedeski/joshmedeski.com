@@ -18,22 +18,29 @@ import clsx from "clsx";
 <a
   href={`/categories/${props.slug}`}
   class={clsx(
-    "bg-white shadow-sm rounded-lg p-4 flex items-center",
+    "bg-white shadow-sm rounded-lg p-6 flex items-center",
     props.style?.container
   )}
 >
-  <div class="w-10 mr-4">
+  <div class="w-20 mr-8">
     <slot />
   </div>
   <div>
     <h3
       class={clsx(
-        "font-extrabold leading-none mb-1 text-xl",
+        "font-extrabold leading-none mb-1 text-3xl",
         props.style?.title
       )}
     >
       {props.title}
     </h3>
-    <p class={clsx("text-sm leading-none", props.style?.desc)}>{props.desc}</p>
+    <p
+      class={clsx(
+        "text-xl font-medium leading-none tracking-wide",
+        props.style?.desc
+      )}
+    >
+      {props.desc}
+    </p>
   </div>
 </a>

@@ -84,12 +84,12 @@ export const categories: CatProps[] = [
 ---
 
 <section class="bg-white px-4 py-12">
-  <div class="mx-auto max-w-screen-lg">
+  <div class="mx-auto max-w-screen-2xl">
     <div class="mb-6">
       <h2 class="font-bold text-3xl text-center leading-none">Categories</h2>
       <p class="text-center">These are a few of my favorite things.</p>
     </div>
-    <section class="grid md:grid-cols-3 sm:grid-cols-2 gap-4">
+    <section class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
       {
         categories.map((cat) => (
           <Category {...cat}>

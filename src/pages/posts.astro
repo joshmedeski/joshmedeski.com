@@ -23,12 +23,18 @@ const posts = (await Astro.glob<BlogPostFrontmatter>("./posts/*.mdx"))
     <Header themeColor="#f2f5f9" />
     <main>
       <section class="bg-neutral-100 px-4 py-12">
-        <div class="mx-auto max-w-screen-lg">
-          <h2 class="font-bold text-3xl mb-4">All Posts</h2>
-          <section class="grid md:grid-cols-3 gap-4">
-            {posts.map((post) => <PostCard {...post} />)}
-          </section>
-        </div>
+        <h2 class="font-bold text-3xl mb-4">All Posts</h2>
+        <section
+          class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6"
+        >
+          {
+            posts.map((post) => (
+              <div class="mb-10">
+                <PostCard {...post} />
+              </div>
+            ))
+          }
+        </section>
       </section>
     </main>
     <Footer />
