@@ -3,24 +3,24 @@ import BaseHead from "../../components/BaseHead.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { SITE_DESCRIPTION } from "../../config";
-import Categories, { categories } from "../../components/Categories.astro";
+import { categories } from "../../components/Categories.astro";
 import type { Props as CatProps } from "../../components/Category.astro";
-import type { BlogPostFrontmatter } from "../layouts/BlogPost.astro";
+import type { BlogPostFrontmatter } from "../../layouts/BlogPost.astro";
 import clsx from "clsx";
+import PostCard from "../../components/PostCard.astro";
 export function getStaticPaths() {
   return categories.map(({ slug: category }) => ({ params: { category } }));
 }
 const { category } = Astro.params;
 const cat = categories.find((cat) => cat.slug === category) as CatProps;
 
-const posts = (await Astro.glob<BlogPostFrontmatter>("../pages/posts/*.mdx"))
+const posts = (await Astro.glob<BlogPostFrontmatter>("../posts/*.mdx"))
+  .filter(({ frontmatter: { categorySlug } }) => category === categorySlug)
   .sort(
     (a, b) =>
       new Date(b.frontmatter.pubDate).valueOf() -
       new Date(a.frontmatter.pubDate).valueOf()
-  )
-  .filter(({ frontmatter: { categorySlug } }) => category === categorySlug)
-  .slice(0, 7);
+  );
 ---
 
 <!DOCTYPE html>
@@ -41,6 +41,15 @@ const posts = (await Astro.glob<BlogPostFrontmatter>("../pages/posts/*.mdx"))
       </h1>
       <p>{cat.desc}</p>
     </header>
+
+    <section class="bg-neutral-50 px-4 py-12">
+      <div class="mx-auto max-w-screen-2xl">
+        <section class="grid md:grid-cols-4 gap-8">
+          {posts.map((post) => <PostCard {...post} />)}
+        </section>
+      </div>
+    </section>
+
     <Footer />
   </body>
 </html>
