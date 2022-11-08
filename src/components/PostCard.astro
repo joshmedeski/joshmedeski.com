@@ -3,6 +3,7 @@ import type { MarkdownInstance } from "astro";
 import type { BlogPostFrontmatter } from "../layouts/BlogPost.astro";
 import type { Props as CatProps } from "../components/Category.astro";
 import { categories } from "../components/Categories.astro";
+import clsx from "clsx";
 export interface Props extends MarkdownInstance<BlogPostFrontmatter> {}
 const {
   url,
@@ -18,12 +19,14 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as CatProps;
     )
   }
   <div class="mx-2">
-    <h3 class="font-extrabold leading-none mb-2 text-xl">
-      {title}
-    </h3>
-    <p class="text-sm mb-2">{description}</p>
-    <div class="flex justify-between">
+    <div
+      class={clsx(
+        "flex justify-between mb-2 font-medium tracking-wide",
+        cat.style?.desc
+      )}
+    >
       <div class="flex text-sm">
+        <cat.icon class="w-4 mr-2" />
         <p class="mr-2 block">
           {cat.title}
         </p>
@@ -32,5 +35,9 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as CatProps;
         </time>
       </div>
     </div>
+    <h3 class="font-extrabold leading-none mb-1 text-xl">
+      {title}
+    </h3>
+    <p class="text-sm mb-2">{description}</p>
   </div>
 </a>
