@@ -11,12 +11,12 @@ const {
 const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
 ---
 
-<section class="mx-auto max-w-screen-xl pt-16">
-  <a href={url} class="p-4 flex justify-center mb-6">
+<section class="mx-auto max-w-screen-xl pt-16 px-4">
+  <a href={url} class="p-4 lg:flex justify-center mb-6">
     <img
       src={heroImage}
       alt={title}
-      class="max-w-lg sm:mr-10 rounded-md shadow-md"
+      class="max-w-xl w-full aspect-video sm:mr-10 rounded-md shadow-md"
     />
 
     <div class="mt-10">

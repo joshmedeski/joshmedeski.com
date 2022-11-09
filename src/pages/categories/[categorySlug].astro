@@ -43,7 +43,9 @@ export function getStaticPaths() {
 
   <section class={clsx("px-4 py-12", category.style?.container)}>
     <div class="mx-auto max-w-screen-2xl">
-      <section class="grid md:grid-cols-4 gap-8">
+      <section
+        class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8"
+      >
         {categoryPosts.map((post) => <PostCard {...post} />)}
       </section>
     </div>

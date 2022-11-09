@@ -17,7 +17,7 @@ const posts = (await Astro.glob<Post>("../pages/posts/*.mdx"))
       <div class="mx-auto max-w-screen-2xl">
         <h2 class="font-bold text-3xl mb-4">All Posts</h2>
         <section
-          class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6"
+          class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8"
         >
           {
             posts.map((post) => (

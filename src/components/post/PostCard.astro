@@ -25,19 +25,19 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
   <div class="mx-2">
     <div
       class={clsx(
-        "flex justify-between mb-2 font-medium tracking-wide",
+        "flex flex-wrap justify-between mb-2 font-medium tracking-wide text-sm",
         cat.style?.desc
       )}
     >
-      <div class="flex text-sm">
+      <div class="flex items-center">
         <cat.icon class="w-4 mr-2" />
         <p class="mr-2 block">
           {cat.title}
         </p>
-        <time datetime={pubDate}>
-          {new Date(pubDate).toLocaleDateString("en-US", { dateStyle: "long" })}
-        </time>
       </div>
+      <time datetime={pubDate}>
+        {new Date(pubDate).toLocaleDateString("en-US", { dateStyle: "long" })}
+      </time>
     </div>
     <h3 class="font-extrabold leading-none mb-1 text-xl">
       {title}
