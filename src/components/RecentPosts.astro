@@ -1,24 +1,28 @@
 ---
-import PostCard from "../components/PostCard.astro";
-import type { BlogPostFrontmatter } from "../layouts/BlogPost.astro";
-import PostHero from "./PostHero.astro";
-const isProd = import.meta.env.PROD;
-const posts = (await Astro.glob<BlogPostFrontmatter>("../pages/posts/*.mdx"))
+import type { Post } from "../models/Post.astro";
+import PostCard from "./post/PostCard.astro";
+import PostHero from "./post/PostHero.astro";
+
+const posts = (await Astro.glob<Post>("../pages/posts/*.mdx"))
   .sort(
     (a, b) =>
       new Date(b.frontmatter.pubDate).valueOf() -
       new Date(a.frontmatter.pubDate).valueOf()
   )
-  .filter(({ frontmatter: { draft } }) => (isProd ? !draft : true))
-  .slice(0, 5);
+  .filter(({ frontmatter: { draft } }) => !draft);
+
+const recentPosts = posts.slice(0, 5);
 ---
 
-<PostHero {...posts[0]} />
-
+<PostHero {...recentPosts[0]} />
 <section class="bg-neutral-50 px-4 py-12">
   <div class="mx-auto max-w-screen-2xl">
     <section class="grid md:grid-cols-4 gap-8">
-      {posts.slice(1, posts.length).map((post) => <PostCard {...post} />)}
+      {
+        recentPosts
+          .slice(1, recentPosts.length)
+          .map((post) => <PostCard {...post} />)
+      }
     </section>
   </div>
 </section>

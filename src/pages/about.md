@@ -1,8 +1,7 @@
 ---
-layout: "../layouts/BlogPost.astro"
+layout: "../components/Layout.astro"
 title: "About Me"
 description: "Full-stack developer, teacher, speaker, and writer."
-categorySlug: "productivity"
 ---
 
 <img

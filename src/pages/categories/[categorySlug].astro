@@ -1,0 +1,51 @@
+---
+const { categorySlug } = Astro.params;
+import clsx from "clsx";
+import Layout from "../../components/Layout.astro";
+import PostCard from "../../components/post/PostCard.astro";
+import type { Post } from "../../models/Post.astro";
+import { categories, Category } from "../../models/Category.astro";
+const category = categories.find(
+  ({ slug }) => slug === categorySlug
+) as Category;
+
+const categoryPosts = (await Astro.glob<Post>("../posts/*.mdx"))
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.pubDate).valueOf() -
+      new Date(a.frontmatter.pubDate).valueOf()
+  )
+  .filter(({ frontmatter: { draft } }) => !draft)
+  .filter(
+    ({ frontmatter: { categorySlug: postCategorySlug } }) =>
+      categorySlug === postCategorySlug
+  );
+
+export function getStaticPaths() {
+  return categories.map(({ slug: categorySlug }) => ({
+    params: { categorySlug },
+  }));
+}
+---
+
+<Layout
+  title={category.title}
+  description={category.desc}
+  themeColor={category.style?.themeColor}
+>
+  <header class={clsx("text-center flex-grow", category.style?.container)}>
+    <category.icon class="mt-12 w-32 mx-auto" />
+    <h1 class="font-extrabold text-2xl md:text-4xl mb-2 mt-10">
+      {category.title}
+    </h1>
+    <p>{category.desc}</p>
+  </header>
+
+  <section class={clsx("px-4 py-12", category.style?.container)}>
+    <div class="mx-auto max-w-screen-2xl">
+      <section class="grid md:grid-cols-4 gap-8">
+        {categoryPosts.map((post) => <PostCard {...post} />)}
+      </section>
+    </div>
+  </section>
+</Layout>

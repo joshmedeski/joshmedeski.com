@@ -1,15 +1,14 @@
 ---
 import type { MarkdownInstance } from "astro";
-import type { BlogPostFrontmatter } from "../layouts/BlogPost.astro";
-import type { Props as CatProps } from "../components/Category.astro";
-import { categories } from "../components/Categories.astro";
 import clsx from "clsx";
-export interface Props extends MarkdownInstance<BlogPostFrontmatter> {}
+import { categories, Category } from "../../models/Category.astro";
+import type { Post } from "../../models/Post.astro";
+export interface Props extends MarkdownInstance<Post> {}
 const {
   url,
   frontmatter: { title, description, categorySlug, heroImage, pubDate },
 } = Astro.props;
-const cat = categories.find((cat) => cat.slug === categorySlug) as CatProps;
+const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
 ---
 
 <section class="mx-auto max-w-screen-xl pt-16">

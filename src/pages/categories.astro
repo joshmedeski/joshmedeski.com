@@ -1,19 +1,8 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import Categories from "../components/Categories.astro";
-import { SITE_DESCRIPTION } from "../config";
+import Layout from "../components/Layout.astro";
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <BaseHead title="Posts" description={SITE_DESCRIPTION} />
-  </head>
-  <body class="flex flex-col min-h-screen justify-between">
-    <Header />
-    <Categories />
-    <Footer />
-  </body>
-</html>
+<Layout title="Categories">
+  <Categories />
+</Layout>

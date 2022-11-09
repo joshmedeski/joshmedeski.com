@@ -1,0 +1,118 @@
+---
+import CalltoAction from "../../components/CallToAction.jsx";
+import clsx from "clsx";
+import Categories from "../../components/Categories.astro";
+import type { Post } from "../../models/Post.astro";
+import { categories, Category } from "../../models/Category.astro";
+import Layout from "../Layout.astro";
+
+export interface Props {
+  content: Post;
+}
+
+const {
+  content: {
+    title,
+    description,
+    pubDate,
+    updatedDate,
+    heroImage,
+    categorySlug,
+    heroClasses,
+    youtubeUrl,
+  },
+} = Astro.props;
+const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
+---
+
+<Layout
+  title={title}
+  description={description}
+  image={heroImage}
+  themeColor={cat.style?.themeColor}
+>
+  <header
+    style={`background-color: ${cat.style?.themeColor}`}
+    class={clsx(!heroImage && !youtubeUrl && "pb-4")}
+  >
+    <div class="mx-auto max-w-screen-md px-4 mb-10 pt-10 text-center">
+      <a href={`/categories/${cat.slug}`}>
+        <cat.icon class="w-10 mx-auto mb-4" />
+      </a>
+      <h1 class="font-extrabold text-2xl md:text-4xl mb-2">{title}</h1>
+      <div
+        class={clsx(
+          "flex justify-center space-x-2 font-medium",
+          cat.style?.desc
+        )}
+      >
+        <a href={`/categories/${cat.slug}`} class={clsx("mr-2 block")}>
+          {cat.title}
+        </a>
+        {
+          pubDate && (
+            <time>
+              {new Date(pubDate).toLocaleDateString("en-US", {
+                dateStyle: "long",
+              })}
+            </time>
+          )
+        }
+        {
+          updatedDate && (
+            <div class="text-neutral-400">
+              Last updated on <time>{updatedDate}</time>
+            </div>
+          )
+        }
+      </div>
+    </div>
+
+    {
+      (youtubeUrl || heroImage) && (
+        <div class="mx-auto max-w-screen-sm mb-10">
+          {youtubeUrl && (
+            <div class="shadow-lg mb-4 rounded-md">
+              <iframe
+                width="100%"
+                height="100%"
+                class="aspect-video w-full rounded-md bg-black shadow-lg"
+                src={youtubeUrl}
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              />
+            </div>
+          )}
+          {heroImage && !youtubeUrl && (
+            <img
+              class:list={[
+                heroClasses,
+                "bg-black w-full rounded-md shadow-lg aspect-video",
+              ]}
+              src={heroImage}
+              alt={`${title} hero`}
+            />
+          )}
+        </div>
+      )
+    }
+  </header>
+
+  <main
+    class={clsx(
+      "mb-20 mt-10 bg-white",
+      (heroImage || youtubeUrl) && "-mt-32 pt-36"
+    )}
+  >
+    <article
+      class="px-4 prose mx-auto max-w-screen-md prose-a:text-blue-600 hover:prose-a:text-blue-500 bg-white"
+    >
+      <slot />
+    </article>
+  </main>
+
+  <Categories />
+  <CalltoAction client:visible />
+</Layout>

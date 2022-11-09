@@ -1,16 +1,6 @@
 ---
-export interface Props {
-  title: string;
-  icon: Function;
-  desc: string;
-  slug: string;
-  style?: {
-    title?: string;
-    desc?: string;
-    container?: string;
-    themeColor?: string;
-  };
-}
+import type { Category } from "../model/category.astro";
+export interface Props extends Category {}
 const props = Astro.props;
 import clsx from "clsx";
 ---
