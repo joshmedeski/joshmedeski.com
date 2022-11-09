@@ -11,7 +11,7 @@ const props = Astro.props;
 <html lang="en">
   <Head {...props} />
   <body class="min-h-screen flex flex-col justify-between">
-    <Header />
+    <Header themeColor={props.themeColor} />
     <slot />
     <Footer />
   </body>
