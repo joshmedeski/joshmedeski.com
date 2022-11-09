@@ -1,25 +1,14 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import Layout from "../components/Layout.astro";
 import CalltoAction from "../components/CallToAction.jsx";
 import RecentPosts from "../components/RecentPosts.astro";
-import AsSeenOn from "../components/AsSeenOn.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+import Categories from "../components/Categories.astro";
 ---
 
-<!DOCTYPE html>
-<html lang="en" class="bg-background text-foreground">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Header title={SITE_TITLE} />
-    <section class="mt-6 mb-12">
-      <CalltoAction client:visible />
-    </section>
-    <RecentPosts />
-    <AsSeenOn />
-    <Footer />
-  </body>
-</html>
+<Layout>
+  <RecentPosts />
+  <Categories />
+  <section class="mt-6 mb-12">
+    <CalltoAction client:visible />
+  </section>
+</Layout>

@@ -1,0 +1,51 @@
+---
+import type { MarkdownInstance } from "astro";
+import clsx from "clsx";
+import { categories, Category } from "../../models/Category.astro";
+import type { Post } from "../../models/Post.astro";
+export interface Props extends MarkdownInstance<Post> {}
+const {
+  url,
+  frontmatter: { title, description, categorySlug, heroImage, pubDate },
+} = Astro.props;
+const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
+---
+
+<section class="mx-auto max-w-screen-xl pt-16">
+  <a href={url} class="p-4 flex justify-center mb-6">
+    <img
+      src={heroImage}
+      alt={title}
+      class="max-w-lg sm:mr-10 rounded-md shadow-md"
+    />
+
+    <div class="mt-10">
+      <div
+        class={clsx(
+          "flex justify-between mb-2 font-medium tracking-wide",
+          cat.style?.desc
+        )}
+      >
+        <div class="flex text-sm">
+          <cat.icon class="w-4 mr-2" />
+          <p class="mr-2 block">
+            {cat.title}
+          </p>
+          <time datetime={pubDate}>
+            {
+              new Date(pubDate).toLocaleDateString("en-US", {
+                dateStyle: "long",
+              })
+            }
+          </time>
+        </div>
+      </div>
+
+      <h3 class={clsx("font-extrabold leading-none mb-4 text-3xl")}>
+        {title}
+      </h3>
+
+      <p class="mb-2 text-lg">{description}</p>
+    </div>
+  </a>
+</section>

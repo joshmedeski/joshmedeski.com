@@ -1,0 +1,18 @@
+---
+import Head from "./LayoutHead.astro";
+import Header from "./LayoutHeader.astro";
+import Footer from "./LayoutFooter.astro";
+import type { Props as HeadProps } from "./LayoutHead.astro";
+interface Props extends HeadProps {}
+const props = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <Head {...props} />
+  <body class="min-h-screen flex flex-col justify-between">
+    <Header themeColor={props.themeColor} />
+    <slot />
+    <Footer />
+  </body>
+</html>
