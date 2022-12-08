@@ -1,0 +1,29 @@
+---
+import CalltoAction from "../components/CallToAction.jsx";
+import clsx from "clsx";
+import Categories from "../components/Categories.astro";
+import Layout from "./Layout.astro";
+
+const {
+  content: {
+    title,
+    description,
+  },
+} = Astro.props;
+---
+
+<Layout
+  title={title}
+  description={description}
+>
+  <main class="mb-20 mt-10 bg-white">
+    <article
+      class="px-4 prose mx-auto max-w-screen-md prose-a:text-blue-600 hover:prose-a:text-blue-500 bg-white"
+    >
+      <h1 class="text-center font-extrabold text-2xl md:text-4xl mb-2">{title}</h1>
+      <slot />
+    </article>
+  </main>
+  <Categories />
+  <CalltoAction client:visible />
+</Layout>

@@ -1,5 +1,5 @@
 ---
-layout: "../components/Layout.astro"
+layout: "../components/Page.astro"
 title: "About Me"
 description: "Full-stack developer, teacher, speaker, and writer."
 ---
