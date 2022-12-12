@@ -1,0 +1,74 @@
+---
+layout: "../../components/Post.astro"
+title: Smart tmux sessions with zoxide and fzf
+pubDate: 2022-08-12T12:00:00.000Z
+youtubeUrl: https://www.youtube.com/embed/l_TTxc0AcCw
+heroImage: "/images/posts/smart-tmux-sessions-with-zoxide-and-fzf.jpeg"
+description: Create and manage tmux sessions automatically with a custom script that uses zoxide and fzf.
+categorySlug: dotfiles
+---
+
+Create and manage tmux sessions automatically with a custom script that uses zoxide and fzf.
+
+# zoxide
+
+```plaintext
+brew install zoxide
+```
+
+[View zoxide on GitHub](https://github.com/ajeetdsouza/zoxide)
+
+# tmux
+
+```bash
+brew install tmux
+```
+
+[View tmux on GitHub](https://github.com/tmux/tmux)
+
+```bash
+abbr tn "tmux new -s (pwd | sed 's/.*\///g')"
+```
+
+# `t` script
+
+```bash
+curl https://raw.githubusercontent.com/joshmedeski/dotfiles/main/mackup/.config/bin/t ~/.config/bin/t
+```
+
+[View `t` script](https://github.com/joshmedeski/dotfiles/blob/main/mackup/.config/bin/t)
+
+Shoutout to [Copilot](https://github.com/features/copilot/) for helping me write these scripts.
+
+# `tt` script
+
+```bash
+curl https://raw.githubusercontent.com/joshmedeski/dotfiles/main/mackup/.config/bin/tt ~/.config/bin/tt
+```
+
+[View `tt` script](https://github.com/joshmedeski/dotfiles/blob/main/mackup/.config/bin/tt)
+
+# Add `bin` to path (via fish shell)
+
+```fish
+fish_add_path $HOME/.config/bin
+```
+
+# `tmux.conf` update
+
+```conf
+bind T display-popup -E "tt"
+```
+
+```conf
+set-option -g detach-on-destroy off
+```
+
+# Update `alacritty.yaml`
+
+```yaml
+key_bindings:
+  - { key: J, mods: Command, chars: "\x02\x54" }
+```
+
+[Watch "macOS Keyboard Shortcuts for tmux"](/posts/macos-keyboard-shortcuts-for-tmux)
