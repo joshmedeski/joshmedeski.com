@@ -1,7 +1,7 @@
 import backgroundImage from "/webb-pattern.png";
+import clsx from "clsx";
 import type { FunctionalComponent, FunctionComponent, JSX } from "preact";
 import { useState } from "preact/hooks";
-import clsx from "clsx";
 
 const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
   className,
@@ -12,7 +12,7 @@ const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
     <button
       className={clsx(
         "inline-flex justify-center rounded-2xl bg-primary-600 p-4 text-base font-semibold text-white",
-        "hover:bg-primary-500 active:text-white/70",
+        "active:text-white/70 hover:bg-primary-500",
         "focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500",
         className
       )}
@@ -72,14 +72,14 @@ const CallToAction: FunctionalComponent = () => {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div
           style={`background-image: url(${backgroundImage})`}
-          className="bg-repeat rounded-2xl shadow-lg px-4 md:px-6 py-8 md:py-12 border-2 border-primary-100"
+          className="rounded-2xl border-2 border-primary-100 bg-repeat px-4 py-8 shadow-lg md:px-6 md:py-12"
         >
           <div className="relative mx-auto grid max-w-2xl grid-cols-1 gap-x-32 gap-y-14 xl:max-w-none xl:grid-cols-2">
             <div>
               <p className="font-display text-4xl font-medium tracking-tighter text-primary-900 sm:text-5xl">
                 Stay up to date
               </p>
-              <p className="mt-4 text-lg tracking-tight text-primary-700 leading-tight">
+              <p className="mt-4 text-lg leading-tight tracking-tight text-primary-700">
                 Get updates on my latest content on web development, vim, macOS,
                 working from home, productivity, and more.
               </p>
@@ -95,13 +95,13 @@ const CallToAction: FunctionalComponent = () => {
 
               {isSubscribed ? (
                 <div className="mt-5 rounded-3xl bg-primary-500 px-6 py-5">
-                  <p className="font-extrabold text-3xl text-primary-100">
+                  <p className="text-3xl font-extrabold text-primary-100">
                     🎉 Thanks for subscribing!
                   </p>
                 </div>
               ) : (
                 <form onSubmit={createNewSubscriber}>
-                  <div className="mt-5 flex overflow-hidden rounded-3xl bg-white py-2.5 pr-2.5 shadow-xl shadow-primary-800/5 focus-within:ring-2 focus-within:ring-primary-800">
+                  <div className="shadow-primary-800/5 mt-5 flex overflow-hidden rounded-3xl bg-white py-2.5 pr-2.5 shadow-xl focus-within:ring-2 focus-within:ring-primary-800">
                     <input
                       type="email"
                       required
@@ -112,7 +112,7 @@ const CallToAction: FunctionalComponent = () => {
                     <Button type="submit">Sign up today</Button>
                   </div>
                   {error && (
-                    <p className="ml-4 text-error-500 font-bold mt-4">
+                    <p className="ml-4 mt-4 font-bold text-error-500">
                       {error}
                     </p>
                   )}

@@ -1,14 +1,14 @@
 ---
-import Layout from "../components/Layout.astro";
 import CalltoAction from "../components/CallToAction.jsx";
-import RecentPosts from "../components/RecentPosts.astro";
 import Categories from "../components/Categories.astro";
+import Layout from "../components/Layout.astro";
+import RecentPosts from "../components/RecentPosts.astro";
 ---
 
 <Layout>
   <RecentPosts />
   <Categories />
-  <section class="mt-6 mb-12">
+  <section class="mb-12 mt-6">
     <CalltoAction client:visible />
   </section>
 </Layout>

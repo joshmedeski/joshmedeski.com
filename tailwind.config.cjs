@@ -3,7 +3,6 @@ module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
-
       colors: {
         foreground: {
           DEFAULT: "var(--color-foreground)",
@@ -119,7 +118,7 @@ module.exports = {
           subtle: "var(--color-warning-subtle)",
         },
       },
-    }
+    },
   },
   plugins: [require("@tailwindcss/typography")],
 };

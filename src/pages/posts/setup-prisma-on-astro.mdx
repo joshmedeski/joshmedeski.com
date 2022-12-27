@@ -15,6 +15,7 @@ Why Sqlite is great for local development
 ```astro
 ---
 import { PrismaClient } from "@prisma/client";
+
 const prisma = new PrismaClient();
 const publishers = await prisma.publisher.findMany({
   where: { imageUrl: { not: null } },
@@ -24,11 +25,11 @@ const publishers = await prisma.publisher.findMany({
 
 <section class="bg-slate-300 px-4 py-8">
   <div class="mx-auto max-w-screen-lg text-center">
-    <h2 class="font-bold text-3xl mb-4">As Seen On</h2>
-    <section class="flex items-center justify-center space-x-6 flex-wrap">
+    <h2 class="mb-4 text-3xl font-bold">As Seen On</h2>
+    <section class="flex flex-wrap items-center justify-center space-x-6">
       {
         publishers.map(({ imageUrl, name }) => (
-          <img src={imageUrl} alt={name} class="max-w-[200px] max-h-[70px]" />
+          <img src={imageUrl} alt={name} class="max-h-[70px] max-w-[200px]" />
         ))
       }
     </section>
