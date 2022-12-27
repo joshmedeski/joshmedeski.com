@@ -7,41 +7,37 @@ const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
   className,
   children,
   ...props
-}) => {
-  return (
-    <button
-      className={clsx(
-        "inline-flex justify-center rounded-2xl bg-primary-600 p-4 text-base font-semibold text-white",
-        "active:text-white/70 hover:bg-primary-500",
-        "focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500",
-        className
-      )}
-      {...props}
-    >
-      <span className="sr-only sm:not-sr-only">{children}</span>
-      <span className="sm:hidden">
-        <ArrowRightIcon className="h-6 w-6" />
-      </span>
-    </button>
-  );
-};
+}): JSX.Element => (
+  <button
+    className={clsx(
+      "inline-flex justify-center rounded-2xl bg-primary-600 p-4 text-base font-semibold text-white",
+      "active:text-white/70 hover:bg-primary-500",
+      "focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500",
+      className
+    )}
+    {...props}
+  >
+    <span className="sr-only sm:not-sr-only">{children}</span>
+    <span className="sm:hidden">
+      <ArrowRightIcon className="h-6 w-6" />
+    </span>
+  </button>
+);
 
 const ArrowRightIcon: FunctionComponent<JSX.SVGAttributes<SVGSVGElement>> = (
   props
-) => {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" {...props}>
-      <path
-        d="m14 7 5 5-5 5M19 12H5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-};
+): JSX.Element => (
+  <svg aria-hidden="true" viewBox="0 0 24 24" {...props}>
+    <path
+      d="m14 7 5 5-5 5M19 12H5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 const CallToAction: FunctionalComponent = () => {
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
