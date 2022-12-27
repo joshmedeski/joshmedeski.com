@@ -1,6 +1,14 @@
 {
   "flagWords": [],
+  "words": [
+    "astro",
+    "dotfiles",
+    "Parento",
+    "skhd",
+    "Todoist",
+    "trivago",
+    "zoxide"
+  ],
   "version": "0.2",
-  "words": ["astro", "dotfiles", "skhd"],
   "language": "en"
 }

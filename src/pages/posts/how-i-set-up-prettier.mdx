@@ -10,7 +10,7 @@ heroClasses: "md:rounded-3xl shadow-md"
 categorySlug: "development"
 ---
 
-Prettier is a opinionated code formatter that makes it easy to create more consistent code automatically.
+Prettier is a opinionated code formatter that allows you to create more consistent code automatically.
 
 In this post, we are going to install, configure, and test Prettier on a TypeScript project.
 
@@ -51,7 +51,7 @@ Create a `.prettierrc.json` file in the root of your project
 A few points about the rules I like to use:
 
 80 characters as the print width works great for split screen windows and general legibility.
-2 spaces as the tab width is just enough to get the job done without sacrificing width space.
+2 spaces as the tab width is enough to get the job done without sacrificing width space.
 The sort import plugin has ^@/(.\*)$ in the first position of the array. You can map the root of your project to @/ by adding the following path to your tsconfig.json:
 
 ```json
@@ -73,7 +73,7 @@ cp .gitignore .prettierignore
 
 ## Format all files
 
-To format all files using Prettier, you can run the following CLI command. I highly recommend comitting the work you've done so far to version control since this command will most likely change most of the files in yoru project.
+To format all files using Prettier, you can run the following CLI command. I highly recommend committing the work you've done so far to version control since this command will most likely change most of the files in your project.
 
 ```bash
 npx prettier --write .
