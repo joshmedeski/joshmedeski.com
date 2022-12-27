@@ -10,7 +10,9 @@ const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
 }): JSX.Element => (
   <button
     className={clsx(
-      "inline-flex justify-center rounded-2xl bg-primary-600 p-4 text-base font-semibold text-white",
+      "inline-flex justify-center",
+      "rounded-2xl bg-primary-600 p-4",
+      "text-base font-semibold text-white",
       "active:text-white/70 hover:bg-primary-500",
       "focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500",
       className
@@ -40,7 +42,7 @@ const ArrowRightIcon: FunctionComponent<JSX.SVGAttributes<SVGSVGElement>> = (
 );
 
 const CallToAction: FunctionalComponent = () => {
-  const [isSubscribed, setIsSubscribed] = useState<boolean>(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const [error, setError] = useState("");
 
   const createNewSubscriber: JSX.GenericEventHandler<HTMLFormElement> = async (
