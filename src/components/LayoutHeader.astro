@@ -1,46 +1,40 @@
 ---
-import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../config";
-import TwitterIcon from "./icons/TwitterIcon.astro";
+import HeaderLink from "./HeaderLink.astro";
 import GitHubIcon from "./icons/GitHubIcon.astro";
-import clsx from "clsx";
+import TwitterIcon from "./icons/TwitterIcon.astro";
 import YouTubeIcon from "./icons/YouTubeIcon.astro";
+import clsx from "clsx";
+
 export interface Props {
   themeColor?: string;
 }
 const props = Astro.props;
 ---
 
-<header
-  class={clsx("flex items-center justify-between px-4 py-2 place-items-start")}
-  style={`background-color: ${props.themeColor || "white"}`}
->
-  <h2 class="m-0">
-    <a href="/" class="flex items-center">
-      <img
-        src="/images/josh-medeski-memoji.png"
-        alt="Josh Medeski Memoji"
-        class="mr-2 h-[40px] w-auto"
-      />
-      <span class="font-extrabold text-2xl">{SITE_TITLE}</span>
-    </a>
-  </h2>
-  <div>
-    <a href="#menu" class="block sm:hidden">Menu</a>
-    <nav class="hidden sm:flex space-x-4">
-      <HeaderLink href="/">Home</HeaderLink>
-      <HeaderLink href="/posts">Posts</HeaderLink>
-      <HeaderLink href="/categories">Categories</HeaderLink>
-      <HeaderLink href="/about">About</HeaderLink>
-      <HeaderLink href="https://www.youtube.com/joshmedeski" target="_blank"
-        ><YouTubeIcon class="w-6" />
-      </HeaderLink>
-      <HeaderLink href="https://twitter.com/joshmedeski" target="_blank">
-        <TwitterIcon class="w-6" />
-      </HeaderLink>
-      <HeaderLink href="https://github.com/joshmedeski" target="_blank"
-        ><GitHubIcon class="w-6" />
-      </HeaderLink>
-    </nav>
-  </div>
-</header>
+<div style={`background-color: ${props.themeColor || "white"}`}>
+  <section class="mx-auto w-full max-w-screen-xl px-4">
+    <header
+      class={clsx("flex items-center justify-between py-2 place-items-start")}
+    >
+      <h2 class="m-0">
+        <a href="/" class="flex items-center">
+          <img
+            src="/images/josh-medeski-memoji.png"
+            alt="Josh Medeski Memoji"
+            class="mr-2 aspect-square h-[40px] w-auto"
+          />
+          <span class="text-2xl font-bold">{SITE_TITLE}</span>
+        </a>
+      </h2>
+      <div>
+        <a href="#menu" class="block sm:hidden">Menu</a>
+        <nav class="hidden space-x-4 sm:flex">
+          <HeaderLink href="/">Home</HeaderLink>
+          <HeaderLink href="/posts">Posts</HeaderLink>
+          <HeaderLink href="/about">About</HeaderLink>
+        </nav>
+      </div>
+    </header>
+  </section>
+</div>

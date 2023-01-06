@@ -1,12 +1,11 @@
 ---
-import CalltoAction from "../components/CallToAction.jsx";
-import clsx from "clsx";
-import Categories from "../components/Categories.astro";
 import { categories, Category } from "../models/Category.astro";
 import Layout from "./Layout.astro";
+import clsx from "clsx";
 
 export interface BlogPostFrontmatter {
   title: string;
+  titleClasses: string;
   description: string;
   pubDate: string;
   categorySlug?: string;
@@ -24,6 +23,7 @@ export interface Props {
 const {
   content: {
     title,
+    titleClasses,
     description,
     pubDate,
     updatedDate,
@@ -46,13 +46,17 @@ const category = categories.find(
 >
   <header
     style={`background-color: ${category.style?.themeColor}`}
-    class="pb-8 px-4"
+    class="px-4 pb-8"
   >
     <div class="mx-auto max-w-screen-md px-4 pt-10 text-center">
       <a href={`/categories/${category.slug}`}>
         <category.icon class="w-10 mx-auto mb-4" />
       </a>
-      <h1 class="font-extrabold text-2xl md:text-4xl mb-2">{title}</h1>
+      <h1
+        class={clsx("mb-2 text-2xl font-extrabold md:text-4xl", titleClasses)}
+      >
+        {title}
+      </h1>
       <div
         class={clsx(
           "flex justify-center space-x-2 font-medium",
@@ -85,11 +89,12 @@ const category = categories.find(
       <div class="z-40 mx-auto max-w-screen-sm">
         {
           youtubeUrl ? (
-            <div class="shadow-lg rounded-md">
+            <div class="rounded-md shadow-lg">
               <iframe
                 width="100%"
                 height="100%"
-                class="aspect-video w-full rounded-md bg-black shadow-lg"
+                class="aspect-video w-full rounded-md shadow-lg"
+                style={{ backgroundColor: category?.style?.themeColor }}
                 src={youtubeUrl}
                 title="YouTube video player"
                 frameborder="0"
@@ -114,12 +119,9 @@ const category = categories.find(
 
   <main class="mb-20 mt-10 bg-white">
     <article
-      class="px-4 prose mx-auto max-w-screen-md prose-a:text-blue-600 hover:prose-a:text-blue-500 bg-white"
+      class="prose mx-auto max-w-screen-md bg-white px-4 prose-a:text-blue-600 hover:prose-a:text-blue-500"
     >
       <slot />
     </article>
   </main>
-
-  <Categories />
-  <CalltoAction client:visible />
 </Layout>

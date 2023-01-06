@@ -1,14 +1,10 @@
 ---
-import CallToAction from "../components/CallToAction.jsx";
-import Categories from "../components/Categories.astro";
 import Layout from "../components/Layout.astro";
 import RecentPosts from "../components/RecentPosts.astro";
+import PdeCta from "../components/cta/PdeCta";
 ---
 
-<Layout>
+<Layout themeColor="#eff2fe">
+  <PdeCta />
   <RecentPosts />
-  <Categories />
-  <section class="mb-12 mt-6">
-    <CallToAction client:visible />
-  </section>
 </Layout>
