@@ -10,8 +10,7 @@ export interface Props {
   image?: string;
 }
 
-const CANONICAL_URL =
-  import.meta.env.SITE.slice(0, -1) + Astro.url.pathname + "/";
+const CANONICAL_URL = import.meta.env.SITE.slice(0, -1) + Astro.url.pathname;
 
 const {
   title,
