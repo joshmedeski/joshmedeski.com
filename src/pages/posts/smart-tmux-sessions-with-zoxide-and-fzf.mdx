@@ -8,6 +8,10 @@ description: Create and manage tmux sessions automatically with a custom script
 categorySlug: dotfiles
 ---
 
+**Update:** I've created an official tmux plugin called to make it easy to set this up in your workflow. [View "t - smart tmux session manager" tmux plugin](https://github.com/joshmedeski/t-smart-tmux-session-manager)
+
+---
+
 Create and manage tmux sessions automatically with a custom script that uses zoxide and fzf.
 
 # zoxide
@@ -30,35 +34,7 @@ brew install tmux
 abbr tn "tmux new -s (pwd | sed 's/.*\///g')"
 ```
 
-# `t` script
-
-```bash
-curl https://raw.githubusercontent.com/joshmedeski/dotfiles/main/mackup/.config/bin/t ~/.config/bin/t
-```
-
-[View `t` script](https://github.com/joshmedeski/dotfiles/blob/main/mackup/.config/bin/t)
-
-Shout out to [Copilot](https://github.com/features/copilot/) for helping me write these scripts.
-
-# `tt` script
-
-```bash
-curl https://raw.githubusercontent.com/joshmedeski/dotfiles/main/mackup/.config/bin/tt ~/.config/bin/tt
-```
-
-[View `tt` script](https://github.com/joshmedeski/dotfiles/blob/main/mackup/.config/bin/tt)
-
-# Add `bin` to path (via fish shell)
-
-```fish
-fish_add_path $HOME/.config/bin
-```
-
-# `tmux.conf` update
-
-```conf
-bind T display-popup -E "tt"
-```
+You can turn off the detach-on-destroy option in your `tmux.conf` to allow tmux to switch to an existing session when you close the final window on a session.
 
 ```conf
 set-option -g detach-on-destroy off
@@ -66,9 +42,11 @@ set-option -g detach-on-destroy off
 
 # Update `alacritty.yaml`
 
+This is the macOS binding I use (cmd+j) to open the session manager popup.
+
 ```yaml
 key_bindings:
   - { key: J, mods: Command, chars: "\x02\x54" }
 ```
 
-[Watch "macOS Keyboard Shortcuts for tmux"](/posts/macos-keyboard-shortcuts-for-tmux)
+[Watch "macOS Keyboard Shortcuts for tmux"](/posts/macos-keyboard-shortcuts-for-tmux) for more details.

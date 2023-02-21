@@ -1,5 +1,6 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+
 const isProd = import.meta.env.PROD;
 
 export interface Props {
@@ -8,6 +9,8 @@ export interface Props {
   themeColor?: string;
   image?: string;
 }
+
+const CANONICAL_URL = import.meta.env.SITE.slice(0, -1) + Astro.url.pathname;
 
 const {
   title,
@@ -24,15 +27,16 @@ const {
   <meta name="generator" content={Astro.generator} />
   <meta name="theme-color" content={themeColor ?? "#ffffff"} />
 
-  <link rel="icon" href="/favicon.ico" sizes="any"><!-- 32×32 -->
+  <link rel="icon" href="/favicon.ico" sizes="any" /><!-- 32×32 -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
-  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" /><!-- 180×180 -->
+  <link rel="manifest" href="/manifest.webmanifest" />
 
   <!-- Primary Meta Tags -->
   <title>{title} | {SITE_TITLE}</title>
   <meta name="title" content={title || "Home"} />
   <meta name="description" content={description || SITE_DESCRIPTION} />
+  <link rel="canonical" href={CANONICAL_URL} />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
