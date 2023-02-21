@@ -1,5 +1,6 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+
 const isProd = import.meta.env.PROD;
 
 export interface Props {
@@ -8,6 +9,9 @@ export interface Props {
   themeColor?: string;
   image?: string;
 }
+
+const CANONICAL_URL =
+  import.meta.env.SITE.slice(0, -1) + Astro.url.pathname + "/";
 
 const {
   title,
@@ -33,6 +37,7 @@ const {
   <title>{title} | {SITE_TITLE}</title>
   <meta name="title" content={title || "Home"} />
   <meta name="description" content={description || SITE_DESCRIPTION} />
+  <link rel="canonical" href={CANONICAL_URL} />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
