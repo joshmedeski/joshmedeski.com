@@ -4,3 +4,8 @@
   command = 'npx pnpm i --store=node_modules/.pnpm-store && prisma migrate dev && npm run build'
   publish = 'dist'
   functions = "functions"
+[dev]
+  command = "npm run start"
+  framework = "#auto"
+  targetPort = 3000
+
