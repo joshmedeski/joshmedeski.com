@@ -4,3 +4,8 @@
   command = 'npx pnpm i --store=node_modules/.pnpm-store && prisma migrate dev && npm run build'
   publish = 'dist'
   functions = "functions"
+[[redirects]]
+  from = "/vimconf"
+  to = "/posts/abbreviate-everything"
+  status = 301
+  force = true
