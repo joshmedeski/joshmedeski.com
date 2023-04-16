@@ -1,17 +1,23 @@
 {
-  "language": "en",
   "version": "0.2",
-  "flagWords": [],
+  "language": "en",
   "words": [
+    "alacritty",
     "astro",
     "clsx",
     "dotfiles",
+    "gokcehan",
+    "jesseduffield",
+    "joshmedeski",
+    "lazygit",
+    "lfcd",
+    "Medeski",
     "Parento",
     "preact",
-    "Medeski",
     "skhd",
     "Todoist",
     "trivago",
     "zoxide"
-  ]
+  ],
+  "flagWords": []
 }
