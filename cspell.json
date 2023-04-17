@@ -1,1 +1,23 @@
-{"language":"en","flagWords":[],"words":["astro","dotfiles","Parento","skhd","Todoist","trivago","zoxide","preact","clsx","frontmatter"],"version":"0.2"}
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "alacritty",
+    "astro",
+    "clsx",
+    "dotfiles",
+    "gokcehan",
+    "jesseduffield",
+    "joshmedeski",
+    "lazygit",
+    "lfcd",
+    "Medeski",
+    "Parento",
+    "preact",
+    "skhd",
+    "Todoist",
+    "trivago",
+    "zoxide"
+  ],
+  "flagWords": []
+}

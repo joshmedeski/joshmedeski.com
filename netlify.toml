@@ -8,4 +8,8 @@
   command = "npm run start"
   framework = "#auto"
   targetPort = 3000
-
+[[redirects]]
+  from = "/vimconf"
+  to = "/posts/abbreviate-everything"
+  status = 301
+  force = true
