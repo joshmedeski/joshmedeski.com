@@ -1,11 +1,14 @@
 {
   "language": "en",
+  "version": "0.2",
   "flagWords": [],
   "words": [
     "alacritty",
     "astro",
     "clsx",
+    "datetime",
     "dotfiles",
+    "frontmatter",
     "gokcehan",
     "jesseduffield",
     "joshmedeski",
@@ -15,10 +18,10 @@
     "Parento",
     "preact",
     "skhd",
+    "tailwindcss",
     "Todoist",
     "trivago",
     "vimconf",
     "zoxide"
-  ],
-  "version": "0.2"
+  ]
 }

@@ -1,10 +1,12 @@
 ---
 import Layout from "../components/Layout.astro";
 import RecentPosts from "../components/RecentPosts.astro";
-import PdeCta from "../components/cta/PdeCta";
 ---
 
-<Layout themeColor="#eff2fe">
-  <PdeCta />
+<Layout
+  themeColor={"var(--color-neutral-50)"}
+  title="Home"
+  description="Empowering developers and creatives to build and grow with intention, by sharing insights and tools."
+>
   <RecentPosts />
 </Layout>

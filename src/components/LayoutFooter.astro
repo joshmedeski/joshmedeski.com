@@ -16,15 +16,15 @@ const today = new Date();
 <footer class="bg-white" aria-labelledby="footer-heading">
   <h2 class="sr-only">Footer</h2>
   <div class="mx-auto max-w-screen-xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-    <div class="lg:grid lg:grid-cols-5 gap-4 lg:gap-6">
+    <div class="gap-4 lg:grid lg:grid-cols-5 lg:gap-6">
       <div class="space-y-6 lg:col-span-2">
         <div>
           <a href="/" class="flex items-center">
             <span class="text-2xl font-bold">{SITE_TITLE}</span>
           </a>
           <p class="text-base text-gray-500">
-            Making the world a better place through teaching<br class="hidden sm:block" /> terminal-based
-            workflows and productivity tips.
+            Empowering developers and creatives to build and grow with
+            intention, by sharing insights and tools.
           </p>
         </div>
         <div>
@@ -58,7 +58,9 @@ const today = new Date();
       </div>
     </div>
   </div>
-  <div class="mt-10 mb-12 border-t border-gray-200 pt-8 text-center mx-auto max-w-screen-xl">
+  <div
+    class="mx-auto mt-10 mb-12 max-w-screen-xl border-t border-gray-200 pt-8 text-center"
+  >
     <p class="text-base text-gray-400 xl:text-center">
       &copy; {today.getFullYear()}
       {SITE_TITLE}. All rights reserved.
