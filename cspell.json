@@ -1,6 +1,6 @@
 {
-  "version": "0.2",
   "language": "en",
+  "flagWords": [],
   "words": [
     "alacritty",
     "astro",
@@ -17,7 +17,8 @@
     "skhd",
     "Todoist",
     "trivago",
+    "vimconf",
     "zoxide"
   ],
-  "flagWords": []
+  "version": "0.2"
 }
