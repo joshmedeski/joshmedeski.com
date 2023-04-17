@@ -14,7 +14,7 @@ const server = setupServer(
         secondary_id: 20,
         subscriber_type: "regular",
         source: "api",
-        tags: [],
+        tags: req.json.tags ?? [],
         utm_campaign: "",
         utm_medium: "",
         utm_source: "",

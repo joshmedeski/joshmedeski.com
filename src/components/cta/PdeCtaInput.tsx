@@ -71,8 +71,8 @@ const PdeCtaInput: FunctionalComponent = () => {
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div>
           {isSubscribed ? (
-            <div className="mt-5 rounded-3xl bg-primary-500 px-6 py-5">
-              <p className="text-3xl font-extrabold text-primary-100">
+            <div className="mt-5 rounded-xl bg-primary-500 bg-gradient-to-l from-indigo-500 to-purple-600 py-2">
+              <p className="text-center text-3xl font-extrabold text-white">
                 🎉 Thanks for joining the waitlist!
               </p>
             </div>
