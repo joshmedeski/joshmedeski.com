@@ -47,7 +47,7 @@ export const categories: Category[] = [
   {
     icon: DevelopmentIcon,
     title: "Development",
-    desc: "How I build websites and apps",
+    desc: "How I build websites",
     slug: "development",
     style: {
       container: "bg-indigo-50 shadow-indigo-100",

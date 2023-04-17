@@ -2,6 +2,7 @@
 import Layout from "../components/Layout.astro";
 import PostCard from "../components/post/PostCard.astro";
 import type { Post } from "../models/Post.astro";
+
 const posts = (await Astro.glob<Post>("../pages/posts/*.mdx"))
   .sort(
     (a, b) =>
@@ -14,18 +15,12 @@ const posts = (await Astro.glob<Post>("../pages/posts/*.mdx"))
 <Layout title="Posts" themeColor="#f2f5f9">
   <main>
     <section class="bg-neutral-100 px-4 py-12">
-      <div class="mx-auto max-w-screen-2xl">
-        <h2 class="font-bold text-3xl mb-4">All Posts</h2>
+      <div class="mx-auto max-w-screen-xl">
+        <h2 class="mb-4 text-3xl font-bold">All Posts</h2>
         <section
-          class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-8"
+          class="grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 lg:grid-cols-4"
         >
-          {
-            posts.map((post) => (
-              <div class="mb-10">
-                <PostCard {...post} />
-              </div>
-            ))
-          }
+          {posts.map((post) => <PostCard {...post} />)}
         </section>
       </div>
     </section>

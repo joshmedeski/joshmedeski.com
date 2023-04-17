@@ -1,18 +1,21 @@
 ---
-import Head from "./LayoutHead.astro";
-import Header from "./LayoutHeader.astro";
 import Footer from "./LayoutFooter.astro";
+import Head from "./LayoutHead.astro";
 import type { Props as HeadProps } from "./LayoutHead.astro";
-interface Props extends HeadProps {}
+import Header from "./LayoutHeader.astro";
+
+interface Props extends HeadProps {
+  hideCta?: boolean;
+}
 const props = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <Head {...props} />
-  <body class="min-h-screen flex flex-col justify-between">
+  <body class="flex min-h-screen flex-col justify-between">
     <Header themeColor={props.themeColor} />
     <slot />
-    <Footer />
+    <Footer hideCta={props.hideCta} />
   </body>
 </html>

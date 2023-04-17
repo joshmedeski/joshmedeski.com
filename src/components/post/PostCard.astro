@@ -1,9 +1,10 @@
 ---
-import type { MarkdownInstance } from "astro";
-import clsx from "clsx";
 import { categories } from "../../models/Category.astro";
 import type { Category } from "../../models/Category.astro";
 import type { Post } from "../../models/Post.astro";
+import type { MarkdownInstance } from "astro";
+import clsx from "clsx";
+
 export interface Props extends MarkdownInstance<Post> {}
 const {
   url,
@@ -12,36 +13,45 @@ const {
 const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
 ---
 
-<a href={url} class="">
-  {
-    heroImage && (
-      <img
-        src={heroImage}
-        alt={title}
-        class="rounded-md shadow-sm mb-4 aspect-video bg-black"
-      />
-    )
-  }
-  <div class="mx-2">
-    <div
-      class={clsx(
-        "flex flex-wrap justify-between mb-2 font-medium tracking-wide text-sm",
-        cat.style?.desc
-      )}
-    >
-      <div class="flex items-center">
-        <cat.icon class="w-4 mr-2" />
-        <p class="mr-2 block">
-          {cat.title}
-        </p>
-      </div>
-      <time datetime={pubDate}>
-        {new Date(pubDate).toLocaleDateString("en-US", { dateStyle: "long" })}
-      </time>
+<a
+  href={url}
+  class="flex flex-col justify-between rounded-md shadow-md"
+  style={{ backgroundColor: cat?.style?.themeColor }}
+>
+  <div>
+    {
+      heroImage && (
+        <img
+          src={heroImage}
+          alt={title}
+          class="aspect-video w-full rounded-t-md"
+          style={{ backgroundColor: cat?.style?.themeColor }}
+        />
+      )
+    }
+  </div>
+
+  <div
+    class={clsx(
+      "flex flex-wrap justify-between font-medium tracking-wide text-sm",
+      "px-2 py-1 text-[rgba(0,0,0,0.7)]"
+    )}
+  >
+    <div class="flex items-center">
+      <cat.icon class="w-4 mr-2" />
+      <p class="mr-2 block">
+        {cat.title}
+      </p>
     </div>
-    <h3 class="font-extrabold leading-none mb-1 text-xl">
-      {title}
+    <time datetime={pubDate}>
+      {new Date(pubDate).toLocaleDateString("en-US", { dateStyle: "medium" })}
+    </time>
+  </div>
+
+  <div class="flex flex-1 flex-col justify-end rounded-b-md px-2 py-4">
+    <h3 class="mx-auto max-w-[90%] mb-1 text-center text-xl font-extrabold leading-none flex-1 flex flex-col justify-center mb-2">
+      <span>{title}</span>
     </h3>
-    <p class="text-sm mb-2">{description}</p>
+    <p class="text-sm text-slate-500">{description}</p>
   </div>
 </a>

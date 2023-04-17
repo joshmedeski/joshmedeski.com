@@ -1,14 +1,12 @@
 ---
-import CallToAction from "../components/CallToAction.jsx";
-import Categories from "../components/Categories.astro";
 import Layout from "../components/Layout.astro";
 import RecentPosts from "../components/RecentPosts.astro";
 ---
 
-<Layout>
+<Layout
+  themeColor={"var(--color-neutral-50)"}
+  title="Home"
+  description="Empowering developers and creatives to build and grow with intention, by sharing insights and tools."
+>
   <RecentPosts />
-  <Categories />
-  <section class="mb-12 mt-6">
-    <CallToAction client:visible />
-  </section>
 </Layout>

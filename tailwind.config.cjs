@@ -85,7 +85,7 @@ module.exports = {
           800: "var(--color-success-800)",
           900: "var(--color-success-900)",
           DEFAULT: "var(--color-success-default)",
-          subtle: "var(--color-success-sudbtle)",
+          subtle: "var(--color-success-subtle)",
         },
 
         error: {
@@ -100,7 +100,7 @@ module.exports = {
           800: "var(--color-error-800)",
           900: "var(--color-error-900)",
           DEFAULT: "var(--color-error-default)",
-          subtle: "var(--color-error-sudbtle)",
+          subtle: "var(--color-error-subtle)",
         },
 
         warning: {
