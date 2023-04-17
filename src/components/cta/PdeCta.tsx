@@ -20,7 +20,7 @@ const PdeCta: FunctionalComponent = () => {
               <strong>get more done</strong>, faster.
             </p>
             <a
-              href="/courses/pde"
+              href="/personal-development-environment"
               class={clsx([
                 "inline-block rounded-lg font-bold tracking-wider",
                 "mt-6 px-6 py-4 text-2xl text-white",
@@ -30,8 +30,8 @@ const PdeCta: FunctionalComponent = () => {
                 "transition-all duration-300 ease-in-out",
               ])}
             >
-              Get Started <span class="font-light text-slate-300">-</span>
-              <span class="font-light text-slate-100"> for Free</span>
+              Learn More <span class="font-light text-slate-300">-</span>
+              <span class="font-light text-slate-100"> Coming June 2022</span>
             </a>
           </div>
         </div>

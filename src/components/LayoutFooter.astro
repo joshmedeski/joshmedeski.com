@@ -9,9 +9,13 @@ import TwitterIcon from "./icons/TwitterIcon.astro";
 import YouTubeIcon from "./icons/YouTubeIcon.astro";
 
 const today = new Date();
+interface Props {
+  hideCta?: boolean;
+}
+const { hideCta } = Astro.props;
 ---
 
-<PdeCta />
+{hideCta ? null : <PdeCta />}
 
 <footer class="bg-white" aria-labelledby="footer-heading">
   <h2 class="sr-only">Footer</h2>

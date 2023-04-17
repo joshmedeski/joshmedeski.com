@@ -1,6 +1,5 @@
 {
   "language": "en",
-  "version": "0.2",
   "flagWords": [],
   "words": [
     "alacritty",
@@ -12,6 +11,7 @@
     "gokcehan",
     "jesseduffield",
     "joshmedeski",
+    "labelledby",
     "lazygit",
     "lfcd",
     "Medeski",
@@ -22,6 +22,8 @@
     "Todoist",
     "trivago",
     "vimconf",
+    "Waitlist",
     "zoxide"
-  ]
+  ],
+  "version": "0.2"
 }

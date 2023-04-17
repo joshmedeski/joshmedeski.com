@@ -3,11 +3,11 @@ import Layout from "./Layout.astro";
 import clsx from "clsx";
 
 const {
-  content: { title, titleClasses, description },
+  content: { title, titleClasses, description, hideCta },
 } = Astro.props;
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} hideCta={hideCta}>
   <main class="mb-20 mt-10 bg-white">
     <article
       class="prose mx-auto max-w-screen-md bg-white px-4 prose-a:text-blue-600 hover:prose-a:text-blue-500"
