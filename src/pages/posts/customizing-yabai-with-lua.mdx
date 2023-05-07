@@ -2,8 +2,8 @@
 layout: "../../components/Post.astro"
 title: "Customizing Yabai with Lua"
 pubDate: "2023-05-07T12:00:00.000Z"
-heroImage: "/images/posts/blazing-fast-window-management-on-macos/blazing-fast-window-management-on-macos.jpeg"
-description: "with the help of Hammerspoon and the Lua programming language, you can easily create custom keyboard shortcuts to control yabai."
+heroImage: "/images/posts/customizing-yabai-with-lua.jpeg"
+description: "With the help of Hammerspoon and the Lua programming language, you can easily create custom keyboard shortcuts to control yabai."
 categorySlug: "dotfiles"
 ---
 
@@ -11,7 +11,7 @@ If you're a macOS user who enjoys using the [yabai window manager](https://duckd
 
 ## What is yabai?
 
-[yabai](https://github.com/koekeishiya/yabai https://github.com/koekeishiya/yabai) is a window management utility for macOS that allows you to organize your windows in a customizable and efficient way. It provides a range of features, including:
+[yabai](https://github.com/koekeishiya/yabai) is a window management utility for macOS that allows you to organize your windows in a customizable and efficient way. It provides a range of features, including:
 
 - Expanding windows to fill all the available space on the screen, automatically
 - Splitting windows into multiple panes, automatically
@@ -41,30 +41,30 @@ Once you've installed Hammerspoon, you can open the Hammerspoon console by press
 
 To set up the Hammerspoon Configuration File:
 
-1. Open or create a file named ﻿`~/.config/hammerspoon/init.lua` in your Hammerspoon configuration directory. You can find the directory by opening Hammerspoon and selecting “Open Config” from the menu bar.
+1. Open or create a file named ﻿`~/.hammerspoon/init.lua` in your Hammerspoon configuration directory. You can find the directory by opening Hammerspoon and selecting “Open Config” from the menu bar.
 2. Add your desired configuration code to the ﻿init.lua file. This can include defining hotkeys, creating window management functions, and more. You can find examples and documentation on the Hammerspoon website. We will be adding yabai hotkeys in the next step.
 3. Save the ﻿init.lua file and reload your Hammerspoon configuration by selecting “Reload Config” from the Hammerspoon menu bar. Your changes should now take effect.
 4. Optionally, you can also use a third-party tool like Spoons to manage your Hammerspoon configuration more easily. Spoons are modular extensions that can be loaded into Hammerspoon to provide additional functionality. For now, I will show you how to create your own keybindings with Lua.
 
 ## Defining configuration file for yabai
 
-Since hammerspoon can be used to configure more than just yabai keybindings, I prefer separating it. Thankfully, Lua offers a `require` function to import a separate file. Add this to your `~/.config/hammerspoon` file:
+Since hammerspoon can be used to configure more than just yabai keybindings, I prefer separating it. Thankfully, Lua offers a `require` function to import a separate file. Add this to your `~/.hammerspoon` file:
 
 ```lua
--- ~/.config/hammerspoon/keyboard/init.lua
+-- ~/.hammerspoon/keyboard/init.lua
 require("keyboard.yabai")
 ```
 
 ## Creating reusable functions for configuration
 
-Now, you can create a directory in your `~/.config/hammerspoon` directory called `keyboard`, then create a file called `~/.config/hammerspoon/keyboard/yabai.lua` .
+Now, you can create a directory in your `~/.hammerspoon` directory called `keyboard`, then create a file called `~/.hammerspoon/keyboard/yabai.lua` .
 
 ### Sending Yabai Messages
 
 In the `yabai.lua` config, create a reusable function called `yabai` that will execute the binary and run a message, make sure to run `which yabai` to confirm the path to your binary is `/opt/homebrew/bin/yabai`. Replace it if you get a different value.
 
 ```lua
--- ~/.config/hammerspoon/keyboard/yabai.lua
+-- ~/.hammerspoon/keyboard/yabai.lua
 -- Send message(s) to a running instance of yabai.
 local function yabai(commands)
 	for _, cmd in ipairs(commands) do
@@ -150,4 +150,4 @@ You can check out the [whole `yabai.lua` config here](https://github.com/joshmed
 
 With Hammerspoon, you can create custom keyboard shortcuts to control yabai in any way you see fit, I recommend making it your own and adding and removing whatever works best for your workflow.
 
-Thanks for getting to the end, I recommend checking out my introduction to yabai and how I use it in: [Blazing Fast Window Management on macOS](https://www.joshmedeski.com/posts/blazing-fast-window-management-on-macos/).
+Thanks for getting to the end, I recommend checking out my introduction to yabai and how I use it in: [Blazing Fast Window Management on macOS](/posts/blazing-fast-window-management-on-macos/).
