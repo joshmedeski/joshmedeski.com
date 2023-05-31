@@ -1,0 +1,86 @@
+---
+layout: "../../components/Post.astro"
+title: Managing macOS packages with Homebrew
+pubDate: "2023-06-26T12:00:00.000Z"
+# youtubeUrl: https://www.youtube.com/embed/BLp61-Lq0kQ
+heroImage: "/images/posts/managing-macos-packages-with-homebrew.jpeg"
+description: "Homebrew is a package manager for macOS that allows users to easily install and manage software packages and libraries."
+categorySlug: "dotfiles"
+---
+
+[Homebrew](https://brew.sh/) is a package manager for macOS that allows users to easily install and manage software packages and libraries. It uses a command-line interface and a simple formula system to download and install packages from preconfigured sources, making it easy to keep software up to date and manage dependencies. To install Homebrew, open Terminal and run the following command:
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+This will download and run the Homebrew installation script. Once installed, you can use Homebrew to install packages by running commands like `brew install <package>`. For example, to install the `wget` package, you would run:
+
+```sh
+brew install wget
+```
+
+## Adding a custom Tap
+
+A Homebrew tap is a repository of additional formulae that are not included in the main Homebrew repository. Adding a custom Homebrew tap allows you to install software that is not available in the main repository. Here's how to add a custom Homebrew tap:
+
+1. Open Terminal and run the following command to add the tap:
+
+```sh
+brew tap <username>/<tap>
+```
+
+Replace `<username>` with the GitHub username of the tap owner, and `<tap>` with the name of the tap.
+
+2. After the tap has been added, you can install packages from the tap using the ﻿brew install command. For example, to install a package called ﻿example from the ﻿my-tap tap, you would run:
+
+```sh
+brew install my-tap/example
+```
+
+Note that you need to prefix the package name with the tap name, separated by a forward slash.
+
+3. To update the tap and install the latest versions of its packages, run the following command:
+
+```sh
+brew update && brew upgrade <tap>
+```
+
+Replace `<tap>` with the name of the tap.
+
+You can now use Homebrew to install packages from the custom tap you added.
+
+## Keeping Homebrew up-to-date
+
+To keep your packages and libraries up-to-date, Homebrew offers multiple commands. I recommend running the following commands in this order to ensure you have the latest versions of your packages and libraries.
+
+1. `brew update` updates the local Homebrew repository with the latest version of package information from the remote repository. This ensures that you have the latest versions and dependencies of packages available to install or upgrade on your system.
+2. `brew outdated` lists all installed packages that have a newer version available in the remote repository. This command helps you identify which packages are outdated and need to be updated. This is optional but provides a preview of how many packages are going to update when running the next command.
+3. `brew upgrade` upgrades all outdated packages installed on your system to their latest versions available in the remote repository. This command updates the packages to their latest versions, including all their dependencies, and ensures that your system has the most up-to-date software.
+4. `brew cleanup --prune=all` removes old versions of installed packages and their associated files, freeing up disk space. The `--prune=all` option removes all packages and their associated files, including those that are currently installed and those that are no longer needed. This command is useful when you want to reclaim disk space on your system by removing old and unused packages. However, it is recommended to use this command with caution, as it can potentially remove files that are still needed by other packages or applications.
+5. `brew doctor` diagnoses potential issues with your Homebrew installation. This command checks your Homebrew installation for common issues, such as outdated packages, broken symlinks, and other configuration problems. It also provides suggestions on how to fix any issues that it finds.
+
+I have wrapped all of this up into a `bubu` script. I will typically run this script a few times per week to ensure everything is up-to-date.
+
+```sh
+#!/usr/bin/env bash
+
+brew update
+outdated=$(brew outdated)
+if [[ -n "$outdated" ]]; then
+	read -rp "Upgrade the listed above (y/N)? " upgrade
+	if [[ "$upgrade" = "y" ]]; then
+		brew upgrade
+		brew cleanup --prune=all
+		brew doctor
+	else
+		echo "Upgrading brew packages cancelled."
+	fi
+else
+	echo "No brew packages need upgraded at this time."
+fi
+```
+
+---
+
+In summary, Homebrew is a package manager for macOS that simplifies the installation and management of software packages and libraries. It uses a command-line interface and a simple formula system to download and install packages from preconfigured sources, making it easy to keep software up-to-date and manage dependencies. To add a custom tap, you can use the `brew tap` command to add a repository of additional formulae that are not included in the main Homebrew repository. To keep Homebrew up-to-date, you can use `brew update`, `brew outdated`, `brew upgrade`, `brew cleanup --prune=all`, and `brew doctor` commands. A `bubu` script that automates these commands is the easiest way to stay up-to-date.
