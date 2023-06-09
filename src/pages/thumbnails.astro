@@ -1,0 +1,288 @@
+---
+import Layout from "../components/Layout.astro";
+
+const post = {
+  title: "Manage macOS packages with Homebrew",
+  description:
+    "Homebrew is a package manager for macOS that allows users to easily install and manage software packages and libraries.",
+
+  heading: "Homebrew",
+  subheading: "manage macOS packages",
+
+  image: "/images/posts/homebrew.png",
+};
+---
+
+<Layout title="Posts" themeColor="#f2f5f9">
+  <main>
+    <section class="bg-neutral-100 px-4 py-12">
+      <div class="mx-auto max-w-screen-xl">
+        <h2 class="mb-4 text-3xl font-bold">All Posts</h2>
+        <section class="mb-24 grid grid-cols-2 gap-8">
+          <div class="aspect-video bg-[#1a1308]">
+            <div class="flex h-full flex-col justify-center p-8">
+              <div class="flex items-center justify-around">
+                <div class="">
+                  <img src={post.image} alt={post.heading} class="" />
+                </div>
+                <div>
+                  <div
+                    class="mb-4 flex w-auto items-center justify-around rounded-lg bg-white px-4 py-2"
+                  >
+                    <img
+                      src="/images/dev-workflow-icon.svg"
+                      alt="Dev Workflow Course"
+                      width="40"
+                    />
+                    <p class="text-xl font-bold">Dev Workflow Course</p>
+                  </div>
+                  <div class="text-white">
+                    <h2 class="text-5xl font-extrabold">{post.heading}</h2>
+                    <h3 class="text-2xl font-bold">{post.subheading}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="aspect-video bg-[#1a1308]">
+            <div class="flex h-full flex-col justify-center gap-8 p-8">
+              <div class="flex items-center justify-around gap-8">
+                <div class="">
+                  <img src={post.image} alt={post.heading} class="" />
+                </div>
+                <div>
+                  <div class="inline-block">
+                    <div
+                      class="mb-4 flex w-auto items-center justify-around rounded-lg bg-white px-4 py-2"
+                    >
+                      <img
+                        src="/images/dev-workflow-icon.svg"
+                        alt="Dev Workflow Course"
+                        width="40"
+                      />
+                      <p class="text-xl font-bold">Dev Workflow Course</p>
+                    </div>
+                  </div>
+                  <div class="text-white">
+                    <h2 class="text-3xl font-extrabold">{post.title}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="grid grid-cols-2 gap-8">
+          <div class="aspect-video bg-[#1a1308]">
+            <div class="flex h-full flex-col justify-center p-8">
+              <div class="flex items-center justify-around">
+                <div>
+                  <div class="text-center text-white">
+                    <h2 class="text-5xl font-extrabold">{post.heading}</h2>
+                    <h3 class="text-2xl font-bold">{post.subheading}</h3>
+                  </div>
+                  <div
+                    class="mt-4 flex w-auto items-center justify-around rounded-lg bg-white px-4 py-2"
+                  >
+                    <img
+                      src="/images/dev-workflow-icon.svg"
+                      alt="Dev Workflow Course"
+                      width="40"
+                    />
+                    <p class="text-xl font-bold">Dev Workflow Course</p>
+                  </div>
+                </div>
+                <div class="">
+                  <img src={post.image} alt={post.heading} class="" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="aspect-video bg-[#1a1308]">
+            <div class="flex h-full flex-col justify-center p-8">
+              <div class="flex items-center justify-around">
+                <div>
+                  <div class="text-white">
+                    <h2 class="text-5xl font-extrabold">{post.heading}</h2>
+                    <h3 class="text-2xl font-bold">{post.subheading}</h3>
+                  </div>
+                  <div
+                    class="mt-4 flex w-auto items-center justify-around rounded-lg bg-white px-4 py-2"
+                  >
+                    <img
+                      src="/images/dev-workflow-icon.svg"
+                      alt="Dev Workflow Course"
+                      width="40"
+                    />
+                    <p class="text-xl font-bold">Dev Workflow Course</p>
+                  </div>
+                </div>
+                <div class="">
+                  <img src={post.image} alt={post.heading} class="" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="aspect-video bg-[#1a1308]">
+            <div class="flex h-full flex-col justify-center p-8">
+              <div class="flex items-center justify-around">
+                <div class="">
+                  <img src={post.image} alt={post.heading} class="" />
+                </div>
+                <div>
+                  <div class="text-center text-white">
+                    <h2 class="text-5xl font-extrabold">{post.heading}</h2>
+                    <h3 class="text-2xl font-bold">{post.subheading}</h3>
+                  </div>
+                  <div
+                    class="mt-4 flex w-auto items-center justify-around rounded-lg bg-white px-4 py-2"
+                  >
+                    <img
+                      src="/images/dev-workflow-icon.svg"
+                      alt="Dev Workflow Course"
+                      width="40"
+                    />
+                    <p class="text-xl font-bold">Dev Workflow Course</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="aspect-video bg-[#1a1308]">
+            <div class="flex h-full flex-col justify-center p-8">
+              <div class="flex items-center justify-around">
+                <div class="">
+                  <img src={post.image} alt={post.heading} class="" />
+                </div>
+                <div>
+                  <div class="text-white">
+                    <h2 class="text-5xl font-extrabold">{post.heading}</h2>
+                    <h3 class="text-2xl font-bold">{post.subheading}</h3>
+                  </div>
+                  <div
+                    class="mt-4 flex w-auto items-center justify-around rounded-lg bg-white px-4 py-2"
+                  >
+                    <img
+                      src="/images/dev-workflow-icon.svg"
+                      alt="Dev Workflow Course"
+                      width="40"
+                    />
+                    <p class="text-xl font-bold">Dev Workflow Course</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="aspect-video bg-[#1a1308]">
+            <div class="flex h-full flex-col justify-center p-8">
+              <div class="flex items-center justify-around">
+                <div class="">
+                  <img src={post.image} alt={post.heading} class="" />
+                </div>
+                <div>
+                  <div
+                    class="mb-4 flex w-auto items-center justify-around rounded-lg bg-white px-4 py-2"
+                  >
+                    <img
+                      src="/images/dev-workflow-icon.svg"
+                      alt="Dev Workflow Course"
+                      width="40"
+                    />
+                    <p class="text-xl font-bold">Dev Workflow Course</p>
+                  </div>
+                  <div class="text-center text-white">
+                    <h2 class="text-5xl font-extrabold">{post.heading}</h2>
+                    <h3 class="text-2xl font-bold">{post.subheading}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="aspect-video bg-[#1a1308]">
+            <div class="flex h-full flex-col justify-center p-8">
+              <div class="flex items-center justify-around">
+                <div class="">
+                  <img src={post.image} alt={post.heading} class="" />
+                </div>
+                <div>
+                  <div
+                    class="mb-4 flex w-auto items-center justify-around rounded-lg bg-white px-4 py-2"
+                  >
+                    <img
+                      src="/images/dev-workflow-icon.svg"
+                      alt="Dev Workflow Course"
+                      width="40"
+                    />
+                    <p class="text-xl font-bold">Dev Workflow Course</p>
+                  </div>
+                  <div class="text-white">
+                    <h2 class="text-5xl font-extrabold">{post.heading}</h2>
+                    <h3 class="text-2xl font-bold">{post.subheading}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="aspect-video bg-[#1a1308]">
+            <div class="flex h-full flex-col justify-center p-8">
+              <div class="flex items-center justify-around">
+                <div>
+                  <div
+                    class="mb-4 flex w-auto items-center justify-around rounded-lg bg-white px-4 py-2"
+                  >
+                    <img
+                      src="/images/dev-workflow-icon.svg"
+                      alt="Dev Workflow Course"
+                      width="40"
+                    />
+                    <p class="text-xl font-bold">Dev Workflow Course</p>
+                  </div>
+                  <div class="text-center text-white">
+                    <h2 class="text-5xl font-extrabold">{post.heading}</h2>
+                    <h3 class="text-2xl font-bold">{post.subheading}</h3>
+                  </div>
+                </div>
+                <div class="">
+                  <img src={post.image} alt={post.heading} class="" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="aspect-video bg-[#1a1308]">
+            <div class="flex h-full flex-col justify-center p-8">
+              <div class="flex items-center justify-around">
+                <div>
+                  <div
+                    class="mb-4 flex w-auto items-center justify-around rounded-lg bg-white px-4 py-2"
+                  >
+                    <img
+                      src="/images/dev-workflow-icon.svg"
+                      alt="Dev Workflow Course"
+                      width="40"
+                    />
+                    <p class="text-xl font-bold">Dev Workflow Course</p>
+                  </div>
+                  <div class="text-white">
+                    <h2 class="text-5xl font-extrabold">{post.heading}</h2>
+                    <h3 class="text-2xl font-bold">{post.subheading}</h3>
+                  </div>
+                </div>
+                <div class="">
+                  <img src={post.image} alt={post.heading} class="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+</Layout>

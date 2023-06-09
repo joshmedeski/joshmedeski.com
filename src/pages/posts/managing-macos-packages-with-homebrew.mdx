@@ -1,6 +1,6 @@
 ---
 layout: "../../components/Post.astro"
-title: Managing macOS packages with Homebrew
+title: Manage macOS packages with Homebrew
 pubDate: "2023-06-26T12:00:00.000Z"
 # youtubeUrl: https://www.youtube.com/embed/BLp61-Lq0kQ
 heroImage: "/images/posts/managing-macos-packages-with-homebrew.jpeg"
@@ -20,35 +20,22 @@ This will download and run the Homebrew installation script. Once installed, you
 brew install wget
 ```
 
-## Adding a custom Tap
+## Adding a custom tap
 
 A Homebrew tap is a repository of additional formulae that are not included in the main Homebrew repository. Adding a custom Homebrew tap allows you to install software that is not available in the main repository. Here's how to add a custom Homebrew tap:
 
-1. Open Terminal and run the following command to add the tap:
-
 ```sh
-brew tap <username>/<tap>
+brew tap arl/arl # owner/tap
+brew install gitmux # formulae
 ```
 
-Replace `<username>` with the GitHub username of the tap owner, and `<tap>` with the name of the tap.
-
-2. After the tap has been added, you can install packages from the tap using the ﻿brew install command. For example, to install a package called ﻿example from the ﻿my-tap tap, you would run:
+Or, you can run combine the tap and install command by combining the owner tap and formulae.
 
 ```sh
-brew install my-tap/example
+brew install arl/arl/gitmux # owner/tap/formulae
 ```
 
-Note that you need to prefix the package name with the tap name, separated by a forward slash.
-
-3. To update the tap and install the latest versions of its packages, run the following command:
-
-```sh
-brew update && brew upgrade <tap>
-```
-
-Replace `<tap>` with the name of the tap.
-
-You can now use Homebrew to install packages from the custom tap you added.
+What is gitmux? Check out [Git in your tmux status bar with gitmux](/posts/git-in-your-tmux-status-bar-with-gitmux).
 
 ## Keeping Homebrew up-to-date
 
@@ -64,12 +51,12 @@ I have wrapped all of this up into a `bubu` script. I will typically run this sc
 
 ```sh
 #!/usr/bin/env bash
-
 brew update
-outdated=$(brew outdated)
-if [[ -n "$outdated" ]]; then
-	read -rp "Upgrade the listed above (y/N)? " upgrade
-	if [[ "$upgrade" = "y" ]]; then
+OUTDATED=$(brew outdated)
+if [[ -n "$OUTDATED" ]]; then
+  echo $OUTDATED
+	read -rp "Upgrade the listed above (y/N)? " UPGRADE
+	if [[ "$UPGRADE" = "y" ]]; then
 		brew upgrade
 		brew cleanup --prune=all
 		brew doctor
@@ -81,6 +68,8 @@ else
 fi
 ```
 
+Want to make turn this into a glamorous shell script? Check out [Making Glamorous Shell Scripts with Gum](/posts/making-glamorous-shell-scripts-with-gum)
+
 ---
 
-In summary, Homebrew is a package manager for macOS that simplifies the installation and management of software packages and libraries. It uses a command-line interface and a simple formula system to download and install packages from pre-configured sources, making it easy to keep software up-to-date and manage dependencies. To add a custom tap, you can use the `brew tap` command to add a repository of additional formulae that are not included in the main Homebrew repository. To keep Homebrew up-to-date, you can use `brew update`, `brew outdated`, `brew upgrade`, `brew cleanup --prune=all`, and `brew doctor` commands. A `bubu` script that automates these commands is the easiest way to stay up-to-date.
+In summary, Homebrew is a package manager for macOS that simplifies the installation and management of software packages and libraries. It uses a command-line interface and a simple formula system to download and install packages from pre-configured sources using `brew install`, making it easy to keep software up-to-date and manage dependencies. To add a custom tap, you can use the `brew tap` command to add a repository of additional formulae that are not included in the main Homebrew repository. To keep Homebrew up-to-date, you can use `brew update`, `brew outdated`, `brew upgrade`, `brew cleanup`, and `brew doctor` commands. I also showed you a simple `bubu` script that automates these commands for an easy way to stay up-to-date.
