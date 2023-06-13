@@ -49,7 +49,9 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
   </div>
 
   <div class="flex flex-1 flex-col justify-end rounded-b-md px-2 py-4">
-    <h3 class="mx-auto max-w-[90%] mb-1 text-center text-xl font-extrabold leading-none flex-1 flex flex-col justify-center mb-2">
+    <h3
+      class="mx-auto mb-1 mb-2 flex max-w-[90%] flex-1 flex-col justify-center text-center text-xl font-extrabold leading-none"
+    >
       <span>{title}</span>
     </h3>
     <p class="text-sm text-slate-500">{description}</p>
