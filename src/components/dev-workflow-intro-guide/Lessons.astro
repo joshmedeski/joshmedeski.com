@@ -1,0 +1,99 @@
+---
+import type { Post } from "../../models/Post.astro";
+
+const foundationalLessons = [
+  await Astro.glob<Post>(
+    "../../pages/posts/manage-macos-packages-with-homebrew.mdx"
+  ),
+  await Astro.glob<Post>(
+    "../../pages/posts/setting-up-alacritty-for-a-fast-minimal-terminal-emulator.mdx"
+  ),
+  await Astro.glob<Post>(
+    "../../pages/posts/set-up-fish-the-user-friendly-interactive-shell.mdx"
+  ),
+  await Astro.glob<Post>(
+    "../../pages/posts/shell-customization-with-starship.mdx"
+  ),
+  await Astro.glob<Post>(
+    "../../pages/posts/manage-terminal-sessions-with-tmux.mdx"
+  ),
+  await Astro.glob<Post>(
+    "../../pages/posts/create-a-neovim-ide-with-lazyvim.mdx"
+  ),
+  await Astro.glob<Post>(
+    "../../pages/posts/quick-git-management-with-lazygit.mdx"
+  ),
+  await Astro.glob<Post>("../../pages/posts/manage-files-with-lf.mdx"),
+];
+---
+
+<section class="scroll-mt-14 py-16 sm:scroll-mt-32 sm:py-20 lg:py-32">
+  <div class="mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4 lg:max-w-4xl lg:px-12">
+    <h2
+      class="inline-flex items-center rounded-full px-4 py-1 text-blue-600 ring-1 ring-inset ring-blue-600"
+    >
+      <span class="text-base font-medium tracking-tight">Lessons</span>
+    </h2><p
+      class="font-display mt-8 text-4xl font-bold tracking-tight text-slate-900"
+    >
+      Build the foundation of a great dev workflow.
+    </p><p class="mt-4 text-lg tracking-tight text-slate-700">
+      Learn how to set up your own dev workflow from scratch using well-tested
+      apps and tools to create an efficient and productive environment in under
+      an hour.
+    </p>
+  </div><div
+    class="mx-auto mt-16 px-4 sm:px-6 md:max-w-2xl md:px-4 lg:max-w-7xl lg:px-8"
+  >
+    <ol
+      role="list"
+      class="grid grid-cols-1 gap-x-8 gap-y-10 [counter-reset:video] sm:grid-cols-2 lg:grid-cols-4"
+    >
+      {
+        foundationalLessons.map((lesson) => (
+          <li class="[counter-increment:video]">
+            <div
+              class="relative flex h-44 items-center justify-center rounded-2xl px-4 shadow-lg"
+              style="background-image:conic-gradient(from -49.8deg at 50% 50%, #7331FF 0deg, #00A3FF 59.07deg, #4E51FF 185.61deg, #39DBFF 284.23deg, #B84FF1 329.41deg, #7331FF 360deg)"
+            >
+              <div class="flex overflow-hidden rounded shadow-sm">
+                <img
+                  alt=""
+                  loading="lazy"
+                  width="200"
+                  height="108"
+                  decoding="async"
+                  style="color:transparent"
+                  class="w-full"
+                  src={lesson[0].frontmatter.heroImage}
+                />
+              </div>
+              <div class="bg-black/30 [@supports(backdrop-filter:blur(0))]:bg-white/10 absolute bottom-2 left-2 flex items-center rounded-lg px-1.5 py-0.5 text-sm text-white [@supports(backdrop-filter:blur(0))]:backdrop-blur">
+                <svg
+                  aria-hidden="true"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  viewBox="0 0 16 16"
+                  class="h-4 w-4 fill-current stroke-current"
+                >
+                  <path d="M6.75 10.25v-4.5L10.25 8l-3.5 2.25Z" />
+                  <circle cx="8" cy="8" r="6.25" fill="none" />
+                </svg>
+                <time datetime="16m 54s" class="ml-2">
+                  TBD
+                </time>
+              </div>
+            </div>
+            <h3 class="mt-8 text-base font-medium tracking-tight text-slate-900 before:mb-2 before:block before:font-mono before:text-sm before:text-slate-500 before:content-[counter(video,decimal-leading-zero)]">
+              {lesson[0].frontmatter.title}
+            </h3>
+            <p class="mt-2 text-sm text-slate-600">
+              {lesson[0].frontmatter.description}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

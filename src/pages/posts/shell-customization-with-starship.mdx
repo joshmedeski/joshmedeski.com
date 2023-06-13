@@ -1,0 +1,52 @@
+---
+layout: "../../components/Post.astro"
+title: Customized Shell Prompt with Starship
+pubDate: "2023-06-26T12:00:00.000Z"
+# youtubeUrl: https://www.youtube.com/embed/BLp61-Lq0kQ
+heroImage: "/images/posts/customized-shell-prompt-with-starship.jpeg"
+description: "Homebrew is a package manager for macOS that allows users to easily install and manage packages and libraries."
+categorySlug: "dotfiles"
+draft: true
+---
+
+https://starship.rs/
+
+```toml
+[character]
+success_symbol = "[](white)"
+error_symbol = "[](red)"
+vicmd_symbol = "[](green)"
+
+[directory]
+style = "blue bold"
+
+[package]
+disabled = true
+
+[username]
+disabled = true
+
+[hostname]
+disabled = true
+
+[aws]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[git_branch]
+disabled = true
+
+[git_commit]
+disabled = true
+
+[git_state]
+disabled = true
+
+[git_metrics]
+disabled = true
+
+[git_status]
+disabled = true
+```
