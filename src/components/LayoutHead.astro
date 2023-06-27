@@ -2,7 +2,7 @@
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 
 const isProd = import.meta.env.PROD;
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site) + "/";
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 
 export interface Props {
   title?: string;
