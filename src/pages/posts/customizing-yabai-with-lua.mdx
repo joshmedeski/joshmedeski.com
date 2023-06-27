@@ -31,7 +31,7 @@ Hammerspoon is a powerful automation tool for macOS that allows you to write Lua
 
 To get started with Hammerspoon, can download and install it from the official website, or run the following command if you have [homebrew](https://brew.sh/) installed on your machine.
 
-```lua
+```sh
 brew install hammerspoon --cask
 ```
 
@@ -50,8 +50,7 @@ To set up the Hammerspoon Configuration File:
 
 Since hammerspoon can be used to configure more than just yabai keybindings, I prefer separating it. Thankfully, Lua offers a `require` function to import a separate file. Add this to your `~/.hammerspoon` file:
 
-```lua
--- ~/.hammerspoon/keyboard/init.lua
+```lua title="~/.hammerspoon/keyboard/init.lua"
 require("keyboard.yabai")
 ```
 
@@ -63,8 +62,7 @@ Now, you can create a directory in your `~/.hammerspoon` directory called `keybo
 
 In the `yabai.lua` config, create a reusable function called `yabai` that will execute the binary and run a message, make sure to run `which yabai` to confirm the path to your binary is `/opt/homebrew/bin/yabai`. Replace it if you get a different value.
 
-```lua
--- ~/.hammerspoon/keyboard/yabai.lua
+```lua title="~/.hammerspoon/keyboard/yabai.lua"
 -- Send message(s) to a running instance of yabai.
 local function yabai(commands)
 	for _, cmd in ipairs(commands) do
@@ -79,7 +77,7 @@ The `for` loop is being used so we can pass multiple messages in one function. F
 
 I prefer using the `alt` key to drive all of my yabai commands, here is a reusable function for binding to `alt+{key}` and an argument to pass the yabai commands.
 
-```lua
+```lua title="~/.hammerspoon/keyboard/yabai.lua"
 local function alt(key, commands)
 	hs.hotkey.bind({ "alt" }, key, function()
 		yabai(commands)
@@ -107,7 +105,7 @@ In order to configure numbers 1-9 with keybindings, we will add a `altShift` fun
 
 **Note:** System Integrity Protection needs to be disable in order for yabai to focus a different desktop space. It is a helpful use-case but I realize some people can't disable this feature. Please be aware of the security risks involved when disabling this feature.
 
-```lua
+```lua title="~/.hammerspoon/keyboard/yabai.lua"
 local function altShift(key, commands)
 	hs.hotkey.bind({ "alt", "shift" }, key, function()
 		yabai(commands)
@@ -129,7 +127,7 @@ end
 
 Finally, use `hjkl` to focus on or move to a different window on your desktop. Holding `alt+shift` will swap the window instead.
 
-```lua
+```lua title="~/.hammerspoon/keyboard/yabai.lua"
 local homeRow = { h = "west", j = "south", k = "north", l = "east" }
 
 for key, direction in pairs(homeRow) do

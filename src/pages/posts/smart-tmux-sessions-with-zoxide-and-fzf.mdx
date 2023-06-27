@@ -16,7 +16,7 @@ Create and manage tmux sessions automatically with a custom script that uses zox
 
 # zoxide
 
-```plaintext
+```sh
 brew install zoxide
 ```
 
@@ -30,23 +30,23 @@ brew install tmux
 
 [View tmux on GitHub](https://github.com/tmux/tmux)
 
-```bash
+```fish title="~/.config/fish/config.fish"
 abbr tn "tmux new -s (pwd | sed 's/.*\///g')"
 ```
 
 You can turn off the detach-on-destroy option in your `tmux.conf` to allow tmux to switch to an existing session when you close the final window on a session.
 
-```conf
+```sh title="~/.tmux.conf"
 set-option -g detach-on-destroy off
 ```
 
-# Update `alacritty.yaml`
+# macOS Binding
 
 This is the macOS binding I use (cmd+j) to open the session manager popup.
 
-```yaml
+```yaml title="~/.config/alacritty/alacritty.yaml"
 key_bindings:
-  - { key: J, mods: Command, chars: "\x02\x54" }
+  - { key: K, mods: Command, chars: "\x02\x54" }
 ```
 
 [Watch "macOS Keyboard Shortcuts for tmux"](/posts/macos-keyboard-shortcuts-for-tmux) for more details.

@@ -55,7 +55,7 @@ Keystroke hex codes are bound to two character at a time. So from our code `0263
 
 Finally, we will use the `key` and `mods` keys to define the custom key binding. Add the following code to your `~/.config/alacritty/alacritty.yml` config file.
 
-```yaml
+```yaml title="~/.config/alacritty/alacritty.yml"
 key_bindings:
   - { key: T, mods: Command, chars: "\x02\x63" }
 ```
@@ -66,7 +66,7 @@ Now, while inside tmux, you can hit `cmd+t` to create a new window! The principl
 
 Here are some of the tmux keybindings I have set up with Alacritty to create more macOS like keyboard shortcuts:
 
-```yaml
+```yaml title="~/.config/alacritty/alacritty.yml"
 key_bindings:
   - { key: E, mods: Command, chars: "\x02\"" } # split tmux window vertically
   - { key: E, mods: Command|Shift, chars: "\x02%" } # split tmux window horizontally
