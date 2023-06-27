@@ -1,7 +1,7 @@
 // https://pris.ly/d/prisma-schema
 generator client {
   provider      = "prisma-client-js"
-  binaryTargets = ["native","darwin","debian-openssl-1.1.x"]
+  binaryTargets = ["native", "darwin", "debian-openssl-1.1.x"]
 }
 
 datasource db {
@@ -10,10 +10,10 @@ datasource db {
 }
 
 model Appearance {
-  id          Int       @id @default(autoincrement())
+  id          Int               @id @default(autoincrement())
   title       String
   url         String
-  publisher   Publisher @relation(fields: [publisherId], references: [id])
+  publisher   Publisher         @relation(fields: [publisherId], references: [id])
   publisherId Int
   date        DateTime?
   imageUrl    String?
@@ -21,23 +21,24 @@ model Appearance {
 }
 
 model AppearanceRole {
-  id          Int          @id @default(autoincrement())
-  name        String       @unique
+  id          Int               @id @default(autoincrement())
+  name        String            @unique
   appearances AppearanceRoles[]
 }
 
 model AppearanceRoles {
-  appearance Appearance @relation(fields: [appearanceId], references: [id])
+  appearance   Appearance     @relation(fields: [appearanceId], references: [id])
   appearanceId Int
-  role AppearanceRole @relation(fields: [roleId], references: [id])
-  roleId Int
+  role         AppearanceRole @relation(fields: [roleId], references: [id])
+  roleId       Int
+
   @@id([appearanceId, roleId])
 }
 
 model Publisher {
-  id       Int    @id @default(autoincrement())
-  name     String @unique
-  website  String?
-  imageUrl String?
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  website     String?
+  imageUrl    String?
   appearances Appearance[]
 }

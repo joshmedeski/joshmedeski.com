@@ -6,6 +6,6 @@ import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://joshmedeski.com",
+  site: "https://joshmedeski.com/",
   integrations: [mdx(), sitemap(), tailwind(), preact()],
 });
