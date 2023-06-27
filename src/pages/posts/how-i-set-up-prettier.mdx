@@ -34,7 +34,7 @@ npm install -D @trivago/prettier-plugin-sort-imports
 
 Create a `.prettierrc.json` file in the root of your project
 
-```json
+```json title=".prettierrc.json"
 {
   "importOrder": ["^@/(.*)$", "^[./]"],
   "importOrderSeparation": true,
@@ -52,9 +52,9 @@ A few points about the rules I like to use:
 
 80 characters as the print width works great for split screen windows and general legibility.
 2 spaces as the tab width is enough to get the job done without sacrificing width space.
-The sort import plugin has ^@/(.\*)$ in the first position of the array. You can map the root of your project to @/ by adding the following path to your tsconfig.json:
+The sort import plugin has ^@/(.\*)$ in the first position of the array. You can map the root of your project to @/ by adding the following path to your `tsconfig.json`:
 
-```json
+```json title="tsconfig.json"
 {
   "baseUrl": ".",
   "paths": {
