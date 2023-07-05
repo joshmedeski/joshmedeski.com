@@ -31,7 +31,10 @@ const PdeCta: FunctionalComponent = () => {
               ])}
             >
               Learn More <span class="font-light text-slate-300">-</span>
-              <span class="font-light text-slate-100"> Coming June 2023</span>
+              <span class="font-light text-slate-100">
+                {" "}
+                Coming July 14th, 2023
+              </span>
             </a>
           </div>
         </div>
