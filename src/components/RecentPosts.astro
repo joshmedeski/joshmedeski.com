@@ -1,20 +1,17 @@
 ---
-import type { Post } from "../models/Post.astro";
 import PostCard from "./post/PostCard.astro";
 import PostHero from "./post/PostHero.astro";
+import { getCollection } from "astro:content";
 
-const posts = (await Astro.glob<Post>("../pages/posts/*.mdx"))
-  .sort(
-    (a, b) =>
-      new Date(b.frontmatter.pubDate).valueOf() -
-      new Date(a.frontmatter.pubDate).valueOf()
-  )
-  .filter(({ frontmatter: { draft } }) => !draft);
-
-const recentPosts = posts.slice(0, 5);
+const allPosts = await getCollection("posts", ({ data: { draft } }) => !draft);
+const sortedPosts = allPosts.sort(
+  ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime()
+);
+const recentPosts = sortedPosts.slice(0, 5);
 ---
 
-<PostHero {...recentPosts[0]} />
+<PostHero post={recentPosts[0]} />
+
 <section class="bg-neutral-50 py-12">
   <div class="mx-auto max-w-screen-xl px-4">
     <section
@@ -23,7 +20,7 @@ const recentPosts = posts.slice(0, 5);
       {
         recentPosts
           .slice(1, recentPosts.length)
-          .map((post) => <PostCard {...post} />)
+          .map((post) => <PostCard post={post} />)
       }
     </section>
   </div>

@@ -1,15 +1,12 @@
 ---
 import Layout from "../components/Layout.astro";
 import PostCard from "../components/post/PostCard.astro";
-import type { Post } from "../models/Post.astro";
+import { getCollection } from "astro:content";
 
-const posts = (await Astro.glob<Post>("../pages/posts/*.mdx"))
-  .sort(
-    (a, b) =>
-      new Date(b.frontmatter.pubDate).valueOf() -
-      new Date(a.frontmatter.pubDate).valueOf()
-  )
-  .filter(({ frontmatter: { draft } }) => !draft);
+const allPosts = await getCollection("posts", ({ data: { draft } }) => !draft);
+const sortedPosts = allPosts.sort(
+  ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime()
+);
 ---
 
 <Layout title="Posts" themeColor="#f2f5f9">
@@ -20,7 +17,7 @@ const posts = (await Astro.glob<Post>("../pages/posts/*.mdx"))
         <section
           class="grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 lg:grid-cols-4"
         >
-          {posts.map((post) => <PostCard {...post} />)}
+          {sortedPosts.map((post) => <PostCard post={post} />)}
         </section>
       </div>
     </section>

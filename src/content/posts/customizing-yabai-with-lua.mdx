@@ -1,0 +1,151 @@
+---
+layout: "../../components/Post.astro"
+title: "Customize Yabai with Lua"
+pubDate: 2023-05-06T22:00:00.000Z
+heroImage: "/images/posts/customizing-yabai-with-lua.jpeg"
+description: "Easily create custom keyboard shortcuts to control yabai with Hammerspoon and the Lua programming language"
+categorySlug: "dotfiles"
+---
+
+If you're a macOS user who enjoys using the [yabai window manager](https://duckduckgo.com/?q=yabai&ia=web), you may find yourself wanting to customize your keyboard bindings to better suit your workflow. Luckily, with the help of [Hammerspoon](https://www.hammerspoon.org/) and the [Lua programming language](https://www.lua.org/), you can easily create custom keyboard shortcuts to control yabai.
+
+## What is yabai?
+
+[yabai](https://github.com/koekeishiya/yabai) is a window management utility for macOS that allows you to organize your windows in a customizable and efficient way. It provides a range of features, including:
+
+- Expanding windows to fill all the available space on the screen, automatically
+- Splitting windows into multiple panes, automatically
+- Stacking windows on top of each other
+- Moving windows between different desktops
+- Resizing and positioning windows with precision
+
+I have a video on
+
+yabai is controlled through a command-line interface and can be customized using a configuration file, there is a common solution for yabai users called [skhd](https://github.com/koekeishiya/skhd). I used it for years but recently discovered a new tool that allows me to write the configuration in a proper programming language and offer some improvements and additional features called Hammerspoon.
+
+## What is Hammerspoon?
+
+Hammerspoon is a powerful automation tool for macOS that allows you to write Lua scripts to control various aspects of your system. With Hammerspoon, you can create custom keyboard shortcuts, automate repetitive tasks, and even control other applications. I will show you how to use Lua to write simple reusable functions, as well as leverage loops to make configuring yabai easier and more fun!
+
+## Setting up Hammerspoon
+
+To get started with Hammerspoon, can download and install it from the official website, or run the following command if you have [homebrew](https://brew.sh/) installed on your machine.
+
+```sh
+brew install hammerspoon --cask
+```
+
+Once you've installed Hammerspoon, you can open the Hammerspoon console by pressing `Command + Option + Control + H`.
+
+## Setting up the Hammerspoon Configuration File
+
+To set up the Hammerspoon Configuration File:
+
+1. Open or create a file named ﻿`~/.hammerspoon/init.lua` in your Hammerspoon configuration directory. You can find the directory by opening Hammerspoon and selecting “Open Config” from the menu bar.
+2. Add your desired configuration code to the ﻿init.lua file. This can include defining hotkeys, creating window management functions, and more. You can find examples and documentation on the Hammerspoon website. We will be adding yabai hotkeys in the next step.
+3. Save the ﻿init.lua file and reload your Hammerspoon configuration by selecting “Reload Config” from the Hammerspoon menu bar. Your changes should now take effect.
+4. Optionally, you can also use a third-party tool like Spoons to manage your Hammerspoon configuration more easily. Spoons are modular extensions that can be loaded into Hammerspoon to provide additional functionality. For now, I will show you how to create your own keybindings with Lua.
+
+## Defining configuration file for yabai
+
+Since hammerspoon can be used to configure more than just yabai keybindings, I prefer separating it. Thankfully, Lua offers a `require` function to import a separate file. Add this to your `~/.hammerspoon` file:
+
+```lua title="~/.hammerspoon/keyboard/init.lua"
+require("keyboard.yabai")
+```
+
+## Creating reusable functions for configuration
+
+Now, you can create a directory in your `~/.hammerspoon` directory called `keyboard`, then create a file called `~/.hammerspoon/keyboard/yabai.lua` .
+
+### Sending Yabai Messages
+
+In the `yabai.lua` config, create a reusable function called `yabai` that will execute the binary and run a message, make sure to run `which yabai` to confirm the path to your binary is `/opt/homebrew/bin/yabai`. Replace it if you get a different value.
+
+```lua title="~/.hammerspoon/keyboard/yabai.lua"
+-- Send message(s) to a running instance of yabai.
+local function yabai(commands)
+	for _, cmd in ipairs(commands) do
+		os.execute("/opt/homebrew/bin/yabai -m " .. cmd)
+	end
+end
+```
+
+The `for` loop is being used so we can pass multiple messages in one function. For example, moving windows to a new desktop and focusing the desktop at the same time.
+
+### Configure `alt+{key}` Keybindings
+
+I prefer using the `alt` key to drive all of my yabai commands, here is a reusable function for binding to `alt+{key}` and an argument to pass the yabai commands.
+
+```lua title="~/.hammerspoon/keyboard/yabai.lua"
+local function alt(key, commands)
+	hs.hotkey.bind({ "alt" }, key, function()
+		yabai(commands)
+	end)
+end
+
+-- alpha
+alt("f", { "window --toggle zoom-fullscreen" })
+alt("l", { "space --focus recent" })
+alt("m", { "space --toggle mission-control" })
+alt("p", { "window --toggle pip" })
+alt("g", { "space --toggle padding", "space --toggle gap" })
+alt("r", { "space --rotate 90" })
+alt("t", { "window --toggle float", "window --grid 4:4:1:1:2:2" })
+
+-- special characters
+alt("'", { "space --layout stack" })
+alt(";", { "space --layout bsp" })
+alt("tab", { "space --focus recent" })
+```
+
+## Configure `alt+{number}` Keybindings for Spaces
+
+In order to configure numbers 1-9 with keybindings, we will add a `altShift` function and `altShiftNumber` then loop through those numbers with a `for` loop turn each number into a string and enable the configurations to focus a desktop space with `alt+{number}` and move the current window in focus to another desktop space and then focus on the new space the window is now on. This second function, triggered by `alt+shift+{number}`.
+
+**Note:** System Integrity Protection needs to be disable in order for yabai to focus a different desktop space. It is a helpful use-case but I realize some people can't disable this feature. Please be aware of the security risks involved when disabling this feature.
+
+```lua title="~/.hammerspoon/keyboard/yabai.lua"
+local function altShift(key, commands)
+	hs.hotkey.bind({ "alt", "shift" }, key, function()
+		yabai(commands)
+	end)
+end
+
+local function altShiftNumber(number)
+	altShift(number, { "window --space " .. number, "space --focus " .. number })
+end
+
+for i = 1, 9 do
+	local num = tostring(i)
+	alt(num, { "space --focus " .. num })
+	altShiftNumber(num)
+end
+```
+
+## Configure `alt+{hjkl}` Keybindings as Arrow Keys
+
+Finally, use `hjkl` to focus on or move to a different window on your desktop. Holding `alt+shift` will swap the window instead.
+
+```lua title="~/.hammerspoon/keyboard/yabai.lua"
+local homeRow = { h = "west", j = "south", k = "north", l = "east" }
+
+for key, direction in pairs(homeRow) do
+	alt(key, { "window --focus " .. direction })
+	altShift(key, { "window --swap " .. direction })
+end
+```
+
+Save the ` init.lua` and `yabai.lua` files and reload your Hammerspoon configuration by selecting “Reload Config” from the Hammerspoon menu bar. Your changes should now take effect.
+
+## Conclusion
+
+You can customize this script to create your own keyboard bindings for yabai. For example, you could bind a key combination to change the size of a window or toggle between layouts. `man yabai` can be run in your terminal to read more about the available messages that are supported.
+
+Customizing your keyboard bindings for yabai using Hammerspoon and the Lua programming language improves my workflow productivity, making it easy to use reusable functions and loops to quickly create and update my keybindings.
+
+You can check out the [whole `yabai.lua` config here](https://github.com/joshmedeski/dotfiles/blob/a1713162226f770fdd27178947fefbdefc6fff2f/.hammerspoon/keyboard/yabai.lua#L12) or checkout my [latest config here](https://github.com/joshmedeski/dotfiles/blob/main/.hammerspoon/keyboard/yabai.lua).
+
+With Hammerspoon, you can create custom keyboard shortcuts to control yabai in any way you see fit, I recommend making it your own and adding and removing whatever works best for your workflow.
+
+Thanks for getting to the end, I recommend checking out my introduction to yabai and how I use it in: [Blazing Fast Window Management on macOS](/posts/blazing-fast-window-management-on-macos/).

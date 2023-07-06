@@ -1,20 +1,25 @@
 ---
 import { categories, Category } from "../../models/Category.astro";
-import type { Post } from "../../models/Post.astro";
-import type { MarkdownInstance } from "astro";
 import clsx from "clsx";
 
-export interface Props extends MarkdownInstance<Post> {}
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+
 const {
-  url,
-  frontmatter: { title, description, categorySlug, heroImage, pubDate },
+  post: {
+    slug,
+    data: { categorySlug, heroImage, title, pubDate, description },
+  },
 } = Astro.props;
 const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
 ---
 
 <div class="bg-neutral-50">
   <section class="mx-auto w-full max-w-screen-xl px-4 pt-16">
-    <a href={url} class="mb-6 lg:flex">
+    <a href={`/posts/${slug}`} class="mb-6 lg:flex">
       <img
         src={heroImage}
         alt={title}
@@ -29,11 +34,11 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
           )}
         >
           <div class="flex text-sm">
-            <cat.icon class="w-4 mr-2" />
+            <cat.icon class="mr-2 w-4" />
             <p class="mr-2 block">
               {cat.title}
             </p>
-            <time datetime={pubDate}>
+            <time datetime={String(pubDate)}>
               {
                 new Date(pubDate).toLocaleDateString("en-US", {
                   dateStyle: "long",

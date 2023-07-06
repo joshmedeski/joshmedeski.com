@@ -1,27 +1,28 @@
 ---
-import CalltoAction from "../../components/CallToAction.jsx";
 import clsx from "clsx";
-import Categories from "../../components/Categories.astro";
-import type { Post } from "../../models/Post.astro";
 import { categories, Category } from "../../models/Category.astro";
 import Layout from "../Layout.astro";
+import type { CollectionEntry } from "astro:content";
 
-export interface Props {
-  content: Post;
+interface Props {
+  post: CollectionEntry<"posts">;
 }
 
 const {
-  content: {
-    title,
-    description,
-    pubDate,
-    updatedDate,
-    heroImage,
-    categorySlug,
-    heroClasses,
-    youtubeUrl,
+  post: {
+    data: {
+      title,
+      description,
+      pubDate,
+      updatedDate,
+      heroImage,
+      categorySlug,
+      heroClasses,
+      youtubeUrl,
+    },
   },
 } = Astro.props;
+
 const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
 ---
 
@@ -35,11 +36,11 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
     style={`background-color: ${cat.style?.themeColor}`}
     class={clsx(!heroImage && !youtubeUrl && "pb-4")}
   >
-    <div class="mx-auto max-w-screen-md px-4 mb-10 pt-10 text-center">
+    <div class="mx-auto mb-10 max-w-screen-md px-4 pt-10 text-center">
       <a href={`/categories/${cat.slug}`}>
-        <cat.icon class="w-10 mx-auto mb-4" />
+        <cat.icon class="mx-auto mb-4 w-10" />
       </a>
-      <h1 class="font-extrabold text-2xl md:text-4xl mb-2">{title}</h1>
+      <h1 class="mb-2 text-2xl font-extrabold md:text-4xl">{title}</h1>
       <div
         class={clsx(
           "flex justify-center space-x-2 font-medium",
@@ -70,9 +71,9 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
 
     {
       (youtubeUrl || heroImage) && (
-        <div class="mx-auto max-w-screen-sm mb-10">
+        <div class="mx-auto mb-10 max-w-screen-sm">
           {youtubeUrl && (
-            <div class="shadow-lg mb-4 rounded-md">
+            <div class="mb-4 rounded-md shadow-lg">
               <iframe
                 width="100%"
                 height="100%"
@@ -107,12 +108,9 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
     )}
   >
     <article
-      class="px-4 prose mx-auto max-w-screen-md prose-a:text-blue-600 hover:prose-a:text-blue-500 bg-white"
+      class="prose mx-auto max-w-screen-md bg-white px-4 prose-a:text-blue-600 hover:prose-a:text-blue-500"
     >
       <slot />
     </article>
   </main>
-
-  <Categories />
-  <CalltoAction client:visible />
 </Layout>

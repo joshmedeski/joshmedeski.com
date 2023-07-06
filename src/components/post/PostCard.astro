@@ -1,20 +1,24 @@
 ---
 import { categories } from "../../models/Category.astro";
 import type { Category } from "../../models/Category.astro";
-import type { Post } from "../../models/Post.astro";
-import type { MarkdownInstance } from "astro";
 import clsx from "clsx";
+import type { CollectionEntry } from "astro:content";
 
-export interface Props extends MarkdownInstance<Post> {}
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+
 const {
-  url,
-  frontmatter: { title, description, pubDate, categorySlug, heroImage },
+  post: {
+    slug,
+    data: { categorySlug, heroImage, title, pubDate, description },
+  },
 } = Astro.props;
 const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
 ---
 
 <a
-  href={url}
+  href={`/posts/${slug}`}
   class="flex flex-col justify-between rounded-md shadow-md"
   style={{ backgroundColor: cat?.style?.themeColor }}
 >
@@ -38,7 +42,7 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
     )}
   >
     <div class="flex items-center">
-      <cat.icon class="w-4 mr-2" />
+      <cat.icon class="mr-2 w-4" />
       <p class="mr-2 block">
         {cat.title}
       </p>
