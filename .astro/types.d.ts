@@ -355,13 +355,6 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
-"pdes-with-abhishek-keshri.mdx": {
-	id: "pdes-with-abhishek-keshri.mdx";
-  slug: "pdes-with-abhishek-keshri";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".mdx"] };
 "popup-history-with-tmux-and-fzf.mdx": {
 	id: "popup-history-with-tmux-and-fzf.mdx";
   slug: "popup-history-with-tmux-and-fzf";
