@@ -42,8 +42,6 @@ const { Content } = await category.render();
     <p>{category.data.desc}</p>
   </header>
 
-  <Content />
-
   <section class={clsx("px-4 py-12")}>
     <div class="mx-auto max-w-screen-2xl">
       <section
@@ -53,4 +51,12 @@ const { Content } = await category.render();
       </section>
     </div>
   </section>
+
+  <main class={clsx("bg-white mb-20 mt-32")}>
+    <article
+      class="prose mx-auto max-w-screen-md bg-white px-4 prose-a:text-blue-600 hover:prose-a:text-blue-500"
+    >
+      <Content />
+    </article>
+  </main>
 </Layout>

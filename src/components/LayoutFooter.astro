@@ -21,7 +21,7 @@ const categories = await getCollection("categories");
 <footer class="bg-white" aria-labelledby="footer-heading" id="menu">
   <h2 class="sr-only">Footer</h2>
   <div class="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-    <div class="gap-4 lg:grid lg:grid-cols-5 lg:gap-6">
+    <div class="gap-4 lg:grid lg:grid-cols-6 lg:gap-6">
       <div class="space-y-6 lg:col-span-2">
         <div>
           <a href="/" class="flex items-center">
@@ -63,7 +63,7 @@ const categories = await getCollection("categories");
         </div>
       </div>
 
-      <div class="mt-12 md:mt-0 lg:col-span-3">
+      <div class="mt-12 md:mt-0 lg:col-span-4">
         <section class="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
           {categories.map((category) => <Category category={category} />)}
         </section>
