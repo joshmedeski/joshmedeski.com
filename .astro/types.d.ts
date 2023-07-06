@@ -222,6 +222,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"abhishek-keshris-dev-workflow.mdx": {
+	id: "abhishek-keshris-dev-workflow.mdx";
+  slug: "abhishek-keshris-dev-workflow";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "blazing-fast-window-management-on-macos.mdx": {
 	id: "blazing-fast-window-management-on-macos.mdx";
   slug: "blazing-fast-window-management-on-macos";
