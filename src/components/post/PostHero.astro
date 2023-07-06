@@ -1,5 +1,5 @@
 ---
-import { categories, Category } from "../../models/Category.astro";
+import { getEntry } from "astro:content";
 import clsx from "clsx";
 
 import type { CollectionEntry } from "astro:content";
@@ -11,10 +11,11 @@ interface Props {
 const {
   post: {
     slug,
-    data: { categorySlug, heroImage, title, pubDate, description },
+    data: { category: postCategory, heroImage, title, pubDate, description },
   },
 } = Astro.props;
-const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
+
+const category = await getEntry(postCategory);
 ---
 
 <div class="bg-neutral-50">
@@ -30,13 +31,13 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
         <div
           class={clsx(
             "flex justify-between mb-2 font-medium tracking-wide",
-            cat.style?.desc
+            category.data.style.desc
           )}
         >
           <div class="flex text-sm">
-            <cat.icon class="mr-2 w-4" />
+            <!-- <cat.icon class="mr-2 w-4" /> -->
             <p class="mr-2 block">
-              {cat.title}
+              {category.data.title}
             </p>
             <time datetime={String(pubDate)}>
               {

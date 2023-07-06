@@ -2,6 +2,7 @@
 import clsx from "clsx";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
+import CategoryIcon from "../CategoryIcon.astro";
 
 interface Props {
   post: CollectionEntry<"posts">;
@@ -10,11 +11,11 @@ interface Props {
 const {
   post: {
     slug,
-    data: { categorySlug, heroImage, title, pubDate, description },
+    data: { category: postCategory, heroImage, title, pubDate, description },
   },
 } = Astro.props;
 
-const category = await getEntry("categories", categorySlug);
+const category = await getEntry(postCategory);
 ---
 
 <a
@@ -29,7 +30,7 @@ const category = await getEntry("categories", categorySlug);
           src={heroImage}
           alt={title}
           class="aspect-video w-full rounded-t-md"
-          style={{ backgroundColor: cat?.style?.themeColor }}
+          style={{ backgroundColor: category.data.style.themeColor }}
         />
       )
     }
@@ -42,19 +43,19 @@ const category = await getEntry("categories", categorySlug);
     )}
   >
     <div class="flex items-center">
-      <cat.icon class="mr-2 w-4" />
+      <CategoryIcon slug={category?.slug} class="mr-2 w-4" />
       <p class="mr-2 block">
-        {cat.title}
+        {category.data.title}
       </p>
     </div>
-    <time datetime={pubDate}>
+    <time datetime={pubDate.toISOString()}>
       {new Date(pubDate).toLocaleDateString("en-US", { dateStyle: "medium" })}
     </time>
   </div>
 
   <div class="flex flex-1 flex-col justify-end rounded-b-md px-2 py-4">
     <h3
-      class="mx-auto mb-1 mb-2 flex max-w-[90%] flex-1 flex-col justify-center text-center text-xl font-extrabold leading-none"
+      class="mx-auto mb-1 flex max-w-[90%] flex-1 flex-col justify-center text-center text-xl font-extrabold leading-none"
     >
       <span>{title}</span>
     </h3>

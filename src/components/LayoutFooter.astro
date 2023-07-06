@@ -1,25 +1,26 @@
 ---
 import { SITE_TITLE } from "../config";
-import { categories } from "../models/Category.astro";
 import Category from "./Category.astro";
 import HeaderLink from "./HeaderLink.astro";
 import PdeCta from "./cta/PdeCta";
 import GitHubIcon from "./icons/GitHubIcon.astro";
 import TwitterIcon from "./icons/TwitterIcon.astro";
 import YouTubeIcon from "./icons/YouTubeIcon.astro";
+import { getCollection } from "astro:content";
 
 const today = new Date();
 interface Props {
   hideCta?: boolean;
 }
 const { hideCta } = Astro.props;
+const categories = await getCollection("categories");
 ---
 
 {hideCta ? null : <PdeCta />}
 
 <footer class="bg-white" aria-labelledby="footer-heading" id="menu">
   <h2 class="sr-only">Footer</h2>
-  <div class="mx-auto max-w-screen-xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+  <div class="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <div class="gap-4 lg:grid lg:grid-cols-5 lg:gap-6">
       <div class="space-y-6 lg:col-span-2">
         <div>
@@ -49,13 +50,14 @@ const { hideCta } = Astro.props;
             <HeaderLink
               href="https://www.youtube.com/joshmedeski"
               target="_blank"
-              ><YouTubeIcon class="w-12" />
+            >
+              <YouTubeIcon class="w-12" />
             </HeaderLink>
             <HeaderLink href="https://twitter.com/joshmedeski" target="_blank">
               <TwitterIcon class="w-12" />
             </HeaderLink>
-            <HeaderLink href="https://github.com/joshmedeski" target="_blank"
-              ><GitHubIcon class="w-12" />
+            <HeaderLink href="https://github.com/joshmedeski" target="_blank">
+              <GitHubIcon class="w-12" />
             </HeaderLink>
           </div>
         </div>
@@ -63,19 +65,13 @@ const { hideCta } = Astro.props;
 
       <div class="mt-12 md:mt-0 lg:col-span-3">
         <section class="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
-          {
-            categories.map((cat) => (
-              <Category {...cat}>
-                <cat.icon />
-              </Category>
-            ))
-          }
+          {categories.map((category) => <Category category={category} />)}
         </section>
       </div>
     </div>
   </div>
   <div
-    class="mx-auto mt-10 mb-12 max-w-screen-xl border-t border-gray-200 pt-8 text-center"
+    class="mx-auto mb-12 mt-10 max-w-screen-xl border-t border-gray-200 pt-8 text-center"
   >
     <p class="text-base text-gray-400 xl:text-center">
       &copy; {today.getFullYear()}

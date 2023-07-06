@@ -1,8 +1,9 @@
 ---
 import clsx from "clsx";
-import { categories, Category } from "../../models/Category.astro";
 import Layout from "../Layout.astro";
+import { getEntry } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import CategoryIcon from "../CategoryIcon.astro";
 
 interface Props {
   post: CollectionEntry<"posts">;
@@ -16,39 +17,39 @@ const {
       pubDate,
       updatedDate,
       heroImage,
-      categorySlug,
+      category: postCategory,
       heroClasses,
       youtubeUrl,
     },
   },
 } = Astro.props;
 
-const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
+const category = await getEntry(postCategory);
 ---
 
 <Layout
   title={title}
   description={description}
   image={heroImage}
-  themeColor={cat.style?.themeColor}
+  themeColor={category.data.style.themeColor}
 >
   <header
-    style={`background-color: ${cat.style?.themeColor}`}
+    style={`background-color: ${category.data.style.themeColor}`}
     class={clsx(!heroImage && !youtubeUrl && "pb-4")}
   >
     <div class="mx-auto mb-10 max-w-screen-md px-4 pt-10 text-center">
-      <a href={`/categories/${cat.slug}`}>
-        <cat.icon class="mx-auto mb-4 w-10" />
+      <a href={`/categories/${category.slug}`}>
+        <CategoryIcon slug={category.slug} class="mx-auto mb-4 w-10" />
       </a>
       <h1 class="mb-2 text-2xl font-extrabold md:text-4xl">{title}</h1>
       <div
         class={clsx(
           "flex justify-center space-x-2 font-medium",
-          cat.style?.desc
+          category.data.style.desc
         )}
       >
-        <a href={`/categories/${cat.slug}`} class={clsx("mr-2 block")}>
-          {cat.title}
+        <a href={`/categories/${category.slug}`} class={clsx("mr-2 block")}>
+          {category.data.title}
         </a>
         {
           pubDate && (
