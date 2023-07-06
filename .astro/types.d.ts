@@ -199,9 +199,44 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"categories": {
+"conversations.mdx": {
+	id: "conversations.mdx";
+  slug: "conversations";
+  body: string;
+  collection: "categories";
+  data: InferEntrySchema<"categories">
+} & { render(): Render[".mdx"] };
+"development.mdx": {
+	id: "development.mdx";
+  slug: "development";
+  body: string;
+  collection: "categories";
+  data: InferEntrySchema<"categories">
+} & { render(): Render[".mdx"] };
 "dotfiles.mdx": {
 	id: "dotfiles.mdx";
   slug: "dotfiles";
+  body: string;
+  collection: "categories";
+  data: InferEntrySchema<"categories">
+} & { render(): Render[".mdx"] };
+"personal-development.mdx": {
+	id: "personal-development.mdx";
+  slug: "personal-development";
+  body: string;
+  collection: "categories";
+  data: InferEntrySchema<"categories">
+} & { render(): Render[".mdx"] };
+"productivity.mdx": {
+	id: "productivity.mdx";
+  slug: "productivity";
+  body: string;
+  collection: "categories";
+  data: InferEntrySchema<"categories">
+} & { render(): Render[".mdx"] };
+"tech.mdx": {
+	id: "tech.mdx";
+  slug: "tech";
   body: string;
   collection: "categories";
   data: InferEntrySchema<"categories">
