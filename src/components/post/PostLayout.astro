@@ -71,7 +71,7 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
 
     {
       (youtubeUrl || heroImage) && (
-        <div class="mx-auto mb-10 max-w-screen-sm">
+        <div class="z-40 mx-auto -mb-24 max-w-screen-sm">
           {youtubeUrl && (
             <div class="mb-4 rounded-md shadow-lg">
               <iframe
@@ -101,12 +101,7 @@ const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
     }
   </header>
 
-  <main
-    class={clsx(
-      "mb-20 mt-10 bg-white",
-      (heroImage || youtubeUrl) && "-mt-32 pt-36"
-    )}
-  >
+  <main class={clsx("bg-white mb-20 mt-32")}>
     <article
       class="prose mx-auto max-w-screen-md bg-white px-4 prose-a:text-blue-600 hover:prose-a:text-blue-500"
     >
