@@ -1,29 +1,36 @@
 ---
 import Layout from "../components/Layout.astro";
 import { getCollection } from "astro:content";
+import GuidesIcon from "../components/icons/GuidesIcon.astro";
 
-const guides = await getCollection("guides", ({ data: { draft } }) => !draft);
+const guides = await getCollection("guides");
 const sortedGuides = guides.sort(
   ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime()
 );
 ---
 
-<Layout title="Guides" themeColor="#f2f5f9">
-  <main>
-    <section class="bg-neutral-100 px-4 py-12">
-      <div class="mx-auto max-w-screen-xl">
-        <h1 class="mb-2 text-3xl font-bold">Guides</h1>
-        <section class="">
-          {
-            sortedGuides.map((guide) => (
-              <a href={`/guides/${guide.slug}`}>
-                <h2 class="mb-4 text-2xl font-bold">{guide.data.title}</h2>
-                <p>{guide.data.description}</p>
-              </a>
-            ))
-          }
-        </section>
-      </div>
-    </section>
-  </main>
+<Layout title="Guides" themeColor="#ffffff">
+  <header>
+    <div class="mx-auto mb-10 max-w-screen-md px-4 pt-10 text-center">
+      <GuidesIcon class="mx-auto mb-4 w-10" />
+      <h1 class="mb-2 text-2xl font-extrabold md:text-4xl">Guides</h1>
+    </div>
+
+    <main>
+      <section class="px-4 py-12">
+        <div class="mx-auto max-w-screen-xl">
+          <section class="">
+            {
+              sortedGuides.map((guide) => (
+                <a href={`/guides/${guide.slug}`}>
+                  <h2 class="mb-4 text-2xl font-bold">{guide.data.title}</h2>
+                  <p>{guide.data.description}</p>
+                </a>
+              ))
+            }
+          </section>
+        </div>
+      </section>
+    </main>
+  </header>
 </Layout>

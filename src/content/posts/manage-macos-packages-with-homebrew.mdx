@@ -9,7 +9,7 @@ category: "dotfiles"
 guide:
   ref: pde-intro
   position: 1
-draft: true
+draft: false
 ---
 
 [Homebrew](https://brew.sh/) is a package manager for macOS that allows users to easily install and manage software packages and libraries. It uses a command-line interface and a simple formula system to download and install packages from pre-configured sources, making it easy to keep software up to date and manage dependencies. To install Homebrew, open Terminal and run the following command:
@@ -27,13 +27,6 @@ brew install wget
 ## Adding a custom tap
 
 A Homebrew tap is a repository of additional formulae that are not included in the main Homebrew repository. Adding a custom Homebrew tap allows you to install software that is not available in the main repository. Here's how to add a custom Homebrew tap:
-
-```sh
-brew tap arl/arl # owner/tap
-brew install gitmux # formulae
-```
-
-Or, you can run combine the tap and install command by combining the owner tap and formulae.
 
 ```sh
 brew install arl/arl/gitmux # owner/tap/formulae

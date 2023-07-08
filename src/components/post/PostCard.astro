@@ -3,6 +3,7 @@ import clsx from "clsx";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 import CategoryIcon from "../CategoryIcon.astro";
+import GuidesIcon from "../icons/GuidesIcon.astro";
 
 interface Props {
   post: CollectionEntry<"posts">;
@@ -11,11 +12,21 @@ interface Props {
 const {
   post: {
     slug,
-    data: { category: postCategory, heroImage, title, pubDate, description },
+    data: {
+      category: postCategory,
+      heroImage,
+      title,
+      pubDate,
+      description,
+      guide: postGuide,
+    },
   },
 } = Astro.props;
 
 const category = await getEntry(postCategory);
+
+let guide: CollectionEntry<"guides"> | undefined;
+if (postGuide) guide = await getEntry(postGuide.ref);
 ---
 
 <a
@@ -48,6 +59,14 @@ const category = await getEntry(postCategory);
         {category.data.title}
       </p>
     </div>
+    {
+      guide && (
+        <div class="flex items-center">
+          <GuidesIcon class="mr-2 w-4" />
+          <p class="mr-2 block">{guide.data.title}</p>
+        </div>
+      )
+    }
     <time datetime={pubDate.toISOString()}>
       {new Date(pubDate).toLocaleDateString("en-US", { dateStyle: "medium" })}
     </time>

@@ -1,6 +1,7 @@
 ---
 import { SITE_TITLE } from "../config";
 import HeaderLink from "./HeaderLink.astro";
+import Wrapper from "./Wrapper.astro";
 import clsx from "clsx";
 
 export interface Props {
@@ -10,10 +11,8 @@ const props = Astro.props;
 ---
 
 <div style={`background-color: ${props.themeColor || "white"}`}>
-  <section class="mx-auto w-full max-w-screen-xl px-4">
-    <header
-      class={clsx("flex items-center justify-between py-2 place-items-start")}
-    >
+  <Wrapper>
+    <header class={clsx("flex items-center justify-between place-items-start")}>
       <h2 class="m-0">
         <a href="/" class="flex items-center">
           <img
@@ -39,5 +38,5 @@ const props = Astro.props;
         </nav>
       </div>
     </header>
-  </section>
+  </Wrapper>
 </div>
