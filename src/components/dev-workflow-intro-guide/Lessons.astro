@@ -1,30 +1,15 @@
 ---
-import type { Post } from "../../models/Post.astro";
+import { getCollection } from "astro:content";
 
-const foundationalLessons = [
-  await Astro.glob<Post>(
-    "../../pages/posts/manage-macos-packages-with-homebrew.mdx"
-  ),
-  await Astro.glob<Post>(
-    "../../pages/posts/setting-up-alacritty-for-a-fast-minimal-terminal-emulator.mdx"
-  ),
-  await Astro.glob<Post>(
-    "../../pages/posts/set-up-fish-the-user-friendly-interactive-shell.mdx"
-  ),
-  await Astro.glob<Post>(
-    "../../pages/posts/shell-customization-with-starship.mdx"
-  ),
-  await Astro.glob<Post>(
-    "../../pages/posts/manage-terminal-sessions-with-tmux.mdx"
-  ),
-  await Astro.glob<Post>(
-    "../../pages/posts/create-a-neovim-ide-with-lazyvim.mdx"
-  ),
-  await Astro.glob<Post>(
-    "../../pages/posts/quick-git-management-with-lazygit.mdx"
-  ),
-  await Astro.glob<Post>("../../pages/posts/manage-files-with-lf.mdx"),
-];
+interface Props {
+  guide: string;
+}
+
+const { guide } = Astro.props;
+const posts = await getCollection(
+  "posts",
+  (post) => !post.data.draft && guide === post.data.guide?.slug
+);
 ---
 
 <section class="scroll-mt-14 py-16 sm:scroll-mt-32 sm:py-20 lg:py-32">
@@ -50,7 +35,7 @@ const foundationalLessons = [
       class="grid grid-cols-1 gap-x-8 gap-y-10 [counter-reset:video] sm:grid-cols-2 lg:grid-cols-4"
     >
       {
-        foundationalLessons.map((lesson) => (
+        posts.map((post) => (
           <li class="[counter-increment:video]">
             <div
               class="relative flex h-44 items-center justify-center rounded-2xl px-4 shadow-lg"
@@ -65,7 +50,7 @@ const foundationalLessons = [
                   decoding="async"
                   style="color:transparent"
                   class="w-full"
-                  src={lesson[0].frontmatter.thumbnail}
+                  src={post.data.thumbnail}
                 />
               </div>
               <div class="bg-black/30 [@supports(backdrop-filter:blur(0))]:bg-white/10 absolute bottom-2 left-2 flex items-center rounded-lg px-1.5 py-0.5 text-sm text-white [@supports(backdrop-filter:blur(0))]:backdrop-blur">
@@ -86,11 +71,9 @@ const foundationalLessons = [
               </div>
             </div>
             <h3 class="mt-8 text-base font-medium tracking-tight text-slate-900 before:mb-2 before:block before:font-mono before:text-sm before:text-slate-500 before:content-[counter(video,decimal-leading-zero)]">
-              {lesson[0].frontmatter.title}
+              {post.data.title}
             </h3>
-            <p class="mt-2 text-sm text-slate-600">
-              {lesson[0].frontmatter.description}
-            </p>
+            <p class="mt-2 text-sm text-slate-600">{post.data.description}</p>
           </li>
         ))
       }

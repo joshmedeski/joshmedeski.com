@@ -242,6 +242,15 @@ declare module 'astro:content' {
   data: InferEntrySchema<"categories">
 } & { render(): Render[".mdx"] };
 };
+"guides": {
+"pde-intro.mdx": {
+	id: "pde-intro.mdx";
+  slug: "pde-intro";
+  body: string;
+  collection: "guides";
+  data: InferEntrySchema<"guides">
+} & { render(): Render[".mdx"] };
+};
 "posts": {
 "a-pretty-terminal-in-5-minutes.mdx": {
 	id: "a-pretty-terminal-in-5-minutes.mdx";
