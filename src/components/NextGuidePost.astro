@@ -36,7 +36,7 @@ if (nextPost?.data.category) {
 {
   nextPost && guide && category && (
     <section class="mx-auto w-full max-w-screen-md px-4 pb-24">
-      <h3 class="mb-4 text-center text-3xl font-extrabold">Next</h3>
+      <h3 class="mb-4 text-center text-3xl font-extrabold">Next Post</h3>
       <a
         href={`/posts/${nextPost.slug}`}
         class="flex items-center justify-between rounded-r-md no-underline shadow-md"
@@ -47,18 +47,13 @@ if (nextPost?.data.category) {
             <img
               src={nextPost.data.heroImage}
               alt={nextPost.data.title}
-              class="aspect-video max-w-[300px] rounded-l-md"
+              class="aspect-video max-w-[350px] rounded-l-md"
             />
           )}
         </div>
 
         <div class="p-6">
-          <div
-            class={clsx(
-              "flex flex-wrap justify-between text-sm font-medium tracking-wide",
-              "px-2 py-1 text-[rgba(0,0,0,0.7)]"
-            )}
-          >
+          <div class="pb-1 text-sm font-medium tracking-wide text-[rgba(0,0,0,0.7)]">
             <div class="flex items-center">
               <CategoryIcon slug={category?.slug} class="mr-2 w-4" />
               <p class="mr-2 block">{category.data.title}</p>
