@@ -7,7 +7,6 @@ const postsCollection = defineCollection({
     description: z.string(),
     pubDate: z.date(),
     category: reference("categories"),
-    guide: reference("guides").optional(),
     heroImage: z.string(),
     draft: z.boolean().optional(),
     titleClasses: z.string().optional(),
@@ -15,6 +14,13 @@ const postsCollection = defineCollection({
     youtubeUrl: z.string().optional(),
     heroClasses: z.string().optional(),
     thumbnail: z.string().optional(),
+
+    guide: z
+      .object({
+        ref: reference("guides"),
+        position: z.number(),
+      })
+      .optional(),
   }),
 });
 

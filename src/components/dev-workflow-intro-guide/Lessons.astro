@@ -1,15 +1,50 @@
 ---
-import { getCollection } from "astro:content";
+import { CollectionEntry, getCollection } from "astro:content";
 
 interface Props {
   guide: string;
 }
 
+function validateGuidePostsPositions(posts: CollectionEntry<"posts">[]) {
+  const postPositions = posts
+    .map((post) => post.data.guide?.position)
+    .filter((pos): pos is number => pos !== undefined);
+
+  postPositions.sort((a, b) => a - b);
+
+  // Check for duplicates
+  for (let i = 1; i < postPositions.length; i++) {
+    if (postPositions[i] === postPositions[i - 1]) {
+      throw new Error(`Duplicate post position ${postPositions[i - 1]} found`);
+    }
+  }
+
+  // Check for missing numbers
+  for (let i = 1; i < postPositions.length; i++) {
+    if (postPositions[i] !== postPositions[i - 1] + 1) {
+      throw new Error(
+        `Position ${postPositions[i - 1] + 1} expected but missing`
+      );
+    }
+  }
+
+  return true;
+}
+
 const { guide } = Astro.props;
 const posts = await getCollection(
   "posts",
-  (post) => !post.data.draft && guide === post.data.guide?.slug
-);
+  (post) => post.data.guide && guide === post.data.guide.ref.slug
+).then((posts) => {
+  validateGuidePostsPositions(posts);
+  return posts.sort((a, b) => {
+    if (!a.data.guide)
+      throw new Error(`Post ${a.data.title} is missing the guide`);
+    if (!b.data.guide)
+      throw new Error(`Post ${b.data.title} is missing the guide`);
+    return a.data.guide.position - b.data.guide.position;
+  });
+});
 ---
 
 <section class="scroll-mt-14 py-16 sm:scroll-mt-32 sm:py-20 lg:py-32">
@@ -37,43 +72,45 @@ const posts = await getCollection(
       {
         posts.map((post) => (
           <li class="[counter-increment:video]">
-            <div
-              class="relative flex h-44 items-center justify-center rounded-2xl px-4 shadow-lg"
-              style="background-image:conic-gradient(from -49.8deg at 50% 50%, #7331FF 0deg, #00A3FF 59.07deg, #4E51FF 185.61deg, #39DBFF 284.23deg, #B84FF1 329.41deg, #7331FF 360deg)"
-            >
-              <div class="flex overflow-hidden rounded shadow-sm">
-                <img
-                  alt=""
-                  loading="lazy"
-                  width="200"
-                  height="108"
-                  decoding="async"
-                  style="color:transparent"
-                  class="w-full"
-                  src={post.data.thumbnail}
-                />
+            <a href={`/posts/${post.slug}`}>
+              <div
+                class="relative flex h-44 items-center justify-center rounded-2xl px-4 shadow-lg"
+                style="background-image:conic-gradient(from -49.8deg at 50% 50%, #7331FF 0deg, #00A3FF 59.07deg, #4E51FF 185.61deg, #39DBFF 284.23deg, #B84FF1 329.41deg, #7331FF 360deg)"
+              >
+                <div class="flex overflow-hidden rounded shadow-sm">
+                  <img
+                    alt=""
+                    loading="lazy"
+                    width="200"
+                    height="108"
+                    decoding="async"
+                    style="color:transparent"
+                    class="w-full"
+                    src={post.data.thumbnail}
+                  />
+                </div>
+                <div class="bg-black/30 [@supports(backdrop-filter:blur(0))]:bg-white/10 absolute bottom-2 left-2 flex items-center rounded-lg px-1.5 py-0.5 text-sm text-white [@supports(backdrop-filter:blur(0))]:backdrop-blur">
+                  <svg
+                    aria-hidden="true"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    viewBox="0 0 16 16"
+                    class="h-4 w-4 fill-current stroke-current"
+                  >
+                    <path d="M6.75 10.25v-4.5L10.25 8l-3.5 2.25Z" />
+                    <circle cx="8" cy="8" r="6.25" fill="none" />
+                  </svg>
+                  <time datetime="16m 54s" class="ml-2">
+                    TBD
+                  </time>
+                </div>
               </div>
-              <div class="bg-black/30 [@supports(backdrop-filter:blur(0))]:bg-white/10 absolute bottom-2 left-2 flex items-center rounded-lg px-1.5 py-0.5 text-sm text-white [@supports(backdrop-filter:blur(0))]:backdrop-blur">
-                <svg
-                  aria-hidden="true"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  viewBox="0 0 16 16"
-                  class="h-4 w-4 fill-current stroke-current"
-                >
-                  <path d="M6.75 10.25v-4.5L10.25 8l-3.5 2.25Z" />
-                  <circle cx="8" cy="8" r="6.25" fill="none" />
-                </svg>
-                <time datetime="16m 54s" class="ml-2">
-                  TBD
-                </time>
-              </div>
-            </div>
-            <h3 class="mt-8 text-base font-medium tracking-tight text-slate-900 before:mb-2 before:block before:font-mono before:text-sm before:text-slate-500 before:content-[counter(video,decimal-leading-zero)]">
-              {post.data.title}
-            </h3>
-            <p class="mt-2 text-sm text-slate-600">{post.data.description}</p>
+              <h3 class="mt-8 text-base font-medium tracking-tight text-slate-900 before:mb-2 before:block before:font-mono before:text-sm before:text-slate-500 before:content-[counter(video,decimal-leading-zero)]">
+                {post.data.title}
+              </h3>
+              <p class="mt-2 text-sm text-slate-600">{post.data.description}</p>
+            </a>
           </li>
         ))
       }

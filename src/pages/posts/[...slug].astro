@@ -2,17 +2,21 @@
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import PostLayout from "../../components/post/PostLayout.astro";
+import NextGuidePost from "~/components/NextGuidePost.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  return posts.map((post) => {
+    return {
+      params: { slug: post.slug },
+      props: { post },
+    };
+  });
 }
 
 interface Props {
   post: CollectionEntry<"posts">;
+  nextPost?: CollectionEntry<"posts">;
 }
 
 const { post } = Astro.props;
@@ -21,4 +25,5 @@ const { Content } = await post.render();
 
 <PostLayout post={post}>
   <Content />
+  <NextGuidePost currentPostGuide={post.data.guide} slot="after-post" />
 </PostLayout>

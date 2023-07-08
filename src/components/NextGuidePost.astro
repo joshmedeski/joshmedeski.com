@@ -1,0 +1,73 @@
+---
+import { CollectionEntry, getCollection, getEntry } from "astro:content";
+
+interface Props {
+  currentPostGuide: CollectionEntry<"posts">["data"]["guide"];
+}
+const { currentPostGuide } = Astro.props;
+
+let nextPost: CollectionEntry<"posts"> | undefined;
+if (currentPostGuide) {
+  // TODO: lookup current next position
+  const guidePosts = await getCollection(
+    "posts",
+    (post) =>
+      post.data.guide && currentPostGuide.ref.slug === post.data.guide.ref.slug
+  );
+  nextPost = guidePosts.find(
+    ({ data }) =>
+      data.guide && data.guide.position === currentPostGuide.position + 1
+  );
+}
+
+let guide: CollectionEntry<"guides"> | undefined;
+if (nextPost?.data.guide?.ref) {
+  guide = await getEntry("guides", nextPost.data.guide.ref.slug);
+}
+---
+
+{
+  nextPost && guide && (
+    <section class="mx-auto w-full max-w-screen-xl px-4 pb-24">
+      <a
+        href={`/posts/${nextPost.slug}`}
+        class="flex items-center justify-center no-underline"
+      >
+        <div>
+          {nextPost.data.heroImage && (
+            <img
+              src={nextPost.data.heroImage}
+              alt={nextPost.data.title}
+              class="aspect-video max-w-[400px] rounded-md"
+            />
+          )}
+        </div>
+
+        <div class="p-4">
+          <span class="inline-flex items-center gap-x-1.5 rounded-md bg-cta-100 px-2 py-1 text-lg font-medium text-cta-700">
+            Next
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="h-6 w-6 fill-cta-500"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                fill="currentColor"
+                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+              />
+            </svg>
+          </span>
+          <h3 class="mb-1 mt-2 text-3xl font-extrabold leading-none">
+            <span>{nextPost.data.title}</span>
+          </h3>
+          <p class="text-slate-500">{nextPost.data.description}</p>
+        </div>
+      </a>
+    </section>
+  )
+}

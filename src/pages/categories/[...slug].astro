@@ -23,6 +23,11 @@ const { category } = Astro.props;
 const posts = await getCollection(
   "posts",
   (post) => !post.data.draft && category.slug === post.data.category.slug
+).then((posts) =>
+  posts.sort(
+    (a, b) =>
+      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+  )
 );
 const { Content } = await category.render();
 ---
