@@ -1,7 +1,8 @@
 ---
 import Layout from "../components/Layout.astro";
 import { getCollection } from "astro:content";
-import GuidesIcon from "../components/icons/GuidesIcon.astro";
+import Wrapper from "~/components/Wrapper.astro";
+import PageTitle from "~/components/PageTitle.astro";
 
 const guides = await getCollection("guides");
 const sortedGuides = guides.sort(
@@ -10,12 +11,8 @@ const sortedGuides = guides.sort(
 ---
 
 <Layout title="Guides" themeColor="#ffffff">
-  <header>
-    <div class="mx-auto mb-10 max-w-screen-md px-4 pt-10 text-center">
-      <GuidesIcon class="mx-auto mb-4 w-10" />
-      <h1 class="mb-2 text-2xl font-extrabold md:text-4xl">Guides</h1>
-    </div>
-
+  <Wrapper>
+    <PageTitle>Guides</PageTitle>
     <main>
       <section class="px-4 py-12">
         <div class="mx-auto max-w-screen-xl">
@@ -32,5 +29,5 @@ const sortedGuides = guides.sort(
         </div>
       </section>
     </main>
-  </header>
+  </Wrapper>
 </Layout>

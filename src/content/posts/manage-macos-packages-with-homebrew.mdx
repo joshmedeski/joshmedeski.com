@@ -3,6 +3,7 @@ title: Manage macOS packages with Homebrew
 pubDate: 2023-06-26T12:00:00.000Z
 # youtubeUrl: https://www.youtube.com/embed/BLp61-Lq0kQ
 heroImage: "/images/posts/manage-macos-packages-with-homebrew.jpeg"
+duration: "5:00"
 thumbnail: "/images/posts/manage-macos-packages-with-homebrew-thumb.jpeg"
 description: "Homebrew is a package manager for macOS that allows users to easily install and manage packages and libraries."
 category: "dotfiles"
@@ -24,6 +25,25 @@ This will download and run the Homebrew installation script. Once installed, you
 brew install wget
 ```
 
+If you're unsure of the name of the package, or if it is available from homebrew, you can search for it using `brew search <package>`, including applications like Goole Chrome.
+
+```sh
+brew search chrome
+# returns the following results
+==> Formulae
+chrome-cli   chrome-export    chroma     rome  chrony
+==> Casks
+chrome-devtools    chromedriver      epichrome   mkchromecast
+chrome-remote-desktop-host      chromium     google-chrome
+
+```
+
+`google-chrome` is listed under the `Casks` section, which means it is a graphical application. To install it, you run the install command with the cask flag:
+
+```sh
+brew install --cask google-chrome
+```
+
 ## Adding a custom tap
 
 A Homebrew tap is a repository of additional formulae that are not included in the main Homebrew repository. Adding a custom Homebrew tap allows you to install software that is not available in the main repository. Here's how to add a custom Homebrew tap:
@@ -32,7 +52,7 @@ A Homebrew tap is a repository of additional formulae that are not included in t
 brew install arl/arl/gitmux # owner/tap/formulae
 ```
 
-What is gitmux? Check out [Git in your tmux status bar with gitmux](/posts/git-in-your-tmux-status-bar-with-gitmux).
+You can also create your own tap to add homebrew support to your favorite packages and applications.
 
 ## Keeping Homebrew up-to-date
 
@@ -52,21 +72,23 @@ brew update
 OUTDATED=$(brew outdated)
 if [[ -n "$OUTDATED" ]]; then
   echo $OUTDATED
-	read -rp "Upgrade the listed above (y/N)? " UPGRADE
-	if [[ "$UPGRADE" = "y" ]]; then
-		brew upgrade
-		brew cleanup --prune=all
-		brew doctor
-	else
-		echo "Upgrading brew packages cancelled."
-	fi
+  read -rp "Upgrade the listed above (y/N)? " UPGRADE
+  if [[ "$UPGRADE" = "y" ]]; then
+    brew upgrade
+    brew cleanup --prune=all
+    brew doctor
+  else
+    echo "Upgrading brew packages cancelled."
+  fi
 else
-	echo "No brew packages need upgraded at this time."
+  echo "No brew packages need upgraded at this time."
 fi
 ```
 
-Want to make turn this into a glamorous shell script? Check out [Making Glamorous Shell Scripts with Gum](/posts/making-glamorous-shell-scripts-with-gum)
+You can save this to a file called `bubu` and make it executable with `chmod +x bubu`. Then you can run it with `./bubu`. Mine is in a `~/.config/bin` directory which I include in my path. This allows me to run it from anywhere.
 
----
+I run the script a few times a week to ensure I have the latest versions of my favorite packages and applications which includes bug fixes, security updates, and new features. But be careful, if there are breaking changes to a package, you may need to update your configuration to support the new version. You can visit the package's release notes to see what has changed.
+
+## Summary
 
 In summary, Homebrew is a package manager for macOS that simplifies the installation and management of software packages and libraries. It uses a command-line interface and a simple formula system to download and install packages from pre-configured sources using `brew install`, making it easy to keep software up-to-date and manage dependencies. To add a custom tap, you can use the `brew tap` command to add a repository of additional formulae that are not included in the main Homebrew repository. To keep Homebrew up-to-date, you can use `brew update`, `brew outdated`, `brew upgrade`, `brew cleanup`, and `brew doctor` commands. I also showed you a simple `bubu` script that automates these commands for an easy way to stay up-to-date.

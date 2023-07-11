@@ -49,9 +49,7 @@ const { Content } = await category.render();
 
   <section class={clsx("px-4 py-12")}>
     <div class="mx-auto max-w-screen-2xl">
-      <section
-        class="grid gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 lg:grid-cols-4"
-      >
+      <section class="grid gap-4 sm:grid-cols-2 sm:gap-8">
         {posts.map((post) => <PostCard post={post} />)}
       </section>
     </div>

@@ -1,7 +1,9 @@
 ---
 import Layout from "../components/Layout.astro";
 import PostCard from "../components/post/PostCard.astro";
+import PageTitle from "../components/PageTitle.astro";
 import { getCollection } from "astro:content";
+import Wrapper from "~/components/Wrapper.astro";
 
 const allPosts = await getCollection("posts", ({ data: { draft } }) => !draft);
 const sortedPosts = allPosts.sort(
@@ -9,17 +11,11 @@ const sortedPosts = allPosts.sort(
 );
 ---
 
-<Layout title="Posts" themeColor="#f2f5f9">
-  <main>
-    <section class="bg-neutral-100 px-4 py-12">
-      <div class="mx-auto max-w-screen-xl">
-        <h2 class="mb-4 text-3xl font-bold">All Posts</h2>
-        <section
-          class="grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 lg:grid-cols-4"
-        >
-          {sortedPosts.map((post) => <PostCard post={post} />)}
-        </section>
-      </div>
+<Layout title="Posts">
+  <Wrapper>
+    <PageTitle>Posts</PageTitle>
+    <section class="mb-32 grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8">
+      {sortedPosts.map((post) => <PostCard post={post} />)}
     </section>
-  </main>
+  </Wrapper>
 </Layout>

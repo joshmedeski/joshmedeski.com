@@ -4,7 +4,7 @@ pubDate: 2023-06-26T12:00:00.000Z
 # youtubeUrl: https://www.youtube.com/embed/G0pmpc9JAI4
 heroImage: "/images/posts/get-started-with-fish-the-smart-and-user-friendly-shell.jpeg"
 thumbnail: "/images/posts/get-started-with-fish-the-smart-and-user-friendly-shell-thumb.jpeg"
-description: "Fish is a unix shell designed to be user-friendly and interactive with a rich set of features."
+description: Fish (Friendly Interactive SHell) is a Unix shell designed to be user-friendly and interactive. It features syntax highlighting, autosuggestions
 category: dotfiles
 guide:
   ref: pde-intro
@@ -42,7 +42,7 @@ sudo vi /etc/shells
 
 Enter your user password to open the file then add the fish shell's path as an new line in the file and save it.
 
-```sh
+```sh title="/etc/shells"
 # List of acceptable shells for chpass(1).
 # Ftpd will not allow users to connect who are not using
 # one of these shells.
@@ -62,7 +62,9 @@ If you're unfamiliar with `vi`, I recommend running `vimtutor` in your terminal 
 Now that you've added fish as a valid login shell for macOS, you can run the `chsh` (change shell) command to change the default login shell.
 
 ```sh
-chsh -s /opt/homebrew/bin/fish # use output from `which fish`
+cd ~
+basename $(pwd) | pbcopy
+chsh -s /opt/homebrew/bin/fish $(pbpaste)
 ```
 
 You may be prompted, again, to enter your user password and when the command is completed your login shell is now switched to fish, congrats! Now, close and reopen the terminal window for the changes to take effect.
@@ -77,22 +79,33 @@ mkdir -p ~/.config/fish && touch ~/.config/fish/config.fish
 
 This command first creates the `~/.config/fish` directory with the `-p` option, which creates any parent directories that do not exist. Then it creates the `config.fish` file inside the `~/.config/fish` directory using the `touch` command. Note: all of fish's configuration files are stored in `~/.config/fish` more of which will explore later.
 
+### Configure homebrew
+
+I highly recommend you [Manage macOS packages with Homebrew](/posts/manage-macos-packages-with-homebrew). Add the following eval code to your config file to configure homebrew with the fish shell.
+
+```fish title="~/.config/fish/config.fish"
+eval (/opt/homebrew/bin/brew shellenv)
+```
+
+**Note:** Evaluating a command in the shell is typically done with `$(cmd)` but fish uses `(/cmd)` instead, dropping in the `$`. Some developers I've talked have chosen not to use fish because of the subtle syntax differences from more traditional shells, but I think it's worth it.
+
 ### Add directories to `PATH`
 
 In fish, the `fish_add_path` function is used to add directories to the `PATH` environment variable. Adding directories to your system's `PATH` environment variable allows you to run programs located in those directories from anywhere on your system without specifying the full path. By doing so, you extend the list of directories that the shell searches for executables, making it more convenient to run programs and execute commands.
 
 To add support for Homebrew executables to the fish shell, add the following lines to your `~/.config.fish` file.
 
-```fish
-fish_add_path /opt/homebrew/bin
-fish_add_path /opt/homebrew/sbin
+```fish title="~/.config/fish/config.fish"
+fish_add_path ~/.config/bin
 ```
+
+I recommend creating a `~/.config/bin` directory to store any custom scripts you make come up to improve your workflow or automate tasks.
 
 ### Setting environment variables
 
 In the Fish shell, the `set` command is used to create and modify shell variables. Shell variables are used to store values that can be referenced and reused throughout a shell session or script. Here are some common variables that are helpful.
 
-```fish
+```fish title="~/.config/fish/config.fish"
 set -U fish_greeting # disable fish greeting
 set -U fish_key_bindings fish_vi_key_bindings
 ```
@@ -102,13 +115,30 @@ The `-U` flag is used with the `set` command to create or modify a universal var
 The `fish_greeting` variable is used to customize the greeting message that is displayed when a new shell session is started. By default, the greeting message includes the Fish version number and a welcome message. Since I am constantly spinning up new shells in my development workflow, I prefer to disable the fish greeting by setting it with not value.
 
 The `fish_vi_key_bindings` variable allows you to hit escape while writing a command in fish to switch to a vi-mode to easily manipulate your command before running it. Just like vi, you can hit `i` to get back to insert mode.
-
+There are many other variables you can set to customize your shell, check out [the fish documentation](https://fishshell.com/docs/current/index.html#variables) for more information.
 The next most common variable to change is the default editor for your shell. This is set with the `EDITOR` variable.
 
-```fish
+```fish title="~/.config/fish/config.fish"
 set -Ux EDITOR nvim
 ```
 
 Note the `-x` flag is used with the `set` command to export a variable as an environment variable. When a variable is exported, it becomes available to child processes and can be accessed by programs and utilities that use environment variables. This is helpful as you extend your development environment with other tools that can generate sub processes
 
-The
+## Plugins
+
+There is a large community of plugins for the fish shell. I recommend using [fisher](https://github.com/jorgebucaran/fisher) to manage them.
+
+```sh
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+```
+
+A great starter plugin for fish is [sponge](https://github.com/meaningful-ooo/sponge), which cleans your fish history from typos automatically. It can be installed with the fisher command.
+
+```sh
+fisher install meaningful-ooo/sponge
+```
+
+You'll notice two things.
+
+1. A `~/.config/fish/fish_plugins` file was created and added sponge as a plugin. This is how fisher manages plugins.
+2. A `~/.config/fish/functions` directory was created and multiple `_sponge_*.fish` files were added to it. This is the plugin code which fish will automatically read to extend the shell. This folder will contain more files as you add more plugins, you can even create your own!

@@ -7,6 +7,7 @@ import GitHubIcon from "./icons/GitHubIcon.astro";
 import TwitterIcon from "./icons/TwitterIcon.astro";
 import YouTubeIcon from "./icons/YouTubeIcon.astro";
 import { getCollection } from "astro:content";
+import Wrapper from "./Wrapper.astro";
 
 const today = new Date();
 interface Props {
@@ -18,9 +19,9 @@ const categories = await getCollection("categories");
 
 {hideCta ? null : <PdeCta />}
 
-<footer class="bg-white" aria-labelledby="footer-heading" id="menu">
+<footer class="bg-white pt-16" aria-labelledby="footer-heading" id="menu">
   <h2 class="sr-only">Footer</h2>
-  <div class="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+  <Wrapper>
     <div class="gap-4 lg:grid lg:grid-cols-6 lg:gap-6">
       <div class="space-y-6 lg:col-span-2">
         <div>
@@ -69,13 +70,13 @@ const categories = await getCollection("categories");
         </section>
       </div>
     </div>
-  </div>
-  <div
-    class="mx-auto mb-12 mt-10 max-w-screen-xl border-t border-gray-200 pt-8 text-center"
-  >
-    <p class="text-base text-gray-400 xl:text-center">
-      &copy; {today.getFullYear()}
-      {SITE_TITLE}. All rights reserved.
-    </p>
-  </div>
+    <div
+      class="mx-auto mb-12 mt-10 max-w-screen-xl border-t border-gray-200 pt-8 text-center"
+    >
+      <p class="text-base text-gray-400 xl:text-center">
+        &copy; {today.getFullYear()}
+        {SITE_TITLE}. All rights reserved.
+      </p>
+    </div>
+  </Wrapper>
 </footer>

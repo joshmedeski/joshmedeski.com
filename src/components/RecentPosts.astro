@@ -1,27 +1,24 @@
 ---
 import PostCard from "./post/PostCard.astro";
-import PostHero from "./post/PostHero.astro";
 import { getCollection } from "astro:content";
+import Wrapper from "./Wrapper.astro";
+import PageTitle from "./PageTitle.astro";
 
 const allPosts = await getCollection("posts", ({ data: { draft } }) => !draft);
 const sortedPosts = allPosts.sort(
   ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime()
 );
-const recentPosts = sortedPosts.slice(0, 5);
+const recentPosts = sortedPosts.slice(0, 4);
 ---
 
-<PostHero post={recentPosts[0]} />
-
-<section class="py-12">
-  <div class="mx-auto max-w-screen-xl px-4">
-    <section
-      class="grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 lg:grid-cols-4"
-    >
-      {
-        recentPosts
-          .slice(1, recentPosts.length)
-          .map((post) => <PostCard post={post} />)
-      }
-    </section>
-  </div>
-</section>
+<Wrapper>
+  <PageTitle>Recent Posts</PageTitle>
+  <section class="grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8">
+    {recentPosts.map((post) => <PostCard post={post} />)}
+  </section>
+  <a
+    href="/posts"
+    class="mb-24 mt-8 block text-center text-xl text-primary-500 underline"
+    >View all posts</a
+  >
+</Wrapper>

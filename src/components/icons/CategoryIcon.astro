@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from "astro:content";
+import {
+  ConversationsIcon,
+  DevelopmentIcon,
+  DotfilesIcon,
+  PersonalDevelopmentIcon,
+  ProductivityIcon,
+  UsesIcon,
+} from "./index.astro";
+
+interface Props {
+  slug: CollectionEntry<"categories">["slug"];
+  class?: string;
+}
+
+const { slug, class: className } = Astro.props;
+---
+
+{slug === "conversations" && <ConversationsIcon class={className} />}
+{slug === "development" && <DevelopmentIcon class={className} />}
+{slug === "dotfiles" && <DotfilesIcon class={className} />}
+{
+  slug === "personal-development" && (
+    <PersonalDevelopmentIcon class={className} />
+  )
+}
+{slug === "productivity" && <ProductivityIcon class={className} />}
+{slug === "tech" && <UsesIcon class={className} />}

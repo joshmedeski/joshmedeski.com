@@ -1,119 +1,73 @@
 ---
-import clsx from "clsx";
-import Layout from "../Layout.astro";
-import { getEntry } from "astro:content";
 import type { CollectionEntry } from "astro:content";
-import CategoryIcon from "../CategoryIcon.astro";
+import { getEntry } from "astro:content";
+import Layout from "../Layout.astro";
 import Wrapper from "../Wrapper.astro";
+import PostMeta from "./PostMeta.astro";
 
 interface Props {
   post: CollectionEntry<"posts">;
 }
 
-const {
-  post: {
-    data: {
-      title,
-      description,
-      pubDate,
-      updatedDate,
-      heroImage,
-      category: postCategory,
-      heroClasses,
-      youtubeUrl,
-    },
-  },
-} = Astro.props;
-
-const category = await getEntry(postCategory);
+const { post } = Astro.props;
+const category = await getEntry(post.data.category);
 ---
 
 <Layout
-  title={title}
-  description={description}
-  image={heroImage}
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.heroImage}
   themeColor={category.data.style.themeColor}
 >
-  <section
-    class="pt-[350px]"
+  <div
+    class="mb-[20px] pt-[350px]"
     style={`background-color: ${category.data.style.themeColor}`}
   >
-  </section>
-  <section class="mt-[-300px]">
+  </div>
+  <section class="-mt-[300px]">
     <Wrapper>
-      <section class="mb-20 flex flex-row-reverse">
-        <div class="relative w-full">
-          <div class="sticky top-4 z-40 mb-6 ml-6">
+      <section class="mb-20 md:flex md:flex-row-reverse">
+        <div class="relative flex-auto">
+          <div class="top-4 z-40 w-full md:sticky">
             {
-              youtubeUrl && (
-                <div class="mb-4 rounded-md shadow-lg">
+              post.data.youtubeUrl ? (
+                <div class="rounded-xl shadow-lg">
                   <iframe
                     width="100%"
                     height="100%"
-                    class="aspect-video w-full rounded-md bg-black shadow-lg"
-                    src={youtubeUrl}
+                    class="aspect-video w-full rounded-xl bg-black shadow-lg"
+                    src={post.data.youtubeUrl}
                     title="YouTube video player"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                   />
                 </div>
-              )
-            }
-            {
-              !youtubeUrl && (
+              ) : (
                 <img
                   class:list={[
-                    heroClasses,
-                    "bg-black w-full rounded-md shadow-lg aspect-video",
+                    post.data.heroClasses,
+                    "bg-black w-full rounded-xl shadow-lg aspect-video",
                   ]}
-                  src={heroImage}
-                  alt={`${title} hero`}
+                  src={post.data.heroImage}
+                  alt={`${post.data.title} hero`}
                 />
               )
             }
           </div>
         </div>
 
-        <article class="w-full">
-          <h1 class="mb-3 mt-10 text-2xl font-extrabold md:text-4xl">
-            {title}
+        <article class="max-w-prose flex-none">
+          <h1 class="mb-6 mr-6 mt-10 text-2xl font-extrabold md:text-4xl">
+            {post.data.title}
           </h1>
 
-          <section class="mb-6">
-            <div
-              class={clsx(
-                "flex space-x-2 font-medium",
-                category.data.style.desc
-              )}
-            >
-              <a
-                href={`/categories/${category.slug}`}
-                class={clsx("mr-2 block")}
-              >
-                {category.data.title}
-              </a>
-              {
-                pubDate && (
-                  <time>
-                    {new Date(pubDate).toLocaleDateString("en-US", {
-                      dateStyle: "long",
-                    })}
-                  </time>
-                )
-              }
-              {
-                updatedDate && (
-                  <div class="text-neutral-400">
-                    Last updated on <time>{updatedDate}</time>
-                  </div>
-                )
-              }
-            </div>
-          </section>
+          <div class="mb-4 mr-6">
+            <PostMeta post={post} />
+          </div>
 
           <main
-            class="prose -ml-6 rounded-t-lg bg-white px-6 pt-5 prose-a:text-blue-600 hover:prose-a:text-blue-500"
+            class="prose -ml-6 max-w-full rounded-t-lg bg-white px-6 pt-5 prose-a:text-blue-600 hover:prose-a:text-blue-500"
           >
             <slot />
           </main>
