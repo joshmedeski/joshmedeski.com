@@ -1,24 +1,23 @@
 ---
 import Layout from "../components/Layout.astro";
-import PostCard from "../components/post/PostCard.astro";
 import { getCollection } from "astro:content";
-import Wrapper from "~/components/Wrapper.astro";
-import PageTitle from "~/components/PageTitle.astro";
+import Wrapper from "../components/Wrapper.astro";
+import PageTitle from "../components/PageTitle.astro";
+import Posts from "../components/Posts.astro";
 
-const allPostsWithVideos = await getCollection(
+const posts = await getCollection(
   "posts",
   ({ data: { draft, youtubeUrl } }) => !draft && !!youtubeUrl
-);
-const posts = allPostsWithVideos.sort(
-  ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime()
+).then((p) =>
+  p.sort(
+    ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime()
+  )
 );
 ---
 
 <Layout title="Videos">
   <Wrapper>
     <PageTitle>Videos</PageTitle>
-    <section class="grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8">
-      {posts.map((post) => <PostCard post={post} />)}
-    </section>
+    <Posts posts={posts} />
   </Wrapper>
 </Layout>

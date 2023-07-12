@@ -1,21 +1,34 @@
 ---
+import Wrapper from "~/components/Wrapper.astro";
 import Layout from "../components/Layout.astro";
 import RecentPosts from "../components/RecentPosts.astro";
-import PostCard from "./post/PostCard.astro";
-import { getCollection } from "astro:content";
-
-const allPosts = await getCollection("posts", ({ data: { draft } }) => !draft);
-const sortedPosts = allPosts.sort(
-  ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime()
-);
-const latestPost = sortedPosts[0];
-const recentPosts = sortedPosts.slice(0, 5);
 ---
 
 <Layout
-  themeColor="#ffffff"
   title="Home"
   description="Empowering developers and creatives to build and grow with intention, by sharing insights and tools."
 >
+  <Wrapper>
+    <section
+      class="flex aspect-video flex-col justify-center rounded-3xl bg-cover bg-no-repeat shadow-xl"
+      style={{
+        backgroundImage: `url(/images/guides/dev-workflow-intro/dev-workflow-intro-hero.png)`,
+      }}
+    >
+      <!-- <div -->
+      <!--   class="mx-16 bg-opacity-75 bg-gradient-to-r from-transparent via-white to-transparent px-4 py-6" -->
+      <!-- > -->
+      <div>
+        <h1
+          class="row-start-3 text-center text-9xl font-extrabold tracking-wide shadow-white drop-shadow"
+        >
+          Dev Workflow Intro
+        </h1>
+        <p class="row-start-4 text-center text-6xl font-bold tracking-wide">
+          By Josh Medeski
+        </p>
+      </div>
+    </section>
+  </Wrapper>
   <RecentPosts />
 </Layout>

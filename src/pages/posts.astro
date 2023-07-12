@@ -1,21 +1,23 @@
 ---
-import Layout from "../components/Layout.astro";
-import PostCard from "../components/post/PostCard.astro";
-import PageTitle from "../components/PageTitle.astro";
 import { getCollection } from "astro:content";
-import Wrapper from "~/components/Wrapper.astro";
+import Layout from "../components/Layout.astro";
+import PageTitle from "../components/PageTitle.astro";
+import Wrapper from "../components/Wrapper.astro";
+import Posts from "../components/Posts.astro";
 
-const allPosts = await getCollection("posts", ({ data: { draft } }) => !draft);
-const sortedPosts = allPosts.sort(
-  ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime()
+const posts = await getCollection(
+  "posts",
+  ({ data: { draft } }) => !draft
+).then((p) =>
+  p.sort(
+    ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime()
+  )
 );
 ---
 
 <Layout title="Posts">
   <Wrapper>
     <PageTitle>Posts</PageTitle>
-    <section class="mb-32 grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8">
-      {sortedPosts.map((post) => <PostCard post={post} />)}
-    </section>
+    <Posts posts={posts} />
   </Wrapper>
 </Layout>

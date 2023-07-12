@@ -13,21 +13,42 @@ const sortedGuides = guides.sort(
 <Layout title="Guides" themeColor="#ffffff">
   <Wrapper>
     <PageTitle>Guides</PageTitle>
-    <main>
-      <section class="px-4 py-12">
-        <div class="mx-auto max-w-screen-xl">
-          <section class="">
-            {
-              sortedGuides.map((guide) => (
-                <a href={`/guides/${guide.slug}`}>
-                  <h2 class="mb-4 text-2xl font-bold">{guide.data.title}</h2>
-                  <p>{guide.data.description}</p>
+    <section class="pb-16">
+      {
+        sortedGuides.map((guide) => (
+          <section class="-mx-6 mb-20 md:flex md:flex-row-reverse bg-[#eef2f0] rounded-2xl p-8 shadow-lg">
+            <div class="relative flex-auto">
+                <div class="rounded-xl shadow-lg">
+                  <img
+                    src={guide.data.heroImage}
+                    alt={guide.data.title}
+                    class="bg-black w-full rounded-2xl shadow-lg aspect-video",
+                  />
+              </div>
+            </div>
+
+        <article class="max-w-prose flex-none">
+          <a href={`/guides/${guide.slug}`}>
+          <h2 class="mb-6 mr-6 mt-10 text-2xl font-extrabold md:text-4xl">
+            {guide.data.title}
+          </h2>
+
+          <div class="mb-4 mr-6">
+          Lessons
+          </div>
+
+          <main
+            class="prose -ml-6 max-w-full rounded-t-lg bg-white px-6 pt-5 prose-a:text-blue-600 hover:prose-a:text-blue-500"
+          >
+                    <p>{guide.data.description}</p>
+          </main>
+
                 </a>
-              ))
-            }
+                </article>
+                
           </section>
-        </div>
-      </section>
-    </main>
+        ))
+      }
+    </section>
   </Wrapper>
 </Layout>

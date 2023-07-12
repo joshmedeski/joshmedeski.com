@@ -20,7 +20,7 @@ const PdeCta: FunctionalComponent = () => {
               <strong>get more done</strong>, faster.
             </p>
             <a
-              href="/guides/pde-intro"
+              href="/guides/dev-workflow-intro"
               class={clsx([
                 "inline-block rounded-lg font-bold tracking-wider",
                 "mt-6 px-6 py-4 text-2xl text-white",

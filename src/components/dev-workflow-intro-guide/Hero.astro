@@ -1,18 +1,11 @@
 ---
-import { DotfilesIcon } from "../icons/index.astro";
-
-const points = [
-  "Boost your productivity to new heights.",
-  "Streamline your workflow and save time.",
-  "Work smarter, not harder.",
-  "Stay ahead of the competition.",
-  "Maximize your potential.",
-  "Achieve your goals faster.",
-];
+import clsx from "clsx";
+import { GuideIcon } from "../icons/index.astro";
+import Points from "../Points.astro";
 ---
 
 <div
-  class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
+  class="relative isolate -mt-[104px] overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0"
 >
   <div class="absolute inset-0 -z-10 overflow-hidden">
     <svg
@@ -44,32 +37,33 @@ const points = [
     </svg>
   </div>
   <div
-    class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10"
+    class="mx-auto mt-24 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10"
   >
     <div
       class="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8"
     >
       <div class="lg:pr-4">
         <div class="lg:max-w-lg">
-          <DotfilesIcon class="h-11" />
+          <GuideIcon class="mb-4 h-16" />
           <h1
-            class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+            class="mb-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
           >
-            Boost productivity with a personal development environment
+            Dev Workflow Intro
           </h1>
-          <p class="mt-6 text-xl leading-8 text-gray-700">
-            Attention all developers tired of slow, cookie-cutter workflows?
-            It's time for something new.
+
+          <p class="mr-12 text-xl leading-8 text-gray-700">
+            Your guide to creating a powerful and intuitive <br />development
+            workflow in the terminal.
           </p>
         </div>
       </div>
     </div>
     <div
-      class="-ml-12 -mt-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden"
+      class="-ml-12 -mt-12 p-12 lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden"
     >
       <img
-        class="w-[48rem] max-w-none rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]"
-        src="/images/dev-workflow-preview.jpg"
+        class="mt-12 w-[48rem] max-w-none rounded-l-3xl bg-gray-900 shadow-xl sm:w-[57rem]"
+        src="/images/guides/dev-workflow-intro/dev-workflow-intro-hero-alt.png"
         alt=""
       />
     </div>
@@ -79,40 +73,35 @@ const points = [
       <div class="lg:pr-4">
         <div class="max-w-xl text-base leading-7 text-gray-700 lg:max-w-lg">
           <p>
-            I know your pain, because I’ve been in your shoes for years. And
-            I’ve got a solution that will revolutionize the way you work. My
-            expertise as a Vim enthusiast, as seen on YouTube, has led me to
-            discover a powerful setup - Fish, Tmux, and Neovim.
+            The terminal is a powerful tool for developers, but it can be
+            overwhelming to know where to start. This guide will help you create
+            a powerful development environment in the terminal. Here are some of
+            the things you'll learn.
           </p>
-          <ul role="list" class="mt-8 space-y-2 text-gray-600">
-            {
-              points.map((point) => (
-                <li class="flex gap-x-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="mt-1 h-5 w-5 flex-none text-green-600"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+          <Points
+            points={[
+              "Install packages and keep them up-to-date",
+              "Design a minimalist, distraction-free, user-interface",
+              "Create short, easy-to-remember, abbreviations",
+              "Use familiar keyboard shortcuts",
+              "Manage multiple projects with ease",
+              "Integrate with Git and GitHub",
+            ]}
+          />
 
-                  <span>{point}</span>
-                </li>
-              ))
-            }
-          </ul>
-          <p class="mt-8">
-            This guide will give you the ability to to setup a developer
-            environment of your own to start coding immediately and room to grow
-            and customize anything to your own needs.
-          </p>
+          <a
+            href="/guides/dev-workflow-intro"
+            class={clsx([
+              "inline-block rounded-lg font-bold tracking-wider",
+              "mt-12 px-12 py-4 text-xl text-white",
+              "bg-gradient-to-l from-indigo-500 to-purple-600",
+              "shadow-lg hover:shadow-xl",
+              "hover:from-indigo-700 hover:to-purple-800",
+              "transition-all duration-300 ease-in-out",
+            ])}
+          >
+            Get Started
+          </a>
         </div>
       </div>
     </div>

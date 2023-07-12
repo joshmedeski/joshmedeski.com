@@ -243,9 +243,16 @@ declare module 'astro:content' {
 } & { render(): Render[".mdx"] };
 };
 "guides": {
-"pde-intro.mdx": {
-	id: "pde-intro.mdx";
-  slug: "pde-intro";
+".null-ls_246351_dev-workflow-intro.mdx": {
+	id: ".null-ls_246351_dev-workflow-intro.mdx";
+  slug: "null-ls_246351_dev-workflow-intro";
+  body: string;
+  collection: "guides";
+  data: InferEntrySchema<"guides">
+} & { render(): Render[".mdx"] };
+"dev-workflow-intro.mdx": {
+	id: "dev-workflow-intro.mdx";
+  slug: "dev-workflow-intro";
   body: string;
   collection: "guides";
   data: InferEntrySchema<"guides">

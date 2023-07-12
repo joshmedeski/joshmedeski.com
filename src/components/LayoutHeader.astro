@@ -13,12 +13,12 @@ export interface Props {
 const props = Astro.props;
 ---
 
-<div style={`background-color: ${props.themeColor || "white"}`}>
+<div style={props.themeColor && `background-color: ${props.themeColor}`}>
   <Wrapper>
-    <header class="grid grid-cols-5 py-4">
-      <h2 class="m-0">
-        <a href="/" class="text-2xl font-bold">{SITE_TITLE}</a>
-      </h2>
+    <header class="grid grid-cols-5 content-center rounded-lg py-4">
+      <a href="/" class="mt-1 inline text-2xl font-bold leading-normal"
+        >{SITE_TITLE}</a
+      >
 
       <nav
         class="col-span-3 flex w-full items-center justify-center space-x-8 text-lg"
@@ -26,7 +26,6 @@ const props = Astro.props;
         <HeaderLink href="/guides">Guides</HeaderLink>
         <HeaderLink href="/posts">Posts</HeaderLink>
         <HeaderLink href="/videos">Videos</HeaderLink>
-        <HeaderLink href="/projects">Projects</HeaderLink>
         <HeaderLink href="/about">About</HeaderLink>
       </nav>
 
@@ -41,7 +40,7 @@ const props = Astro.props;
           <GitHubIcon class="w-6" />
         </HeaderLink>
         <a
-          href="/guides/pde-intro"
+          href="/guides/dev-workflow-intro"
           class="inline-block rounded-lg bg-gradient-to-l from-indigo-500 to-purple-600 px-4 py-2 font-bold tracking-wider text-white transition-all duration-300 ease-in-out hover:from-indigo-700 hover:to-purple-800"
           >Free Guide</a
         >
