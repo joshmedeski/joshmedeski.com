@@ -1,7 +1,6 @@
 ---
 title: Create a Neovim IDE with LazyVim
 pubDate: 2023-06-26T12:00:00.000Z
-# youtubeUrl: https://www.youtube.com/embed/BLp61-Lq0kQ
 heroImage: "/images/posts/create-a-neovim-ide-with-lazyvim.jpeg"
 thumbnail: "/images/posts/create-a-neovim-ide-with-lazyvim-thumb.jpeg"
 description: "LazyVim allows you to quickly setup an IDE for Neovim."
@@ -11,3 +10,84 @@ guide:
   position: 6
 draft: true
 ---
+
+[LazyVim](https://www.lazyvim.org/) is a Neovim setup powered by [💤 lazy.nvim]() to make it easy to customize and extend your config. It turns Neovim into a IDE with very little effort and offers a simple and flexible structure to modify and extend it to your liking.
+
+## Install
+
+First, you need to install neovim.
+
+```sh
+brew install neovim
+```
+
+I recommend going to the [LazyVim installation page](https://www.lazyvim.org/installation) to get the complete and up-to-date instructions, but here's a quick overview of how to set it up. You have to clone the starter repo, remove the `.git` folder, then run neovim with the `nvim` command.
+
+```sh
+git clone https://github.com/LazyVim/starter ~/.config/nvim # clone
+rm -rf ~/.config/nvim/.git # remove .git folder
+nvim # start neovim
+```
+
+LazyVim will automatically begin to install all it's plugins and boot up.
+
+## Configure
+
+LazyVim is configured with the following structure.
+
+- `~/.config/nvim/lua/config/lazy.lua` is the entry file to setup LazyVim and default options.
+- `~/.config/nvim/lua/config/*` holds other files that help setup basic configurations for Neovim.
+- `~/.config/nvim/lua/plugins/*` holds files that can automatically be read by LazyVim to manage plugins.
+
+### Catppuccin Theme
+
+The default theme that ships with LazyVim doesn't work well with Alacritty's semi-transparent styling that we [set up previously](/posts/setting-up-alacritty-for-a-fast-minimal-terminal-emulator). I recommend the popular scheme [catppuccin](https://github.com/catppuccin/nvim) which offers great transparency support. You'll also learn some basics for overwriting the LazyVim configuration and adding new plugins.
+
+First, you have to install the catppuccin plugin by adding the following content to a new `catppuccin.lua` file in the `plugins` folder.
+
+```lua title="~/.config/nvim/lua/plugins/catppuchin.lua"
+return {
+  "catppuccin/nvim",
+  name = "catppuccin",
+  priority = 1000,
+  ---@class CatppuccinOptions
+  opts = {
+    transparent_background = true,
+  },
+}
+```
+
+Then, you need to overwrite the default colorscheme defined by LazyVim by adding the following plugin file.
+
+```lua title="~/.config/nvim/lua/plugins/lazyvim.lua"
+return {
+  "LazyVim/LazyVim",
+  opts = {
+    colorscheme = "catppuccin",
+  },
+}
+```
+
+Restart Neovim and you should now have the catppuccin theme enabled with transparency support. You can learn more about how to configure catppuccin, including adding additional integration support, on it's [GitHub page](https://github.com/catppuccin/nvim).
+
+## Deep Dive
+
+There is so much to cover with LazyVim, if you want to get a solid overview of all the features it offers, I recommend my friend Elijah Manor's video.
+
+<iframe
+  width="560"
+  height="315"
+  class="aspect-video w-full"
+  src="https://www.youtube.com/embed/N93cTbtLCIM"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen
+></iframe>
+
+## Conclusion
+
+LazyVim allows you to quickly setup an IDE for Neovim. It's a great starting point for beginners and offers a simple and flexible structure to modify and extend it to your liking. We covered how to install it and overwrite the theme with Catppuccin. If you want to learn more about LazyVim, I recommend checking the following resources.
+
+- [LazyVim documentation](https://www.lazyvim.org/).
+- [My Neovim config](https://github.com/joshmedeski/dotfiles/tree/main/.config/nvim)

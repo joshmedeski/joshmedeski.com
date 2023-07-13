@@ -1,7 +1,6 @@
 ---
 title: Manage Terminal Sessions with tmux
 pubDate: 2023-06-26T12:00:00.000Z
-# youtubeUrl: https://www.youtube.com/embed/BLp61-Lq0kQ
 heroImage: "/images/posts/manage-terminal-sessions-with-tmux.jpeg"
 thumbnail: "/images/posts/manage-terminal-sessions-with-tmux-thumb.jpeg"
 description: tmux is a terminal multiplexer with lets you create multiple terminal session.
@@ -11,3 +10,127 @@ guide:
   position: 5
 draft: true
 ---
+
+[tmux](https://github.com/tmux/tmux/wiki) is a terminal multiplexer that allows you to create and manage multiple terminal sessions within a single window. It enables you to run multiple programs or shell sessions simultaneously, switch between them easily, and detach and reattach sessions, even if you disconnect from the terminal.
+
+## Install
+
+To install tmux, run the following brew command.
+
+```sh
+brew install tmux
+```
+
+## Creating sessions
+
+tmux works by creating sessions, you can create your first session by running the following command.
+
+```sh
+tmux new -s "hello-world"
+```
+
+You'll notice a green bar at the bottom of your terminal with the words `hello-world` to the far right, this is the tmux status bar!
+
+To detach from tmux, run the detach command.
+
+```sh
+tmux detach-client
+```
+
+You'll notice the green bar at the bottom disappears, but tmux is still running in the background! To reattach, you can run the attach command.
+
+```sh
+tmux attach
+```
+
+And just like that, you will end up back where you were before. Detaching from tmux sessions becomes very powerful as you create multiple sessions at the same time. Unlike graphical applications, like VSCode, tmux runs like a server and allows you to switch between different sessions quickly and easily with very little overhead on your computer. We'll get more into that later.
+
+## Window commands
+
+`tmux` commands are driven by the prefix key binding which is `ctrl+b`. Press `ctrl+b` (aka `<prefix>`) and then `c` to "create" a tmux window. Think of these as macOS tabs that are common in browsers and file managers.
+
+Windows can then be split into panes with `<prefix>%` and killed with `<prefix>x`. Note, when there are multiple panes the kill command will close the active pane, if there is only one pane the kill command will close the window entirely and switch to the previous window in the session, if there are no windows left it will kill the entire session.
+
+The prefix key is my least favorite feature of tmux. Thankfully, Alacritty allows us to create custom keybindings to recreate common macOS-style shortcuts to make tmux much easier to use. Add the following to your `alacritty.yml`.
+
+```yaml title="~/.config/alacritty/alacritty.yml"
+key_bindings:
+  - { key: E, mods: Command, chars: "\x02\"" } # split tmux window vertically
+  - { key: E, mods: Command|Shift, chars: "\x02%" } # split tmux window horizontally
+  - { key: T, mods: Command, chars: "\x02c" } # create a new tmux window
+  - { key: W, mods: Command, chars: "\x02x" } # kill the current pane
+  - { key: Tab, mods: Control, chars: "\x02n" } # switch to next tmux window
+  - { key: LBracket, mods: Command|Shift, chars: "\x02p" } # switch to next tmux window
+  - { key: RBracket, mods: Command|Shift, chars: "\x02n" } # switch to previous tmux window
+```
+
+Give these a try! These familiar shortcuts, like `cmd+t` will create a new tmux window and `ctrl+w` will close it. I have a whole video explaining all my [macOS Keyboard Shortcuts for tmux](/posts/macos-keyboard-shortcuts-for-tmux) if you want to learn more about how this works.
+
+## Configuration
+
+I think tmux isn't very pretty by default, and there are multiple options I prefer to change. All of tmux's configuration is stored in a `~/.config/tmux/tmux.conf` file. Create it and add the following options.
+
+```sh title="~/.config/tmux/tmux.conf"
+set -g base-index 1          # start indexing windows at 1 instead of 0
+set -g detach-on-destroy off # don't exit from tmux when closing a session
+set -g escape-time 0         # zero-out escape time delay
+set -g history-limit 1000000 # increase history size (from 2,000)
+set -g mouse on              # enable mouse support
+set -g renumber-windows on   # renumber all windows when any window is closed
+set -g set-clipboard on      # use system clipboard
+set -g status-interval 3     # update the status bar every 3 seconds
+bind-key x kill-pane         # skip "kill-pane 1? (y/n)" prompt
+```
+
+To style the tmux status bar, I prefer a transparent, top-aligned bar, with minimal items display.
+
+```sh title="~/.config/tmux/tmux.conf"
+set -g status-left "#[fg=blue,bold]#S" # session name
+set -g status-left-length 200          # increase length (from 10)
+set -g status-position top             # macOS / darwin style
+set -g status-right ''                 # blank
+set -g status-style 'bg=default'       # transparent
+```
+
+The session name is style using `#[fg=blue,bold]` to make it blue and bolded to match our [starship](/posts/shell-customization-with-starship) configuration and create a more consistent look.
+
+### Plugins
+
+`tmux` plugins can be managed by [tpm, the tmux plugin manager](https://github.com/tmux-plugins/tpm). To install it you first have to clone tpm to your machine.
+
+```sh
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+Add the following to your tmux config file.
+
+```sh title="~/.config/tmux/tmux.conf"
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'joshmedeski/tmux-fzf-url'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
+```
+
+Save the file and run `<prefix>I` to install the tmux plugins.
+
+### Open URLs
+
+Notice in the snippet above a `joshmedeski/tmux-fzf-url` plugin was added. This plugin allows you to open URLS visible in your tmux buffer. Once installed, you will need fzf installed to use it.
+
+```sh
+brew install fzf
+```
+
+`<prefix>u` will open a fzf window that lists all available URLs that can be opened. Including GitHub style strings ("username/repo")! But as mentioned earlier, you can add an Alacritty keybinding to map this command to `cmd+o`.
+
+```yaml title="~/.config/alacritty/alacritty.yml"
+key_bindings:
+  # ... existing keybindings
+  - { key: O, mods: Command, chars: "\x02u" } # open URLs 'joshmedeski/tmux-fzf-url'
+```
+
+### Conclusion
+
+`tmux` is extremely powerful. We covered the basic commands for creating sessions, configuring options, setting up macOS shortcuts with Alacritty, and adding your first plugin. There is much more to cover so I recommend checking out my other content on tmux, like [Smart tmux sessions with zoxide and fzf ](http://localhost:8888/posts/smart-tmux-sessions-with-zoxide-and-fzf). You can also run `man tmux` in the terminal to open the tmux manual and dive deep into everything tmux has to offer.

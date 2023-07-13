@@ -11,3 +11,71 @@ guide:
   position: 7
 draft: true
 ---
+
+Git is a central part of the development workflow. It's important to have a good understanding of how it works and how to use it. [`lazygit`](https://github.com/jesseduffield/lazygit) is a terminal UI for git that makes it easy to run common git commands efficiently and with ease.
+
+## Install
+
+To install lazygit, you guessed it, run the following homebrew command.
+
+```sh
+brew install lazygit
+```
+
+It can be opened by moving to a in your teriminal to a git repository and run the `lazygit` command. It will open a terminal UI that offers a lot of useful git commands. You can view the available commands by pressing `?`.
+
+![lazygit preview](/images/posts/quick-git-management-with-lazygit/lazygit-preview.png)
+
+### Custom shortcut
+
+As mentioned in the [tmux intro](/posts/manage-terminal-sessions-with-tmux), we can setup lazygit to a custom macOS style shortcut `cmd+g`. This can be done by adding the following to your `~/.tmux.conf` file.
+
+```sh title="~/.config/tmux/tmux.conf"
+bind g new-window -n 'lazygit' lazygit
+```
+
+This will bind lazygit to `<prefix>g` in tmux. To map that to `cmd+g` add the following to your alacritty config file in the `key_bindings` section.
+
+```yaml title="~/.config/alacritty/alacritty.yml"
+key_bindings:
+  # ... existing keybindings
+  - { key: G, mods: Command, chars: "\x02g" } # open git manager 'jesseduffield/lazygit'
+```
+
+Now, you can press `cmd+g` to open lazygit from anywhere in your terminal. You can press `q` while in lazygit to close it and return to wherever you where previously.
+
+## Configure
+
+For macOS, the configuration is located in the user application support file. Here are a few basic configuration options.
+
+```yaml title="/Users/josh/Library/Application Support/lazygit/config.yml"
+gui:
+  showIcons: true
+  theme:
+    activeBorderColor:
+      - magenta
+      - bold
+    inactiveBorderColor:
+      - black
+  showFileTree: true # for rendering changes files in a tree format
+os:
+  editCommand: "nvim"
+  editCommandTemplate: "{{editor}} {{filename}}"
+keybinding:
+  universal:
+    quit: "q"
+```
+
+## How to use
+
+Using lazygit is pretty straight forward. Here are a few common commands that I use often.
+
+- `space` toggles the selected file to the staging area
+- `c` opens the commit window, which lets you write a commit message and commit the staged changes
+- `P` pushes the current branch to the remote
+
+There are many more commands including branch management, interacting with history, and more.
+
+## Conclusion
+
+`lazygit` is the quickest and easier way to manage git repositories. It's a great tool to have in your toolbelt and I highly recommend it. Binding to `cmd+g` makes it very quick to open and close. I recommend looking through the [lazygit wiki](https://github.com/jesseduffield/lazygit/wiki) to learn more about creating custom commands and more.
