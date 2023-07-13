@@ -252,13 +252,6 @@ declare module 'astro:content' {
 } & { render(): Render[".mdx"] };
 };
 "posts": {
-".null-ls_367887_shell-customization-with-starship.mdx": {
-	id: ".null-ls_367887_shell-customization-with-starship.mdx";
-  slug: "null-ls_367887_shell-customization-with-starship";
-  body: string;
-  collection: "posts";
-  data: InferEntrySchema<"posts">
-} & { render(): Render[".mdx"] };
 "a-pretty-terminal-in-5-minutes.mdx": {
 	id: "a-pretty-terminal-in-5-minutes.mdx";
   slug: "a-pretty-terminal-in-5-minutes";

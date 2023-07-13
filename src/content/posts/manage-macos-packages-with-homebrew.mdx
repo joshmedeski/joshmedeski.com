@@ -64,31 +64,66 @@ To keep your packages and libraries up-to-date, Homebrew offers multiple command
 4. `brew cleanup --prune=all` removes old versions of installed packages and their associated files, freeing up disk space. The `--prune=all` option removes all packages and their associated files, including those that are currently installed and those that are no longer needed. This command is useful when you want to reclaim disk space on your system by removing old and unused packages. However, it is recommended to use this command with caution, as it can potentially remove files that are still needed by other packages or applications.
 5. `brew doctor` diagnoses potential issues with your Homebrew installation. This command checks your Homebrew installation for common issues, such as outdated packages, broken symlinks, and other configuration problems. It also provides suggestions on how to fix any issues that it finds.
 
-I have wrapped all of this up into a `bubu` script. I will typically run this script a few times per week to ensure everything is up-to-date.
+## Update script
+
+I have wrapped everything you need to keep homebrew up-to-date. I will typically run this script a few times per week. Here's how to create it.
+
+The only dependency is a CLI tool called gum, which is a tool for glamorous shell scripts. Install it running the following command.
 
 ```sh
-#!/usr/bin/env bash
-brew update
-OUTDATED=$(brew outdated)
-if [[ -n "$OUTDATED" ]]; then
-  echo $OUTDATED
-  read -rp "Upgrade the listed above (y/N)? " UPGRADE
-  if [[ "$UPGRADE" = "y" ]]; then
-    brew upgrade
-    brew cleanup --prune=all
-    brew doctor
-  else
-    echo "Upgrading brew packages cancelled."
-  fi
-else
-  echo "No brew packages need upgraded at this time."
-fi
+brew install gum
 ```
 
-You can save this to a file called `bubu` and make it executable with `chmod +x bubu`. Then you can run it with `./bubu`. Mine is in a `~/.config/bin` directory which I include in my path. This allows me to run it from anywhere.
+Then, create a file name `b` in the `~/.config/bin` directory. I find this to be a useful place to create custom scripts to automate repetitive tasks.
 
-I run the script a few times a week to ensure I have the latest versions of my favorite packages and applications which includes bug fixes, security updates, and new features. But be careful, if there are breaking changes to a package, you may need to update your configuration to support the new version. You can visit the package's release notes to see what has changed.
+```sh
+mkdir -p ~/.config/bin && touch ~/.config/bin/b
+```
+
+Then, add the following content to the file.
+
+```sh title="~/.config/bin/b"
+#!/usr/bin/env bash
+
+gum style \
+  --foreground 12 --border-foreground 12 --border double \
+  --align center --width 50 --margin "1 0" --padding "1 2" \
+  '██████╗ ██████╗ ███████╗██╗    ██╗
+██╔══██╗██╔══██╗██╔════╝██║    ██║
+██████╔╝██████╔╝█████╗  ██║ █╗ ██║
+██╔══██╗██╔══██╗██╔══╝  ██║███╗██║
+██████╔╝██║  ██║███████╗╚███╔███╔╝
+╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚══╝╚══╝'
+
+gum spin --show-output --spinner minidot --title "Updating brew..." -- brew update
+printf "\n"
+
+OUTDATED=$(gum spin --show-output --spinner minidot --title "Checking for outdated brew packages" -- brew outdated)
+
+if [[ -n "$OUTDATED" ]]; then
+  echo "$OUTDATED"
+  gum confirm --selected.background=2 --selected.foreground=0 "Upgrade the outdated formulae above?" && brew upgrade
+  printf "\n"
+  brew cleanup --prune=all
+  printf "\n"
+else
+  echo "All brew packages are up to date."
+  printf "\n"
+fi
+
+gum spin --show-output --spinner minidot --title "Checking for brew issues..." -- brew doctor
+```
+
+You need to make the `b` script executable, add the `~/.config/bin` directory to your path, on the default macOS shell, then source the zshrc for the PATH to reflect the new directory.
+
+```sh
+chmod +x ~/.config/bin/b
+echo 'export PATH="~/.config/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+Finally, you can run the `b` command in your terminal to ensure you have the latest versions of my favorite packages and applications which includes bug fixes, security updates, and new features. But be careful, if there are breaking changes to a package, you may need to update your configuration to support the new version. You can visit the package's release notes to see what has changed.
 
 ## Summary
 
-In summary, Homebrew is a package manager for macOS that simplifies the installation and management of software packages and libraries. It uses a command-line interface and a simple formula system to download and install packages from pre-configured sources using `brew install`, making it easy to keep software up-to-date and manage dependencies. To add a custom tap, you can use the `brew tap` command to add a repository of additional formulae that are not included in the main Homebrew repository. To keep Homebrew up-to-date, you can use `brew update`, `brew outdated`, `brew upgrade`, `brew cleanup`, and `brew doctor` commands. I also showed you a simple `bubu` script that automates these commands for an easy way to stay up-to-date.
+In summary, Homebrew is a package manager for macOS that simplifies the installation and management of software packages and libraries. It uses a command-line interface and a simple formula system to download and install packages from pre-configured sources using `brew install`, making it easy to keep software up-to-date and manage dependencies. To add a custom tap, you can use the `brew tap` command to add a repository of additional formulae that are not included in the main Homebrew repository. To keep Homebrew up-to-date, you can use `brew update`, `brew outdated`, `brew upgrade`, `brew cleanup`, and `brew doctor` commands. I also showed you a simple `b` script that automates these commands for an easy way to stay up-to-date.

@@ -22,7 +22,7 @@ Fish does not come pre-installed on macOS, you have to install it with Homebrew 
 brew install fish
 ```
 
-If you're not familiar with Homebrew, check out [Managing macOS packages with Homebrew](/posts/managing-macos-packages-with-homebrew).
+If you're not familiar with Homebrew, check out [Managing macOS packages with Homebrew](/posts/manage-macos-packages-with-homebrew).
 
 ## Making fish your default shell
 
@@ -124,6 +124,28 @@ set -Ux EDITOR nvim
 
 Note the `-x` flag is used with the `set` command to export a variable as an environment variable. When a variable is exported, it becomes available to child processes and can be accessed by programs and utilities that use environment variables. This is helpful as you extend your development environment with other tools that can generate sub processes
 
+## Abbreviations
+
+One of my favorite features of fish is the ability to create abbreviations. This works similar to a shell aliasm but the main difference is the abbreviation will expand when ran.
+
+You can create abbreviations with the `abbr` command in your `config.fish` file. Let's add a few helpful ones for homebrew.
+
+```fish title="~/.config/fish/config.fish"
+abbr bi "brew install"
+abbr bic "brew install --cask"
+abbr bin "brew info"
+abbr binc "brew info --cask"
+abbr bs "brew search"
+```
+
+You'll have to source your `config.fish` file for the change to be reflected in your shell.
+
+```sh
+source ~/.config/fish/config.fish
+```
+
+Now, you type `bs<space>` and you'll see the prompt quickly expand to `brew search ` to allow you to create commands quickly using a simple mnemonic-style abbreviations. Abbreviations speed up my dev workflow significantly and are one of my favorite features of the fish shell.
+
 ## Plugins
 
 There is a large community of plugins for the fish shell. I recommend using [fisher](https://github.com/jorgebucaran/fisher) to manage them.
@@ -142,3 +164,7 @@ You'll notice two things.
 
 1. A `~/.config/fish/fish_plugins` file was created and added sponge as a plugin. This is how fisher manages plugins.
 2. A `~/.config/fish/functions` directory was created and multiple `_sponge_*.fish` files were added to it. This is the plugin code which fish will automatically read to extend the shell. This folder will contain more files as you add more plugins, you can even create your own!
+
+## Summary
+
+The fish shell is a simple, fast, and intuitive shell alternative for macOS. In this post we installed fish, set it as your default user shell, configured homebrew, added a directory to your path, customized some of fish's options, create abbreviations, and installed your first plugin.
