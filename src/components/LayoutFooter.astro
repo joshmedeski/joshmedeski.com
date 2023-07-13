@@ -8,6 +8,7 @@ import TwitterIcon from "./icons/TwitterIcon.astro";
 import YouTubeIcon from "./icons/YouTubeIcon.astro";
 import { getCollection } from "astro:content";
 import Wrapper from "./Wrapper.astro";
+import Hero from "./dev-workflow-intro-guide/Hero.astro";
 
 const today = new Date();
 interface Props {
@@ -17,7 +18,7 @@ const { hideCta } = Astro.props;
 const categories = await getCollection("categories");
 ---
 
-{hideCta ? null : <PdeCta />}
+{hideCta ? null : <Hero />}
 
 <footer class="bg-white pt-16" aria-labelledby="footer-heading" id="menu">
   <h2 class="sr-only">Footer</h2>

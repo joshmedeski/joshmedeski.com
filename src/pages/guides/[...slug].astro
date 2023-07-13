@@ -19,6 +19,10 @@ const { guide } = Astro.props;
 const { Content } = await guide.render();
 ---
 
-<Layout title={guide.data.title} description={guide.data.description}>
+<Layout
+  title={guide.data.title}
+  description={guide.data.description}
+  hideCta={true}
+>
   <Content />
 </Layout>

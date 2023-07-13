@@ -3,10 +3,17 @@ import clsx from "clsx";
 import { GuideIcon } from "../icons/index.astro";
 import Points from "../Points.astro";
 import Wrapper from "../Wrapper.astro";
+interface Props {
+  overlapOnHeader?: boolean;
+}
+const { overlapOnHeader } = Astro.props;
 ---
 
 <div
-  class="relative isolate -mt-[104px] mb-12 overflow-hidden border-t border-slate-100 bg-white px-6 pt-20 sm:pt-24 lg:overflow-visible lg:px-0"
+  class={clsx(
+    "relative isolate mb-12 overflow-hidden border-t border-slate-100 bg-white px-6 pt-20 sm:pt-24 lg:overflow-visible lg:px-0",
+    overlapOnHeader && "-mt-[104px] "
+  )}
 >
   <div class="absolute inset-0 -z-10 overflow-hidden">
     <svg
