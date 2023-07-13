@@ -243,13 +243,6 @@ declare module 'astro:content' {
 } & { render(): Render[".mdx"] };
 };
 "guides": {
-".null-ls_246351_dev-workflow-intro.mdx": {
-	id: ".null-ls_246351_dev-workflow-intro.mdx";
-  slug: "null-ls_246351_dev-workflow-intro";
-  body: string;
-  collection: "guides";
-  data: InferEntrySchema<"guides">
-} & { render(): Render[".mdx"] };
 "dev-workflow-intro.mdx": {
 	id: "dev-workflow-intro.mdx";
   slug: "dev-workflow-intro";
@@ -259,6 +252,13 @@ declare module 'astro:content' {
 } & { render(): Render[".mdx"] };
 };
 "posts": {
+".null-ls_367887_shell-customization-with-starship.mdx": {
+	id: ".null-ls_367887_shell-customization-with-starship.mdx";
+  slug: "null-ls_367887_shell-customization-with-starship";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "a-pretty-terminal-in-5-minutes.mdx": {
 	id: "a-pretty-terminal-in-5-minutes.mdx";
   slug: "a-pretty-terminal-in-5-minutes";

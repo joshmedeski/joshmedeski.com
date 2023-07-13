@@ -47,16 +47,16 @@ const posts = await getCollection(
 });
 ---
 
-<section class="scroll-mt-14 py-16 sm:scroll-mt-32 sm:py-20 lg:py-32">
+<section class="bg-blue-50 py-16">
   <div class="mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4 lg:max-w-4xl lg:px-12">
     <h2
-      class="inline-flex items-center rounded-full px-4 py-1 text-blue-600 ring-1 ring-inset ring-blue-600"
+      class="mb-2 inline-flex items-center rounded-full bg-blue-50 px-4 py-1 text-blue-600 ring-1 ring-inset ring-blue-600"
     >
-      <span class="text-base font-medium tracking-tight">Lessons</span>
+      <span class="text-base font-medium tracking-wide">Lessons</span>
     </h2><p
-      class="font-display mt-8 text-4xl font-bold tracking-tight text-slate-900"
+      class="font-display text-4xl font-bold tracking-tight text-slate-900"
     >
-      Build the foundation of a great dev workflow.
+      The foundation of a great dev workflow
     </p><p class="mt-4 text-lg tracking-tight text-slate-700">
       Learn how to set up your own dev workflow from scratch using well-tested
       apps and tools to create an efficient and productive environment in <strong
@@ -83,7 +83,7 @@ const posts = await getCollection(
                 src={post.data.thumbnail}
               />
 
-              <h3 class="mt-8 text-lg font-extrabold leading-tight tracking-tight text-slate-900 before:mb-2 before:block before:font-mono before:text-lg before:text-slate-400 before:content-[counter(video,decimal-leading-zero)]">
+              <h3 class="mt-6 text-lg font-extrabold leading-tight tracking-tight text-slate-900 before:mb-1 before:block before:font-mono before:text-lg before:text-blue-600 before:content-[counter(video,decimal-leading-zero)]">
                 {post.data.title}
               </h3>
               <p class="mt-2 text-sm text-slate-600">{post.data.description}</p>
