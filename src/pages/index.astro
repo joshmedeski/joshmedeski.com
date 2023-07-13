@@ -1,5 +1,5 @@
 ---
-import Wrapper from "~/components/Wrapper.astro";
+import Hero from "~/components/dev-workflow-intro-guide/Hero.astro";
 import Layout from "../components/Layout.astro";
 import RecentPosts from "../components/RecentPosts.astro";
 ---
@@ -8,24 +8,6 @@ import RecentPosts from "../components/RecentPosts.astro";
   title="Home"
   description="Empowering developers and creatives to build and grow with intention, by sharing insights and tools."
 >
-  <Wrapper>
-    <section
-      class="flex aspect-video flex-col justify-center rounded-3xl bg-cover bg-no-repeat shadow-xl"
-      style={{
-        backgroundImage: `url(/images/guides/dev-workflow-intro/dev-workflow-intro-hero.png)`,
-      }}
-    >
-      <div>
-        <h1
-          class="row-start-3 text-center text-9xl font-extrabold tracking-wide shadow-white drop-shadow"
-        >
-          Dev Workflow Intro
-        </h1>
-        <p class="row-start-4 text-center text-6xl font-bold tracking-wide">
-          By Josh Medeski
-        </p>
-      </div>
-    </section>
-  </Wrapper>
+  <Hero />
   <RecentPosts />
 </Layout>
