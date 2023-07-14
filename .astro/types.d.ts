@@ -243,13 +243,6 @@ declare module 'astro:content' {
 } & { render(): Render[".mdx"] };
 };
 "guides": {
-".null-ls_159647_dev-workflow-intro.mdx": {
-	id: ".null-ls_159647_dev-workflow-intro.mdx";
-  slug: "null-ls_159647_dev-workflow-intro";
-  body: string;
-  collection: "guides";
-  data: InferEntrySchema<"guides">
-} & { render(): Render[".mdx"] };
 "dev-workflow-intro.mdx": {
 	id: "dev-workflow-intro.mdx";
   slug: "dev-workflow-intro";
