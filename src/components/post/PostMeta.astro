@@ -1,0 +1,59 @@
+---
+import { CollectionEntry, getEntry } from "astro:content";
+import clsx from "clsx";
+import CategoryIcon from "../icons/CategoryIcon.astro";
+import { DateIcon, DurationIcon, GuideIcon } from "../icons/index.astro";
+
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+
+const {
+  post: {
+    data: { pubDate, duration, guide: postGuide, category: postCategory },
+  },
+} = Astro.props;
+
+const category = await getEntry(postCategory);
+
+let guide: CollectionEntry<"guides"> | undefined;
+if (postGuide) guide = await getEntry(postGuide.ref);
+---
+
+<div class="flex w-full flex-wrap space-x-4 font-medium">
+  <a href={`/categories/${category.slug}`} class={"flex items-center"}>
+    <CategoryIcon slug={postCategory.slug} class="mr-1 h-4" />
+    <span>{category.data.title}</span>
+  </a>
+
+  {
+    guide && (
+      <a href={`/guides/${guide.slug}`} class="flex items-center">
+        <GuideIcon class="mr-2 w-4" />
+        <span>{guide.data.title}</span>
+      </a>
+    )
+  }
+
+  <div class="flex items-center">
+    <DateIcon class="mr-2 h-4" />
+    <span>
+      <time>
+        {
+          new Date(pubDate).toLocaleDateString("en-US", {
+            dateStyle: "long",
+          })
+        }
+      </time>
+    </span>
+  </div>
+
+  {
+    duration && (
+      <div class="flex items-center">
+        <DurationIcon class="mr-2 w-4" />
+        <span>{duration}</span>
+      </div>
+    )
+  }
+</div>

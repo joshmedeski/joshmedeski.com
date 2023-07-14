@@ -1,12 +1,14 @@
 ---
+import Hero from "~/components/dev-workflow-intro-guide/Hero.astro";
 import Layout from "../components/Layout.astro";
 import RecentPosts from "../components/RecentPosts.astro";
 ---
 
 <Layout
-  themeColor={"var(--color-neutral-50)"}
   title="Home"
   description="Empowering developers and creatives to build and grow with intention, by sharing insights and tools."
+  hideCta={true}
 >
+  <Hero overlapOnHeader={true} />
   <RecentPosts />
 </Layout>

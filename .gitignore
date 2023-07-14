@@ -22,3 +22,4 @@ pnpm-debug.log*
 .netlify
 functions/.netlify
 coverage
+\n.astro

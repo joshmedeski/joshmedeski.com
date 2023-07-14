@@ -1,0 +1,23 @@
+---
+import Layout from "../components/Layout.astro";
+import { getCollection } from "astro:content";
+import Wrapper from "../components/Wrapper.astro";
+import PageTitle from "../components/PageTitle.astro";
+import Posts from "../components/Posts.astro";
+
+const posts = await getCollection(
+  "posts",
+  ({ data: { draft, youtubeUrl } }) => !draft && !!youtubeUrl
+).then((p) =>
+  p.sort(
+    ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime()
+  )
+);
+---
+
+<Layout title="Videos">
+  <Wrapper>
+    <PageTitle>Videos</PageTitle>
+    <Posts posts={posts} />
+  </Wrapper>
+</Layout>

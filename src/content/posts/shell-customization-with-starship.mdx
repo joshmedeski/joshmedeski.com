@@ -1,0 +1,87 @@
+---
+title: Customized Shell Prompt with Starship
+pubDate: 2023-06-26T12:00:00.000Z
+heroImage: "/images/posts/customized-shell-prompt-with-starship.jpeg"
+thumbnail: "/images/posts/customized-shell-prompt-with-starship-thumb.jpeg"
+description: Starship is a minimal, blazing-fast, and infinitely customizable prompt for any shell.
+category: dotfiles
+guide:
+  ref: dev-workflow-intro
+  position: 4
+---
+
+[Starship](https://starship.rs/) is a minimal, blazing-fast, and infinitely customizable prompt for any shell. I've been [interviewing developers](https://www.youtube.com/playlist?list=PLdtuRouvdurxRCLs_PnVBVxd9pc2po1em) recently and the majority of them are using Starship! It's easy to setup and configure. Here's how to get started.
+
+## Install
+
+Install starship by running the following brew command.
+
+```sh
+brew install starship
+```
+
+Now that starship is installed, you have to source it in your `config.fish` by adding the following line.
+
+```sh title="~/.config/fish/config.fish"
+starship init fish | source
+```
+
+## Configuration
+
+To configure starship, create a `~/.config/starship.toml` and add the following content.
+
+First, swap out some of the characters with custom Nerd Font options. You can find more on [Nerd Font's website](https://www.nerdfonts.com/cheat-sheet).
+
+```toml title="~/.config/starship.toml"
+[character]
+success_symbol = "[\uf054](white)" # 
+vicmd_symbol = "[\ue62b](white)" # 
+error_symbol = "[\uf467](red)" # 
+```
+
+Next, I prefer changing the directory name to blue, since we'll be updating tmux in a future post to the same color as well, creating a consistent style.
+
+```toml title="~/.config/starship.toml"
+[directory]
+style = "blue bold"
+```
+
+Finally, I prefer a more minimal approach to my prompt, so I prefer disabling many of the built in modules.
+
+```toml title="~/.config/starship.toml"
+[package]
+disabled = true
+
+[username]
+disabled = true
+
+[hostname]
+disabled = true
+
+[aws]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[git_branch]
+disabled = true
+
+[git_commit]
+disabled = true
+
+[git_state]
+disabled = true
+
+[git_metrics]
+disabled = true
+
+[git_status]
+disabled = true
+```
+
+Check out all the [configuration options](https://starship.rs/config/) to figure out which modules you can configure or customize to your liking.
+
+## Summary
+
+That's it! Starship works great out-of-the-box and has a low learning-curve. It is smart and will provide contextual information related to where you are in the terminal. With a few customizations it has a minimal and consistent look making it a great addition to my dev workflow.

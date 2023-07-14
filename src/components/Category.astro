@@ -1,37 +1,34 @@
 ---
-import type { Category } from "../model/category.astro";
+import type { getEntryBySlug } from "astro:content";
 import clsx from "clsx";
+import CategoryIcon from "./CategoryIcon.astro";
 
-export interface Props extends Category {}
-const props = Astro.props;
+const {
+  category: {
+    slug,
+    data: { style, title, desc },
+  },
+} = Astro.props;
 ---
 
 <a
-  href={`/categories/${props.slug}`}
-  class={clsx(
-    "shadow-sm rounded-lg p-3 flex items-center",
-    props.style?.container
-  )}
+  href={`/categories/${slug}`}
+  class={clsx("shadow-sm rounded-lg p-3 flex items-center", style?.container)}
 >
-  <div class="mr-3 w-8">
-    <slot />
-  </div>
+  <CategoryIcon slug={slug} class="mr-3 w-8" />
   <div>
     <h3
       class={clsx(
         "font-extrabold leading-none mb-1 text-lg tracking-wide",
-        props.style?.title
+        style.title
       )}
     >
-      {props.title}
+      {title}
     </h3>
     <p
-      class={clsx(
-        "text-sm font-medium leading-none tracking-wide",
-        props.style?.desc
-      )}
+      class={clsx("text-sm font-medium leading-none tracking-wide", style.desc)}
     >
-      {props.desc}
+      {desc}
     </p>
   </div>
 </a>

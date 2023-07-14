@@ -1,0 +1,156 @@
+---
+title: "Blazing Fast Window Management on macOS"
+titleClasses: "max-w-[500px] mx-auto"
+pubDate: 2022-05-22T12:00:00.000Z
+youtubeUrl: https://www.youtube.com/embed/fYsCAOfGjxE
+heroImage: "/images/posts/blazing-fast-window-management-on-macos/blazing-fast-window-management-on-macos.jpeg"
+description: "An overview of how to manage macOS windows and desktops at blazing speeds!"
+category: "dotfiles"
+---
+
+An overview of how to manage macOS windows and desktops at blazing speeds!
+
+Here is my yabai configuration (`.yabairc`)
+
+```sh title="~/.yabairc"
+#!/usr/bin/env sh
+
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
+# global settings
+yabai -m config mouse_follows_focus          off
+yabai -m config focus_follows_mouse          off
+yabai -m config window_origin_display        default
+yabai -m config window_placement             second_child
+yabai -m config window_topmost               off
+yabai -m config window_shadow                on
+yabai -m config window_opacity               off
+yabai -m config window_opacity_duration      0.0
+yabai -m config active_window_opacity        1.0
+yabai -m config normal_window_opacity        0.90
+yabai -m config window_border                off
+yabai -m config window_border_width          6
+yabai -m config active_window_border_color   0xff775759
+yabai -m config normal_window_border_color   0xff555555
+yabai -m config insert_feedback_color        0xffd75f5f
+yabai -m config split_ratio                  0.50
+yabai -m config auto_balance                 off
+yabai -m config mouse_modifier               fn
+yabai -m config mouse_action1                move
+yabai -m config mouse_action2                resize
+yabai -m config mouse_drop_action            swap
+
+# general space settings
+yabai -m config layout                       bsp
+yabai -m config top_padding                  15
+yabai -m config bottom_padding               15
+yabai -m config left_padding                 15
+# NOTE: for OBS floating head
+# yabai -m config left_padding                 450
+yabai -m config right_padding                15
+yabai -m config window_gap                   15
+
+# apps to not manage (ignore)
+yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^Archive Utility$" manage=off
+yabai -m rule --add app="^Wally$" manage=off
+yabai -m rule --add app="^Pika$" manage=off
+yabai -m rule --add app="^balenaEtcher$" manage=off
+yabai -m rule --add app="^Creative Cloud$" manage=off
+yabai -m rule --add app="^Logi Options$" manage=off
+yabai -m rule --add app="^Alfred Preferences$" manage=off
+yabai -m rule --add app="Raycast" manage=off
+yabai -m rule --add app="^Music$" manage=off
+
+echo "yabai configuration loaded.."
+```
+
+This is my skhd configuration (`.skhdrc`)
+
+```sh title="~/.skhdrc"
+# focus window
+alt - h : yabai -m window --focus west
+alt - j : yabai -m window --focus south
+alt - k : yabai -m window --focus north
+alt - l : yabai -m window --focus east
+
+# swap managed window
+shift + alt - h : yabai -m window --swap west
+shift + alt - j : yabai -m window --swap south
+shift + alt - k : yabai -m window --swap north
+shift + alt - l : yabai -m window --swap east
+
+# move managed window
+shift + alt + ctrl - h : yabai -m window --warp west
+shift + alt + ctrl - j : yabai -m window --warp south
+shift + alt + ctrl - k : yabai -m window --warp north
+shift + alt + ctrl - l : yabai -m window --warp east
+
+# rotate tree
+alt - r : yabai -m space --rotate 90
+
+# toggle window fullscreen zoom
+alt - f : yabai -m window --toggle zoom-fullscreen
+
+# alt - s : yabai -m window --toggle
+alt - s : yabai -m window --toggle sticky;\
+          yabai -m window --toggle topmost;\
+          yabai -m window --toggle pip
+
+# toggle padding and gap
+alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
+
+# float / unfloat window and center on screen
+alt - t : yabai -m window --toggle float;\
+          yabai -m window --grid 4:4:1:1:2:2
+
+# toggle window split type
+alt - e : yabai -m window --toggle split
+
+# balance size of windows
+shift + alt - 0 : yabai -m space --balance
+
+# move window and focus desktop
+shift + alt - 1 : yabai -m window --space 1; yabai -m space --focus 1
+shift + alt - 2 : yabai -m window --space 2; yabai -m space --focus 2
+shift + alt - 3 : yabai -m window --space 3; yabai -m space --focus 3
+shift + alt - 4 : yabai -m window --space 4; yabai -m space --focus 4
+shift + alt - 5 : yabai -m window --space 5; yabai -m space --focus 5
+shift + alt - 6 : yabai -m window --space 6; yabai -m space --focus 6
+shift + alt - 7 : yabai -m window --space 7; yabai -m space --focus 7
+shift + alt - 8 : yabai -m window --space 8; yabai -m space --focus 8
+shift + alt - 9 : yabai -m window --space 9; yabai -m space --focus 9
+
+
+# create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
+shift + alt - n : yabai -m space --create && \
+                   index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
+                   yabai -m window --space "${index}" && \
+                   yabai -m space --focus "${index}"
+
+# fast focus desktop
+alt - tab : yabai -m space --focus recent
+
+# send window to monitor and follow focus
+shift + alt - n : yabai -m window --display next; yabai -m display --focus next
+shift + alt - p : yabai -m window --display previous; yabai -m display --focus previous
+```
+
+## Resources
+
+- [yabai](https://github.com/koekeishiya/yabai)
+- [skhd](https://github.com/koekeishiya/skhd)
+- [My Dotfiles](https://dotfiles.joshmedeski.com/yabai.html)
+- [SpaceLauncher](https://spacelauncherapp.com)
+
+## Additional Links
+
+- [Homebrew](https://brew.sh)
+- [Work in multiple spaces on Mac](https://support.apple.com/guide/mac-help/work-in-multiple-spaces-mh14112/mac)
+- [macos keyboard shortcuts for tmux](https://youtu.be/BLp61-Lq0kQ)
+- [My moonlander layout](https://configure.zsa.io/moonlander/layouts/3qe37/latest/0)
+
+**Update:** In macOS Ventura, it has been moved to a "Mission Control" dropdown in the keyboard shortcut section.
+
+![switch to desktop keyboard shortcut ventura](/images/posts/blazing-fast-window-management-on-macos/switch-to-desktop-keyboard-shortcut-ventura.png)

@@ -1,59 +1,43 @@
 ---
-import { categories } from "../../models/Category.astro";
-import type { Category } from "../../models/Category.astro";
-import type { Post } from "../../models/Post.astro";
-import type { MarkdownInstance } from "astro";
-import clsx from "clsx";
+import { CollectionEntry, getEntry } from "astro:content";
+import Wrapper from "../Wrapper.astro";
+import PostMeta from "./PostMeta.astro";
 
-export interface Props extends MarkdownInstance<Post> {}
-const {
-  url,
-  frontmatter: { title, description, pubDate, categorySlug, heroImage },
-} = Astro.props;
-const cat = categories.find((cat) => cat.slug === categorySlug) as Category;
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+const { post } = Astro.props;
+const category = await getEntry(post.data.category);
 ---
 
-<a
-  href={url}
-  class="flex flex-col justify-between rounded-md shadow-md"
-  style={{ backgroundColor: cat?.style?.themeColor }}
+<div
+  class="relative flex flex-col justify-end rounded-lg px-6 py-4 shadow-md"
+  style={{ backgroundColor: category?.data?.style?.themeColor }}
 >
-  <div>
-    {
-      heroImage && (
-        <img
-          src={heroImage}
-          alt={title}
-          class="aspect-video w-full rounded-t-md"
-          style={{ backgroundColor: cat?.style?.themeColor }}
-        />
-      )
-    }
-  </div>
+  <a href={`/posts/${post.slug}`} class="z-20 grid grow grid-cols-5 gap-6">
+    <div class="col-span-2 col-start-4 row-start-1 flex flex-col justify-end">
+      <img
+        src={post.data.heroImage}
+        alt={post.data.title}
+        class="mb-8 aspect-video w-full rounded-lg bg-black shadow-md"
+        style={{ backgroundColor: category.data.style.themeColor }}
+      />
+    </div>
 
-  <div
-    class={clsx(
-      "flex flex-wrap justify-between font-medium tracking-wide text-sm",
-      "px-2 py-1 text-[rgba(0,0,0,0.7)]"
-    )}
-  >
-    <div class="flex items-center">
-      <cat.icon class="w-4 mr-2" />
-      <p class="mr-2 block">
-        {cat.title}
+    <div class="col-start-0 col-span-3 row-start-1 flex flex-col justify-end">
+      <div class="flex grow flex-col justify-center">
+        <h3 class="mb-2 mr-4 text-xl font-extrabold leading-tight">
+          {post.data.title}
+        </h3>
+      </div>
+
+      <p class="-ml-3 mb-12 rounded-t-md bg-white p-3 text-sm text-slate-500">
+        {post.data.description}
       </p>
     </div>
-    <time datetime={pubDate}>
-      {new Date(pubDate).toLocaleDateString("en-US", { dateStyle: "medium" })}
-    </time>
-  </div>
+  </a>
 
-  <div class="flex flex-1 flex-col justify-end rounded-b-md px-2 py-4">
-    <h3
-      class="mx-auto mb-1 mb-2 flex max-w-[90%] flex-1 flex-col justify-center text-center text-xl font-extrabold leading-none"
-    >
-      <span>{title}</span>
-    </h3>
-    <p class="text-sm text-slate-500">{description}</p>
+  <div class="z-10 -mx-6 -mb-4 -mt-20 rounded-b-lg bg-white px-6 pb-2 pt-14">
+    <PostMeta post={post} />
   </div>
-</a>
+</div>

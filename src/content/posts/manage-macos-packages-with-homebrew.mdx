@@ -1,0 +1,128 @@
+---
+title: Manage macOS packages with Homebrew
+pubDate: 2023-06-26T12:00:00.000Z
+# youtubeUrl: https://www.youtube.com/embed/BLp61-Lq0kQ
+heroImage: "/images/posts/manage-macos-packages-with-homebrew.jpeg"
+duration: "5:00"
+thumbnail: "/images/posts/manage-macos-packages-with-homebrew-thumb.jpeg"
+description: "Homebrew is a package manager for macOS that allows users to easily install and manage packages and libraries."
+category: "dotfiles"
+guide:
+  ref: dev-workflow-intro
+  position: 1
+---
+
+[Homebrew](https://brew.sh/) is a package manager for macOS that allows users to easily install and manage software packages and libraries. It uses a command-line interface and a simple formula system to download and install packages from pre-configured sources, making it easy to keep software up to date and manage dependencies. To install Homebrew, open Terminal and run the following command:
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+This will download and run the Homebrew installation script. Once installed, you can use Homebrew to install packages by running commands like `brew install <package>`. For example, to install the `wget` package, you would run:
+
+```sh
+brew install wget
+```
+
+If you're unsure of the name of the package, or if it is available from homebrew, you can search for it using `brew search <package>`, including applications like Google Chrome.
+
+```sh
+brew search chrome
+# returns the following results
+==> Formulae
+chrome-cli   chrome-export    chroma     rome  chrony
+==> Casks
+chrome-devtools    chromedriver      epichrome   mkchromecast
+chrome-remote-desktop-host      chromium     google-chrome
+
+```
+
+`google-chrome` is listed under the `Casks` section, which means it is a graphical application. To install it, you run the install command with the cask flag:
+
+```sh
+brew install --cask google-chrome
+```
+
+## Adding a custom tap
+
+A Homebrew tap is a repository of additional formulae that are not included in the main Homebrew repository. Adding a custom Homebrew tap allows you to install software that is not available in the main repository. Here's how to add a custom Homebrew tap:
+
+```sh
+brew install arl/arl/gitmux # owner/tap/formulae
+```
+
+You can also create your own tap to add homebrew support to your favorite packages and applications.
+
+## Keeping Homebrew up-to-date
+
+To keep your packages and libraries up-to-date, Homebrew offers multiple commands. I recommend running the following commands in this order to ensure you have the latest versions of your packages and libraries.
+
+1. `brew update` updates the local Homebrew repository with the latest version of package information from the remote repository. This ensures that you have the latest versions and dependencies of packages available to install or upgrade on your system.
+2. `brew outdated` lists all installed packages that have a newer version available in the remote repository. This command helps you identify which packages are outdated and need to be updated. This is optional but provides a preview of how many packages are going to update when running the next command.
+3. `brew upgrade` upgrades all outdated packages installed on your system to their latest versions available in the remote repository. This command updates the packages to their latest versions, including all their dependencies, and ensures that your system has the most up-to-date software.
+4. `brew cleanup --prune=all` removes old versions of installed packages and their associated files, freeing up disk space. The `--prune=all` option removes all packages and their associated files, including those that are currently installed and those that are no longer needed. This command is useful when you want to reclaim disk space on your system by removing old and unused packages. However, it is recommended to use this command with caution, as it can potentially remove files that are still needed by other packages or applications.
+5. `brew doctor` diagnoses potential issues with your Homebrew installation. This command checks your Homebrew installation for common issues, such as outdated packages, broken symlinks, and other configuration problems. It also provides suggestions on how to fix any issues that it finds.
+
+## Update script
+
+I have wrapped everything you need to keep homebrew up-to-date. I will typically run this script a few times per week. Here's how to create it.
+
+The only dependency is a CLI tool called gum, which is a tool for glamorous shell scripts. Install it running the following command.
+
+```sh
+brew install gum
+```
+
+Then, create a file name `b` in the `~/.config/bin` directory. I find this to be a useful place to create custom scripts to automate repetitive tasks.
+
+```sh
+mkdir -p ~/.config/bin && touch ~/.config/bin/b
+```
+
+Then, add the following content to the file.
+
+```sh title="~/.config/bin/b"
+#!/usr/bin/env bash
+
+gum style \
+  --foreground 12 --border-foreground 12 --border double \
+  --align center --width 50 --margin "1 0" --padding "1 2" \
+  '██████╗ ██████╗ ███████╗██╗    ██╗
+██╔══██╗██╔══██╗██╔════╝██║    ██║
+██████╔╝██████╔╝█████╗  ██║ █╗ ██║
+██╔══██╗██╔══██╗██╔══╝  ██║███╗██║
+██████╔╝██║  ██║███████╗╚███╔███╔╝
+╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚══╝╚══╝'
+
+gum spin --show-output --spinner minidot --title "Updating brew..." -- brew update
+printf "\n"
+
+OUTDATED=$(gum spin --show-output --spinner minidot --title "Checking for outdated brew packages" -- brew outdated)
+
+if [[ -n "$OUTDATED" ]]; then
+  echo "$OUTDATED"
+  gum confirm --selected.background=2 --selected.foreground=0 "Upgrade the outdated formulae above?" && brew upgrade
+  printf "\n"
+  brew cleanup --prune=all
+  printf "\n"
+else
+  echo "All brew packages are up to date."
+  printf "\n"
+fi
+
+gum spin --show-output --spinner minidot --title "Checking for brew issues..." -- brew doctor
+```
+
+You need to make the `b` script executable, add the `~/.config/bin` directory to your path, on the default macOS shell, then source the zshrc for the PATH to reflect the new directory.
+
+```sh
+chmod +x ~/.config/bin/b
+echo 'export PATH="~/.config/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+Finally, you can run the `b` command in your terminal to ensure you have the latest versions of my favorite packages and applications which includes bug fixes, security updates, and new features. But be careful, if there are breaking changes to a package, you may need to update your configuration to support the new version. You can visit the package's release notes to see what has changed.
+
+## Summary
+
+In summary, Homebrew is a package manager for macOS that simplifies the installation and management of software packages and libraries. It uses a command-line interface and a simple formula system to download and install packages from pre-configured sources using `brew install`, making it easy to keep software up-to-date and manage dependencies. To add a custom tap, you can use the `brew tap` command to add a repository of additional formulae that are not included in the main Homebrew repository. To keep Homebrew up-to-date, you can use `brew update`, `brew outdated`, `brew upgrade`, `brew cleanup`, and `brew doctor` commands. I also showed you a simple `b` script that automates these commands for an easy way to stay up-to-date.

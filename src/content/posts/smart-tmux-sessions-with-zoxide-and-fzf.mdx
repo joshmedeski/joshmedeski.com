@@ -1,0 +1,49 @@
+---
+title: Smart tmux sessions with zoxide and fzf
+pubDate: 2022-08-12T12:00:00.000Z
+youtubeUrl: https://www.youtube.com/embed/l_TTxc0AcCw
+heroImage: "/images/posts/smart-tmux-sessions-with-zoxide-and-fzf.jpeg"
+description: Create and manage tmux sessions automatically with a custom script
+category: dotfiles
+---
+
+Create and manage tmux sessions automatically with a custom script that uses zoxide and fzf.
+
+**Update:** I've created an official tmux plugin called to make it easy to set this up in your workflow. [View "t - smart tmux session manager" tmux plugin](https://github.com/joshmedeski/t-smart-tmux-session-manager)
+
+# zoxide
+
+```sh
+brew install zoxide
+```
+
+[View zoxide on GitHub](https://github.com/ajeetdsouza/zoxide)
+
+# tmux
+
+```bash
+brew install tmux
+```
+
+[View tmux on GitHub](https://github.com/tmux/tmux)
+
+```fish title="~/.config/fish/config.fish"
+abbr tn "tmux new -s (pwd | sed 's/.*\///g')"
+```
+
+You can turn off the detach-on-destroy option in your `tmux.conf` to allow tmux to switch to an existing session when you close the final window on a session.
+
+```sh title="~/.tmux.conf"
+set-option -g detach-on-destroy off
+```
+
+# macOS Binding
+
+This is the macOS binding I use (cmd+j) to open the session manager popup.
+
+```yaml title="~/.config/alacritty/alacritty.yaml"
+key_bindings:
+  - { key: K, mods: Command, chars: "\x02\x54" }
+```
+
+[Watch "macOS Keyboard Shortcuts for tmux"](/posts/macos-keyboard-shortcuts-for-tmux) for more details.

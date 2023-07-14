@@ -1,0 +1,50 @@
+---
+import { CollectionEntry, getCollection, getEntry } from "astro:content";
+import clsx from "clsx";
+import CategoryIcon from "./CategoryIcon.astro";
+import PostCard from "./post/PostCard.astro";
+import PostMeta from "./post/PostMeta.astro";
+import Wrapper from "./Wrapper.astro";
+
+interface Props {
+  currentPostGuide: CollectionEntry<"posts">["data"]["guide"];
+}
+const { currentPostGuide } = Astro.props;
+
+let nextPost: CollectionEntry<"posts"> | undefined;
+if (currentPostGuide) {
+  // TODO: lookup current next position
+  const guidePosts = await getCollection(
+    "posts",
+    (post) =>
+      post.data.guide && currentPostGuide.ref.slug === post.data.guide.ref.slug
+  );
+  nextPost = guidePosts.find(
+    ({ data }) =>
+      data.guide && data.guide.position === currentPostGuide.position + 1
+  );
+}
+
+let guide: CollectionEntry<"guides"> | undefined;
+if (nextPost?.data.guide?.ref) {
+  guide = await getEntry("guides", nextPost.data.guide.ref.slug);
+}
+
+let category: CollectionEntry<"categories"> | undefined;
+if (nextPost?.data.category) {
+  category = await getEntry("categories", nextPost.data.category.slug);
+}
+---
+
+{
+  nextPost && guide && category && (
+    <Wrapper>
+      <section class="mb-12 grid grid-cols-4">
+        <div class="col-span-2 col-start-2">
+          <h3 class="mb-4 text-center text-3xl font-extrabold">Next Post</h3>
+          <PostCard post={nextPost} />
+        </div>
+      </section>
+    </Wrapper>
+  )
+}

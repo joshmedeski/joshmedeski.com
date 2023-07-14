@@ -1,7 +1,10 @@
 ---
 import { SITE_TITLE } from "../config";
 import HeaderLink from "./HeaderLink.astro";
-import clsx from "clsx";
+import Wrapper from "./Wrapper.astro";
+import GitHubIcon from "./icons/GitHubIcon.astro";
+import TwitterIcon from "./icons/TwitterIcon.astro";
+import YouTubeIcon from "./icons/YouTubeIcon.astro";
 
 export interface Props {
   themeColor?: string;
@@ -9,34 +12,37 @@ export interface Props {
 const props = Astro.props;
 ---
 
-<div style={`background-color: ${props.themeColor || "white"}`}>
-  <section class="mx-auto w-full max-w-screen-xl px-4">
-    <header
-      class={clsx("flex items-center justify-between py-2 place-items-start")}
-    >
-      <h2 class="m-0">
-        <a href="/" class="flex items-center">
-          <img
-            src="/images/josh-medeski-memoji.png"
-            alt="Josh Medeski Memoji"
-            class="mr-2 aspect-square h-[40px] w-auto"
-          />
-          <span class="text-2xl font-bold">{SITE_TITLE}</span>
-        </a>
-      </h2>
-      <div>
-        <a href="#menu" class="block sm:hidden">Menu</a>
-        <nav class="hidden items-center space-x-8 sm:flex">
-          <HeaderLink href="/">Home</HeaderLink>
-          <HeaderLink href="/posts">Posts</HeaderLink>
-          <HeaderLink href="/about">About</HeaderLink>
-          <a
-            href="/personal-development-environment"
-            class="inline-block rounded-lg bg-gradient-to-l from-indigo-500 to-purple-600 px-4 py-2 text-sm font-bold tracking-wider text-white transition-all duration-300 ease-in-out hover:from-indigo-700 hover:to-purple-800"
-            >Free Guide</a
-          >
-        </nav>
+<div style={props.themeColor && `background-color: ${props.themeColor}`}>
+  <Wrapper>
+    <header class="grid content-center rounded-lg py-4 md:grid-cols-5">
+      <a href="/" class="mt-1 inline text-2xl font-bold leading-normal"
+        >{SITE_TITLE}</a
+      >
+
+      <nav
+        class="col-span-3 hidden w-full items-center justify-center space-x-8 text-lg md:flex"
+      >
+        <HeaderLink href="/posts">Posts</HeaderLink>
+        <HeaderLink href="/videos">Videos</HeaderLink>
+        <HeaderLink href="/about">About</HeaderLink>
+      </nav>
+
+      <div class="hidden items-center justify-end gap-4 lg:flex">
+        <HeaderLink href="https://www.youtube.com/joshmedeski" target="_blank">
+          <YouTubeIcon class="w-6" />
+        </HeaderLink>
+        <HeaderLink href="https://twitter.com/joshmedeski" target="_blank">
+          <TwitterIcon class="w-6" />
+        </HeaderLink>
+        <HeaderLink href="https://github.com/joshmedeski" target="_blank">
+          <GitHubIcon class="w-6" />
+        </HeaderLink>
+        <a
+          href="/guides/dev-workflow-intro"
+          class="inline-block rounded-lg bg-gradient-to-l from-indigo-500 to-purple-600 px-4 py-2 font-bold tracking-wider text-white transition-all duration-300 ease-in-out hover:from-indigo-700 hover:to-purple-800"
+          >Free Guide</a
+        >
       </div>
     </header>
-  </section>
+  </Wrapper>
 </div>

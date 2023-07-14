@@ -1,28 +1,23 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
-import PostCard from "../components/post/PostCard.astro";
-import type { Post } from "../models/Post.astro";
+import PageTitle from "../components/PageTitle.astro";
+import Wrapper from "../components/Wrapper.astro";
+import Posts from "../components/Posts.astro";
 
-const posts = (await Astro.glob<Post>("../pages/posts/*.mdx"))
-  .sort(
-    (a, b) =>
-      new Date(b.frontmatter.pubDate).valueOf() -
-      new Date(a.frontmatter.pubDate).valueOf()
+const posts = await getCollection(
+  "posts",
+  ({ data: { draft } }) => !draft
+).then((p) =>
+  p.sort(
+    ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime()
   )
-  .filter(({ frontmatter: { draft } }) => !draft);
+);
 ---
 
-<Layout title="Posts" themeColor="#f2f5f9">
-  <main>
-    <section class="bg-neutral-100 px-4 py-12">
-      <div class="mx-auto max-w-screen-xl">
-        <h2 class="mb-4 text-3xl font-bold">All Posts</h2>
-        <section
-          class="grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 lg:grid-cols-4"
-        >
-          {posts.map((post) => <PostCard {...post} />)}
-        </section>
-      </div>
-    </section>
-  </main>
+<Layout title="Posts">
+  <Wrapper>
+    <PageTitle>Posts</PageTitle>
+    <Posts posts={posts} />
+  </Wrapper>
 </Layout>

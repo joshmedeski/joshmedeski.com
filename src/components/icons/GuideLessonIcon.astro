@@ -1,0 +1,39 @@
+---
+export interface Props extends astroHTML.JSX.SVGAttributes {}
+const props = Astro.props;
+import clsx from "clsx";
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  height="1em"
+  viewBox="0 0 448 512"
+  class={clsx(props.class ?? props.class)}
+>
+  <path
+    class="text-slate-600"
+    style="fill: currentColor;"
+    d="M160 32c0-17.7-14.3-32-32-32S96 14.3 96 32V64H48C21.5 64 0 85.5 0 112v80H448V112c0-26.5-21.5-48-48-48H352V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V64H160V32z"
+  ></path><path
+    class="text-slate-400"
+    style="fill: currentColor;"
+    d="M0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192z"
+  ></path></svg
+>
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  height="1em"
+  viewBox="0 0 640 512"
+  class={clsx(props.class ?? props.class)}
+>
+  <path
+    class="text-slate-600"
+    style="fill: currentColor;"
+    d="M384 128V64H576V256H384V192H320v80c0 26.5 21.5 48 48 48H592c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48H368c-26.5 0-48 21.5-48 48v80h64z"
+  ></path><path
+    class="text-slate-400"
+    style="fill: currentColor;"
+    d="M144 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm40 304V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V256.9L91.4 304.5c-9.1 15.1-28.8 20-43.9 10.9s-20-28.8-10.9-43.9l58.3-97c17.4-28.9 48.6-46.6 82.3-46.6h65.9H400c17.7 0 32 14.3 32 32s-14.3 32-32 32H264V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V352H184z"
+  ></path></svg
+>
