@@ -1,6 +1,5 @@
 ---
 import { CollectionEntry, getEntry } from "astro:content";
-import clsx from "clsx";
 import CategoryIcon from "../icons/CategoryIcon.astro";
 import { DateIcon, DurationIcon, GuideIcon } from "../icons/index.astro";
 
@@ -20,7 +19,7 @@ let guide: CollectionEntry<"guides"> | undefined;
 if (postGuide) guide = await getEntry(postGuide.ref);
 ---
 
-<div class="flex w-full flex-wrap space-x-4 font-medium">
+<div class="flex w-full flex-wrap gap-4 font-medium">
   <a href={`/categories/${category.slug}`} class={"flex items-center"}>
     <CategoryIcon slug={postCategory.slug} class="mr-1 h-4" />
     <span>{category.data.title}</span>

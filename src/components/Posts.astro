@@ -8,6 +8,8 @@ interface Props {
 const { posts } = Astro.props;
 ---
 
-<section class="-mx-6 mb-32 grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8">
+<section
+  class="mb-32 grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8 lg:-mx-6"
+>
   {posts.map((post) => <PostCard post={post} />)}
 </section>

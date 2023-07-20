@@ -11,20 +11,27 @@ const category = await getEntry(post.data.category);
 ---
 
 <div
-  class="relative flex flex-col justify-end rounded-lg px-6 py-4 shadow-md"
+  class="relative flex flex-col justify-end rounded-lg px-4 py-4 shadow-md md:px-6"
   style={{ backgroundColor: category?.data?.style?.themeColor }}
 >
-  <a href={`/posts/${post.slug}`} class="z-20 grid grow grid-cols-5 gap-6">
-    <div class="col-span-2 col-start-4 row-start-1 flex flex-col justify-end">
+  <a
+    href={`/posts/${post.slug}`}
+    class="z-20 grid grow gap-4 md:grid-cols-5 md:gap-6"
+  >
+    <div
+      class="flex flex-col justify-end md:col-span-2 md:col-start-4 md:row-start-1"
+    >
       <img
         src={post.data.heroImage}
         alt={post.data.title}
-        class="mb-8 aspect-video w-full rounded-lg bg-black shadow-md"
+        class="mb-2 aspect-video w-full rounded-lg bg-black shadow-md md:mb-8"
         style={{ backgroundColor: category.data.style.themeColor }}
       />
     </div>
 
-    <div class="col-start-0 col-span-3 row-start-1 flex flex-col justify-end">
+    <div
+      class="md:col-start-0 flex flex-col justify-end md:col-span-3 md:row-start-1"
+    >
       <div class="flex grow flex-col justify-center">
         <h3 class="mb-2 mr-4 text-xl font-extrabold leading-tight">
           {post.data.title}

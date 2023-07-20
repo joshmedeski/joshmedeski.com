@@ -1,10 +1,13 @@
 ---
 import { SITE_TITLE } from "../config";
 import HeaderLink from "./HeaderLink.astro";
+import {
+  GitHubIcon,
+  MenuIcon,
+  TwitterIcon,
+  YouTubeIcon,
+} from "./icons/index.astro";
 import Wrapper from "./Wrapper.astro";
-import GitHubIcon from "./icons/GitHubIcon.astro";
-import TwitterIcon from "./icons/TwitterIcon.astro";
-import YouTubeIcon from "./icons/YouTubeIcon.astro";
 
 export interface Props {
   themeColor?: string;
@@ -14,10 +17,16 @@ const props = Astro.props;
 
 <div style={props.themeColor && `background-color: ${props.themeColor}`}>
   <Wrapper>
-    <header class="grid content-center rounded-lg py-4 md:grid-cols-5">
-      <a href="/" class="mt-1 inline text-2xl font-bold leading-normal"
-        >{SITE_TITLE}</a
-      >
+    <header class="grid content-center rounded-lg py-4 md:grid-cols-7">
+      <div class="align-center col-span-2 flex items-center justify-between">
+        <a href="/" class="mt-1 inline text-2xl font-bold leading-normal"
+          >{SITE_TITLE}</a
+        >
+        <a href="#menu" class="mt-1 flex items-center md:hidden">
+          <MenuIcon class="mr-2 h-6 w-6 text-gray-800" />
+          <span>Menu</span>
+        </a>
+      </div>
 
       <nav
         class="col-span-3 hidden w-full items-center justify-center space-x-8 text-lg md:flex"
@@ -27,7 +36,7 @@ const props = Astro.props;
         <HeaderLink href="/about">About</HeaderLink>
       </nav>
 
-      <div class="hidden items-center justify-end gap-4 lg:flex">
+      <div class="col-span-2 hidden items-center justify-end gap-4 md:flex">
         <HeaderLink href="https://www.youtube.com/joshmedeski" target="_blank">
           <YouTubeIcon class="w-6" />
         </HeaderLink>
