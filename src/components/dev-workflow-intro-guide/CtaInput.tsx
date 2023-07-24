@@ -54,11 +54,11 @@ const PdeCtaInput: FunctionalComponent = () => {
     try {
       await fetch(`/.netlify/functions/create-new-subscriber`, {
         method: "POST",
-        body: JSON.stringify({ email, referrer_url, tags: ["waitlist"] }),
+        body: JSON.stringify({ email, referrer_url, tags: [] }),
       });
       // TODO: add fathom to window type
       // @ts-ignore
-      // cSpell:disable-next-line
+      // cSpell:words XYTTAMX5
       if (window.fathom) window.fathom.trackGoal("XYTTAMX5", 0);
       setIsSubscribed(true);
     } catch (error: any) {
@@ -73,7 +73,7 @@ const PdeCtaInput: FunctionalComponent = () => {
           {isSubscribed ? (
             <div className="mt-5 rounded-xl bg-primary-500 bg-gradient-to-l from-indigo-500 to-purple-600 py-6">
               <p className="text-center text-2xl font-extrabold text-white">
-                🎉 Thanks for joining the waitlist!
+                🎉 Thanks for signing up!
               </p>
             </div>
           ) : (
