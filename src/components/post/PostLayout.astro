@@ -20,11 +20,11 @@ const category = await getEntry(post.data.category);
   themeColor={category.data.style.themeColor}
 >
   <div
-    class="mb-[20px] pt-[350px]"
+    class="mb-[20px] md:pt-[350px]"
     style={`background-color: ${category.data.style.themeColor}`}
   >
   </div>
-  <section class="-mt-[300px]">
+  <section class="md:-mt-[300px]">
     <Wrapper>
       <section class="mb-20 md:flex md:flex-row-reverse">
         <div class="relative flex-auto">
@@ -58,16 +58,16 @@ const category = await getEntry(post.data.category);
         </div>
 
         <article class="max-w-prose flex-none">
-          <h1 class="mb-6 mr-6 mt-10 text-2xl font-extrabold md:text-4xl">
+          <h1 class="mb-6 md:mr-6 mt-10 text-2xl font-extrabold md:text-4xl">
             {post.data.title}
           </h1>
 
-          <div class="mb-4 mr-6">
+          <div class="mb-4 md:mr-6">
             <PostMeta post={post} />
           </div>
 
           <main
-            class="prose -ml-6 max-w-full rounded-t-lg bg-white px-6 pt-5 prose-a:text-blue-600 hover:prose-a:text-blue-500"
+            class="prose md:-ml-6 max-w-full rounded-t-lg bg-white md:px-6 pt-5 prose-a:text-blue-600 hover:prose-a:text-blue-500"
           >
             <slot />
           </main>
