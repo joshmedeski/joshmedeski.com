@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import PostLayout from "../../components/post/PostLayout.astro";
 import NextGuidePost from "~/components/NextGuidePost.astro";
+import GhRepo from "../../components/GhRepo.astro"
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -24,6 +25,6 @@ const { Content } = await post.render();
 ---
 
 <PostLayout post={post}>
-  <Content />
+  <Content components={{ GhRepo }} />
   <NextGuidePost currentPostGuide={post.data.guide} slot="after-post" />
 </PostLayout>
