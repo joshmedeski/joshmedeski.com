@@ -56,11 +56,11 @@ function prettyStargazersCount(count: number) {
 ---
 
 <a href={url} target="_blank" class="block not-prose no-underline mb-4">
-  <section class="flex gap-4 bg-gh-light rounded p-4">
-    <GitHubIcon class="w-12 text-gh-dark" />
+  <section class="flex flex-col sm:flex-row gap-2 sm:gap-4 bg-gh-light rounded p-2 sm:p-4">
+    <GitHubIcon class="w-8 sm:w-16 text-gh-dark" />
     <div>
-      <strong class="text-lg">{fullName}</strong>
-      <p class="text-gh-dark">{description}</p>
+      <strong class="sm:text-lg">{fullName}</strong>
+      <p class="text-sm sm:text-md text-gh-dark leading-none">{description}</p>
         <div class="text-gh-dark">🔭 {prettyStargazersCount(stargazersCount)}</div>
     </div>
   </section>
