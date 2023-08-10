@@ -1,0 +1,67 @@
+---
+import { GitHubIcon } from "./icons/index.astro";
+import { Octokit } from "octokit";
+import { PrismaClient } from "@prisma/client";
+
+// TODO: optimize prisma by moving it to some global
+const prisma = new PrismaClient();
+
+interface Props {
+  repo: string;
+}
+const { repo } = Astro.props;
+
+async function getRepoData(repo: string) {
+  const octokit = new Octokit({auth: process.env.GH_TOKEN});
+  const repoSplit = repo.split('/')
+  const { data } = await octokit.rest.repos.get({
+    owner: repoSplit[0],
+    repo: repoSplit[1]
+  });
+  return data
+}
+
+async function addRepoToCache(repo: string) {
+  const data = await getRepoData(repo)
+  const dataToSave = {
+    fullName: data.full_name,
+    ...(data.description ? {description: data.description} : {}),
+    stargazersCount: data.stargazers_count,
+    url: data.html_url
+  }
+  return await prisma.ghRepo.upsert({
+    where: { fullName: data.full_name },
+    update: dataToSave,
+    create: dataToSave
+  })
+}
+
+async function getRepo(repo: string) {
+  const cachedRepo = await prisma.ghRepo.findFirst({
+    where: { fullName: repo }
+  })
+
+  if (!cachedRepo || cachedRepo.updatedAt < new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 7)) {
+    return await addRepoToCache(repo)
+  } else {
+    return cachedRepo
+  }
+}
+
+const { fullName, description, stargazersCount, url } = await getRepo(repo)
+
+function prettyStargazersCount(count: number) {
+  return count.toLocaleString()
+}
+---
+
+<a href={url} target="_blank" class="block not-prose no-underline mb-4">
+  <section class="flex flex-col sm:flex-row gap-2 sm:gap-4 bg-gh-light rounded p-2 sm:p-4">
+    <GitHubIcon class="w-8 sm:w-16 text-gh-dark" />
+    <div>
+      <strong class="sm:text-lg">{fullName}</strong>
+      <p class="text-sm sm:text-md text-gh-dark leading-none">{description}</p>
+        <div class="text-gh-dark">🔭 {prettyStargazersCount(stargazersCount)}</div>
+    </div>
+  </section>
+</a>

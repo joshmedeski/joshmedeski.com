@@ -1,0 +1,190 @@
+---
+title: Building MDX GitHub Embeds with Astro
+description: Learn how to easily create MDX GitHub embeds using Astro in this step-by-step tutorial.
+youtubeUrl: https://www.youtube.com/embed/3o0gPmusT0Y?t=1m10s
+category: "development"
+heroImage: "/images/posts/building-mdx-github-embeds-with-astro/building-mdx-github-embeds-with-astro-thumbnail.jpeg"
+pubDate: 2023-09-10T12:00:00.000Z
+---
+
+Learn how to easily create MDX GitHub embeds using Astro in this step-by-step tutorial. Enhance your blog posts with dynamic GitHub content for a seamless and interactive reading experience. Here's how to build an MDX GitHub embed with Astro!
+
+Here's an outline of the steps needed to build an MDX GitHub embed with Astro:
+
+1. Create a `<GhRepo />` Astro component
+2. Use the component in an MDX file
+3. Cache data to sqlite with Prisma and sqlite
+4. Deploy to Netlify
+
+## 1. Create a `<GhRepo />` Astro component
+
+Astro components are a great way to create reusable components and share them across your application. In this case, we'll create a `<GhRepo />` component that uses [Ocotokit](https://github.com/octokit/octokit.js) to pull repo datat from the GitHub API and display it in a card.
+
+```astro title="GhRepo.astro"
+---
+import { GitHubIcon } from "./icons/index.astro";
+
+interface Props {
+  repo: string;
+}
+const { repo } = Astro.props;
+
+async function getRepoData(repo: string) {
+  const octokit = new Octokit({auth: process.env.GH_TOKEN});
+  const repoSplit = repo.split('/')
+  const { data } = await octokit.rest.repos.get({
+    owner: repoSplit[0],
+    repo: repoSplit[1]
+  });
+  return data
+}
+
+const { 
+  full_name: fullName,
+  description,
+  stargazers_count: stargazersCount,
+  html_url: url 
+} = await getRepo(repo)
+---
+
+<a href={url} target="_blank" class="block not-prose no-underline mb-4">
+  <section class="flex flex-col sm:flex-row gap-2 sm:gap-4 bg-gh-light rounded p-2 sm:p-4">
+    <GitHubIcon class="w-8 sm:w-16 text-gh-dark" />
+    <div>
+      <strong class="sm:text-lg">{fullName}</strong>
+      <p class="text-sm sm:text-md text-gh-dark leading-none">{description}</p>
+        <div class="text-gh-dark">🔭 {stargazersCount.toLocaleString()}</div>
+    </div>
+  </section>
+</a>
+```
+
+It will look something like this:
+
+<GhRepo repo="octokit/octokit.js" />
+
+Note, I'm using TailwindCSS, and emoji, and an SVG icon component that I created. You can use whatever you want to style your component.
+
+## 2. Use the component in an MDX file
+
+To use the `<GhRepo />` component in a MDX file, we will define it as a reusable component in the blog post layout's Astro file.
+
+```astro title="PostLayout.astro"
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import {components} from "../../components/MdxComponents"
+import GhRepo from "./GhRepo.astro"
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => {
+    return {
+      params: { slug: post.slug },
+      props: { post },
+    };
+  });
+}
+
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Content components={{ GhRepo }} />
+```
+
+Thanks to Stefan Imhoff (@kogakure) for the [tip on twitter](https://twitter.com/kogakure/status/1689527906098114560)!
+
+I highly recommend you check out [Astro's content collections guide](https://docs.astro.build/en/guides/content-collections/) to learn more about how to build type-safe markdown content.
+
+Now, you can call the `<GhRepo />` component in your markdown file, making sure to include the repo prop we defined.
+
+```mdx title="building-mdx-github-embeds-with-astro.mdx"
+---
+title: Building MDX GitHub Embeds with Astro
+---
+
+It will look something like this:
+
+<GhRepo repo="octokit/octokit.js" />
+```
+
+
+## 3. Cache data to sqlite with Prisma and sqlite
+
+Next, we'll want to create a Prisma model and service to cache the data from the GitHub API to sqlite. This will allow us to make fewer API calls and speed up our application.
+
+```prisma title="schema.prisma"
+model GhRepo {
+  fullName        String   @unique
+  description     String?
+  stargazersCount Int      @default(0)
+  url             String   @unique
+  updatedAt       DateTime @updatedAt @map("updated_at")
+}
+```
+
+You can learn more about how to use Prisma with sqlite in [this guide](https://www.prisma.io/docs/concepts/database-connectors/sqlite).
+
+Then, we'll update the `GhRepo` component logic to handle the API calls and caching.
+
+```ts title="GhRepo.astro"
+async function addRepoToCache(repo: string) {
+  const data = await getRepoData(repo)
+  const dataToSave = {
+    fullName: data.full_name,
+    ...(data.description ? {description: data.description} : {}),
+    stargazersCount: data.stargazers_count,
+    url: data.html_url
+  }
+  return await prisma.ghRepo.upsert({
+    where: { fullName: data.full_name },
+    update: dataToSave,
+    create: dataToSave
+  })
+}
+
+async function getRepo(repo: string) {
+  const cachedRepo = await prisma.ghRepo.findFirst({
+    where: { fullName: repo }
+  })
+
+  if (!cachedRepo || cachedRepo.updatedAt < new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 7)) {
+    return await addRepoToCache(repo)
+  } else {
+    return cachedRepo
+  }
+}
+
+const { fullName, description, stargazersCount, url } = await getRepo(repo)
+```
+
+A couple of things to notice here:
+1. Using an `upsert` allows us to update the repo if it already exists, or create it if it doesn't.
+2. A simple conditional check allows us to only call the GitHub API if the repo doesn't exist in the database, or if it hasn't been updated in the last week.
+
+## 4. Deploy to Netlify
+
+Finally, we can deploy the application to Netlify. It's important to configure your Netlify configuration to run prisma's migrate command before building the Astro app.
+```toml title="netlify.toml"
+
+[build.environment]
+  NPM_FLAGS = "--version" # prevent Netlify npm install
+
+[build]
+  command = 'npx pnpm i --store=node_modules/.pnpm-store && prisma migrate dev && npm run build'
+  publish = 'dist'
+```
+
+---
+
+That's how you can build an MDX GitHub Embed with Astro, Prisma, and sqlite! We created a `<GhRepo />` Astro component and styled it with TailwindCSS, pulled the data from the GitHu API using Octokit, cached it to local sqlite with Prisma, and deployed it to Netlify.
+
+All the code can be found on the [pull request from the live stream](https://github.com/joshmedeski/joshmedeski.com/pull/19).
+
+Thanks for reading! There are more Astro posts on the way, so make sure to subscribe to the newsletter to get notified when they're published.
+

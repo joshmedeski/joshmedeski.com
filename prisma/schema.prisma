@@ -42,3 +42,11 @@ model Publisher {
   imageUrl    String?
   appearances Appearance[]
 }
+
+model GhRepo {
+  fullName        String   @unique
+  description     String?
+  stargazersCount Int      @default(0)
+  url             String   @unique
+  updatedAt       DateTime @updatedAt @map("updated_at")
+}

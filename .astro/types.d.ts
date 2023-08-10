@@ -280,6 +280,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"building-mdx-github-embeds-with-astro.mdx": {
+	id: "building-mdx-github-embeds-with-astro.mdx";
+  slug: "building-mdx-github-embeds-with-astro";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "bullet-journal-didnt-work.mdx": {
 	id: "bullet-journal-didnt-work.mdx";
   slug: "bullet-journal-didnt-work";
