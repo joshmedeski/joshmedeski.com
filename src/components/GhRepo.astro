@@ -1,0 +1,36 @@
+---
+import { GitHubIcon } from "./icons/index.astro";
+import { Octokit } from "octokit";
+interface Props {
+  repo: string;
+}
+
+const { repo } = Astro.props;
+
+async function getRepoData(repo: string) {
+  const octokit = new Octokit({auth: process.env.GH_TOKEN});
+  const repoSplit = repo.split('/')
+  const { data } = await octokit.rest.repos.get({
+    owner: repoSplit[0],
+    repo: repoSplit[1]
+  });
+  return data
+}
+
+function prettyStargazersCount(count: number) {
+  return count.toLocaleString()
+}
+
+const data = await getRepoData(repo)
+---
+
+<a href={data.html_url} target="_blank" class="not-prose no-underline">
+  <section class="flex gap-4 bg-gh-light rounded p-4">
+    <GitHubIcon class="w-12 text-gh-dark" />
+    <div>
+      <strong class="text-lg">{data.full_name}</strong>
+      <p class="text-gh-dark">{data.description}</p>
+      <div class="text-gh-dark">🔭 {prettyStargazersCount(data.stargazers_count)}</div>
+    </div>
+  </section>
+</a>

@@ -117,6 +117,11 @@ module.exports = {
           DEFAULT: "var(--color-warning-default)",
           subtle: "var(--color-warning-subtle)",
         },
+        gh: {
+          light: "#fafafa",
+          dark: "#333333",
+          link: "#4678be"
+        }
       },
     },
   },
