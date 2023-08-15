@@ -1,0 +1,118 @@
+#!/usr/bin/env bash
+
+CWD=$(dirname "$(readlink -f "$0")")
+cd "$CWD"
+
+GUM_INPUT_WIDTH=80
+TITLE=$(gum input --placeholder "What's the post's title?")
+echo "$TITLE"
+echo "$TITLE" | pbcopy
+DESCRIPTION=$(gum input --placeholder "What's the post's description?")
+echo "$DESCRIPTION"
+echo "$DESCRIPTION" | pbcopy
+
+generate_slug() {
+	alphabetic_only=$(echo "$1" | tr -cd '[:alnum:][:space:]')
+	dashes_added=$(echo $alphabetic_only | sed 's/ /-/g')
+	lowercase_string=$(echo $dashes_added | tr '[:upper:]' '[:lower:]')
+	echo "$lowercase_string"
+}
+
+SLUG=$(generate_slug "$TITLE")
+echo $SLUG
+echo $SLUG | pbcopy
+
+CATEGORY=$(
+	ls ./src/content/categories | while read file; do echo $(basename "$file" | cut -f 1 -d '.'); done | gum filter --limit 1 --header="Choose a category:"
+)
+echo "$CATEGORY"
+
+# https://www.youtube.com/live/3o0gPmusT0Y?feature=share
+get_video_id() {
+	if [ -z "$1" ]; then
+		echo ""
+		exit 0
+	fi
+
+	local pattern="\?v=(.+)"
+	if [[ $1 =~ $pattern ]]; then
+		echo "${BASH_REMATCH[1]}"
+	else
+		echo "Failed to get video ID"
+		exit 1
+	fi
+}
+
+VIDEO_URL=$(gum input --placeholder "Paste the YouTube video URL (leave blank to skip)")
+VIDEO_ID=$(get_video_id $VIDEO_URL)
+
+# TODO: add /live support
+# TODO strip query params after ID
+# TODO get API to work with video not yet published
+# TODO: allow youtube video to be skipped
+get_video_duration() {
+	if [ -z "$1" ]; then
+		echo ""
+		exit 0
+	fi
+
+	local id=$1
+
+	local response=$(curl -s "https://www.googleapis.com/youtube/v3/videos?key=${YOUTUBE_KEY}&part=contentDetails&id=${id}")
+	local duration=$(echo $response | jq -r '.items[0].contentDetails.duration')
+
+	# Check if the duration includes hours
+	if [[ $duration == *H* ]]; then
+		has_hours=true
+	else
+		has_hours=false
+	fi
+
+	# Extract hours, minutes, and seconds from the duration
+	if $has_hours; then
+		hours=$(echo "$duration" | sed -n 's/.*T\([0-9]*\)H.*/\1/p')
+	else
+		hours=0
+	fi
+	minutes=$(echo "$duration" | sed -n 's/.*[HMT]\([0-9]*\)M.*/\1/p')
+	seconds=$(echo "$duration" | sed -n 's/.*[MT]\([0-9]*\)S/\1/p')
+
+	# Format the hours, minutes, and seconds as HH:MM:SS if hours exist, otherwise as MM:SS
+	if $has_hours; then
+		formatted_duration=$(printf "%02d:%02d:%02d" "$hours" "$minutes" "$seconds")
+	else
+		formatted_duration=$(printf "%02d:%02d" "$minutes" "$seconds")
+	fi
+
+	echo "$formatted_duration"
+}
+
+VIDEO_DURATION=$(get_video_duration "$VIDEO_ID")
+
+# TODO: support live streams
+get_youtube_url() {
+	if [ -z "$1" ]; then
+		echo ""
+		exit 0
+	fi
+	echo "https://www.youtube.com/embed/$1"
+}
+
+YOUTUBE_URL=$(get_youtube_url "$VIDEO_ID")
+
+DATE=$(date -u +"%Y-%m-%dT12:00:00.000Z")
+
+echo -e "---\n\
+title: $TITLE\n\
+description: $DESCRIPTION\n\
+category: "$CATEGORY"\n\
+$([[ ! -z $YOUTUBE_URL ]] && echo "youtubeUrl: $YOUTUBE_URL\n\/")\
+$([[ ! -z $VIDEO_DURATION ]] && echo "duration: $VIDEO_DURATION\n\/")\
+heroImage: \"/images/posts/$SLUG.jpeg\"\n\
+pubDate: $DATE\n\
+---\n" >./src/content/posts/$SLUG.mdx
+
+echo "✨ New blog post generated ✨"
+echo "$TITLE"
+echo "http://localhost:8888/posts/$SLUG"
+open "http://localhost:8888/posts/$SLUG"
