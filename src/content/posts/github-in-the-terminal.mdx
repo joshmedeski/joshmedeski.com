@@ -1,0 +1,88 @@
+---
+title: GitHub In The Terminal
+description: Let's integrate GitHub into the terminal using the GitHub CLI, gh-dash, and the Octo Neovim plugin.
+category: dotfiles
+youtubeUrl: https://www.youtube.com/embed/TzAi3IcltkY
+duration: "1:20:07"
+heroImage: "/images/posts/github-in-the-terminal.jpeg"
+pubDate: 2023-08-16T21:00:00.000Z
+---
+
+Let's integrate GitHub into the terminal using the GitHub CLI, gh-dash, and the Octo Neovim plugin. In this live stream I experiment with adding new features to my tools to improve my experience with using GitHub on the command line.
+
+## gh-dash
+
+<GhRepo repo="dlvhdr/gh-dash" />
+
+Here are a couple of features I added to gh-dash:
+
+```yaml title="~/.config/gh-dash/config.yml"
+keybindings:
+  issues:
+    - key: e
+      command: >
+        tmux display-popup -d {{.RepoPath}} -w 80% -h 90% -E 'nvim -c ":Octo issue edit {{.IssueNumber}}"'
+    - key: i
+      command: >
+        tmux display-popup -d {{.RepoPath}} -w 80% -h 90% -E 'nvim -c ":Octo issue create"'
+  prs:
+    - key: O
+      command: >
+        tmux new-window -c {{.RepoPath}} 'nvim -c ":Octo pr edit {{.PrNumber}}"'
+```
+
+Also, in order to keep gh dash up-to-date, run the following command:
+
+```sh
+gh extension upgrade --all
+```
+
+## Octo.nvim
+
+<GhRepo repo="pwntester/octo.nvim" />
+
+Here is how I configure Octo.nvim using the Lazy.nvim plugin manager:
+
+```lua title="~/.config/nvim/lua/plugins/octo.lua"
+return {
+  "pwntester/octo.nvim",
+  cmd = "Octo",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope.nvim",
+    "nvim-tree/nvim-web-devicons",
+  },
+  config = function()
+    require("octo").setup({ enable_builtin = true })
+    vim.cmd([[hi OctoEditable guibg=none]])
+  end,
+  keys = {
+    { "<leader>o", "<cmd>Octo<cr>", desc = "Octo" },
+  },
+}
+```
+
+I had previously created many custom leader key bindings but found I wasn't using them. So, thanks to [this issue I opened](https://github.com/pwntester/octo.nvim/issues/377), I can simplify it down to `<leader>o` which opens Telescope with all the potential Octo commands.
+
+## lazygit
+
+<GhRepo repo="jesseduffield/lazygit" />
+
+Lastly, I integrated Octo more into my favorite git CLI tool, lazygit, by overwritting the "o" command with a custom command and setting the origional command to "O".
+
+```yaml title="~/Library/Application Support/lazygit/config.yml
+customCommands:
+  - key: "o"
+    command: "nvim -c ':Octo pr create'"
+    context: "localBranches"
+    loadingText: "Loading Octo"
+    description: "Open pull request with Octo"
+    subprocess: true
+keybinding:
+  branches:
+    createPullRequest: "O"
+```
+
+---
+
+Overall this was fun exploring these tools on the live stream. Each of the tools explored have different features to offer and I can see myself replacing a lot of my time on github.com with gh-dash, octo.nvim, and lazygit.
