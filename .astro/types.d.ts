@@ -336,6 +336,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"github-in-the-terminal.mdx": {
+	id: "github-in-the-terminal.mdx";
+  slug: "github-in-the-terminal";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "how-i-set-up-prettier.mdx": {
 	id: "how-i-set-up-prettier.mdx";
   slug: "how-i-set-up-prettier";
