@@ -324,6 +324,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"dolev-hadars-dev-workflow.mdx": {
+	id: "dolev-hadars-dev-workflow.mdx";
+  slug: "dolev-hadars-dev-workflow";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "eisenhower-matrix-todoist.mdx": {
 	id: "eisenhower-matrix-todoist.mdx";
   slug: "eisenhower-matrix-todoist";
