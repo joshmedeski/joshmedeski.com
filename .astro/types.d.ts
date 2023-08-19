@@ -20,7 +20,9 @@ declare module 'astro:content' {
 
 declare module 'astro:content' {
 	export { z } from 'astro/zod';
-	export type CollectionEntry<C extends keyof AnyEntryMap> = AnyEntryMap[C][keyof AnyEntryMap[C]];
+
+	type Flatten<T> = T extends { [K: string]: infer U } ? U : never;
+	export type CollectionEntry<C extends keyof AnyEntryMap> = Flatten<AnyEntryMap[C]>;
 
 	// TODO: Remove this when having this fallback is no longer relevant. 2.3? 3.0? - erika, 2023-04-04
 	/**
@@ -339,6 +341,13 @@ declare module 'astro:content' {
 "four-letter-word-kills-productivity.mdx": {
 	id: "four-letter-word-kills-productivity.mdx";
   slug: "four-letter-word-kills-productivity";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
+"github-in-the-terminal.mdx": {
+	id: "github-in-the-terminal.mdx";
+  slug: "github-in-the-terminal";
   body: string;
   collection: "posts";
   data: InferEntrySchema<"posts">

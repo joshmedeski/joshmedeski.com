@@ -30,30 +30,32 @@ interface Props {
 const { repo } = Astro.props;
 
 async function getRepoData(repo: string) {
-  const octokit = new Octokit({auth: process.env.GH_TOKEN});
-  const repoSplit = repo.split('/')
+  const octokit = new Octokit({ auth: process.env.GH_TOKEN });
+  const repoSplit = repo.split("/");
   const { data } = await octokit.rest.repos.get({
     owner: repoSplit[0],
-    repo: repoSplit[1]
+    repo: repoSplit[1],
   });
-  return data
+  return data;
 }
 
-const { 
+const {
   full_name: fullName,
   description,
   stargazers_count: stargazersCount,
-  html_url: url 
-} = await getRepo(repo)
+  html_url: url,
+} = await getRepo(repo);
 ---
 
-<a href={url} target="_blank" class="block not-prose no-underline mb-4">
-  <section class="flex flex-col sm:flex-row gap-2 sm:gap-4 bg-gh-light rounded p-2 sm:p-4">
-    <GitHubIcon class="w-8 sm:w-16 text-gh-dark" />
+<a href={url} target="_blank" class="not-prose mb-4 block no-underline">
+  <section
+    class="flex flex-col gap-2 rounded bg-gh-light p-2 sm:flex-row sm:gap-4 sm:p-4"
+  >
+    <GitHubIcon class="w-8 text-gh-dark sm:w-16" />
     <div>
       <strong class="sm:text-lg">{fullName}</strong>
-      <p class="text-sm sm:text-md text-gh-dark leading-none">{description}</p>
-        <div class="text-gh-dark">🔭 {stargazersCount.toLocaleString()}</div>
+      <p class="sm:text-md text-sm leading-none text-gh-dark">{description}</p>
+      <div class="text-gh-dark">🔭 {stargazersCount.toLocaleString()}</div>
     </div>
   </section>
 </a>
@@ -73,8 +75,8 @@ To use the `<GhRepo />` component in a MDX file, we will define it as a reusable
 ---
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
-import {components} from "../../components/MdxComponents"
-import GhRepo from "./GhRepo.astro"
+import { components } from "../../components/MdxComponents";
+import GhRepo from "./GhRepo.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -113,7 +115,6 @@ It will look something like this:
 <GhRepo repo="octokit/octokit.js" />
 ```
 
-
 ## 3. Cache data to sqlite with Prisma and sqlite
 
 Next, we'll want to create a Prisma model and service to cache the data from the GitHub API to sqlite. This will allow us to make fewer API calls and speed up our application.
@@ -134,42 +135,48 @@ Then, we'll update the `GhRepo` component logic to handle the API calls and cach
 
 ```ts title="GhRepo.astro"
 async function addRepoToCache(repo: string) {
-  const data = await getRepoData(repo)
+  const data = await getRepoData(repo);
   const dataToSave = {
     fullName: data.full_name,
-    ...(data.description ? {description: data.description} : {}),
+    ...(data.description ? { description: data.description } : {}),
     stargazersCount: data.stargazers_count,
-    url: data.html_url
-  }
+    url: data.html_url,
+  };
   return await prisma.ghRepo.upsert({
     where: { fullName: data.full_name },
     update: dataToSave,
-    create: dataToSave
-  })
+    create: dataToSave,
+  });
 }
 
 async function getRepo(repo: string) {
   const cachedRepo = await prisma.ghRepo.findFirst({
-    where: { fullName: repo }
-  })
+    where: { fullName: repo },
+  });
 
-  if (!cachedRepo || cachedRepo.updatedAt < new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 7)) {
-    return await addRepoToCache(repo)
+  if (
+    !cachedRepo ||
+    cachedRepo.updatedAt <
+      new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 7)
+  ) {
+    return await addRepoToCache(repo);
   } else {
-    return cachedRepo
+    return cachedRepo;
   }
 }
 
-const { fullName, description, stargazersCount, url } = await getRepo(repo)
+const { fullName, description, stargazersCount, url } = await getRepo(repo);
 ```
 
 A couple of things to notice here:
+
 1. Using an `upsert` allows us to update the repo if it already exists, or create it if it doesn't.
 2. A simple conditional check allows us to only call the GitHub API if the repo doesn't exist in the database, or if it hasn't been updated in the last week.
 
 ## 4. Deploy to Netlify
 
 Finally, we can deploy the application to Netlify. It's important to configure your Netlify configuration to run prisma's migrate command before building the Astro app.
+
 ```toml title="netlify.toml"
 
 [build.environment]
@@ -187,4 +194,3 @@ That's how you can build an MDX GitHub Embed with Astro, Prisma, and sqlite! We 
 All the code can be found on the [pull request from the live stream](https://github.com/joshmedeski/joshmedeski.com/pull/19).
 
 Thanks for reading! There are more Astro posts on the way, so make sure to subscribe to the newsletter to get notified when they're published.
-

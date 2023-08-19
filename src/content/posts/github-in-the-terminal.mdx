@@ -1,0 +1,150 @@
+---
+title: GitHub In The Terminal
+description: Let's integrate GitHub into the terminal using the GitHub CLI, gh-dash, and the Octo Neovim plugin.
+category: dotfiles
+youtubeUrl: https://www.youtube.com/embed/TzAi3IcltkY
+duration: "1:20:07"
+heroImage: "/images/posts/github-in-the-terminal.jpeg"
+pubDate: 2023-08-16T21:00:00.000Z
+---
+
+Let's integrate GitHub into the terminal using the GitHub CLI, gh-dash, and the Octo Neovim plugin. In this live stream I experiment with adding new features to my tools to improve my experience with using GitHub on the command line.
+
+## gh-dash
+
+<GhRepo repo="dlvhdr/gh-dash" />
+
+Here are a couple of features I added to gh-dash:
+
+```yaml title="~/.config/gh-dash/config.yml"
+keybindings:
+  issues:
+    - key: e
+      command: >
+        tmux display-popup -d {{.RepoPath}} -w 80% -h 90% -E 'nvim -c ":Octo issue edit {{.IssueNumber}}"'
+    - key: i
+      command: >
+        tmux display-popup -d {{.RepoPath}} -w 80% -h 90% -E 'nvim -c ":Octo issue create"'
+  prs:
+    - key: O
+      command: >
+        tmux new-window -c {{.RepoPath}} 'nvim -c ":Octo pr edit {{.PrNumber}}"'
+```
+
+Also, in order to keep gh dash up-to-date, run the following command:
+
+```sh
+gh extension upgrade --all
+```
+
+## Octo.nvim
+
+<GhRepo repo="pwntester/octo.nvim" />
+
+Here is how I configure Octo.nvim using the Lazy.nvim plugin manager:
+
+```lua title="~/.config/nvim/lua/plugins/octo.lua"
+return {
+  "pwntester/octo.nvim",
+  cmd = "Octo",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope.nvim",
+    "nvim-tree/nvim-web-devicons",
+  },
+  config = function()
+    require("octo").setup({ enable_builtin = true })
+    vim.cmd([[hi OctoEditable guibg=none]])
+  end,
+  keys = {
+    { "<leader>o", "<cmd>Octo<cr>", desc = "Octo" },
+  },
+}
+```
+
+I had previously created many custom leader key bindings but found I wasn't using them. So, thanks to [this issue I opened](https://github.com/pwntester/octo.nvim/issues/377), I can simplify it down to `<leader>o` which opens Telescope with all the potential Octo commands.
+
+## gitlinker.nvim
+
+<GhRepo repo="ruifm/gitlinker.nvim" />
+
+This plugin makes it easy to get a unique GitHub URL to a line of code in a repo. You can use the following lines to install it with lazy.nvim:
+
+```lua title="~/.config/nvim/lua/plugins/gitlinker.lua"
+return {
+  "ruifm/gitlinker.nvim",
+  dependencies = "nvim-lua/plenary.nvim",
+  opts = {},
+}
+```
+
+Now, you can press `<leader>gy` and it will automatically detect the line your cursor is on and copy a unique GitHub URL to that source code to your clipboard.
+
+## gitsigns.nvim
+
+<GhRepo repo="lewis6991/gitsigns.nvim" />
+
+This is my favorite git plugin for Neovim. It has many features, primarily showing git diff status in the sign column. Here is how I configure it using lazy.nvim:
+
+```lua title="~/.config/nvim/lua/plugins/gitsigns.lua
+return {
+  "lewis6991/gitsigns.nvim",
+  event = "BufReadPre",
+  opts = function()
+    local icons = require("config.icons")
+    --- @type Gitsigns.Config
+    local C = {
+      on_attach = function(buffer)
+        local gs = package.loaded.gitsigns
+
+        local function map(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+        end
+
+        map("n", "]g", gs.next_hunk, "Next Hunk")
+        map("n", "[g", gs.prev_hunk, "Prev Hunk")
+        map({ "n", "v" }, "<leader>gg", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
+        map({ "n", "v" }, "<leader>gx", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+        map("n", "<leader>gG", gs.stage_buffer, "Stage Buffer")
+        map("n", "<leader>gu", gs.undo_stage_hunk, "Undo Stage Hunk")
+        map("n", "<leader>gX", gs.reset_buffer, "Reset Buffer")
+        map("n", "<leader>gp", gs.preview_hunk, "Preview Hunk")
+        map("n", "<leader>gb", function()
+          gs.blame_line({ full = true })
+        end, "Blame Line")
+        map("n", "<leader>gd", gs.diffthis, "Diff This")
+        map("n", "<leader>gD", function()
+          gs.diffthis("~")
+        end, "Diff This ~")
+        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+      end,
+    }
+    return C
+  end,
+}
+```
+
+The commands I hightlight in the live stream are `]g` and `[g` to navigate between hunks, `<leader>gg` and `<leader>gx` to stage and reset hunks, and `<leader>gG` to stage the entire buffer.
+
+## lazygit
+
+<GhRepo repo="jesseduffield/lazygit" />
+
+Lastly, I integrated Octo more into my favorite git CLI tool, lazygit, by overwritting the "o" command with a custom command and setting the origional command to "O".
+
+```yaml title="~/Library/Application Support/lazygit/config.yml
+customCommands:
+  - key: "o"
+    command: "nvim -c ':Octo pr create'"
+    context: "localBranches"
+    loadingText: "Loading Octo"
+    description: "Open pull request with Octo"
+    subprocess: true
+keybinding:
+  branches:
+    createPullRequest: "O"
+```
+
+---
+
+Overall this was fun exploring these tools on the live stream. Each of the tools explored have different features to offer and I can see myself replacing a lot of my time on github.com with gh-dash, octo.nvim, and lazygit.
