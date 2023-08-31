@@ -1,6 +1,8 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 import { ViewTransitions } from "astro:transitions";
+import { getImage } from "astro:assets";
+import defaultSocialImage from "../assets/joshmedeski-social.jpeg";
 
 const isProd = import.meta.env.PROD;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
@@ -12,12 +14,16 @@ export interface Props {
   image?: string;
 }
 
-const {
-  title,
-  description,
-  themeColor,
-  image = "/joshmedeski-social.jpeg",
-} = Astro.props;
+const { title, description, themeColor, image } = Astro.props;
+
+const socialImage = await getImage({
+  src: image ?? defaultSocialImage,
+  width: 1024,
+  height: 768,
+  format: "jpeg",
+});
+
+const socialImageUrl = new URL(socialImage.src, Astro.url);
 ---
 
 <head>
@@ -44,14 +50,14 @@ const {
   <meta property="og:url" content={Astro.url} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content={new URL(image, Astro.url)} />
+  <meta property="og:image" content={socialImageUrl} />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content={Astro.url} />
   <meta property="twitter:title" content={title} />
   <meta property="twitter:description" content={description} />
-  <meta property="twitter:image" content={new URL(image, Astro.url)} />
+  <meta property="twitter:image" content={socialImageUrl} />
   <meta name="twitter:image:width" content="1400" />
   <meta name="twitter:image:height" content="788" />
 
