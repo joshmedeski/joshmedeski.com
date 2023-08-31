@@ -4,6 +4,7 @@ import { getEntry } from "astro:content";
 import Layout from "../Layout.astro";
 import Wrapper from "../Wrapper.astro";
 import PostMeta from "./PostMeta.astro";
+import { Image } from "astro:assets";
 
 interface Props {
   post: CollectionEntry<"posts">;
@@ -44,12 +45,14 @@ const category = await getEntry(post.data.category);
                   />
                 </div>
               ) : (
-                <img
+                <Image
                   class:list={[
                     post.data.heroClasses,
                     "bg-black w-full rounded-xl shadow-lg aspect-video",
                   ]}
                   src={post.data.heroImage}
+                  width="1640"
+                  height="922.5"
                   alt={`${post.data.title} hero`}
                 />
               )
@@ -58,7 +61,7 @@ const category = await getEntry(post.data.category);
         </div>
 
         <article class="max-w-prose flex-none">
-          <h1 class="mb-6 md:mr-6 mt-10 text-2xl font-extrabold md:text-4xl">
+          <h1 class="mb-6 mt-10 text-2xl font-extrabold md:mr-6 md:text-4xl">
             {post.data.title}
           </h1>
 
@@ -67,7 +70,7 @@ const category = await getEntry(post.data.category);
           </div>
 
           <main
-            class="prose md:-ml-6 max-w-full rounded-t-lg bg-white md:px-6 pt-5 prose-a:text-blue-600 hover:prose-a:text-blue-500"
+            class="prose max-w-full rounded-t-lg bg-white pt-5 prose-a:text-blue-600 hover:prose-a:text-blue-500 md:-ml-6 md:px-6"
           >
             <slot />
           </main>

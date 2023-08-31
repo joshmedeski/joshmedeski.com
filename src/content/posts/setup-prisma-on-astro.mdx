@@ -28,7 +28,7 @@ const publishers = await prisma.publisher.findMany({
     <section class="flex flex-wrap items-center justify-center space-x-6">
       {
         publishers.map(({ imageUrl, name }) => (
-          <img src={imageUrl} alt={name} class="max-h-[70px] max-w-[200px]" />
+          <Image src={imageUrl} alt={name} class="max-h-[70px] max-w-[200px]" />
         ))
       }
     </section>
