@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Shares a post to social media through AI generated text
+
+CWD=$(dirname "$(readlink -f "$0")")
+cd "$CWD"
+
+GUM_INPUT_WIDTH=200
+POST_URL=$(gum input --placeholder "What's the URL of the post you want to share?")
+
+# tweet (x)
+CONTEXT="You are a social media expert. You will create a well-crafted social media post to promote my new social media post by sharing a brief summary. You will be concise, include hashtags, use only one or two emojis together and a call-to-action to encourage the user to visit the new post. I will be posting this on my own account, so don't mention @joshmedeski. Avoid cringy words like 'deets'. Always make the URL the last thing in the tweet because it turns into a richlink and I want the end of the tweet to lead into the rich link below the text.
+
+You will also add the following UTM parameters to the end of the URL:
+{url}/?utm_campaign=New+Post&utm_source=twitter&utm_medium=richlink
+
+Replace {url} with the URL I provide. Here is the url: "
+TWEET=$(
+	gum spin \
+		--show-output \
+		--title "Generating tweet..." \
+		--title.margin="2" --title.width="60" --title.align="center" \
+		--spinner="minidot" --spinner.align="center" --spinner.margin="2" --spinner.width="60" -- \
+		echo $CONTEXT + $POST_URL | ~/repos/openai-cli/openai
+)
+
+echo "Here is your generated tweet (it's been addded to your clipboard)"
+echo "$TWEET" | pbcopy
+echo "$TWEET"
