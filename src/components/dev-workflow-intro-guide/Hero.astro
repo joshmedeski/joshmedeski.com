@@ -1,11 +1,13 @@
 ---
 import clsx from "clsx";
+import { Image } from "astro:assets";
 import { GuideIcon } from "../icons/index.astro";
 import Points from "../Points.astro";
 import Wrapper from "../Wrapper.astro";
 interface Props {
   overlapOnHeader?: boolean;
 }
+import heroAlt from "../../assets/guides/dev-workflow-intro/dev-workflow-intro-hero-alt.png";
 const { overlapOnHeader } = Astro.props;
 ---
 
@@ -48,9 +50,11 @@ const { overlapOnHeader } = Astro.props;
   <Wrapper>
     <section class="flex flex-col gap-8 py-12 md:flex-row-reverse md:py-24">
       <div class="w-full">
-        <img
+        <Image
           class="aspect-video rounded-3xl bg-gray-900 shadow-xl md:mt-12"
-          src="/images/guides/dev-workflow-intro/dev-workflow-intro-hero-alt.png"
+          src={heroAlt}
+          width="1000"
+          height="562.5"
           alt="man sitting at desk in front of a landscape of rivers leading to a mountain range"
           loading="lazy"
         />

@@ -48,7 +48,7 @@ const PdeCta: FunctionalComponent = () => {
         >
           <img
             className="h-auto w-full rounded-t-lg"
-            src="/images/pde-screenshot.jpg"
+            src="../../assets/pde-screenshot.jpg"
             alt="App screenshot"
           />
         </div>

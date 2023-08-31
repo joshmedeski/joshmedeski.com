@@ -1,6 +1,6 @@
 ---
 import { CollectionEntry, getEntry } from "astro:content";
-import Wrapper from "../Wrapper.astro";
+import { Image } from "astro:assets";
 import PostMeta from "./PostMeta.astro";
 
 interface Props {
@@ -21,9 +21,11 @@ const category = await getEntry(post.data.category);
     <div
       class="flex flex-col justify-end md:col-span-2 md:col-start-4 md:row-start-1"
     >
-      <img
+      <Image
         src={post.data.heroImage}
         alt={post.data.title}
+        width="500"
+        height="281.25"
         class="mb-2 aspect-video w-full rounded-lg bg-black shadow-md md:mb-8"
         style={{ backgroundColor: category.data.style.themeColor }}
       />

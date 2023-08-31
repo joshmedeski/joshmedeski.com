@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import CtaInput from "./CtaInput.tsx";
+import previewScreenshot from "../../assets/dev-workflow-preview-cta.png";
 ---
 
 <div class="bg-white">
@@ -39,9 +41,9 @@ import CtaInput from "./CtaInput.tsx";
         <CtaInput client:visible />
       </div>
       <div class="relative mt-16 h-80 lg:mt-8">
-        <img
+        <Image
           class="absolute left-0 top-0 w-[57rem] max-w-none rounded-md"
-          src="/images/dev-workflow-preview-cta.png"
+          src={previewScreenshot}
           alt="App screenshot"
           width="1824"
           height="1080"
