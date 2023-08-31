@@ -18,11 +18,11 @@ const category = await getEntry(post.data.category);
   title={post.data.title}
   description={post.data.description}
   image={post.data.heroImage}
-  themeColor={category.data.style.themeColor}
+  themeColor={category?.data.style.themeColor}
 >
   <div
     class="mb-[20px] md:pt-[350px]"
-    style={`background-color: ${category.data.style.themeColor}`}
+    style={`background-color: ${category?.data.style.themeColor}`}
   >
   </div>
   <section class="md:-mt-[300px]">
