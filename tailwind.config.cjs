@@ -120,8 +120,18 @@ module.exports = {
         gh: {
           light: "#fafafa",
           dark: "#333333",
-          link: "#4678be"
-        }
+          link: "#4678be",
+        },
+      },
+      keyframes: {
+        fade_in: {
+          "0%": { opacity: 0 },
+          "20%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+      },
+      animation: {
+        "fade-in": "fade_in 1s ease-in",
       },
     },
   },

@@ -2,27 +2,28 @@ import { z, defineCollection, reference } from "astro:content";
 
 const postsCollection = defineCollection({
   type: "content",
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    pubDate: z.date(),
-    category: reference("categories"),
-    duration: z.string().optional(),
-    heroImage: z.string(),
-    draft: z.boolean().optional(),
-    titleClasses: z.string().optional(),
-    updatedDate: z.string().optional(),
-    youtubeUrl: z.string().optional(),
-    heroClasses: z.string().optional(),
-    thumbnail: z.string().optional(),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      pubDate: z.date(),
+      category: reference("categories"),
+      duration: z.string().optional(),
+      heroImage: image(),
+      draft: z.boolean().optional(),
+      titleClasses: z.string().optional(),
+      updatedDate: z.string().optional(),
+      youtubeUrl: z.string().optional(),
+      heroClasses: z.string().optional(),
+      thumbnail: image().optional(),
 
-    guide: z
-      .object({
-        ref: reference("guides"),
-        position: z.number(),
-      })
-      .optional(),
-  }),
+      guide: z
+        .object({
+          ref: reference("guides"),
+          position: z.number(),
+        })
+        .optional(),
+    }),
 });
 
 const categoriesCollection = defineCollection({

@@ -2,7 +2,7 @@
 title: "How to add Prisma to an Astro site"
 pubDate: 2022-10-07
 description: ""
-heroImage: "/images/posts/setup-prisma-on-astro/setup-prisma-on-astro-thumbnail.jpeg"
+heroImage: "../../assets/posts/setup-prisma-on-astro/setup-prisma-on-astro-thumbnail.jpeg"
 draft: true
 category: "development"
 ---
@@ -28,7 +28,7 @@ const publishers = await prisma.publisher.findMany({
     <section class="flex flex-wrap items-center justify-center space-x-6">
       {
         publishers.map(({ imageUrl, name }) => (
-          <img src={imageUrl} alt={name} class="max-h-[70px] max-w-[200px]" />
+          <Image src={imageUrl} alt={name} class="max-h-[70px] max-w-[200px]" />
         ))
       }
     </section>

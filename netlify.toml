@@ -9,7 +9,7 @@
 [dev]
   command = "npm run start"
   framework = "#auto"
-  targetPort = 3000
+  targetPort = 4321
 
 [[redirects]]
   from = "/vimconf"

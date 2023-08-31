@@ -4,10 +4,7 @@ title: "About Me"
 description: "Full-stack developer, teacher, speaker, and writer."
 ---
 
-<img
-  alt="collage of Josh"
-  src="/images/collage-of-josh.jpg"
-/>
+![collage of Josh](../assets/collage-of-josh.jpg)
 
 At an early age, I always loved technology and problem solving. I would pull apart computers, read books about how cars are made and constantly ask my mom questions about the world around me. While growing up, I became fascinated with drawing, acting, graphic design and magic. I was a creative kid.
 
@@ -17,7 +14,7 @@ Over the years, I moved into front-end development full-time. I built a partners
 
 Now, I am a full-stack developer specializing in JavaScript, including the Angular, React, and Express frameworks. I also continue to write and discuss productivity and personal development online.
 
-![ENFJ](/images/enfj.svg)
+![ENFJ](../assets/enfj.svg)
 
 ## Personality Typings
 

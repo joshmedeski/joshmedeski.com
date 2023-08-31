@@ -4,6 +4,7 @@ import { getEntry } from "astro:content";
 import Layout from "../Layout.astro";
 import Wrapper from "../Wrapper.astro";
 import PostMeta from "./PostMeta.astro";
+import { Image } from "astro:assets";
 
 interface Props {
   post: CollectionEntry<"posts">;
@@ -17,11 +18,11 @@ const category = await getEntry(post.data.category);
   title={post.data.title}
   description={post.data.description}
   image={post.data.heroImage}
-  themeColor={category.data.style.themeColor}
+  themeColor={category?.data.style.themeColor}
 >
   <div
     class="mb-[20px] md:pt-[350px]"
-    style={`background-color: ${category.data.style.themeColor}`}
+    style={`background-color: ${category?.data.style.themeColor}`}
   >
   </div>
   <section class="md:-mt-[300px]">
@@ -30,8 +31,8 @@ const category = await getEntry(post.data.category);
         <div class="relative flex-auto">
           <div class="top-4 z-40 w-full md:sticky">
             {
-              post.data.youtubeUrl ? (
-                <div class="rounded-xl shadow-lg">
+              post.data.youtubeUrl && (
+                <div class="absolute top-0 z-20 w-full animate-fade-in rounded-xl shadow-lg">
                   <iframe
                     width="100%"
                     height="100%"
@@ -43,22 +44,24 @@ const category = await getEntry(post.data.category);
                     allowfullscreen
                   />
                 </div>
-              ) : (
-                <img
-                  class:list={[
-                    post.data.heroClasses,
-                    "bg-black w-full rounded-xl shadow-lg aspect-video",
-                  ]}
-                  src={post.data.heroImage}
-                  alt={`${post.data.title} hero`}
-                />
               )
             }
+            <Image
+              class:list={[
+                post.data.heroClasses,
+                "bg-black w-full rounded-xl shadow-lg aspect-video z-10 absolute top-0",
+              ]}
+              src={post.data.heroImage}
+              width="1640"
+              height="922.5"
+              alt={`${post.data.title} hero`}
+              transition:name={`post-${post.slug}-thumb`}
+            />
           </div>
         </div>
 
         <article class="max-w-prose flex-none">
-          <h1 class="mb-6 md:mr-6 mt-10 text-2xl font-extrabold md:text-4xl">
+          <h1 class="mb-6 mt-10 text-2xl font-extrabold md:mr-6 md:text-4xl">
             {post.data.title}
           </h1>
 
@@ -67,14 +70,18 @@ const category = await getEntry(post.data.category);
           </div>
 
           <main
-            class="prose md:-ml-6 max-w-full rounded-t-lg bg-white md:px-6 pt-5 prose-a:text-blue-600 hover:prose-a:text-blue-500"
+            class="prose max-w-full rounded-t-lg bg-white pt-5 prose-a:text-blue-600 hover:prose-a:text-blue-500 md:-ml-6 md:px-6"
           >
             <slot />
           </main>
         </article>
       </section>
     </Wrapper>
+    <slot name="after-post" />
   </section>
+</Layout>
+<slot name="after-post" />
 
+</Layout>
   <slot name="after-post" />
 </Layout>

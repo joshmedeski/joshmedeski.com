@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { CollectionEntry, getCollection } from "astro:content";
 
 interface Props {
@@ -74,11 +75,11 @@ const posts = await getCollection(
         posts.map((post) => (
           <li class="[counter-increment:video]">
             <a href={`/posts/${post.slug}`}>
-              <img
+              <Image
                 alt={post.data.title}
                 loading="lazy"
-                width="200"
-                height="108"
+                width="400"
+                height="216"
                 class="w-full rounded-2xl shadow-lg"
                 src={post.data.thumbnail}
               />

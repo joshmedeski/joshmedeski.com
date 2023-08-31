@@ -1,5 +1,6 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+import { ViewTransitions } from "astro:transitions";
 
 const isProd = import.meta.env.PROD;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
@@ -184,4 +185,5 @@ const {
       --color-warning-subtle: var(--color-warning-900);
     }
   </style>
+  <ViewTransitions fallback="swap" />
 </head>
