@@ -8,4 +8,6 @@ export PATH=$BUN_INSTALL/bin:$PATH
 bun --version
 bun install
 prisma migrate dev
+echo "bun --bun run astro build"
+echo "build astro with bun please 🙏"
 bun --bun run astro build
