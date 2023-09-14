@@ -9,6 +9,7 @@
     },
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "types": ["bun-types"]
   }
 }

@@ -7,7 +7,7 @@ import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import AutoImport from "astro-auto-import";
-import { defineConfig } from "astro/config";
+import { defineConfig, squooshImageService } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,4 +20,7 @@ export default defineConfig({
     tailwind(),
     preact(),
   ],
+  image: {
+    service: squooshImageService(),
+  },
 });
