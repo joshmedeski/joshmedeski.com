@@ -10,4 +10,5 @@ bun install
 prisma migrate dev
 cat /opt/build/repo/node_modules/load-yaml-file/index.js
 cat /opt/build/repo/node_modules/load-yaml-file/package.json
+cat /opt/build/repo/node_modules/js-yaml/package.json
 bun --bun run astro build
