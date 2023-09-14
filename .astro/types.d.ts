@@ -470,6 +470,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"using-bun-with-astro.mdx": {
+	id: "using-bun-with-astro.mdx";
+  slug: "using-bun-with-astro";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "vim-tmux-with-nick-nisi.mdx": {
 	id: "vim-tmux-with-nick-nisi.mdx";
   slug: "vim-tmux-with-nick-nisi";
