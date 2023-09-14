@@ -2,8 +2,10 @@
 set -e
 curl -fsSL https://bun.sh/install | bash
 
-export PATH="/opt/buildhome/.bun/bin:$PATH"
+export BUN_INSTALL=$HOME/.bun
+export PATH=$BUN_INSTALL/bin:$PATH
+
 bun --version
 bun install
-bun x prisma migrate dev
+prisma migrate dev
 bun --bun run build
