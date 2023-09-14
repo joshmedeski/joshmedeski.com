@@ -1,0 +1,26 @@
+---
+title: Using bun with astro
+description: Experimenting with the new bun runtime with the astro framework.
+category: development
+youtubeUrl: https://www.youtube.com/embed/JgACR7xQY2g
+duration: 02:40:22
+heroImage: "../../assets/posts/using-bun-with-astro.jpeg"
+pubDate: 2023-09-13T19:00:00.000Z
+---
+
+Experimenting with the new bun runtime with the astro framework.
+
+**Note:** I ultimately didn't deploy Astro with bun because of bun's current limitatinos. You can watch the stream to see me work through the issues, or read the highlights below.
+
+## Highlights
+
+- Bun is fast! Install times are significantly faster
+- Sharp isn't supported by bun yet, so I had back to Squoosh to get images working
+- Netlify can't build, there seems to be something wrong with how dependencies are installed
+- Vercel can build, but the View Transitions API doesn't work on the deployed site
+
+## Resources
+
+- [Astro Docs: Using Astro with Bun](https://docs.astro.build/en/recipes/bun/)
+- [Example of React app that you can deploy to netlify using bun (bun.js, oven.sh)](https://github.com/JLarky/bun-netlify)
+- [Sharp error issue on Astro's Github](https://github.com/withastro/astro/issues/8489)
