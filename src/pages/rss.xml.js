@@ -1,11 +1,11 @@
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
-import rss from "@astrojs/rss";
+import rss, { pagesGlobToRssItems } from "@astrojs/rss";
 
-export function GET() {
+export async function GET() {
   return rss({
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     site: import.meta.env.SITE,
-    items: import.meta.glob("./posts/*.mdx"),
+    items: await pagesGlobToRssItems(import.meta.glob("./posts/*.mdx")),
   });
 }

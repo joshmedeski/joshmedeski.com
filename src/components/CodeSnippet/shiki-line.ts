@@ -1,13 +1,13 @@
 import { ensureTextContrast } from "./color-contrast";
-import {
+import type {
   InlineMarkingDefinition,
   InlineToken,
   InsertionPoint,
   MarkedRange,
   MarkerToken,
   MarkerType,
-  MarkerTypeOrder,
 } from "./types";
+import { MarkerTypeOrder } from "./types";
 import chroma from "chroma-js";
 import { unescape as unEsc } from "html-escaper";
 
