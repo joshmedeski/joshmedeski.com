@@ -6,7 +6,7 @@ export BUN_INSTALL=$HOME/.bun
 export PATH=$BUN_INSTALL/bin:$PATH
 
 bun --version
-bun install --frozen-lockfile
+bun install --verbose --frozen-lockfile
 prisma migrate dev
 ls /opt/build/repo/node_modules/load-yaml-file
 bun --bun run astro build
