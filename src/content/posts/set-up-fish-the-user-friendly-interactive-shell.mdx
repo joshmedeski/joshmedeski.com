@@ -60,13 +60,15 @@ If you're unfamiliar with `vi`, I recommend running `vimtutor` in your terminal 
 
 Now that you've added fish as a valid login shell for macOS, you can run the `chsh` (change shell) command to change the default login shell.
 
+Copy the command below and run all three commands at once to quickly change your default shell to fish.
+
 ```sh
 cd ~
 basename $(pwd) | pbcopy
 chsh -s /opt/homebrew/bin/fish $(pbpaste)
 ```
 
-You may be prompted, again, to enter your user password and when the command is completed your login shell is now switched to fish, congrats! Now, close and reopen the terminal window for the changes to take effect.
+You may be prompted, again, to enter your user password and when the command is completed your login shell is now switched to fish. In order for your changes to take effect, you'll need to log out and log back in to your user account. I recommend you **restart your computer** for good measure. When you log back in fish will be your default shell, congrats!
 
 ## Configuring fish
 
