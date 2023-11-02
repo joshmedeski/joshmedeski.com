@@ -4,6 +4,7 @@ import HeaderLink from "./HeaderLink.astro";
 import {
   GitHubIcon,
   MenuIcon,
+  TwitchIcon,
   TwitterIcon,
   YouTubeIcon,
 } from "./icons/index.astro";
@@ -46,6 +47,9 @@ const props = Astro.props;
         </HeaderLink>
         <HeaderLink href="https://github.com/joshmedeski" target="_blank">
           <GitHubIcon class="w-6" />
+        </HeaderLink>
+        <HeaderLink href="https://twitch.com/joshmedeski" target="_blank">
+          <TwitchIcon class="w-6" />
         </HeaderLink>
         <a
           href="/guides/dev-workflow-intro"

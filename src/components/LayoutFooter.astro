@@ -5,7 +5,7 @@ import HeaderLink from "./HeaderLink.astro";
 import { getCollection } from "astro:content";
 import Wrapper from "./Wrapper.astro";
 import Hero from "./dev-workflow-intro-guide/Hero.astro";
-import { GitHubIcon, TwitterIcon, YouTubeIcon } from "./icons/index.astro";
+import { GitHubIcon, TwitchIcon, TwitterIcon, YouTubeIcon } from "./icons/index.astro";
 
 const today = new Date();
 interface Props {
@@ -63,6 +63,9 @@ const categories = await getCollection("categories");
             </HeaderLink>
             <HeaderLink href="https://github.com/joshmedeski" target="_blank">
               <GitHubIcon class="w-12" />
+            </HeaderLink>
+            <HeaderLink href="https://twitch.com/joshmedeski" target="_blank">
+              <TwitchIcon class="w-12" />
             </HeaderLink>
           </div>
         </div>
