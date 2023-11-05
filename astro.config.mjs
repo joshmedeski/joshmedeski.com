@@ -7,6 +7,7 @@ import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import AutoImport from "astro-auto-import";
+import pagefind from "astro-pagefind";
 import { defineConfig } from "astro/config";
 
 // https://astro.build/config
@@ -16,6 +17,7 @@ export default defineConfig({
     AutoImport({ imports: [codeSnippetAutoImport] }),
     astroCodeSnippets(),
     mdx(),
+    pagefind(),
     sitemap(),
     tailwind(),
     preact(),
