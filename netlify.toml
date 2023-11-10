@@ -2,7 +2,7 @@
   NPM_FLAGS = "--version" # prevent Netlify npm install
 
 [build]
-  command = 'npx pnpm i --store=node_modules/.pnpm-store && prisma migrate dev && npm run build && pnpx pagefind@latest --site "dist"'
+  command = 'npx pnpm i --store=node_modules/.pnpm-store && prisma migrate dev && npm run build'
   publish = 'dist'
   functions = "functions"
 

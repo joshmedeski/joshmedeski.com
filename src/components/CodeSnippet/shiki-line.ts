@@ -1,13 +1,13 @@
 import { ensureTextContrast } from "./color-contrast";
-import {
+import type {
   InlineMarkingDefinition,
   InlineToken,
   InsertionPoint,
   MarkedRange,
   MarkerToken,
   MarkerType,
-  MarkerTypeOrder,
 } from "./types";
+import { MarkerTypeOrder } from "./types";
 import chroma from "chroma-js";
 import { unescape as unEsc } from "html-escaper";
 
@@ -29,7 +29,7 @@ export class ShikiLine {
     const lineMatches = highlightedCodeLine.match(lineRegExp);
     if (!lineMatches)
       throw new Error(
-        `Shiki-highlighted code line HTML did not match expected format. HTML code:\n${highlightedCodeLine}`
+        `Shiki-highlighted code line HTML did not match expected format. HTML code:\n${highlightedCodeLine}`,
       );
 
     this.beforeClassValue = lineMatches[1];
@@ -143,14 +143,14 @@ export class ShikiLine {
 
   getLineMarkerType(): MarkerType {
     return MarkerTypeOrder.find(
-      (markerType) => markerType && this.classes.has(markerType.toString())
+      (markerType) => markerType && this.classes.has(markerType.toString()),
     );
   }
 
   setLineMarkerType(newType: MarkerType) {
     // Remove all existing marker type classes (if any)
     MarkerTypeOrder.forEach(
-      (markerType) => markerType && this.classes.delete(markerType.toString())
+      (markerType) => markerType && this.classes.delete(markerType.toString()),
     );
 
     if (newType === undefined) return;
@@ -158,7 +158,7 @@ export class ShikiLine {
   }
 
   private getInlineMarkingDefinitionMatches(
-    inlineMarking: InlineMarkingDefinition
+    inlineMarking: InlineMarkingDefinition,
   ) {
     const markedRanges: MarkedRange[] = [];
 
@@ -172,7 +172,7 @@ export class ShikiLine {
         });
         idx = this.textLine.indexOf(
           inlineMarking.text,
-          idx + inlineMarking.text.length
+          idx + inlineMarking.text.length,
         );
       }
       return markedRanges;
@@ -227,8 +227,8 @@ export class ShikiLine {
 
     throw new Error(
       `Missing matching logic for inlineMarking=${JSON.stringify(
-        inlineMarking
-      )}`
+        inlineMarking,
+      )}`,
     );
   }
 
@@ -271,19 +271,19 @@ export class ShikiLine {
 
   private insertMarkerTokenAtPosition(
     position: InsertionPoint,
-    markerToken: MarkerToken
+    markerToken: MarkerToken,
   ) {
     // Insert the new token inside the given token by splitting it
     if (position.innerHtmlOffset > 0) {
       const insideToken = this.tokens[position.tokenIndex];
       if (insideToken.tokenType !== "syntax")
         throw new Error(
-          `Cannot insert a marker token inside a token of type "${insideToken.tokenType}"!`
+          `Cannot insert a marker token inside a token of type "${insideToken.tokenType}"!`,
         );
 
       const newInnerHtmlBeforeMarker = insideToken.innerHtml.slice(
         0,
-        position.innerHtmlOffset
+        position.innerHtmlOffset,
       );
       const tokenAfterMarker = {
         ...insideToken,
@@ -359,7 +359,7 @@ export class ShikiLine {
           flattenedRanges.splice(
             posStart.idx,
             posEnd.idx - posStart.idx + 1,
-            ...newElements
+            ...newElements,
           );
         });
     });

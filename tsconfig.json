@@ -2,7 +2,7 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "allowJs": true,
-    "lib": ["dom"],
+    "lib": ["dom", "ES2023"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"]
