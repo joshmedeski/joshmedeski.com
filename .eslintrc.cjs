@@ -1,4 +1,5 @@
 module.exports = {
+  extends: ["plugin:astro/recommended"],
   overrides: [
     {
       files: ["*.astro"],
@@ -8,11 +9,6 @@ module.exports = {
       parserOptions: {
         parser: "@typescript-eslint/parser",
         extraFileExtensions: [".astro"],
-        sourceType: "module",
-      },
-      rules: {
-        "astro/no-conflict-set-directives": "error",
-        "astro/no-unused-define-vars-in-style": "error",
       },
     },
     {
