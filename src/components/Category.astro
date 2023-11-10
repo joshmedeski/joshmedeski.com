@@ -1,5 +1,4 @@
 ---
-import type { getEntryBySlug } from "astro:content";
 import clsx from "clsx";
 import CategoryIcon from "./CategoryIcon.astro";
 
@@ -20,7 +19,7 @@ const {
     <h3
       class={clsx(
         "font-extrabold leading-none mb-1 text-lg tracking-wide",
-        style.title
+        style.title,
       )}
     >
       {title}

@@ -3,6 +3,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 import { ViewTransitions } from "astro:transitions";
 import { getImage } from "astro:assets";
 import defaultSocialImage from "../assets/joshmedeski-social.jpeg";
+import type { ImageMetadata } from "astro";
 
 const isProd = import.meta.env.PROD;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
@@ -11,7 +12,7 @@ export interface Props {
   title?: string;
   description?: string;
   themeColor?: string;
-  image?: string;
+  image?: ImageMetadata;
 }
 
 const { title, description, themeColor, image } = Astro.props;

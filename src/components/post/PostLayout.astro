@@ -49,7 +49,7 @@ const category = await getEntry(post.data.category);
             <Image
               class:list={[
                 post.data.heroClasses,
-                "bg-black w-full rounded-xl shadow-lg aspect-video z-10 absolute top-0",
+                "absolute top-0 z-10 aspect-video w-full rounded-xl bg-black shadow-lg",
               ]}
               src={post.data.heroImage}
               width="1640"
@@ -79,9 +79,4 @@ const category = await getEntry(post.data.category);
     </Wrapper>
     <slot name="after-post" />
   </section>
-</Layout>
-<slot name="after-post" />
-
-</Layout>
-  <slot name="after-post" />
 </Layout>
