@@ -1,23 +1,23 @@
-import type { ShikiLine } from './shiki-line';
+import { ShikiLine } from "./shiki-line";
 
 export type CopyButtonArgs = {
-	copyButtonTitle?: string;
-	copyButtonTooltip?: string;
+  copyButtonTitle?: string;
+  copyButtonTooltip?: string;
 };
 
 export class CopyButton {
-	private code: string;
-	private title: string;
-	private tooltip: string;
+  private code: string;
+  private title: string;
+  private tooltip: string;
 
-	constructor(lines: ShikiLine[], CopyButtonArgs: CopyButtonArgs) {
-		this.title = CopyButtonArgs.copyButtonTitle || '';
-		this.tooltip = CopyButtonArgs.copyButtonTooltip || '';
-		this.code = lines.map((line) => line.textLine).join('\n');
-	}
+  constructor(lines: ShikiLine[], CopyButtonArgs: CopyButtonArgs) {
+    this.title = CopyButtonArgs.copyButtonTitle || "";
+    this.tooltip = CopyButtonArgs.copyButtonTooltip || "";
+    this.code = lines.map((line) => line.textLine).join("\n");
+  }
 
-	renderToHtml() {
-		return `<div class="copy-button-wrapper" aria-live="polite">
+  renderToHtml() {
+    return `<div class="copy-button-wrapper" aria-live="polite">
 	<button
 		class="copy-button"
 		title="${this.title}"
@@ -27,5 +27,5 @@ export class CopyButton {
 		</svg></button>
 	<p class="copy-button-tooltip">${this.tooltip}</p>
 </div>`;
-	}
+  }
 }
