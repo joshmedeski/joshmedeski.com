@@ -1,0 +1,31 @@
+---
+import { Image } from "astro:assets";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../config";
+import Wrapper from "~/components/Wrapper.astro";
+---
+
+<section class="py-16 md:py-32">
+  <Wrapper>
+    <div class="flex items-center justify-center gap-8">
+      <Image
+        src="/joshmedeski-profile-circle.png"
+        alt="Josh Medeski"
+        width="150"
+        height="150"
+      />
+      <div>
+        <h1
+          class="mb-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-6xl"
+        >
+          {SITE_TITLE}
+        </h1>
+        <p class="mb-2 max-w-md text-xl leading-tight md:text-xl">
+          {SITE_DESCRIPTION}
+        </p>
+        <a href="/about" class="text-xl text-primary-500 underline"
+          >Learn more</a
+        >
+      </div>
+    </div>
+  </Wrapper>
+</section>

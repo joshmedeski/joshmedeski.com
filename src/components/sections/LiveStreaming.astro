@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../config";
+import Wrapper from "~/components/Wrapper.astro";
+import {YouTubeIcon, TwitchIcon} from "~/components/icons/index.astro";
+---
+
+<section class="py-16 md:py-32">
+  <Wrapper>
+    <div class="flex items-center justify-center gap-8">
+      <Image
+        src="/live-streaming.png"
+        alt="Preview of Josh live streaming"
+        width="500"
+        height="281"
+        class="rounded-md"
+      />
+      <div>
+        <h1
+          class="mb-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl"
+        >
+          Live Streaming
+        </h1>
+        <p class="mb-6 max-w-md text-xl leading-tight md:text-xl">
+          <strong>Every Wednesday at 7pm CST</strong> I build projects live on YouTube and Twitch.
+        </p>
+        <div class="flex gap-2">
+        <a href="https://www.youtube.com/joshmedeski" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-5 py-3 text-base font-bold text-black bg-[#FFEBEB] border border-transparent rounded-md">
+          <YouTubeIcon class="w-5 h-5 mr-2" />
+          <span>
+          Subscribe on YouTube
+          </span>
+          </a>
+        <a href="https://twitch.com/joshmedeski" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-5 py-3 text-base font-bold text-black bg-[#f0f0ff] border border-transparent rounded-md">
+          <TwitchIcon class="w-5 h-5 mr-2" />
+          <span>
+          Subscribe on YouTube
+          </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </Wrapper>
+</section>
