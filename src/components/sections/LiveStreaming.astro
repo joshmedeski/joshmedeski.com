@@ -1,8 +1,7 @@
 ---
 import { Image } from "astro:assets";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../config";
 import Wrapper from "~/components/Wrapper.astro";
-import {YouTubeIcon, TwitchIcon} from "~/components/icons/index.astro";
+import { YouTubeIcon, TwitchIcon } from "~/components/icons/index.astro";
 ---
 
 <section class="py-16 md:py-32">
@@ -22,20 +21,27 @@ import {YouTubeIcon, TwitchIcon} from "~/components/icons/index.astro";
           Live Streaming
         </h1>
         <p class="mb-6 max-w-md text-xl leading-tight md:text-xl">
-          <strong>Every Wednesday at 7pm CST</strong> I build projects live on YouTube and Twitch.
+          <strong>Every Wednesday at 7pm CST</strong> I build projects live on
+          YouTube and Twitch.
         </p>
         <div class="flex gap-2">
-        <a href="https://www.youtube.com/joshmedeski" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-5 py-3 text-base font-bold text-black bg-[#FFEBEB] border border-transparent rounded-md">
-          <YouTubeIcon class="w-5 h-5 mr-2" />
-          <span>
-          Subscribe on YouTube
-          </span>
+          <a
+            href="https://www.youtube.com/joshmedeski"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center rounded-md border border-transparent bg-[#FFEBEB] px-5 py-3 text-base font-bold text-black"
+          >
+            <YouTubeIcon class="mr-2 h-5 w-5" />
+            <span> Subscribe on YouTube</span>
           </a>
-        <a href="https://twitch.com/joshmedeski" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-5 py-3 text-base font-bold text-black bg-[#f0f0ff] border border-transparent rounded-md">
-          <TwitchIcon class="w-5 h-5 mr-2" />
-          <span>
-          Subscribe on YouTube
-          </span>
+          <a
+            href="https://twitch.com/joshmedeski"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center rounded-md border border-transparent bg-[#f0f0ff] px-5 py-3 text-base font-bold text-black"
+          >
+            <TwitchIcon class="mr-2 h-5 w-5" />
+            <span> Subscribe on YouTube</span>
           </a>
         </div>
       </div>
