@@ -3,4 +3,4 @@
 
 export const SITE_TITLE = "Josh Medeski";
 export const SITE_DESCRIPTION =
-  "Full-stack developer, teacher, speaker, and writer.";
+  "Empowering developers and creatives to build and grow with intention, by sharing insights and tools.";

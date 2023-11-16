@@ -1,0 +1,27 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import Wrapper from "~/components/Wrapper.astro";
+import GhRepo from "../GhRepo.astro";
+
+const projects = await getCollection("projects");
+---
+
+<section class="py-16 md:py-32">
+  <Wrapper>
+    <div>
+      <h1
+        class="mb-2 text-center text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl"
+      >
+        Projects
+      </h1>
+      <p class="mb-6 text-center text-xl leading-tight md:text-xl">
+        Here are some helpful open-source projects I've built.
+      </p>
+
+      <section class="mx-auto flex max-w-[600px] flex-col gap-4">
+        {projects.map(({ data: { repo } }) => <GhRepo repo={repo} />)}
+      </section>
+    </div>
+  </Wrapper>
+</section>
