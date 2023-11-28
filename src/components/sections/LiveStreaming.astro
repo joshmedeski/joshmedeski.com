@@ -1,0 +1,58 @@
+---
+import { Image } from "astro:assets";
+import Wrapper from "~/components/Wrapper.astro";
+import { YouTubeIcon, TwitchIcon } from "~/components/icons/index.astro";
+---
+
+<section class="py-16 md:py-32">
+  <Wrapper>
+    <div class="flex flex-col items-center justify-center gap-8 lg:flex-row">
+      <Image
+        src="/live-streaming.png"
+        alt="Preview of Josh live streaming"
+        width="500"
+        height="281"
+        class="rounded-sm"
+      />
+      <div>
+        <h1
+          class="mb-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl"
+        >
+          Live Streaming
+        </h1>
+        <p class="mb-6 max-w-md text-xl leading-tight md:text-xl">
+          <strong>Every Wednesday at 7pm CST</strong> I build projects live on
+          YouTube and Twitch.
+        </p>
+        <div class="flex flex-col gap-2 sm:flex-row">
+          <a
+            href="https://twitch.com/joshmedeski"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center rounded-md border border-transparent bg-[#f0f0ff] px-5 py-3 text-base font-bold text-black"
+          >
+            <TwitchIcon class="mr-2 h-5 w-5" />
+            <span>Subscribe on Twitch</span>
+          </a>
+          <a
+            href="https://www.youtube.com/joshmedeski"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center rounded-md border border-transparent bg-[#FFEBEB] px-5 py-3 text-base font-bold text-black"
+          >
+            <YouTubeIcon class="mr-2 h-5 w-5" />
+            <span>Subscribe on YouTube</span>
+          </a>
+        </div>
+        <a
+          href="https://www.youtube.com/joshmedeski/streams"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ml-2 mt-4 block text-center text-sm text-primary-500 underline lg:text-left"
+        >
+          <span>View previous live streams</span>
+        </a>
+      </div>
+    </div>
+  </Wrapper>
+</section>

@@ -2,13 +2,17 @@
 import Hero from "~/components/dev-workflow-intro-guide/Hero.astro";
 import Layout from "../components/Layout.astro";
 import RecentPosts from "../components/RecentPosts.astro";
+import AboutMe from "../components/sections/AboutMe.astro";
+import LiveStreaming from "../components/sections/LiveStreaming.astro";
+import Projects from "~/components/sections/Projects.astro";
 ---
 
 <Layout
   title="Home"
   description="Empowering developers and creatives to build and grow with intention, by sharing insights and tools."
-  hideCta={true}
 >
-  <Hero overlapOnHeader={true} />
+  <AboutMe />
+  <LiveStreaming />
+  <Projects />
   <RecentPosts />
 </Layout>

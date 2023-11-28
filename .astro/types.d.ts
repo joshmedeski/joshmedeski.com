@@ -519,6 +519,29 @@ declare module 'astro:content' {
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
 };
+"projects": {
+"t-smart-tmux-session-manager.mdx": {
+	id: "t-smart-tmux-session-manager.mdx";
+  slug: "t-smart-tmux-session-manager";
+  body: string;
+  collection: "projects";
+  data: InferEntrySchema<"projects">
+} & { render(): Render[".mdx"] };
+"tmux-fzf-url.mdx": {
+	id: "tmux-fzf-url.mdx";
+  slug: "tmux-fzf-url";
+  body: string;
+  collection: "projects";
+  data: InferEntrySchema<"projects">
+} & { render(): Render[".mdx"] };
+"tmux-nerd-font-window-name-thumb.mdx": {
+	id: "tmux-nerd-font-window-name-thumb.mdx";
+  slug: "tmux-nerd-font-window-name-thumb";
+  body: string;
+  collection: "projects";
+  data: InferEntrySchema<"projects">
+} & { render(): Render[".mdx"] };
+};
 
 	};
 
