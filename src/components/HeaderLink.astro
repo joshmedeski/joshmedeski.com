@@ -7,6 +7,7 @@ const isActive = href === Astro.url.pathname.replace(/\/$/, "");
 <a
   href={href}
   class:list={[className, "", { "font-bold": isActive }]}
+  data-astro-prefetch
   {...props}
 >
   <slot />

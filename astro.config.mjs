@@ -9,6 +9,7 @@ import { defineConfig } from "astro/config";
 // https://astro.build/config
 export default defineConfig({
   site: "https://joshmedeski.com/",
+  prefetch: true,
   integrations: [
     // NOTE: expressiveCode must be before mdx
     expressiveCode(),
