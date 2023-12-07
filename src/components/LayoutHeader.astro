@@ -21,9 +21,13 @@ const props = Astro.props;
   <Wrapper>
     <header class="grid content-center rounded-lg py-4 md:grid-cols-7">
       <div class="align-center col-span-2 flex items-center justify-between">
-        <a href="/" class="mt-1 inline text-2xl font-bold leading-normal"
-          >{SITE_TITLE}</a
+        <a
+          href="/"
+          class="mt-1 inline text-2xl font-bold leading-normal"
+          data-astro-prefetch
         >
+          {SITE_TITLE}
+        </a>
         <a href="#menu" class="mt-1 flex items-center md:hidden">
           <MenuIcon class="mr-2 h-6 w-6 text-gray-800" />
           <span>Menu</span>

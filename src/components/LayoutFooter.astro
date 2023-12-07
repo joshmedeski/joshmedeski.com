@@ -29,7 +29,7 @@ const categories = await getCollection("categories");
     <div class="gap-4 lg:grid lg:grid-cols-6 lg:gap-6">
       <div class="space-y-6 lg:col-span-2">
         <div>
-          <a href="/" class="flex items-center">
+          <a href="/" class="flex items-center" data-astro-prefetch>
             <span class="text-2xl font-bold">{SITE_TITLE}</span>
           </a>
           <p class="text-base text-gray-500">
@@ -49,7 +49,7 @@ const categories = await getCollection("categories");
         <a
           href="/guides/dev-workflow-intro"
           class="inline-block rounded-lg bg-gradient-to-l from-indigo-500 to-purple-600 px-4 py-2 text-sm font-bold tracking-wider text-white transition-all duration-300 ease-in-out hover:from-indigo-700 hover:to-purple-800"
-          >Free Guide</a
+          data-astro-prefetch>Free Guide</a
         >
 
         <div>
