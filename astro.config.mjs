@@ -1,12 +1,8 @@
-import {
-  astroCodeSnippets,
-  codeSnippetAutoImport,
-} from "./integrations/astro-code-snippets";
 import mdx from "@astrojs/mdx";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
-import AutoImport from "astro-auto-import";
+import expressiveCode from "astro-expressive-code";
 import pagefind from "astro-pagefind";
 import { defineConfig } from "astro/config";
 
@@ -14,8 +10,8 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   site: "https://joshmedeski.com/",
   integrations: [
-    AutoImport({ imports: [codeSnippetAutoImport] }),
-    astroCodeSnippets(),
+    // NOTE: expressiveCode must be before mdx
+    expressiveCode(),
     mdx(),
     pagefind(),
     sitemap(),
