@@ -469,6 +469,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"underrated-square-bracket.mdx": {
+	id: "underrated-square-bracket.mdx";
+  slug: "underrated-square-bracket";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "upgrading-to-astro-v3.mdx": {
 	id: "upgrading-to-astro-v3.mdx";
   slug: "upgrading-to-astro-v3";

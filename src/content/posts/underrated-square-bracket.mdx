@@ -3,7 +3,7 @@ title: "The Underrated Square Bracket (NeoVim Conf 2023)"
 pubDate: 2023-12-05
 description: This vim motion offers many useful vim motions that make navigating code a breeze
 heroImage: ../../assets/posts/the-underrated-square-bracket.jpeg
-youtubeUrl: https://www.youtube.com/watch?v=vHNtl9gTWSU
+youtubeUrl: https://www.youtube.com/embed/vHNtl9gTWSU?si=8aaJVNu-Da45cZLq
 category: "dotfiles"
 ---
 
@@ -15,7 +15,7 @@ Let's talk about the underrated square bracket. I don't think it's a very popula
 
 The simplest version of this motion is hitting the right square bracket twice (`]]`) which will jump you to the next reference under your cursor. Conversly if you go to the left square brackets twice (`[[`) it can go backwards.
 
-```lua title="~/.config/nvim/lua/plugins/vim-illuminate.lua"
+```lua title="~/.config/nvim/lua/plugins/vim-illuminate.lua" {20-21} {27-28} {33-34}
   return {
     "RRethy/vim-illuminate",
     event = "LazyFile",
@@ -72,7 +72,7 @@ vim.keymap.set("n", "]b", "<cmd>bnext<cr>", {
 
 One of my favorites is jumping between Git hunks hunks using square bracket and "g" (`]g`).
 
-```lua title="~/.config/nvim/lua/plugins/gitsigns.lua"
+```lua title="~/.config/nvim/lua/plugins/gitsigns.lua" {12-13}
 return {
   "lewis6991/gitsigns.nvim",
   event = "BufReadPre",
@@ -129,7 +129,7 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 If you like to use to-do comments I have it set up so I can use square bracket "t" (`]t`) to switch between different to-do comments.
 
-```lua title="~/.config/nvim/lua/plugins/todo-comments.lua"
+```lua title="~/.config/nvim/lua/plugins/todo-comments.lua" {7-8}
 return {
   "folke/todo-comments.nvim",
   cmd = { "TodoTrouble", "TodoTelescope" },
