@@ -7,6 +7,7 @@ import {
   MenuIcon,
   TwitchIcon,
   TwitterIcon,
+  MastodonIcon,
   YouTubeIcon,
 } from "./icons/index.astro";
 import Wrapper from "./Wrapper.astro";
@@ -21,9 +22,13 @@ const props = Astro.props;
   <Wrapper>
     <header class="grid content-center rounded-lg py-4 md:grid-cols-7">
       <div class="align-center col-span-2 flex items-center justify-between">
-        <a href="/" class="mt-1 inline text-2xl font-bold leading-normal"
-          >{SITE_TITLE}</a
+        <a
+          href="/"
+          class="mt-1 inline text-2xl font-bold leading-normal"
+          data-astro-prefetch
         >
+          {SITE_TITLE}
+        </a>
         <a href="#menu" class="mt-1 flex items-center md:hidden">
           <MenuIcon class="mr-2 h-6 w-6 text-gray-800" />
           <span>Menu</span>
@@ -52,6 +57,9 @@ const props = Astro.props;
         </HeaderLink>
         <HeaderLink href="https://twitch.com/joshmedeski" target="_blank">
           <TwitchIcon class="w-6" />
+        </HeaderLink>
+        <HeaderLink href="https://mastodon.social/@joshmedeski">
+          <MastodonIcon class="w-6" />
         </HeaderLink>
         <HeaderLink href="https://github.com/joshmedeski" target="_blank">
           <GitHubIcon class="w-6" />
