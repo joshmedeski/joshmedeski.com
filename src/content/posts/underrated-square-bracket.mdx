@@ -13,7 +13,7 @@ Let's talk about the underrated square bracket. I don't think it's a very popula
 
 ## References (`]]` & `[[`)
 
-The simplest version of this motion is hitting the right square bracket twice (`]]`) which will jump you to the next reference under your cursor. Conversly if you go to the left square brackets twice (`[[`) it can go backwards.
+The simplest version of this motion is hitting the right square bracket twice (`]]`) which will jump you to the next reference under your cursor. Conversely, if you go to the left square brackets twice (`[[`) it can go backwards.
 
 ```lua title="~/.config/nvim/lua/plugins/vim-illuminate.lua" {20-21} {27-28} {33-34}
   return {
@@ -170,7 +170,7 @@ return {
 
 ## Note on complex motions
 
-I'd like to point out that in general this motion is a lot more simple than the ones that we might be used to where we can prend numbers in front of our motions (ex: `w2` to jump to the second word) in order to be even more accurate or to skip references. In this case if I were to do two bracket bracket (`2]]`) we can see that it only honors the second part of that motion and goes to the next entry which is unfortunate. But, once you get used to it, I find it very useful to be in my workflow.
+I'd like to point out that in general this motion is a lot more simple than the ones that we might be used to where we can prepend numbers in front of our motions (ex: `w2` to jump to the second word) in order to be even more accurate or to skip references. In this case if I were to do two bracket bracket (`2]]`) we can see that it only honors the second part of that motion and goes to the next entry which is unfortunate. But, once you get used to it, I find it very useful to be in my workflow.
 
 ## Jumping out of view
 
