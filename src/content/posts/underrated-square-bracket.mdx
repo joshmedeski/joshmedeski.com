@@ -1,0 +1,204 @@
+---
+title: "The Underrated Square Bracket (NeoVim Conf 2023)"
+pubDate: 2023-12-05
+description: This vim motion offers many useful vim motions that make navigating code a breeze
+heroImage: ../../assets/posts/the-underrated-square-bracket.jpeg
+youtubeUrl: https://www.youtube.com/embed/vHNtl9gTWSU?si=8aaJVNu-Da45cZLq
+category: "dotfiles"
+---
+
+Let's talk about the underrated square bracket. I don't think it's a very popular Vim motion but I hope that after this talk you add it to your workflow. It's a really simple Vim motion that helps me be more efficient, which is all we want with NeoVim right, I'm excited to show you how it works so let's get into it.
+
+**Note:** the following configuration snippets are all compatible with the [lazy.nvim](https://github.com/folke/lazy.nvim) package manager.
+
+## References (`]]` & `[[`)
+
+The simplest version of this motion is hitting the right square bracket twice (`]]`) which will jump you to the next reference under your cursor. Conversely, if you go to the left square brackets twice (`[[`) it can go backwards.
+
+```lua title="~/.config/nvim/lua/plugins/vim-illuminate.lua" {20-21} {27-28} {33-34}
+  return {
+    "RRethy/vim-illuminate",
+    event = "LazyFile",
+    opts = {
+      delay = 200,
+      large_file_cutoff = 2000,
+      large_file_overrides = {
+        providers = { "lsp" },
+      },
+    },
+    config = function(_, opts)
+      require("illuminate").configure(opts)
+
+      local function map(key, dir, buffer)
+        vim.keymap.set("n", key, function()
+          require("illuminate")["goto_" .. dir .. "_reference"](false)
+        end, { desc = dir:sub(1, 1):upper() .. dir:sub(2) .. " Reference", buffer = buffer })
+      end
+
+      map("]]", "next")
+      map("[[", "prev")
+
+      -- also set it after loading ftplugins, since a lot overwrite [[ and ]]
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function()
+          local buffer = vim.api.nvim_get_current_buf()
+          map("]]", "next", buffer)
+          map("[[", "prev", buffer)
+        end,
+      })
+    end,
+    keys = {
+      { "]]", desc = "Next Reference" },
+      { "[[", desc = "Prev Reference" },
+    },
+  },
+```
+
+## Buffers (`]b` & `[b`)
+
+You can move forward and backward through buffers using the square bracket and "b" (`]b`) so we can go forward and we can go back (`[b`).
+
+```lua title="~/.config/nvim/init.lua"
+vim.keymap.set("n", "[b", "<cmd>bprevious<cr>", {
+  desc = "Prev buffer",
+})
+
+vim.keymap.set("n", "]b", "<cmd>bnext<cr>", {
+  desc = "Next buffer",
+})
+```
+
+## Git Hunks (`]g` & `[g`)
+
+One of my favorites is jumping between Git hunks hunks using square bracket and "g" (`]g`).
+
+```lua title="~/.config/nvim/lua/plugins/gitsigns.lua" {12-13}
+return {
+  "lewis6991/gitsigns.nvim",
+  event = "BufReadPre",
+  opts = function()
+    --- @type Gitsigns.Config
+    local C = {
+      on_attach = function(buffer)
+        local gs = package.loaded.gitsigns
+        local function map(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+        end
+        map("n", "]g", gs.next_hunk, "Next Hunk")
+        map("n", "[g", gs.prev_hunk, "Prev Hunk")
+      end,
+    }
+    return C
+  end,
+}
+```
+
+## LSP
+
+### LSP Diagnostics (`]d` & `[d`)
+
+My most common use with using the square bracket motion is with LSPs and so in this case we can see two diagnoses showing and so I can do bracket "d" (`]d`) for "diagnostic".
+
+### LSP Errors (`]e` & `[e`)
+
+Similarly if I want to go directly to the first error I can do bracket "e" (`]e`) .
+
+### LSP Warnings (`]w` & `[w`)
+
+And if I want to go to warning specifically I can do bracket "w" (`]w`).
+
+Here are all the mappings I use for this:
+
+```lua title="~/.config/nvim/lua/init.lua"
+local diagnostic_goto = function(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    go({ severity = severity })
+  end
+end
+map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
+map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
+map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
+map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
+map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+```
+
+## TODO Comments (`]t` & `[t`)
+
+If you like to use to-do comments I have it set up so I can use square bracket "t" (`]t`) to switch between different to-do comments.
+
+```lua title="~/.config/nvim/lua/plugins/todo-comments.lua" {7-8}
+return {
+  "folke/todo-comments.nvim",
+  cmd = { "TodoTrouble", "TodoTelescope" },
+  event = "LazyFile",
+  config = true,
+  keys = {
+    { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
+    { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
+  }
+}
+```
+
+## Treesitter
+
+### Classes & Functions (`]c` & `[c`)
+
+Another motion I use that is a bit less common than the others is using square bracket "c" (`]c`) to jump up to the parent are of a class.
+
+### Functions (`]f` & `[f`)
+
+Similarly, if we want to go up in a function we can use the square bracket "f" motion (`]f`).
+
+```lua title="~/.config/nvim/lua/plugins/nvim-treesitter.lua"
+return {
+  "nvim-treesitter/nvim-treesitter",
+  opts = {
+    textobjects = {
+      move = {
+        enable = true,
+        goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
+        goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
+        goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer" },
+        goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
+      },
+    },
+  }
+```
+
+## Note on complex motions
+
+I'd like to point out that in general this motion is a lot more simple than the ones that we might be used to where we can prepend numbers in front of our motions (ex: `w2` to jump to the second word) in order to be even more accurate or to skip references. In this case if I were to do two bracket bracket (`2]]`) we can see that it only honors the second part of that motion and goes to the next entry which is unfortunate. But, once you get used to it, I find it very useful to be in my workflow.
+
+## Jumping out of view
+
+So far I've shown some rather contrived, albeit very short, examples where everything is on the screen but the real power of this motion is that you can get to things that you want even when they're not visible so if this error is 50 lines down I can just use my motion of square bracket "e" (`]e`) and I can jump all the way to anywhere in the file in which I'm looking for a particular thing albeit it warnings or motions or references or whatever it might be.
+
+## Customizing
+
+Now let's look at an example of how you would set this so in this case we're just using the Vim keymap set command um and you set the mode you set the key mapping you set the command you want to fire on that key mapping and the description is really helpful for if you use tools like [which key](https://github.com/folke/which-key.nvim) which I do.
+
+```lua
+vim.keymap.set("n", "[b", "<cmd>bprevious<cr>", {
+  desc = "Prev buffer",
+})
+
+vim.keymap.set("n", "]b", "<cmd>bnext<cr>", {
+  desc = "Next buffer",
+})
+```
+
+## Conclusion
+
+And that's my lightning talk on the underrated square bracket motion I don't see people using this motion very much but I use it every day and I find it incredibly helpful and so I hope that it will help you as well.
+
+A big thanks to the NeoVim conf team for putting on this conference and for inviting me to speak. Thanks so much for inviting me I really appreciate it.
+
+Now it's your turn go start using this underrated square bracket motion and I'll see you guys next time.
+
+---
+
+This was a lightning talk given at NeoVim Conf, 2023. Learn more about it here:
+[neovimconf.live](https://neovimconf.live/)
