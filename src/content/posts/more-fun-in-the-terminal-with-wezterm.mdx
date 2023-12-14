@@ -1,0 +1,35 @@
+---
+title: More fun in the terminal with Wezterm!
+description: Wezterm is a my new favorite terminal emulator. It's been fun to create
+category: dotfiles
+youtubeUrl: https://www.youtube.com/embed/hqP0XdB7VcA
+duration: 05:13
+heroImage: "../../assets/posts/more-fun-in-the-terminal-with-wezterm.jpeg"
+pubDate: 2023-12-14T16:00:00.000Z
+---
+
+Wezterm is a my new favorite terminal emulator. It's been fun to create some customizations for it using the lua programming language. In this video, I'll show you how I swap out background images, fonts, and color schemes using lua. I'll also show you a tip for how to get rid of the notch if you have a MacBook.
+
+Here's the helper function I created to get a random entry from a table:
+
+```lua title=".config/wezterm/utils/helpers.lua"
+local wezterm = require("wezterm")
+local M = {}
+
+M.get_random_entry = function(tbl)
+  local keys = {}
+  for key, _ in ipairs(tbl) do
+    table.insert(keys, key)
+  end
+  local randomKey = keys[math.random(1, #keys)]
+  return tbl[randomKey]
+end
+
+return M
+```
+
+You can view all of my Wezterm configure here:
+[github.com/joshmedeski/dotfiles/.config/wezterm](https://github.com/joshmedeski/dotfiles/tree/main/.config/wezterm)
+
+If you want to learn more about Wezterm, check out the official docs:
+[wezfurlong.org/wezterm](https://wezfurlong.org/wezterm/)

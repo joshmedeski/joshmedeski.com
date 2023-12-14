@@ -385,6 +385,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"more-fun-in-the-terminal-with-wezterm.mdx": {
+	id: "more-fun-in-the-terminal-with-wezterm.mdx";
+  slug: "more-fun-in-the-terminal-with-wezterm";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "navigate-the-web-with-vim.mdx": {
 	id: "navigate-the-web-with-vim.mdx";
   slug: "navigate-the-web-with-vim";
