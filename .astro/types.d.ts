@@ -357,6 +357,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"make-your-yearly-review-easier-with-ai.mdx": {
+	id: "make-your-yearly-review-easier-with-ai.mdx";
+  slug: "make-your-yearly-review-easier-with-ai";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "manage-files-with-lf.mdx": {
 	id: "manage-files-with-lf.mdx";
   slug: "manage-files-with-lf";
