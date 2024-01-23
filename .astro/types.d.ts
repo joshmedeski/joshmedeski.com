@@ -476,6 +476,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"top-4-fuzzy-clis.mdx": {
+	id: "top-4-fuzzy-clis.mdx";
+  slug: "top-4-fuzzy-clis";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "track-git-in-tmux-with-gitmux.mdx": {
 	id: "track-git-in-tmux-with-gitmux.mdx";
   slug: "track-git-in-tmux-with-gitmux";

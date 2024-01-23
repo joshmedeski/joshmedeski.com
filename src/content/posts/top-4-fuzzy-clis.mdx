@@ -1,0 +1,46 @@
+---
+title: Top 4 Fuzzy CLIs
+description: My list of the top 4 fuzzy command-line interfaces that I've used and like.
+category: dotfiles
+youtubeUrl: https://www.youtube.com/embed/T0O2qrOhauY
+heroImage: "../../assets/posts/top-4-fuzzy-clis.jpeg"
+pubDate: 2024-01-22T09:00:00.000Z
+---
+
+Command-line interfaces (CLIs) are great for productivity, but they often Fuzzy CLIs make it easier to use the command line by providing a fuzzy search interface that allows you to find commands quickly and easily.
+
+Thankfully, there are many to choose from, some standing out more than others. Here is my list of the top 5 fuzzy CLIs that I've used.
+
+## Installation
+
+All of these CLIs can be installed with homebrew. So they all pass my first test of being easy to install.
+
+## 4. zf
+
+<GhRepo repo="natecraddock/zf" />
+
+Written in Zig, zf is fast and simple. It's a little more minimal than the others, but it gets the job done. It is the least popular on this list, but has a focus on file paths and I discovered it while looking for a way to improve the fuzzy results for Neovim's Telescope plugin.
+
+<GhRepo repo="natecraddock/telescope-zf-native.nvim" />
+
+Overall this is bottom of the list because you can't do much to change the look of it and the configuration options are pretty limited as a CLI. But in Telescope, it's great.
+
+## 3. gum
+
+<GhRepo repo="charmbracelet/gum" />
+
+Gum is the most feature-filled CLI that I use, but as a fuzzy CLI it ranks 3rd on my list. It's written in Go and is apart of the Charmbracelet suite of CLI tools. The fuzzy feature is a subcommand called "filter" and most of the configuration options are focused on the way it looks.
+
+I think the fuzzy algorithm and the visuals make it one of my favorites, personally, but it's lack of configuration options compared to the next two put it in 3rd place.
+
+## 2. skim
+
+<GhRepo repo="lotabout/skim" />
+
+Skim is a one I recently discovered and it is written in Rust, a fan favorite language for terminal tools. It offers many great features and is fast.
+
+## 1. fzf
+
+<GhRepo repo="junegunn/fzf" />
+
+fzf is the most popular (by a lot) in the fuzzy CLI space, I have been using it for many years and it's very feature rich including keybindings to update the list and execute commands. It's written in Go and is a crowd favorite.
