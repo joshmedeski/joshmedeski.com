@@ -548,9 +548,9 @@ declare module 'astro:content' {
 } & { render(): Render[".mdx"] };
 };
 "projects": {
-"t-smart-tmux-session-manager.mdx": {
-	id: "t-smart-tmux-session-manager.mdx";
-  slug: "t-smart-tmux-session-manager";
+"sesh.mdx": {
+	id: "sesh.mdx";
+  slug: "sesh";
   body: string;
   collection: "projects";
   data: InferEntrySchema<"projects">
