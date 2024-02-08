@@ -27,40 +27,40 @@ If you're not familiar with Homebrew check out [manage macOS packages with Homeb
 
 ## How to configure
 
-The Alacritty terminal emulator can be configured by a hidden YAML file in your home directory. Create a `~/.config/alacritty/alacritty.yml` file using the following command.
+The Alacritty terminal emulator can be configured by a hidden TOML file in your home directory. Create a `~/.config/alacritty/alacritty.toml` file using the following command.
 
 ```sh
-mkdir -p ~/.config/alacritty && touch ~/.config/alacritty/alacritty.yml
+mkdir -p ~/.config/alacritty && touch ~/.config/alacritty/alacritty.toml
 ```
 
 This command first creates the `~/.config/alacritty` directory with the `-p` option, which creates any parent directories that do not exist. Then it creates the `alacritty.conf` file inside the `~/.config/alacritty` directory using the `touch` command.
 
 Alacritty can automatically reload the configuration file when the file is changed by setting the `live_config_reload`.
 
-```yaml title="~/.config/alacritty/alacritty.yml"
-live_config_reload: true
+```toml title="~/.config/alacritty/alacritty.toml"
+live_config_reload = true
 ```
 
-The `TERM` shell environmental variable specifies the type of terminal emulator that is being used to interact with the shell. It tells Alacritty what features and capabilities are available. I recommend using `xterm-256color`. `xterm` supports a wide range of terminal features, including color, mouse support, and support for multiple fonts and character sets. It also supports many of the standard terminal control sequences used by Unix-like systems. `256color`
-supports 256 colors by using an extended color palette, which allows for a greater range of colors to be displayed than the standard 16 colors supported by many terminals. This is achieved by using escape sequences to set the foreground and background colors of text.
+The `TERM` shell environmental variable specifies the type of terminal emulator that is being used to interact with the shell. It tells Alacritty what features and capabilities are available. I recommend using `xterm-256color`. `xterm` supports a wide range of terminal features, including color, mouse support, and support for multiple fonts and character sets. It also supports many of the standard terminal control sequences used by Unix-like systems. `256color` supports 256 colors by using an extended color palette, which allows for a greater range of colors to be displayed than the standard 16 colors supported by many terminals. This is achieved by using escape sequences to set the foreground and background colors of text.
 
 The `TERM` variable is put under the `env` key which sets environment variables that are passed to the shell when Alacritty is launched.
 
-```yaml title="~/.config/alacritty/alacritty.yml"
-env:
-  TERM: xterm-256color
+```toml title="~/.config/alacritty/alacritty.toml"
+[env]
+TERM = "xterm-256color"
 ```
 
 By default, Alacritty looks the same as any other terminal emulators for macOS. But there are a handful of options that give it a semi-transparent minimalist look that I find ascetically pleasing and unique.
 
-```yaml title="~/.config/alacritty/alacritty.yml"
-window:
-  decorations: buttonless
-  opacity: 0.8
-  dynamic_padding: false
-  padding:
-    x: 14
-    y: 10
+```toml title="~/.config/alacritty/alacritty.toml"
+[window]
+decorations = "buttonless"
+dynamic_padding = false
+opacity = 0.9
+
+[window.padding]
+x = 25
+y = 20
 ```
 
 The `buttonless` decorations key removes the macOS title bar and border, giving it a minimal and distraction-free look. The `opacity` key takes a value between `0-1` and makes the window semi-transparent. I've found that this value will vary based on your wallpaper. The `dynamic_padding` and `padding` keys offer hard-coded spacing between the end of the window and the content. I use predictable spacing with the values above.
@@ -69,28 +69,29 @@ The `buttonless` decorations key removes the macOS title bar and border, giving 
 
 One of the most important customization features for any terminal emulator is picking and setting up a custom font! I'm a big fan of [Nerd Fonts](https://www.nerdfonts.com/) and I use lots of icons throughout my development environment. There are dozens of Nerd Fonts to choose from but as a macOS user I've prefer Apple's San Francisco font which is a neutral, flexible, sans-serif typeface used as the system font for all Apple devices. Thankfully, Aditya has patched the [SF Mono font with Nerd Font](https://github.com/epk/SF-Mono-Nerd-Font). You can download it via homebrew.
 
-```sh
-brew tap epk/epk
-brew install --cask font-sf-mono-nerd-font
-```
+You can download the "JetBrainsMono Nerd Font" font from the [Nerd Fonts website](https://www.nerdfonts.com/font-downloads).
 
-Once the font is installed, add the following to your `~/.config/alacritty/alacritty.yml`.
+Once the font is downloaded and installed, add the following to your config file:
 
-```yaml title="~/.config/alacritty/alacritty.yml"
-font:
-  normal:
-    family: "SFMono Nerd Font"
-    style: Medium
-  italic:
-    family: "SFMono Nerd Font"
-    style: Medium Italic
-  bold:
-    family: "SFMono Nerd Font"
-    style: Heavy
-  bold_italic:
-    family: "SFMono Nerd Font"
-    style: Heavy Italic
-  size: 20.0
+```toml title="~/.config/alacritty/alacritty.toml"
+[font]
+size = 20.0
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Heavy"
+
+[font.bold_italic]
+family = "JetBrainsMono Nerd Font"
+style = "Heavy Italic"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Medium Italic"
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Medium"
 ```
 
 I prefer the font styles of `Medium` and `Heavy` to add more weight to the font, I find this helps with the make it more legible with the semi-transparent window. As well as a font size of `20`. These values can be adjusted that best fit your monitor and workflow.
@@ -99,17 +100,16 @@ I prefer the font styles of `Medium` and `Heavy` to add more weight to the font,
 
 Another important area to customize your development environment is choosing a color palette. A popular color pallet is [Catppuccin](https://github.com/catppuccin/alacritty), which is "a community-driven pastel theme that aims to be the middle ground between low and high contrast themes".
 
-To get the Catppuccin themes, you can clone the YAML files to your Alacritty config directory.
+To get the Catppuccin themes, you can clone the TOML files to your Alacritty config directory.
 
 ```sh
 git clone https://github.com/catppuccin/alacritty.git ~/.config/alacritty/catppuccin
 ```
 
-Next, Alacritty's `YAML` configuration supports the ability to import other `YAML` files to extend customization. You can add entries to a `import` key:
+Next, Alacritty's `TOML` configuration supports the ability to import other `TOML` files to extend customization. You can add entries to a `import` key:
 
-```yaml title="~/.config/alacritty/alacritty.yml"
-import:
-  - ~/.config/alacritty/catppuccin/catppuccin-mocha.yml
+```yaml title="~/.config/alacritty/alacritty.toml"
+import: [~/.config/alacritty/catppuccin/catppuccin-mocha.toml]
 ```
 
 If you want to explore more color schemes, check out the [Alacritty Theme repository](https://github.com/alacritty/alacritty-theme).
@@ -118,4 +118,4 @@ If you want to explore more color schemes, check out the [Alacritty Theme reposi
 
 Choosing a good terminal emulator is important for productivity in a command-line environment. A good terminal emulator should be fast, customizable, and compatible with a variety of programs. Alacritty is a GPU-accelerated terminal emulator that allows for customization of fonts, spacing, and visual appearance. We have installed Alacritty, customized it's appearance with a `yaml` file including the terminal environment, window style, fonts, and colors.
 
-This is just the starting point for customizing Alacrity. If you want to explore all of the features Alacritty has to offer, check out the [GitHub repository](https://github.com/alacritty/alacritty) for more info. You can also view my full Alacritty configuration [here](https://github.com/joshmedeski/dotfiles/blob/main/.config/alacritty/alacritty.yml).
+This is just the starting point for customizing Alacrity. If you want to explore all of the features Alacritty has to offer, check out the [GitHub repository](https://github.com/alacritty/alacritty) for more info. You can also view my full Alacritty configuration [here](https://github.com/joshmedeski/dotfiles/blob/main/.config/alacritty/alacritty.toml).
