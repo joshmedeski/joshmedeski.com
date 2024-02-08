@@ -15,7 +15,7 @@ const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
       "shadow-lg hover:shadow-xl",
       "hover:from-indigo-700 hover:to-purple-800",
       "transition-all duration-300 ease-in-out",
-      className
+      className,
     )}
     {...props}
   >
@@ -27,7 +27,7 @@ const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
 );
 
 const ArrowRightIcon: FunctionComponent<JSX.SVGAttributes<SVGSVGElement>> = (
-  props
+  props,
 ): JSX.Element => (
   <svg aria-hidden="true" viewBox="0 0 24 24" {...props}>
     <path
@@ -41,12 +41,14 @@ const ArrowRightIcon: FunctionComponent<JSX.SVGAttributes<SVGSVGElement>> = (
   </svg>
 );
 
-const PostCtaInput: FunctionalComponent<{category: string}> = ({category}) => {
+const PostCtaInput: FunctionalComponent<{ category: string }> = ({
+  category,
+}) => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [error, setError] = useState("");
 
   const createNewSubscriber: JSX.GenericEventHandler<HTMLFormElement> = async (
-    event
+    event,
   ) => {
     event.preventDefault();
     const { value: email } = event.currentTarget[0] as HTMLInputElement;
@@ -86,7 +88,7 @@ const PostCtaInput: FunctionalComponent<{category: string}> = ({category}) => {
                   aria-label="Email address"
                   className="-my-2.5 flex-auto bg-transparent pl-6 pr-2.5 text-neutral-900 placeholder:text-neutral-400 focus:outline-none"
                 />
-                <Button type="submit">Sign-Up</Button>
+                <Button type="submit">Join</Button>
               </div>
               {error && (
                 <p className="ml-4 mt-4 font-bold text-error-500">{error}</p>
@@ -99,4 +101,4 @@ const PostCtaInput: FunctionalComponent<{category: string}> = ({category}) => {
   );
 };
 
-export default PostCtaInput
+export default PostCtaInput;
