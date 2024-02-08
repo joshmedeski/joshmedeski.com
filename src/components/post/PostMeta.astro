@@ -40,7 +40,9 @@ if (postGuide) guide = await getEntry(postGuide.ref);
       <time>
         {
           new Date(pubDate).toLocaleDateString("en-US", {
-            dateStyle: "long",
+            month: 'short', 
+            day: '2-digit', 
+            year: 'numeric'
           })
         }
       </time>
