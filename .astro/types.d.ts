@@ -399,6 +399,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"moving-from-mackup-to-stow.mdx": {
+	id: "moving-from-mackup-to-stow.mdx";
+  slug: "moving-from-mackup-to-stow";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "navigate-the-web-with-vim.mdx": {
 	id: "navigate-the-web-with-vim.mdx";
   slug: "navigate-the-web-with-vim";

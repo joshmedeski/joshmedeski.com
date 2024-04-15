@@ -1,0 +1,52 @@
+---
+title: Switching from Mackup to Stow Dotfiles Manager
+description: My journey to a new, simpler, dotfiles manager from Mackup to GNU Stow.
+category: dotfiles
+heroImage: "../../assets/posts/switching-from-mackup-to-stow-dotfiles-manager.jpeg"
+pubDate: 2024-04-15T09:00:00.000Z
+---
+
+For many years, I used mackup to manage my dotfiles. However, its opinionated and complicated system started feeling more burdensome than beneficial. Craving simplicity, I switched gears towards GNU Stow. This article chronicles my transition from Mackup to the minimalist environment of Stow, demonstrating how simplicity can streamline your workflow.
+
+As someone who spends all of their time in the terminal. It is important for me to able to manage my dotfiles. Symbolic links are the easiest way to achieve this so it can commit and push changes to a single repository.
+
+## The Challenge with Mackup
+
+Mackup is a popular dotfiles manager that allows users to synchronize application settings across multiple devices. It is a powerful tool that can back up and restore your dotfiles to cloud storage services like Dropbox and Google Drive. However, as I delved deeper into Mackup, I found its complexity and opinionated nature to be a hindrance.
+
+At a high level, Mackup would copy the file in the application's configuration directory to a backup directory. It would then create a symbolic link to the backup file in the application's configuration directory. This process was repeated for each application, using a configuration file to determine which files to back up. This approach was effective but came with its own set of challenges. Especially when something went wrong, it was difficult to troubleshoot and fix.
+
+Over the years, I saw many people complain about Mackup's complexity which often caused confusion. I also saw community members suggest features and improvements to Mackup, which were never implemented. This led me to question the sustainability of using Mackup as my dotfiles manager. I even reached out the moderator of the Mackup repository to see if I could help maintain the project. However, I never received a response.
+
+This left me wanting more from my dotfiles manager. There are many choices out there but I craved something simple, strait-forward, and easy to use. Which is when I discovered GNU Stow.
+
+## Introducing GNU Stow
+
+GNU Stow is a symlink farm manager which takes dotfiles from my git repository and symlink them to the correct location. It is a simple and lightweight tool that allows me to manage my dotfiles with ease. This requires that I have my dotfiles in a specific directory structure, but this is a small price to pay for the simplicity that Stow provides. Plus after a decade of being used to dotfiles, the idea of starting from a repo and sending my dotfiles to the correct location was all I needed.
+
+Stow works as one step for me. I can clone my dotfiles repo and run `stow -t ~` and all my dotfiles will be symlinked to the correct location. This is a much simpler process than Mackup and has been a game changer for me.
+
+Stow is also unopinionated (unlike Mackup). I have control to symlink what I want and where to place them. This has been a huge benefit for me as I can now manage my dotfiles the way I want to and no longer have to work against the tool, or add boilerplate configuration logic to extend it to my needs (like I did with Mackup).
+
+## Moving Dotfiles from Mackup to Stow
+
+Since I had already moved all my dotfiles to a git repository, the transition from Mackup to Stow was relatively straightforward. I followed these steps to migrate my dotfiles. Which only took a few minutes.
+
+1. Run `mackup uninstall` to remove all the symlinks created by Mackup
+2. Remove all the config files and directories in my home diretory
+3. Install stow (`brew install stow`)
+4. Run `stow -t ~` in my dotfiles directory
+
+That's it! Because Mackup and Stow both use symlinks and store files in the same structure, the transition was seamless. I was able to maintain my existing dotfiles structure and continue managing them with Stow. The added bonus was that I could now manage my dotfiles with greater flexibility and control.
+
+## Conclusion
+
+I spent many weeks researching, contemplating, and asking for advice for which tool to transition to. There are many interesting and powerful tools out there for managing dotfiles. I was unhappy with Mackup's complexity and stale development, so I decided to switch to Stow. The transition was smooth, and I am now enjoying the simplicity and flexibility that Stow provides which has made my workflow more efficient.
+
+Stow is a great tool for managing dotfiles. It is simple, lightweight, and unopinionated. It allows me to manage my dotfiles the way I want to, without any unnecessary complexity. I am happy with my decision to switch to Stow and would recommend it to anyone looking for a simple and efficient way to manage their dotfiles.
+
+- [Check out GNU Stow](https://www.gnu.org/software/stow/)
+
+Check out my dotfiles:
+
+<GhRepo repo="joshmedeski/dotfiles" />
