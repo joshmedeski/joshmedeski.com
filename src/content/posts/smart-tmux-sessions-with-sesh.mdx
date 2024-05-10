@@ -1,0 +1,207 @@
+---
+title: Smart tmux sessions with sesh
+pubDate: 2024-05-11T19:00:00.000Z
+youtubeUrl: https://www.youtube.com/embed/-yX3GjZfb5Y
+duration: "9:27"
+heroImage: "../../assets/posts/smart-tmux-sessions-with-sesh.jpeg"
+description: Make your tmux workflow smarter and faster with the sesh session manager.
+category: dotfiles
+---
+
+The way I use Tmux has changed a lot in the last year, so let's talk about it.
+
+## Intro
+
+I rewrote my [tmux plugin called 't'](https://github.com/joshmedeski/t-smart-tmux-session-manager?tab=readme-ov-file) in early 2024 into a new cli called [sesh](https://github.com/joshmedeski/sesh), written in Go. It offers more features and performance boosts compared to the original bash version.
+
+Here's the video that started it all, breaking down the idea of combining zoxide and fzf for a more efficient workflow:
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/l_TTxc0AcCw?si=l45yI5udbkD0pY8I"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+></iframe>
+
+## How to install
+
+Instead of using [tpm](https://github.com/tmux-plugins/tpm) to install it as a tmux plugin, [sesh](https://github.com/joshmedeski/sesh) is a binary that you install on your machine using Homebrew or Nix.
+
+Run the following command to install it via [homebrew](https://brew.sh/):
+
+```bash
+brew install joshmedeski/sesh/sesh
+```
+
+Other installation methods are available on the [sesh GitHub page](https://github.com/joshmedeski/sesh?tab=readme-ov-file#how-to-install).
+
+## How it works
+
+Sesh combines [zoxide](https://github.com/ajeetdsouza/zoxide) and [tmux sessions](https://github.com/tmux/tmux) to create a powerful and efficient workflow. The two main commands are `sesh list` to list zoxide records, custom config records, and running tmux Sessions, and `sesh connect` to connect to a directory and create a Tmux Session.
+
+My YouTuber friend, [Dreams of Autonomy](https://www.youtube.com/@dreamsofautonomy), has a great video explaining how zoxide works.
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/aghxkpyRVDY?si=-UVPNsGrslVNPP0c"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+></iframe>
+
+## Getting Started
+
+Using `sesh connect` with `sesh list` and tools like [fzf](https://github.com/junegunn/fzf) or [gum](https://github.com/charmbracelet/gum) allows for quick selection and creation of Tmux Sessions based on the chosen project or directory.
+
+```bash
+sesh connect "$(sesh list | fzf)"
+```
+
+I prefer gum as I find it faster and prettier.
+
+```bash
+sesh connect "$(sesh list -i | gum filter --limit 1 --placeholder 'Pick a sesh' --prompt='⚡')"
+```
+
+## Startup
+
+Creating custom Tmux Bindings like `K` displays a pop-up to switch between or create new tmux Sessions on the fly using a keybinding, similar to command palettes in Discord and GitHub.
+
+```lua title="~/.config/tmux/tmux.conf"
+bind-key "K" display-popup -E -w 40% "sesh connect \"$(
+	sesh list -i | gum filter --limit 1 --placeholder 'Pick a sesh' --prompt='⚡'
+)\""
+```
+
+If you want a more complex setup, you can use fzf to add keybindings to filter by category or even take actions like kill tmux sessions from within the popup.
+
+```lua title="~/.config/tmux/tmux.conf"
+bind-key "J" run-shell "sesh connect \"$(
+	sesh list -i | fzf-tmux -p 55%,60% \
+		--no-sort --border-label ' sesh ' --prompt '⚡  ' \
+		--header '  ^a all ^t tmux ^x zoxide ^g config ^d tmux kill ^f find' \
+		--bind 'tab:down,btab:up' \
+		--bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list -i)' \
+		--bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -it)' \
+		--bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -ic)' \
+		--bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -iz)' \
+		--bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
+		--bind 'ctrl-d:execute(tmux kill-session -t {})+change-prompt(⚡  )+reload(sesh list)'
+)\""
+```
+
+## macOS keybinding
+
+Binding Sesh to a macOS keybinding like `command+K` creates a command bar to move between Sessions quickly and easily.
+
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/BLp61-Lq0kQ?si=PUHMQb_vQgIgn2As"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen
+></iframe>
+
+## Naming Sessions
+
+Sesh uses the folder name as the session name by default, but can create more contextualized session names based on the directory structure or git work trees.
+
+For example, the `~/c/Downloads` directory can be named `Downloads` in Tmux, while the `~/c/github.com/joshmedeski/sesh` directory can be named `sesh` in Tmux.
+
+In a git repository like `~/c/joshmedeski.com/src/content`, sesh will automatically detect the root of the git repository and name the tmux session `joshmedeski_com/src/content`.
+
+If you're working with git worktrees, sesh will use the root of the worktree on the session name. So if I'm working with the directory `~/c/sesh/v2` where `v2` is a worktree, the session name will be `sesh/v2`, making it easy to contextualize all sesh wokrtrees in your workflow.
+
+## Custom configs
+
+Custom configurations can be created using a toml file in the `~/.config/sesh` directory. Sessions can be defined with a location, name, startup command, and startup script to automate actions like opening a file picker or starting a website.
+
+```toml title="~/.config/sesh/sesh.toml"
+# open the file manager
+[[session]]
+name = "Downloads 📥"
+path = "~/Downloads"
+startup_command = "yazi"
+
+# open a file
+[[session]]
+name = "tmux config"
+path = "~/c/dotfiles/tmux"
+startup_command = "nvim tmux.conf"
+
+# run a script to startup a node project
+[[session]]
+path = "~/c/joshmedeski.com"
+startup_script = "~/.config/sesh/scripts/node_dev"
+```
+
+The script is a executable bash file with some simple tmux commands.
+
+```bash title="~/.config/sesh/scripts/node_dev"
+#!/usr/bin/env bash
+tmux split-window -v -l 10 dev
+tmux select-pane -t :.+
+tmux send-keys "nvim +GoToFile" Enter
+```
+
+You can also import other toml files if you want to break up your configs.
+
+```toml title="~/.config/sesh/sesh.toml"
+import = ["~/c/joshmedeski.com/.sesh.toml"]
+```
+
+## Default Startup
+
+Setting a default startup command like opening NeoVim with a file picker allows for quick access to recently used files whenever switching between sessions and projects for all your projects that don't have a custom configuration.
+
+```toml title="~/.config/sesh/sesh.toml"
+[default_session]
+startup_command = "nvim -c ':Telescope find_files'"
+```
+
+## Raycast
+
+The [sesh companion extension](https://www.raycast.com/joshmedeski/sesh) for [Raycast](https://www.raycast.com/) makes it easy to use sesh outside of the terminal.
+
+Here are limitations to keep in mind:
+
+- tmux has to be running before you can use the extension
+- The extension caches results for a few seconds, so it may not always be up to date
+
+<a
+  title="Install sesh Raycast Extension"
+  href="https://www.raycast.com/joshmedeski/sesh"
+>
+  <img
+    src="https://www.raycast.com/joshmedeski/sesh/install_button@2x.png?v=1.1"
+    height="64"
+    alt=""
+    style="height: 64px;"
+  />
+</a>
+
+## Adding to Zoxide
+
+To make Sesh more useful, it's important to add records to Zoxide. This can be done by `cd`ing into directories or using a shortcut like `zad` to list and add multiple directories at once.
+
+```bash
+ls -d */ | xargs -I {} zoxide add {}
+```
+
+## Wrapping Up
+
+Sesh is a powerful tool that combines zoxide and tmux sessions to create a more efficient workflow. It allows for quick selection and creation of tmux sessions based on the chosen project or directory, and can be customized with custom configurations and startup scripts to automate actions.
+
+Please give it a star and share it with your friends if you find it useful!
+
+<GhRepo repo="joshmedeski/sesh" />

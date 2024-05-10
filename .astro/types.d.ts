@@ -469,6 +469,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"smart-tmux-sessions-with-sesh.mdx": {
+	id: "smart-tmux-sessions-with-sesh.mdx";
+  slug: "smart-tmux-sessions-with-sesh";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "smart-tmux-sessions-with-zoxide-and-fzf.mdx": {
 	id: "smart-tmux-sessions-with-zoxide-and-fzf.mdx";
   slug: "smart-tmux-sessions-with-zoxide-and-fzf";
