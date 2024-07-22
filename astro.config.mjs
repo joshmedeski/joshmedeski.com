@@ -19,9 +19,7 @@ export default defineConfig({
     tailwind(),
     preact(),
   ],
-  // FIX: Waiting for this to be fixed
-  // https://github.com/withastro/astro/issues/9353
-  // experimental: {
-  //   contentCollectionCache: true,
-  // },
+  experimental: {
+    contentCollectionCache: true,
+  },
 });
