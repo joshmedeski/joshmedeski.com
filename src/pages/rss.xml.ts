@@ -6,6 +6,6 @@ export function GET() {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     site: import.meta.env.SITE,
-    items: import.meta.glob("./posts/*.mdx"),
+    items: import.meta.glob("../content/posts/*.mdx"),
   });
 }
