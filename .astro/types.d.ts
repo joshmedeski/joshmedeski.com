@@ -231,6 +231,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"carlos-beckers-dev-workflow.mdx": {
+	id: "carlos-beckers-dev-workflow.mdx";
+  slug: "carlos-beckers-dev-workflow";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "clutter-free-macos.mdx": {
 	id: "clutter-free-macos.mdx";
   slug: "clutter-free-macos";
