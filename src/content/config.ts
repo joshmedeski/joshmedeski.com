@@ -16,7 +16,6 @@ const postsCollection = defineCollection({
       youtubeUrl: z.string().optional(),
       heroClasses: z.string().optional(),
       thumbnail: image().optional(),
-
       guide: z
         .object({
           ref: reference("guides"),
@@ -37,6 +36,24 @@ const categoriesCollection = defineCollection({
       desc: z.string(),
       themeColor: z.string(),
     }),
+  }),
+});
+
+const usesCollection = defineCollection({
+  type: "content",
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      area: reference("areas"),
+      image: image(),
+    }),
+});
+
+const areasCollection = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
   }),
 });
 
@@ -61,8 +78,10 @@ const projectsCollection = defineCollection({
 });
 
 export const collections = {
+  areas: areasCollection,
   posts: postsCollection,
   projects: projectsCollection,
   categories: categoriesCollection,
   guides: guidesCollection,
+  uses: usesCollection,
 };

@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import GhRepo from "../../components/GhRepo.astro";
+import Layout from "~/components/Layout.astro";
+import Wrapper from "~/components/Wrapper.astro";
+
+export async function getStaticPaths() {
+  const uses = await getCollection("uses");
+  return uses.map((use) => {
+    return {
+      params: { slug: use.slug },
+      props: { use },
+    };
+  });
+}
+
+interface Props {
+  use: CollectionEntry<"uses">;
+  relatedUses: CollectionEntry<"uses">[];
+}
+
+const { use } = Astro.props;
+const { Content } = await use.render();
+---
+
+<Layout
+  title={use.data.title}
+  description={use.data.description}
+  hideCta={false}
+  image={use.data.image}
+>
+  <Wrapper>
+    <section class="grid grid-cols-2 gap-6 px-4 py-12">
+      <Image
+        src={use.data.image}
+        alt={use.data.title}
+        width="1640"
+        height="1094"
+        class="mb-2 w-full rounded-lg bg-black shadow-md md:mb-8"
+        transition:name={`use-${use.data.title}-thumb`}
+      />
+      <div class="space-y-4">
+        <h1 class="text-5xl font-bold">{use.data.title}</h1>
+        <p>{use.data.description}</p>
+        <Content components={{ GhRepo, Image }} />
+      </div>
+      <!-- TODO: add related uses (same area?) -->
+    </section>
+  </Wrapper>
+</Layout>
