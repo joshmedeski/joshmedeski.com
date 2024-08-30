@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
 import PageTitle from "../components/PageTitle.astro";
 import Wrapper from "../components/Wrapper.astro";
-import { Image } from "astro:assets";
+import UseCard from "~/components/uses/UseCard.astro";
 
 const areas = await getCollection("areas");
 const uses = await getCollection("uses");
@@ -17,22 +17,7 @@ const uses = await getCollection("uses");
         areas.map((area) => (
           <h2 class="text-4xl font-bold mb-4">{area.data.title}</h2>
     <section class="mb-32 grid grid-cols-4 items-stretch gap-4 sm:gap-8">
-      {
-      uses.filter(use => use.data.area.slug === area.slug).map((use) => (
-          <a href={`/uses/${use.slug}`} data-astro-prefetch>
-            <Image
-              src={use.data.image}
-              alt={use.data.title}
-              width="558"
-              height="372"
-              class="mb-2 w-full rounded-lg bg-black shadow-md md:mb-8"
-              transition:name={`use-${use.data.title}-thumb`}
-            />
-            <h3 class="text-2xl font-bold">{use.data.title}</h3>
-            <p>{use.data.description}</p>
-          </a>
-        ))
-      }
+      {uses.filter(use => use.data.area.slug === area.slug).map((use) => (<UseCard use={use} />))}
     </section>
         ))
       }

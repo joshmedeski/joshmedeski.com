@@ -5,6 +5,7 @@ import { Image } from "astro:assets";
 import GhRepo from "../../components/GhRepo.astro";
 import Layout from "~/components/Layout.astro";
 import Wrapper from "~/components/Wrapper.astro";
+import UseCard from "~/components/uses/UseCard.astro";
 
 export async function getStaticPaths() {
   const uses = await getCollection("uses");
@@ -18,10 +19,15 @@ export async function getStaticPaths() {
 
 interface Props {
   use: CollectionEntry<"uses">;
-  relatedUses: CollectionEntry<"uses">[];
 }
 
 const { use } = Astro.props;
+const relatedUses = await getCollection(
+  "uses",
+  (relatedUse) =>
+    relatedUse.data.area.slug === use.data.area.slug &&
+    relatedUse.data.title !== use.data.title,
+);
 const { Content } = await use.render();
 ---
 
@@ -46,7 +52,13 @@ const { Content } = await use.render();
         <p>{use.data.description}</p>
         <Content components={{ GhRepo, Image }} />
       </div>
-      <!-- TODO: add related uses (same area?) -->
     </section>
+
+    <footer class="mb-12">
+      <h3 class="mb-4 text-4xl font-bold">Related {use.data.area.slug}</h3>
+      <div class="grid grid-cols-4 gap-4">
+        {relatedUses.map((use) => <UseCard use={use} />)}
+      </div>
+    </footer>
   </Wrapper>
 </Layout>
