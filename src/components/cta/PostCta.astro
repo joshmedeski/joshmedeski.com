@@ -1,16 +1,16 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import PostCtaInput from "./PostCtaInput.tsx"
+import PostCtaInput from "./PostCtaInput.tsx";
+import RssIcon from "../icons/RssIcon.astro";
 interface Props {
-  category: CollectionEntry<'posts'>['data']['category']['slug']
+  category: CollectionEntry<"posts">["data"]["category"]["slug"];
 }
 
 const { category } = Astro.props;
 ---
 
-
 <div
-  class="not-prose relative isolate overflow-hidden bg-gray-900 shadow-2xl rounded-3xl lg:flex lg:gap-x-20 p-4 sm:p-8"
+  class="not-prose relative isolate overflow-hidden rounded-3xl bg-gray-900 p-4 shadow-2xl sm:p-8 lg:flex lg:gap-x-20"
 >
   <svg
     viewBox="0 0 1024 1024"
@@ -35,9 +35,21 @@ const { category } = Astro.props;
     <h2 class="text-2xl font-bold tracking-tight text-white sm:text-4xl">
       Sign-Up for New Posts
     </h2>
-    <p class="mt-2 sm:mt-6 sm:text-lg leading-tight text-gray-300">
-      Stay in the loop and get the latest blog posts about {category} sent to your inbox.
+    <p class="mt-2 leading-tight text-gray-300 sm:mt-6 sm:text-lg">
+      Stay in the loop and get the latest blog posts about {category} sent to your
+      inbox.
     </p>
     <PostCtaInput category={category} client:visible />
+    <a href="/rss.xml" class="mt-3 flex items-center gap-1">
+      <p class="text-white">
+        Or use the{" "}
+      </p>
+      <div
+        class="flex items-center gap-1 rounded-full bg-[#260e02] px-3 py-1 text-[#F26522] text-white"
+      >
+        <RssIcon class="h-4 w-4" />
+        <span>RSS Feed</span>
+      </div>
+    </a>
   </div>
 </div>
