@@ -12,14 +12,21 @@ const uses = await getCollection("uses");
 <Layout title="Uses">
   <Wrapper>
     <PageTitle>Uses</PageTitle>
-
+    <div class="mb-12 space-y-8 sm:space-y-24">
       {
         areas.map((area) => (
-          <h2 class="text-4xl font-bold mb-4">{area.data.title}</h2>
-    <section class="mb-32 grid grid-cols-4 items-stretch gap-4 sm:gap-8">
-      {uses.filter(use => use.data.area.slug === area.slug).map((use) => (<UseCard use={use} />))}
-    </section>
+          <section>
+            <h2 class="mb-4 text-4xl font-bold">{area.data.title}</h2>
+            <div class="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 lg:grid-cols-4">
+              {uses
+                .filter((use) => use.data.area.slug === area.slug)
+                .map((use) => (
+                  <UseCard use={use} />
+                ))}
+            </div>
+          </section>
         ))
       }
+    </div>
   </Wrapper>
 </Layout>
