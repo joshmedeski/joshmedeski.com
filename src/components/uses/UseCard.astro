@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+interface Props {
+  use: CollectionEntry<"uses">;
+}
+
+const { use } = Astro.props;
+---
+
+<a href={`/uses/${use.slug}`} data-astro-prefetch>
+  <Image
+    src={use.data.image}
+    alt={use.data.title}
+    width="558"
+    height="372"
+    class="mb-2 w-full rounded-lg bg-black shadow-md md:mb-8"
+    transition:name={`use-${use.data.title}-thumb`}
+  />
+  <h3 class="text-2xl font-bold">{use.data.title}</h3>
+  <p>{use.data.description}</p>
+</a>
