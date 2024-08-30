@@ -135,7 +135,23 @@ declare module 'astro:content' {
 	>;
 
 	type ContentEntryMap = {
-		"categories": {
+		"areas": {
+"audio.md": {
+	id: "audio.md";
+  slug: "audio";
+  body: string;
+  collection: "areas";
+  data: InferEntrySchema<"areas">
+} & { render(): Render[".md"] };
+"keyboards.md": {
+	id: "keyboards.md";
+  slug: "keyboards";
+  body: string;
+  collection: "areas";
+  data: InferEntrySchema<"areas">
+} & { render(): Render[".md"] };
+};
+"categories": {
 "conversations.mdx": {
 	id: "conversations.mdx";
   slug: "conversations";
@@ -541,6 +557,64 @@ declare module 'astro:content' {
   collection: "projects";
   data: InferEntrySchema<"projects">
 } & { render(): Render[".mdx"] };
+};
+"uses": {
+"a2-sub.md": {
+	id: "a2-sub.md";
+  slug: "a2-sub";
+  body: string;
+  collection: "uses";
+  data: InferEntrySchema<"uses">
+} & { render(): Render[".md"] };
+"airpods-max.md": {
+	id: "airpods-max.md";
+  slug: "airpods-max";
+  body: string;
+  collection: "uses";
+  data: InferEntrySchema<"uses">
+} & { render(): Render[".md"] };
+"airpods.md": {
+	id: "airpods.md";
+  slug: "airpods";
+  body: string;
+  collection: "uses";
+  data: InferEntrySchema<"uses">
+} & { render(): Render[".md"] };
+"audio-engine-a2.md": {
+	id: "audio-engine-a2.md";
+  slug: "audio-engine-a2";
+  body: string;
+  collection: "uses";
+  data: InferEntrySchema<"uses">
+} & { render(): Render[".md"] };
+"grell-aoe.md": {
+	id: "grell-aoe.md";
+  slug: "grell-aoe";
+  body: string;
+  collection: "uses";
+  data: InferEntrySchema<"uses">
+} & { render(): Render[".md"] };
+"hd-6xx.md": {
+	id: "hd-6xx.md";
+  slug: "hd-6xx";
+  body: string;
+  collection: "uses";
+  data: InferEntrySchema<"uses">
+} & { render(): Render[".md"] };
+"moonlander.md": {
+	id: "moonlander.md";
+  slug: "moonlander";
+  body: string;
+  collection: "uses";
+  data: InferEntrySchema<"uses">
+} & { render(): Render[".md"] };
+"o2-sdac.md": {
+	id: "o2-sdac.md";
+  slug: "o2-sdac";
+  body: string;
+  collection: "uses";
+  data: InferEntrySchema<"uses">
+} & { render(): Render[".md"] };
 };
 
 	};
