@@ -1,0 +1,4 @@
+---
+title: Hardware
+slug: hardware
+---

@@ -143,6 +143,13 @@ declare module 'astro:content' {
   collection: "areas";
   data: InferEntrySchema<"areas">
 } & { render(): Render[".md"] };
+"hardware.md": {
+	id: "hardware.md";
+  slug: "hardware";
+  body: string;
+  collection: "areas";
+  data: InferEntrySchema<"areas">
+} & { render(): Render[".md"] };
 "keyboards.md": {
 	id: "keyboards.md";
   slug: "keyboards";
@@ -580,6 +587,13 @@ declare module 'astro:content' {
   collection: "uses";
   data: InferEntrySchema<"uses">
 } & { render(): Render[".md"] };
+"apple-mbp.md": {
+	id: "apple-mbp.md";
+  slug: "apple-mbp";
+  body: string;
+  collection: "uses";
+  data: InferEntrySchema<"uses">
+} & { render(): Render[".md"] };
 "audio-engine-a2.md": {
 	id: "audio-engine-a2.md";
   slug: "audio-engine-a2";
@@ -601,9 +615,23 @@ declare module 'astro:content' {
   collection: "uses";
   data: InferEntrySchema<"uses">
 } & { render(): Render[".md"] };
-"moonlander.md": {
-	id: "moonlander.md";
-  slug: "moonlander";
+"iqunix-l80-cosmic-traveller.md": {
+	id: "iqunix-l80-cosmic-traveller.md";
+  slug: "iqunix-l80-cosmic-traveller";
+  body: string;
+  collection: "uses";
+  data: InferEntrySchema<"uses">
+} & { render(): Render[".md"] };
+"kbdcraft-atom-kit.md": {
+	id: "kbdcraft-atom-kit.md";
+  slug: "kbdcraft-atom-kit";
+  body: string;
+  collection: "uses";
+  data: InferEntrySchema<"uses">
+} & { render(): Render[".md"] };
+"nuphy-air-75.md": {
+	id: "nuphy-air-75.md";
+  slug: "nuphy-air-75";
   body: string;
   collection: "uses";
   data: InferEntrySchema<"uses">
@@ -611,6 +639,20 @@ declare module 'astro:content' {
 "o2-sdac.md": {
 	id: "o2-sdac.md";
   slug: "o2-sdac";
+  body: string;
+  collection: "uses";
+  data: InferEntrySchema<"uses">
+} & { render(): Render[".md"] };
+"zsa-ergodox-ez.md": {
+	id: "zsa-ergodox-ez.md";
+  slug: "zsa-ergodox-ez";
+  body: string;
+  collection: "uses";
+  data: InferEntrySchema<"uses">
+} & { render(): Render[".md"] };
+"zsa-moonlander.md": {
+	id: "zsa-moonlander.md";
+  slug: "zsa-moonlander";
   body: string;
   collection: "uses";
   data: InferEntrySchema<"uses">
