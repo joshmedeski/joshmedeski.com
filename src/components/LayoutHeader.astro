@@ -5,10 +5,10 @@ import {
   DiscordIcon,
   GitHubIcon,
   MenuIcon,
-  TwitchIcon,
   TwitterIcon,
-  MastodonIcon,
   YouTubeIcon,
+  RssIcon,
+  TwitchIcon,
 } from "./icons/index.astro";
 import Wrapper from "./Wrapper.astro";
 
@@ -55,8 +55,14 @@ const props = Astro.props;
         <HeaderLink href="https://twitter.com/joshmedeski" target="_blank">
           <TwitterIcon class="w-6" />
         </HeaderLink>
+        <HeaderLink href="https://twitch.com/joshmedeski" target="_blank">
+          <TwitchIcon class="w-6" />
+        </HeaderLink>
         <HeaderLink href="https://github.com/joshmedeski" target="_blank">
           <GitHubIcon class="w-6" />
+        </HeaderLink>
+        <HeaderLink href="/rss.xml" target="_blank">
+          <RssIcon class="w-6" />
         </HeaderLink>
         <a
           href="/guides/dev-workflow-intro"
