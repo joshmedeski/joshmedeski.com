@@ -18,9 +18,16 @@ const { use } = Astro.props;
     class="mb-2 w-full rounded-lg bg-black shadow-md md:mb-8"
     transition:name={`use-${use.data.title}-thumb`}
   />
-  <link rel="prefetch" href={use.data.image.src} as="image" />
   <h3 class="text-2xl font-bold">
     {use.data.title}
   </h3>
   <p>{use.data.description}</p>
 </a>
+
+<Image
+  src={use.data.image}
+  alt={use.data.title}
+  width="1640"
+  height="1094"
+  class="hidden"
+/>

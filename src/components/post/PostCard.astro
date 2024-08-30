@@ -31,6 +31,13 @@ const category = await getEntry(post.data.category);
         transition:name={`post-${post.slug}-thumb`}
         style={{ backgroundColor: category?.data.style.themeColor }}
       />
+      <Image
+        src={post.data.heroImage}
+        alt={post.data.title}
+        width="1640"
+        height="922.5"
+        class="hidden"
+      />
     </div>
 
     <div
