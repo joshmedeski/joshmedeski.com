@@ -233,6 +233,13 @@ declare module 'astro:content' {
   collection: "posts";
   data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
+"ai-in-neovim-neovimconf-2024.mdx": {
+	id: "ai-in-neovim-neovimconf-2024.mdx";
+  slug: "ai-in-neovim-neovimconf-2024";
+  body: string;
+  collection: "posts";
+  data: InferEntrySchema<"posts">
+} & { render(): Render[".mdx"] };
 "blazing-fast-window-management-on-macos.mdx": {
 	id: "blazing-fast-window-management-on-macos.mdx";
   slug: "blazing-fast-window-management-on-macos";
