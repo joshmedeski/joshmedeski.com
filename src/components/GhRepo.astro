@@ -12,61 +12,70 @@ interface Props {
 const { repo } = Astro.props;
 
 async function getRepoData(repo: string) {
-  const octokit = new Octokit({auth: process.env.GH_TOKEN});
-  const repoSplit = repo.split('/')
+  const octokit = new Octokit({ auth: process.env.GH_TOKEN });
+  const repoSplit = repo.split("/");
   const { data } = await octokit.rest.repos.get({
     owner: repoSplit[0],
-    repo: repoSplit[1]
+    repo: repoSplit[1],
   });
-  return data
+  return data;
 }
 
 async function addRepoToCache(repo: string) {
-  const data = await getRepoData(repo)
+  const data = await getRepoData(repo);
   const dataToSave = {
     fullName: data.full_name,
-    ...(data.description ? {description: data.description} : {}),
+    ...(data.description ? { description: data.description } : {}),
     stargazersCount: data.stargazers_count,
-    url: data.html_url
-  }
+    url: data.html_url,
+  };
   return await prisma.ghRepo.upsert({
     where: { fullName: data.full_name },
     update: dataToSave,
-    create: dataToSave
-  })
+    create: dataToSave,
+  });
 }
 
 async function getRepo(repo: string) {
   const cachedRepo = await prisma.ghRepo.findFirst({
-    where: { fullName: repo }
-  })
+    where: { fullName: repo },
+  });
 
-  if (!cachedRepo || cachedRepo.updatedAt < new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 7)) {
+  if (
+    !cachedRepo ||
+    cachedRepo.updatedAt <
+      new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 7)
+  ) {
     try {
-
-    return await addRepoToCache(repo)
+      return await addRepoToCache(repo);
     } catch (e) {
-      throw new Error(e.response.url || e)
+      throw new Error(e.response.url || e);
     }
   } else {
-    return cachedRepo
+    return cachedRepo;
   }
 }
 
-const { fullName, description, stargazersCount, url } = await getRepo(repo)
+const { fullName, description, stargazersCount, url } = await getRepo(repo);
 
 function prettyStargazersCount(count: number) {
-  return count.toLocaleString()
+  return count.toLocaleString();
 }
 ---
 
-<a href={url} target="_blank" class="block not-prose no-underline mb-4">
-  <section class="flex flex-col sm:flex-row gap-2 sm:gap-4 bg-gh-light rounded p-2 sm:p-4">
-    <GitHubIcon class="w-8 sm:w-16 text-gh-dark" />
+<a href={url} target="_blank" class="not-prose mb-4 block no-underline">
+  <section
+    class="flex flex-col gap-2 rounded bg-gh-light p-2 sm:flex-row sm:gap-4 sm:p-4"
+  >
     <div>
-      <strong class="sm:text-lg">{fullName}</strong>
-      <p class="text-sm sm:text-md text-gh-dark leading-none">{description}</p>
-        <div class="text-gh-dark">🔭 {prettyStargazersCount(stargazersCount)}</div>
+      <div class="flex items-center gap-2">
+        <GitHubIcon class="h-6 w-6 text-gh-dark" />
+        <strong class="sm:text-lg">{fullName}</strong>
+      </div>
+      <p class="sm:text-md text-sm leading-none text-gh-dark">{description}</p>
+      <div class="text-gh-dark">
+        🔭 {prettyStargazersCount(stargazersCount)}
+      </div>
     </div>
   </section>
 </a>
