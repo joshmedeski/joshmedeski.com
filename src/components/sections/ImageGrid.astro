@@ -1,0 +1,62 @@
+---
+import { getCollection } from "astro:content";
+import AboutMe from "./AboutMe.astro";
+import Wrapper from "../Wrapper.astro";
+
+const posts = await getCollection(
+  "posts",
+  ({ data: { draft } }) => !draft,
+).then((p) => p.sort(() => Math.random() - 0.5));
+
+const columns = 8;
+const itemsPerColumn = 15;
+const requiredLength = columns * itemsPerColumn;
+const shuffledPosts = [...posts].sort(() => 0.5 - Math.random());
+while (shuffledPosts.length < requiredLength) {
+  shuffledPosts.push(...posts.sort(() => 0.5 - Math.random()));
+}
+shuffledPosts.length = requiredLength;
+const postChunks = Array.from({ length: columns }, (_, i) =>
+  shuffledPosts.slice(i * itemsPerColumn, i * itemsPerColumn + itemsPerColumn),
+);
+---
+
+<Wrapper>
+  <section
+    class="relative mx-auto flex aspect-video w-full overflow-hidden rounded-3xl shadow-xl"
+  >
+    <div class="mx-auto w-full grow duration-300 ease-in-out">
+      <main class="relative h-full w-full overflow-hidden">
+        <div
+          class="absolute left-1/2 top-1/2 z-[2] block w-full -translate-x-1/2 -translate-y-1/2 overflow-hidden text-center"
+        >
+          <AboutMe />
+        </div>
+        <div
+          class="pointer-events-none absolute grid grid-cols-8 gap-4 overflow-hidden opacity-10"
+          style="transform: rotateX(50deg) rotateZ(-35deg) translate(26%, -30%) scale(1.3);"
+        >
+          {
+            postChunks.map((chunk, i) => {
+              return (
+                <div
+                  class={`grid grid-cols-1 gap-4 ${i % 2 !== 0 ? "translate-y-[-50px]" : ""}`}
+                >
+                  {chunk.map((post) => (
+                    <img
+                      src={post.data.heroImage.src}
+                      alt={post.data.title}
+                      width="500"
+                      height="281.25"
+                      class="aspect-video w-full rounded-2xl bg-white object-cover shadow-md transition-opacity duration-500"
+                    />
+                  ))}
+                </div>
+              );
+            })
+          }
+        </div>
+      </main>
+    </div>
+  </section>
+</Wrapper>
