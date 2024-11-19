@@ -1,15 +1,17 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import PostCard from "./post/PostCard.astro";
 
-interface Props {
-  posts: CollectionEntry<"posts">[];
-}
-const { posts } = Astro.props;
+const posts = await getCollection(
+  "posts",
+  ({ data: { draft } }) => !draft,
+).then((p) =>
+  p.sort(
+    ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime(),
+  ),
+);
 ---
 
-<section
-  class="mb-32 grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8"
->
+<section class="mb-32 grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8">
   {posts.map((post) => <PostCard post={post} />)}
 </section>

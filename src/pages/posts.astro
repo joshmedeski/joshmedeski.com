@@ -7,11 +7,11 @@ import Posts from "../components/Posts.astro";
 
 const posts = await getCollection(
   "posts",
-  ({ data: { draft } }) => !draft
+  ({ data: { draft } }) => !draft,
 ).then((p) =>
   p.sort(
-    ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime()
-  )
+    ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime(),
+  ),
 );
 ---
 
