@@ -55,11 +55,13 @@ const { Content } = await render(use);
       </div>
     </section>
 
-    <footer class="mb-12">
-      <h3 class="mb-4 text-4xl font-bold">Related {use.data.area.id}</h3>
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {relatedUses.map((use) => <UseCard use={use} />)}
-      </div>
-    </footer>
+    {relatedUses.length > 0 && (
+      <footer class="mb-12">
+        <h3 class="mb-4 text-4xl font-bold">Related {use.data.area.id}</h3>
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {relatedUses.map((use) => <UseCard use={use} />)}
+        </div>
+      </footer>
+    )}
   </Wrapper>
 </Layout>
