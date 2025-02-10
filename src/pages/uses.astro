@@ -19,7 +19,7 @@ const uses = await getCollection("uses");
             <h2 class="mb-4 text-4xl font-bold">{area.data.title}</h2>
             <div class="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 lg:grid-cols-4">
               {uses
-                .filter((use) => use.data.area.slug === area.slug)
+                .filter((use) => use.data.area.id === area.id)
                 .map((use) => (
                   <UseCard use={use} />
                 ))}

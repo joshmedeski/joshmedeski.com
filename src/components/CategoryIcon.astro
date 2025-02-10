@@ -10,20 +10,20 @@ import {
 } from "../components/icons/index.astro";
 
 interface Props {
-  slug: CollectionEntry<"categories">["slug"];
+  id: CollectionEntry<"categories">["id"];
   class?: string;
 }
 
-const { slug, class: className } = Astro.props;
+const { id, class: className } = Astro.props;
 ---
 
-{slug === "conversations" && <ConversationsIcon class={className} />}
-{slug === "development" && <DevelopmentIcon class={className} />}
-{slug === "dotfiles" && <DotfilesIcon class={className} />}
+{id === "conversations" && <ConversationsIcon class={className} />}
+{id === "development" && <DevelopmentIcon class={className} />}
+{id === "dotfiles" && <DotfilesIcon class={className} />}
 {
-  slug === "personal-development" && (
+  id === "personal-development" && (
     <PersonalDevelopmentIcon class={className} />
   )
 }
-{slug === "productivity" && <ProductivityIcon class={className} />}
-{slug === "tech" && <UsesIcon class={className} />}
+{id === "productivity" && <ProductivityIcon class={className} />}
+{id === "tech" && <UsesIcon class={className} />}

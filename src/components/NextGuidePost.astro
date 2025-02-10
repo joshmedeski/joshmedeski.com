@@ -17,7 +17,7 @@ if (currentPostGuide) {
   const guidePosts = await getCollection(
     "posts",
     (post) =>
-      post.data.guide && currentPostGuide.ref.slug === post.data.guide.ref.slug
+      post.data.guide && currentPostGuide.ref.id === post.data.guide.ref.id
   );
   nextPost = guidePosts.find(
     ({ data }) =>
@@ -27,12 +27,12 @@ if (currentPostGuide) {
 
 let guide: CollectionEntry<"guides"> | undefined;
 if (nextPost?.data.guide?.ref) {
-  guide = await getEntry("guides", nextPost.data.guide.ref.slug);
+  guide = await getEntry("guides", nextPost.data.guide.ref.id);
 }
 
 let category: CollectionEntry<"categories"> | undefined;
 if (nextPost?.data.category) {
-  category = await getEntry("categories", nextPost.data.category.slug);
+  category = await getEntry("categories", nextPost.data.category.id);
 }
 ---
 

@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
 import GhRepo from "../../components/GhRepo.astro";
@@ -11,7 +11,7 @@ export async function getStaticPaths() {
   const uses = await getCollection("uses");
   return uses.map((use) => {
     return {
-      params: { slug: use.slug },
+      params: { id: use.id },
       props: { use },
     };
   });
@@ -25,10 +25,10 @@ const { use } = Astro.props;
 const relatedUses = await getCollection(
   "uses",
   (relatedUse) =>
-    relatedUse.data.area.slug === use.data.area.slug &&
+    relatedUse.data.area.id === use.data.area.id &&
     relatedUse.data.title !== use.data.title,
 );
-const { Content } = await use.render();
+const { Content } = await render(use);
 ---
 
 <Layout
@@ -56,7 +56,7 @@ const { Content } = await use.render();
     </section>
 
     <footer class="mb-12">
-      <h3 class="mb-4 text-4xl font-bold">Related {use.data.area.slug}</h3>
+      <h3 class="mb-4 text-4xl font-bold">Related {use.data.area.id}</h3>
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {relatedUses.map((use) => <UseCard use={use} />)}
       </div>

@@ -1,0 +1,50 @@
+{
+  "$ref": "#/definitions/categories",
+  "definitions": {
+    "categories": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "desc": {
+          "type": "string"
+        },
+        "style": {
+          "type": "object",
+          "properties": {
+            "container": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "desc": {
+              "type": "string"
+            },
+            "themeColor": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "container",
+            "title",
+            "desc",
+            "themeColor"
+          ],
+          "additionalProperties": false
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "desc",
+        "style"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

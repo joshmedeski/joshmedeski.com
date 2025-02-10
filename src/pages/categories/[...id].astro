@@ -1,7 +1,7 @@
 ---
 import Layout from "../../components/Layout.astro";
 import clsx from "clsx";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import CategoryIcon from "~/components/CategoryIcon.astro";
 import PostCard from "~/components/post/PostCard.astro";
@@ -9,7 +9,7 @@ import PostCard from "~/components/post/PostCard.astro";
 export async function getStaticPaths() {
   const categories = await getCollection("categories");
   return categories.map((category) => ({
-    params: { slug: category.slug },
+    params: { id: category.id },
     props: { category },
   }));
 }
@@ -22,14 +22,14 @@ interface Props {
 const { category } = Astro.props;
 const posts = await getCollection(
   "posts",
-  (post) => !post.data.draft && category.slug === post.data.category.slug
+  (post) => !post.data.draft && category.id === post.data.category.id
 ).then((posts) =>
   posts.sort(
     (a, b) =>
       new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
   )
 );
-const { Content } = await category.render();
+const { Content } = await render(category);
 ---
 
 <Layout
@@ -40,7 +40,7 @@ const { Content } = await category.render();
   <header
     class={clsx("text-center flex-grow pb-12", category.data.style.container)}
   >
-    <CategoryIcon slug={category.slug} class="mx-auto w-32 pt-12" />
+    <CategoryIcon id={category.id} class="mx-auto w-32 pt-12" />
     <h1 class="mb-2 mt-10 text-2xl font-extrabold md:text-4xl">
       {category.data.title}
     </h1>

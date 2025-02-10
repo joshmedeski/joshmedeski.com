@@ -3,7 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import PostCtaInput from "./PostCtaInput.tsx";
 import RssIcon from "../icons/RssIcon.astro";
 interface Props {
-  category: CollectionEntry<"posts">["data"]["category"]["slug"];
+  category: CollectionEntry<"posts">["data"]["category"]["id"];
 }
 
 const { category } = Astro.props;

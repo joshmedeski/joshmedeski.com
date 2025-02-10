@@ -9,7 +9,7 @@ interface Props {
 const { use } = Astro.props;
 ---
 
-<a href={`/uses/${use.slug}`} data-astro-prefetch>
+<a href={`/uses/${use.id}`} data-astro-prefetch>
   <Image
     src={use.data.image}
     alt={use.data.title}

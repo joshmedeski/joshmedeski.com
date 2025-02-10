@@ -1,30 +1,30 @@
 [build.environment]
-  NPM_FLAGS = "--version" # prevent Netlify npm install
+NPM_FLAGS = "--version" # prevent Netlify npm install
 
 [build]
-  command = 'npx pnpm i --store=node_modules/.pnpm-store && prisma migrate dev && npm run build'
-  publish = 'dist'
-  functions = "functions"
+command = 'npx pnpm i --store=node_modules/.pnpm-store && prisma migrate dev && npm run build'
+publish = 'dist'
+functions = "functions"
 
 [dev]
-  command = "npm run start"
-  framework = "#auto"
-  targetPort = 4321
+command = "npm run start"
+# framework = "#auto"
+targetPort = 4321
 
 [[redirects]]
-  from = "/vimconf"
-  to = "/posts/abbreviate-everything"
-  status = 301
-  force = true
+from = "/vimconf"
+to = "/posts/abbreviate-everything"
+status = 301
+force = true
 
 [[redirects]]
-  from = "/posts/developer-workflows-and-keyboard-layouts-with-mark-higgins"
-  to = "/posts/mark-huggins-dev-workflow"
-  status = 301
-  force = true
+from = "/posts/developer-workflows-and-keyboard-layouts-with-mark-higgins"
+to = "/posts/mark-huggins-dev-workflow"
+status = 301
+force = true
 
 [[redirects]]
-  from = "/posts/pdes-with-abhishek-keshri"
-  to = "/posts/abhishek-keshris-dev-workflow"
-  status = 301
-  force = true
+from = "/posts/pdes-with-abhishek-keshri"
+to = "/posts/abhishek-keshris-dev-workflow"
+status = 301
+force = true
