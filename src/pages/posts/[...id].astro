@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import PostLayout from "../../components/post/PostLayout.astro";
 import NextGuidePost from "~/components/NextGuidePost.astro";
@@ -11,7 +11,7 @@ export async function getStaticPaths() {
   const posts = await getCollection("posts");
   return posts.map((post) => {
     return {
-      params: { slug: post.slug },
+      params: { id: post.id },
       props: { post },
     };
   });
@@ -23,11 +23,11 @@ interface Props {
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 ---
 
 <PostLayout post={post}>
   <Content components={{ GhRepo, Image }} />
-  <Cta category={post.data.category.slug} />
+  <Cta category={post.data.category.id} />
   <NextGuidePost currentPostGuide={post.data.guide} slot="after-post" />
 </PostLayout>

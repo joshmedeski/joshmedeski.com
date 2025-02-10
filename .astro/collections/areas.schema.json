@@ -1,0 +1,21 @@
+{
+  "$ref": "#/definitions/areas",
+  "definitions": {
+    "areas": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

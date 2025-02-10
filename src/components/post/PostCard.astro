@@ -16,7 +16,7 @@ const category = await getEntry(post.data.category);
   style={{ backgroundColor: category?.data?.style?.themeColor }}
 >
   <a
-    href={`/posts/${post.slug}`}
+    href={`/posts/${post.id}`}
     class="z-20 grid grow gap-4 md:grid-cols-5 md:gap-6"
     data-astro-prefetch
   >
@@ -29,7 +29,7 @@ const category = await getEntry(post.data.category);
         width="500"
         height="281.25"
         class="mb-2 aspect-video w-full rounded-lg bg-black shadow-md md:mb-8"
-        transition:name={`post-${post.slug}-thumb`}
+        transition:name={`post-${post.id}-thumb`}
         style={{ backgroundColor: category?.data.style.themeColor }}
       />
       <Image

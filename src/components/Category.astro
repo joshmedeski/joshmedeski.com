@@ -4,17 +4,17 @@ import CategoryIcon from "./CategoryIcon.astro";
 
 const {
   category: {
-    slug,
+    id,
     data: { style, title, desc },
   },
 } = Astro.props;
 ---
 
 <a
-  href={`/categories/${slug}`}
+  href={`/categories/${id}`}
   class={clsx("shadow-sm rounded-lg p-3 flex items-center", style?.container)}
 >
-  <CategoryIcon slug={slug} class="mr-3 w-8" />
+  <CategoryIcon id={id} class="mr-3 w-8" />
   <div>
     <h3
       class={clsx(

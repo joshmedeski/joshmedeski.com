@@ -19,7 +19,4 @@ export default defineConfig({
     tailwind(),
     preact(),
   ],
-  experimental: {
-    contentCollectionCache: true,
-  },
 });

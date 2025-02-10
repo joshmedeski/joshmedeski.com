@@ -11,7 +11,7 @@ const { post } = Astro.props;
 
 <Wrapper>
   <section class="mb-20 gap-6 pt-16 md:flex md:flex-row-reverse">
-    <a href={`/posts/${post.slug}`} class="w-full">
+    <a href={`/posts/${post.id}`} class="w-full">
       <img
         src={post.data.heroImage}
         alt={post.data.title}
@@ -20,7 +20,7 @@ const { post } = Astro.props;
     </a>
 
     <div class="w-full max-w-prose">
-      <a href={`/posts/${post.slug}`}>
+      <a href={`/posts/${post.id}`}>
         <h3 class="mb-3 mt-10 text-2xl font-extrabold md:text-4xl">
           {post.data.title}
         </h3>

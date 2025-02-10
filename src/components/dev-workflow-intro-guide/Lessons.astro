@@ -35,7 +35,7 @@ function validateGuidePostsPositions(posts: CollectionEntry<"posts">[]) {
 const { guide } = Astro.props;
 const posts = await getCollection(
   "posts",
-  (post) => post.data.guide && guide === post.data.guide.ref.slug
+  (post) => post.data.guide && guide === post.data.guide.ref.id
 ).then((posts) => {
   validateGuidePostsPositions(posts);
   return posts.sort((a, b) => {
@@ -74,7 +74,7 @@ const posts = await getCollection(
       {
         posts.map((post) => (
           <li class="[counter-increment:video]">
-            <a href={`/posts/${post.slug}`}>
+            <a href={`/posts/${post.id}`}>
               <Image
                 alt={post.data.title}
                 loading="lazy"

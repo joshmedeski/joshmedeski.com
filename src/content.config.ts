@@ -1,7 +1,8 @@
+import { glob } from "astro/loaders";
 import { z, defineCollection, reference } from "astro:content";
 
 const postsCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/posts" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -26,7 +27,7 @@ const postsCollection = defineCollection({
 });
 
 const categoriesCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/categories" }),
   schema: z.object({
     title: z.string(),
     desc: z.string(),
@@ -40,7 +41,7 @@ const categoriesCollection = defineCollection({
 });
 
 const usesCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/uses" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -51,14 +52,14 @@ const usesCollection = defineCollection({
 });
 
 const areasCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/areas" }),
   schema: z.object({
     title: z.string(),
   }),
 });
 
 const guidesCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/guides" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -68,7 +69,7 @@ const guidesCollection = defineCollection({
 });
 
 const projectsCollection = defineCollection({
-  type: "content",
+  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/projects" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
