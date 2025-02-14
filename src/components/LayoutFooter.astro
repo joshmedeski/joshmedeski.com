@@ -1,10 +1,10 @@
 ---
-import { SITE_TITLE } from "../config";
-import Category from "./Category.astro";
-import HeaderLink from "./HeaderLink.astro";
-import { getCollection } from "astro:content";
-import Wrapper from "./Wrapper.astro";
-import Hero from "./dev-workflow-intro-guide/Hero.astro";
+import { SITE_TITLE } from '../config'
+import Category from './Category.astro'
+import HeaderLink from './HeaderLink.astro'
+import { getCollection } from 'astro:content'
+import Wrapper from './Wrapper.astro'
+import Hero from './dev-workflow-intro-guide/Hero.astro'
 import {
   DiscordIcon,
   GitHubIcon,
@@ -13,14 +13,14 @@ import {
   TwitchIcon,
   TwitterIcon,
   YouTubeIcon,
-} from "./icons/index.astro";
+} from './icons/index.astro'
 
-const today = new Date();
+const today = new Date()
 interface Props {
-  hideCta?: boolean;
+  hideCta?: boolean
 }
-const { hideCta } = Astro.props;
-const categories = await getCollection("categories");
+const { hideCta } = Astro.props
+const categories = await getCollection('categories')
 ---
 
 {hideCta ? null : <Hero />}

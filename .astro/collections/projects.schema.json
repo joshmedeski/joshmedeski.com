@@ -20,11 +20,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "title",
-        "description",
-        "repo"
-      ],
+      "required": ["title", "description", "repo"],
       "additionalProperties": false
     }
   },

@@ -1,24 +1,24 @@
 ---
-import { getCollection } from "astro:content";
-import AboutMe from "./AboutMe.astro";
-import Wrapper from "../Wrapper.astro";
+import { getCollection } from 'astro:content'
+import AboutMe from './AboutMe.astro'
+import Wrapper from '../Wrapper.astro'
 
 const posts = await getCollection(
-  "posts",
+  'posts',
   ({ data: { draft } }) => !draft,
-).then((p) => p.sort(() => Math.random() - 0.5));
+).then((p) => p.sort(() => Math.random() - 0.5))
 
-const columns = 8;
-const itemsPerColumn = 15;
-const requiredLength = columns * itemsPerColumn;
-const shuffledPosts = [...posts].sort(() => 0.5 - Math.random());
+const columns = 8
+const itemsPerColumn = 15
+const requiredLength = columns * itemsPerColumn
+const shuffledPosts = [...posts].sort(() => 0.5 - Math.random())
 while (shuffledPosts.length < requiredLength) {
-  shuffledPosts.push(...posts.sort(() => 0.5 - Math.random()));
+  shuffledPosts.push(...posts.sort(() => 0.5 - Math.random()))
 }
-shuffledPosts.length = requiredLength;
+shuffledPosts.length = requiredLength
 const postChunks = Array.from({ length: columns }, (_, i) =>
   shuffledPosts.slice(i * itemsPerColumn, i * itemsPerColumn + itemsPerColumn),
-);
+)
 ---
 
 <Wrapper>

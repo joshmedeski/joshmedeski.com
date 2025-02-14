@@ -1,7 +1,7 @@
-import backgroundImage from "/webb-pattern.png";
-import clsx from "clsx";
-import type { FunctionalComponent, FunctionComponent, JSX } from "preact";
-import { useState } from "preact/hooks";
+import backgroundImage from '/webb-pattern.png'
+import clsx from 'clsx'
+import type { FunctionalComponent, FunctionComponent, JSX } from 'preact'
+import { useState } from 'preact/hooks'
 
 const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
   className,
@@ -10,12 +10,12 @@ const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
 }): JSX.Element => (
   <button
     className={clsx(
-      "inline-flex justify-center",
-      "rounded-2xl bg-primary-600 p-4",
-      "text-base font-semibold text-white",
-      "active:text-white/70 hover:bg-primary-500",
-      "focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500",
-      className
+      'inline-flex justify-center',
+      'rounded-2xl bg-primary-600 p-4',
+      'text-base font-semibold text-white',
+      'active:text-white/70 hover:bg-primary-500',
+      'focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500',
+      className,
     )}
     {...props}
   >
@@ -24,10 +24,10 @@ const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
       <ArrowRightIcon className="h-6 w-6" />
     </span>
   </button>
-);
+)
 
 const ArrowRightIcon: FunctionComponent<JSX.SVGAttributes<SVGSVGElement>> = (
-  props
+  props,
 ): JSX.Element => (
   <svg aria-hidden="true" viewBox="0 0 24 24" {...props}>
     <path
@@ -39,32 +39,32 @@ const ArrowRightIcon: FunctionComponent<JSX.SVGAttributes<SVGSVGElement>> = (
       strokeLinejoin="round"
     />
   </svg>
-);
+)
 
 const CallToAction: FunctionalComponent = () => {
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [error, setError] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false)
+  const [error, setError] = useState('')
 
   const createNewSubscriber: JSX.GenericEventHandler<HTMLFormElement> = async (
-    event
+    event,
   ) => {
-    event.preventDefault();
-    const { value: email } = event.currentTarget[0] as HTMLInputElement;
-    const referrer_url = window.location.href;
+    event.preventDefault()
+    const { value: email } = event.currentTarget[0] as HTMLInputElement
+    const referrer_url = window.location.href
     try {
       await fetch(`/.netlify/functions/create-new-subscriber`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify({ email, referrer_url }),
-      });
+      })
       // TODO: add fathom to window type
       // @ts-ignore
       // cSpell:disable-next-line
-      if (window.fathom) window.fathom.trackGoal("XYTTAMX5", 0);
-      setIsSubscribed(true);
+      if (window.fathom) window.fathom.trackGoal('XYTTAMX5', 0)
+      setIsSubscribed(true)
     } catch (error: any) {
-      setError(error.message ? error.message : "Error creating subscriber");
+      setError(error.message ? error.message : 'Error creating subscriber')
     }
-  };
+  }
 
   return (
     <section id="newsletter" aria-label="Newsletter">
@@ -86,7 +86,7 @@ const CallToAction: FunctionalComponent = () => {
 
             <div>
               <h3 className="text-lg font-semibold tracking-tight text-primary-900">
-                Sign up to my newsletter{" "}
+                Sign up to my newsletter{' '}
                 <span className="text-primary-400" aria-hidden="true">
                   &darr;
                 </span>
@@ -122,7 +122,7 @@ const CallToAction: FunctionalComponent = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default CallToAction;
+export default CallToAction

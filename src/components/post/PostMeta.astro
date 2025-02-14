@@ -1,22 +1,22 @@
 ---
-import { CollectionEntry, getEntry } from "astro:content";
-import CategoryIcon from "../icons/CategoryIcon.astro";
-import { DateIcon, DurationIcon, GuideIcon } from "../icons/index.astro";
+import { CollectionEntry, getEntry } from 'astro:content'
+import CategoryIcon from '../icons/CategoryIcon.astro'
+import { DateIcon, DurationIcon, GuideIcon } from '../icons/index.astro'
 
 interface Props {
-  post: CollectionEntry<"posts">;
+  post: CollectionEntry<'posts'>
 }
 
 const {
   post: {
     data: { pubDate, duration, guide: postGuide, category: postCategory },
   },
-} = Astro.props;
+} = Astro.props
 
-const category = await getEntry(postCategory);
+const category = await getEntry(postCategory)
 
-let guide: CollectionEntry<"guides"> | undefined;
-if (postGuide) guide = await getEntry(postGuide.ref);
+let guide: CollectionEntry<'guides'> | undefined
+if (postGuide) guide = await getEntry(postGuide.ref)
 ---
 
 <div class="flex w-full flex-wrap gap-4 font-medium">

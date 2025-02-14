@@ -1,22 +1,22 @@
 ---
-import { Image } from "astro:assets";
-import { CollectionEntry, getCollection } from "astro:content";
+import { Image } from 'astro:assets'
+import { CollectionEntry, getCollection } from 'astro:content'
 
 interface Props {
-  guide: string;
+  guide: string
 }
 
-function validateGuidePostsPositions(posts: CollectionEntry<"posts">[]) {
+function validateGuidePostsPositions(posts: CollectionEntry<'posts'>[]) {
   const postPositions = posts
     .map((post) => post.data.guide?.position)
-    .filter((pos): pos is number => pos !== undefined);
+    .filter((pos): pos is number => pos !== undefined)
 
-  postPositions.sort((a, b) => a - b);
+  postPositions.sort((a, b) => a - b)
 
   // Check for duplicates
   for (let i = 1; i < postPositions.length; i++) {
     if (postPositions[i] === postPositions[i - 1]) {
-      throw new Error(`Duplicate post position ${postPositions[i - 1]} found`);
+      throw new Error(`Duplicate post position ${postPositions[i - 1]} found`)
     }
   }
 
@@ -24,28 +24,28 @@ function validateGuidePostsPositions(posts: CollectionEntry<"posts">[]) {
   for (let i = 1; i < postPositions.length; i++) {
     if (postPositions[i] !== postPositions[i - 1] + 1) {
       throw new Error(
-        `Position ${postPositions[i - 1] + 1} expected but missing`
-      );
+        `Position ${postPositions[i - 1] + 1} expected but missing`,
+      )
     }
   }
 
-  return true;
+  return true
 }
 
-const { guide } = Astro.props;
+const { guide } = Astro.props
 const posts = await getCollection(
-  "posts",
-  (post) => post.data.guide && guide === post.data.guide.ref.id
+  'posts',
+  (post) => post.data.guide && guide === post.data.guide.ref.id,
 ).then((posts) => {
-  validateGuidePostsPositions(posts);
+  validateGuidePostsPositions(posts)
   return posts.sort((a, b) => {
     if (!a.data.guide)
-      throw new Error(`Post ${a.data.title} is missing the guide`);
+      throw new Error(`Post ${a.data.title} is missing the guide`)
     if (!b.data.guide)
-      throw new Error(`Post ${b.data.title} is missing the guide`);
-    return a.data.guide.position - b.data.guide.position;
-  });
-});
+      throw new Error(`Post ${b.data.title} is missing the guide`)
+    return a.data.guide.position - b.data.guide.position
+  })
+})
 ---
 
 <section class="bg-blue-50 py-16">

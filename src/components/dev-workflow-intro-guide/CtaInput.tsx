@@ -1,6 +1,6 @@
-import clsx from "clsx";
-import type { FunctionalComponent, FunctionComponent, JSX } from "preact";
-import { useState } from "preact/hooks";
+import clsx from 'clsx'
+import type { FunctionalComponent, FunctionComponent, JSX } from 'preact'
+import { useState } from 'preact/hooks'
 
 const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
   className,
@@ -9,12 +9,12 @@ const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
 }): JSX.Element => (
   <button
     className={clsx(
-      "inline-block rounded-lg font-bold tracking-wider",
-      "px-6 py-4 text-lg text-white",
-      "bg-gradient-to-l from-indigo-500 to-purple-600",
-      "shadow-lg hover:shadow-xl",
-      "hover:from-indigo-700 hover:to-purple-800",
-      "transition-all duration-300 ease-in-out",
+      'inline-block rounded-lg font-bold tracking-wider',
+      'px-6 py-4 text-lg text-white',
+      'bg-gradient-to-l from-indigo-500 to-purple-600',
+      'shadow-lg hover:shadow-xl',
+      'hover:from-indigo-700 hover:to-purple-800',
+      'transition-all duration-300 ease-in-out',
       className,
     )}
     {...props}
@@ -24,7 +24,7 @@ const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
       <ArrowRightIcon className="h-6 w-6" />
     </span>
   </button>
-);
+)
 
 const ArrowRightIcon: FunctionComponent<JSX.SVGAttributes<SVGSVGElement>> = (
   props,
@@ -39,32 +39,32 @@ const ArrowRightIcon: FunctionComponent<JSX.SVGAttributes<SVGSVGElement>> = (
       strokeLinejoin="round"
     />
   </svg>
-);
+)
 
 const PdeCtaInput: FunctionalComponent = () => {
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [error, setError] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false)
+  const [error, setError] = useState('')
 
   const createNewSubscriber: JSX.GenericEventHandler<HTMLFormElement> = async (
     event,
   ) => {
-    event.preventDefault();
-    const { value: email } = event.currentTarget[0] as HTMLInputElement;
-    const referrer_url = window.location.href;
+    event.preventDefault()
+    const { value: email } = event.currentTarget[0] as HTMLInputElement
+    const referrer_url = window.location.href
     try {
       await fetch(`/.netlify/functions/create-new-subscriber`, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify({ email, referrer_url, tags: [] }),
-      });
+      })
       // TODO: add fathom to window type
       // @ts-ignore
       // cSpell:words XYTTAMX5
-      if (window.fathom) window.fathom.trackGoal("XYTTAMX5", 0);
-      setIsSubscribed(true);
+      if (window.fathom) window.fathom.trackGoal('XYTTAMX5', 0)
+      setIsSubscribed(true)
     } catch (error: any) {
-      setError(error.message ? error.message : "Error creating subscriber");
+      setError(error.message ? error.message : 'Error creating subscriber')
     }
-  };
+  }
 
   return (
     <section>
@@ -96,7 +96,7 @@ const PdeCtaInput: FunctionalComponent = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default PdeCtaInput;
+export default PdeCtaInput

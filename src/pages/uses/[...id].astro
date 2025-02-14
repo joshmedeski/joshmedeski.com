@@ -1,34 +1,34 @@
 ---
-import { getCollection, render } from "astro:content";
-import type { CollectionEntry } from "astro:content";
-import { Image } from "astro:assets";
-import GhRepo from "../../components/GhRepo.astro";
-import Layout from "~/components/Layout.astro";
-import Wrapper from "~/components/Wrapper.astro";
-import UseCard from "~/components/uses/UseCard.astro";
+import { getCollection, render } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
+import { Image } from 'astro:assets'
+import GhRepo from '../../components/GhRepo.astro'
+import Layout from '~/components/Layout.astro'
+import Wrapper from '~/components/Wrapper.astro'
+import UseCard from '~/components/uses/UseCard.astro'
 
 export async function getStaticPaths() {
-  const uses = await getCollection("uses");
+  const uses = await getCollection('uses')
   return uses.map((use) => {
     return {
       params: { id: use.id },
       props: { use },
-    };
-  });
+    }
+  })
 }
 
 interface Props {
-  use: CollectionEntry<"uses">;
+  use: CollectionEntry<'uses'>
 }
 
-const { use } = Astro.props;
+const { use } = Astro.props
 const relatedUses = await getCollection(
-  "uses",
+  'uses',
   (relatedUse) =>
     relatedUse.data.area.id === use.data.area.id &&
     relatedUse.data.title !== use.data.title,
-);
-const { Content } = await render(use);
+)
+const { Content } = await render(use)
 ---
 
 <Layout

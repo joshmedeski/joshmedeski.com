@@ -1,6 +1,6 @@
 ---
-import { SITE_TITLE } from "../config";
-import HeaderLink from "./HeaderLink.astro";
+import { SITE_TITLE } from '../config'
+import HeaderLink from './HeaderLink.astro'
 import {
   DiscordIcon,
   GitHubIcon,
@@ -9,13 +9,13 @@ import {
   YouTubeIcon,
   RssIcon,
   TwitchIcon,
-} from "./icons/index.astro";
-import Wrapper from "./Wrapper.astro";
+} from './icons/index.astro'
+import Wrapper from './Wrapper.astro'
 
 export interface Props {
-  themeColor?: string;
+  themeColor?: string
 }
-const props = Astro.props;
+const props = Astro.props
 ---
 
 <div style={props.themeColor && `background-color: ${props.themeColor}`}>

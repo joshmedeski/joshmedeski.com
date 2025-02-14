@@ -1,10 +1,10 @@
 ---
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
 const publishers = await prisma.publisher.findMany({
   where: { imageUrl: { not: null } },
   select: { imageUrl: true, name: true },
-});
+})
 ---
 
 <section class="bg-neutral-300 px-4 py-8">

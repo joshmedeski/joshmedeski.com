@@ -1,30 +1,30 @@
 ---
-import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
-import { ViewTransitions } from "astro:transitions";
-import { getImage } from "astro:assets";
-import defaultSocialImage from "../assets/joshmedeski-social.jpeg";
-import type { ImageMetadata } from "astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
+import { ViewTransitions } from 'astro:transitions'
+import { getImage } from 'astro:assets'
+import defaultSocialImage from '../assets/joshmedeski-social.jpeg'
+import type { ImageMetadata } from 'astro'
 
-const isProd = import.meta.env.PROD;
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const isProd = import.meta.env.PROD
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
 
 export interface Props {
-  title?: string;
-  description?: string;
-  themeColor?: string;
-  image?: ImageMetadata;
+  title?: string
+  description?: string
+  themeColor?: string
+  image?: ImageMetadata
 }
 
-const { title, description, themeColor, image } = Astro.props;
+const { title, description, themeColor, image } = Astro.props
 
 const socialImage = await getImage({
   src: image ?? defaultSocialImage,
   width: 1024,
   height: 768,
-  format: "jpeg",
-});
+  format: 'jpeg',
+})
 
-const socialImageUrl = new URL(socialImage.src, Astro.url);
+const socialImageUrl = new URL(socialImage.src, Astro.url)
 ---
 
 <head>

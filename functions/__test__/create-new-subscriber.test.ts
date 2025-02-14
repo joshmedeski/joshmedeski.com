@@ -2,51 +2,51 @@ import {
   createNewSubscriber,
   validateBody,
   validateEmail,
-} from "../create-new-subscriber";
-import { describe, it, expect } from "vitest";
+} from '../create-new-subscriber'
+import { describe, it, expect } from 'vitest'
 
-describe("validateEmail", () => {
-  it("should require value", () => {
+describe('validateEmail', () => {
+  it('should require value', () => {
     expect(() => validateEmail(null)).toThrowErrorMatchingInlineSnapshot(
-      '"Email is missing"'
-    );
-  });
-  it("should be an invalid email", () => {
+      '"Email is missing"',
+    )
+  })
+  it('should be an invalid email', () => {
     expect(() =>
-      validateEmail("invalid-email")
-    ).toThrowErrorMatchingInlineSnapshot('"Email is invalid"');
-  });
-  it("should be an valid email", () => {
-    expect(validateEmail("example@example.com")).toBe("example@example.com");
-  });
-});
+      validateEmail('invalid-email'),
+    ).toThrowErrorMatchingInlineSnapshot('"Email is invalid"')
+  })
+  it('should be an valid email', () => {
+    expect(validateEmail('example@example.com')).toBe('example@example.com')
+  })
+})
 
-describe("validateBody", () => {
-  it("should require value", () => {
+describe('validateBody', () => {
+  it('should require value', () => {
     expect(() => validateBody(null)).toThrowErrorMatchingInlineSnapshot(
-      '"Body is missing"'
-    );
-  });
-  it("should be an invalid email", () => {
+      '"Body is missing"',
+    )
+  })
+  it('should be an invalid email', () => {
     expect(() =>
-      validateBody(JSON.stringify({ email: "invalid-email" }))
-    ).toThrowErrorMatchingInlineSnapshot('"Email is invalid"');
-  });
-  it("should be an valid body", () => {
+      validateBody(JSON.stringify({ email: 'invalid-email' })),
+    ).toThrowErrorMatchingInlineSnapshot('"Email is invalid"')
+  })
+  it('should be an valid body', () => {
     expect(
-      validateBody(JSON.stringify({ email: "example@example.com" }))
+      validateBody(JSON.stringify({ email: 'example@example.com' })),
     ).toStrictEqual({
-      email: "example@example.com",
-    });
-  });
-});
+      email: 'example@example.com',
+    })
+  })
+})
 
-describe("createNewSubscriber", () => {
-  it("should create a new subscriber", async () => {
+describe('createNewSubscriber', () => {
+  it('should create a new subscriber', async () => {
     await expect(
       createNewSubscriber({
-        email: "example@example.com",
-      })
+        email: 'example@example.com',
+      }),
     ).resolves.toMatchInlineSnapshot(`
       {
         "creation_date": "2022-10-24T19:21:28.855Z",
@@ -62,6 +62,6 @@ describe("createNewSubscriber", () => {
         "utm_medium": "",
         "utm_source": "",
       }
-    `);
-  });
-});
+    `)
+  })
+})

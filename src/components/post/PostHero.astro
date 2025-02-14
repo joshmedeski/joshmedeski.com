@@ -1,12 +1,12 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import PostMeta from "./PostMeta.astro";
-import Wrapper from "../Wrapper.astro";
+import type { CollectionEntry } from 'astro:content'
+import PostMeta from './PostMeta.astro'
+import Wrapper from '../Wrapper.astro'
 
 interface Props {
-  post: CollectionEntry<"posts">;
+  post: CollectionEntry<'posts'>
 }
-const { post } = Astro.props;
+const { post } = Astro.props
 ---
 
 <Wrapper>
