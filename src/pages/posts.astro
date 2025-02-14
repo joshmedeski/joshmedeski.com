@@ -1,18 +1,18 @@
 ---
-import { getCollection } from "astro:content";
-import Layout from "../components/Layout.astro";
-import PageTitle from "../components/PageTitle.astro";
-import Wrapper from "../components/Wrapper.astro";
-import Posts from "../components/Posts.astro";
+import { getCollection } from 'astro:content'
+import Layout from '../components/Layout.astro'
+import PageTitle from '../components/PageTitle.astro'
+import Wrapper from '../components/Wrapper.astro'
+import Posts from '../components/Posts.astro'
 
 const posts = await getCollection(
-  "posts",
+  'posts',
   ({ data: { draft } }) => !draft,
 ).then((p) =>
   p.sort(
     ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime(),
   ),
-);
+)
 ---
 
 <Layout title="Posts">

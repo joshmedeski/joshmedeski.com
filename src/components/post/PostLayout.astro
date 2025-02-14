@@ -1,17 +1,17 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import { getEntry } from "astro:content";
-import Layout from "../Layout.astro";
-import Wrapper from "../Wrapper.astro";
-import PostMeta from "./PostMeta.astro";
-import { Image } from "astro:assets";
+import type { CollectionEntry } from 'astro:content'
+import { getEntry } from 'astro:content'
+import Layout from '../Layout.astro'
+import Wrapper from '../Wrapper.astro'
+import PostMeta from './PostMeta.astro'
+import { Image } from 'astro:assets'
 
 interface Props {
-  post: CollectionEntry<"posts">;
+  post: CollectionEntry<'posts'>
 }
 
-const { post } = Astro.props;
-const category = await getEntry(post.data.category);
+const { post } = Astro.props
+const category = await getEntry(post.data.category)
 ---
 
 <Layout

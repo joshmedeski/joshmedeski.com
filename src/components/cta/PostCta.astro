@@ -1,12 +1,12 @@
 ---
-import type { CollectionEntry } from "astro:content";
-import PostCtaInput from "./PostCtaInput.tsx";
-import RssIcon from "../icons/RssIcon.astro";
+import type { CollectionEntry } from 'astro:content'
+import PostCtaInput from './PostCtaInput.tsx'
+import RssIcon from '../icons/RssIcon.astro'
 interface Props {
-  category: CollectionEntry<"posts">["data"]["category"]["id"];
+  category: CollectionEntry<'posts'>['data']['category']['id']
 }
 
-const { category } = Astro.props;
+const { category } = Astro.props
 ---
 
 <div

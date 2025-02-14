@@ -41,10 +41,7 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "id",
-                "collection"
-              ],
+              "required": ["id", "collection"],
               "additionalProperties": false
             },
             {
@@ -57,10 +54,7 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "slug",
-                "collection"
-              ],
+              "required": ["slug", "collection"],
               "additionalProperties": false
             }
           ]
@@ -107,10 +101,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "id",
-                    "collection"
-                  ],
+                  "required": ["id", "collection"],
                   "additionalProperties": false
                 },
                 {
@@ -123,10 +114,7 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "slug",
-                    "collection"
-                  ],
+                  "required": ["slug", "collection"],
                   "additionalProperties": false
                 }
               ]
@@ -135,23 +123,14 @@
               "type": "number"
             }
           },
-          "required": [
-            "ref",
-            "position"
-          ],
+          "required": ["ref", "position"],
           "additionalProperties": false
         },
         "$schema": {
           "type": "string"
         }
       },
-      "required": [
-        "title",
-        "description",
-        "pubDate",
-        "category",
-        "heroImage"
-      ],
+      "required": ["title", "description", "pubDate", "category", "heroImage"],
       "additionalProperties": false
     }
   },

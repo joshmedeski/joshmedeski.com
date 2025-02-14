@@ -1,22 +1,22 @@
 ---
-import Layout from "../../components/Layout.astro";
-import { getCollection, render } from "astro:content";
-import type { CollectionEntry } from "astro:content";
+import Layout from '../../components/Layout.astro'
+import { getCollection, render } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
 
 export async function getStaticPaths() {
-  const guides = await getCollection("guides");
+  const guides = await getCollection('guides')
   return guides.map((guide) => ({
     params: { id: guide.id },
     props: { guide },
-  }));
+  }))
 }
 
 interface Props {
-  guide: CollectionEntry<"guides">;
+  guide: CollectionEntry<'guides'>
 }
 
-const { guide } = Astro.props;
-const { Content } = await render(guide);
+const { guide } = Astro.props
+const { Content } = await render(guide)
 ---
 
 <Layout

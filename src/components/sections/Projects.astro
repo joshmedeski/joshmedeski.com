@@ -1,10 +1,10 @@
 ---
-import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
-import Wrapper from "~/components/Wrapper.astro";
-import GhRepo from "../GhRepo.astro";
+import { Image } from 'astro:assets'
+import { getCollection } from 'astro:content'
+import Wrapper from '~/components/Wrapper.astro'
+import GhRepo from '../GhRepo.astro'
 
-const projects = await getCollection("projects");
+const projects = await getCollection('projects')
 ---
 
 <section class="py-16 md:py-32">

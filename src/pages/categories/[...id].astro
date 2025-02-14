@@ -1,35 +1,35 @@
 ---
-import Layout from "../../components/Layout.astro";
-import clsx from "clsx";
-import { getCollection, render } from "astro:content";
-import type { CollectionEntry } from "astro:content";
-import CategoryIcon from "~/components/CategoryIcon.astro";
-import PostCard from "~/components/post/PostCard.astro";
+import Layout from '../../components/Layout.astro'
+import clsx from 'clsx'
+import { getCollection, render } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
+import CategoryIcon from '~/components/CategoryIcon.astro'
+import PostCard from '~/components/post/PostCard.astro'
 
 export async function getStaticPaths() {
-  const categories = await getCollection("categories");
+  const categories = await getCollection('categories')
   return categories.map((category) => ({
     params: { id: category.id },
     props: { category },
-  }));
+  }))
 }
 
 interface Props {
-  category: CollectionEntry<"categories">;
-  posts: CollectionEntry<"posts">[];
+  category: CollectionEntry<'categories'>
+  posts: CollectionEntry<'posts'>[]
 }
 
-const { category } = Astro.props;
+const { category } = Astro.props
 const posts = await getCollection(
-  "posts",
-  (post) => !post.data.draft && category.id === post.data.category.id
+  'posts',
+  (post) => !post.data.draft && category.id === post.data.category.id,
 ).then((posts) =>
   posts.sort(
     (a, b) =>
-      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
-  )
-);
-const { Content } = await render(category);
+      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+  ),
+)
+const { Content } = await render(category)
 ---
 
 <Layout

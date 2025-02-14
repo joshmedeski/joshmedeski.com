@@ -1,14 +1,14 @@
 ---
-import PostCard from "./post/PostCard.astro";
-import { getCollection } from "astro:content";
-import Wrapper from "./Wrapper.astro";
-import PageTitle from "./PageTitle.astro";
+import PostCard from './post/PostCard.astro'
+import { getCollection } from 'astro:content'
+import Wrapper from './Wrapper.astro'
+import PageTitle from './PageTitle.astro'
 
-const allPosts = await getCollection("posts", ({ data: { draft } }) => !draft);
+const allPosts = await getCollection('posts', ({ data: { draft } }) => !draft)
 const sortedPosts = allPosts.sort(
-  ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime()
-);
-const recentPosts = sortedPosts.slice(0, 4);
+  ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime(),
+)
+const recentPosts = sortedPosts.slice(0, 4)
 ---
 
 <Wrapper>

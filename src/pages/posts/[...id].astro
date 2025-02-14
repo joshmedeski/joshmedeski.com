@@ -1,29 +1,29 @@
 ---
-import { getCollection, render } from "astro:content";
-import type { CollectionEntry } from "astro:content";
-import PostLayout from "../../components/post/PostLayout.astro";
-import NextGuidePost from "~/components/NextGuidePost.astro";
-import { Image } from "astro:assets";
-import GhRepo from "../../components/GhRepo.astro";
-import Cta from "../../components/cta/PostCta.astro";
+import { getCollection, render } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
+import PostLayout from '../../components/post/PostLayout.astro'
+import NextGuidePost from '~/components/NextGuidePost.astro'
+import { Image } from 'astro:assets'
+import GhRepo from '../../components/GhRepo.astro'
+import Cta from '../../components/cta/PostCta.astro'
 
 export async function getStaticPaths() {
-  const posts = await getCollection("posts");
+  const posts = await getCollection('posts')
   return posts.map((post) => {
     return {
       params: { id: post.id },
       props: { post },
-    };
-  });
+    }
+  })
 }
 
 interface Props {
-  post: CollectionEntry<"posts">;
-  nextPost?: CollectionEntry<"posts">;
+  post: CollectionEntry<'posts'>
+  nextPost?: CollectionEntry<'posts'>
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { post } = Astro.props
+const { Content } = await render(post)
 ---
 
 <PostLayout post={post}>

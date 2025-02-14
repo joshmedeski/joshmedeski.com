@@ -1,14 +1,14 @@
-import { glob } from "astro/loaders";
-import { z, defineCollection, reference } from "astro:content";
+import { glob } from 'astro/loaders'
+import { z, defineCollection, reference } from 'astro:content'
 
 const postsCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/posts" }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/posts' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
       description: z.string(),
       pubDate: z.date(),
-      category: reference("categories"),
+      category: reference('categories'),
       duration: z.string().optional(),
       heroImage: image(),
       draft: z.boolean().optional(),
@@ -19,15 +19,15 @@ const postsCollection = defineCollection({
       thumbnail: image().optional(),
       guide: z
         .object({
-          ref: reference("guides"),
+          ref: reference('guides'),
           position: z.number(),
         })
         .optional(),
     }),
-});
+})
 
 const categoriesCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/categories" }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/categories' }),
   schema: z.object({
     title: z.string(),
     desc: z.string(),
@@ -38,45 +38,45 @@ const categoriesCollection = defineCollection({
       themeColor: z.string(),
     }),
   }),
-});
+})
 
 const usesCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/uses" }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/uses' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
       description: z.string(),
-      area: reference("areas"),
+      area: reference('areas'),
       image: image(),
     }),
-});
+})
 
 const areasCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/areas" }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/areas' }),
   schema: z.object({
     title: z.string(),
   }),
-});
+})
 
 const guidesCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/guides" }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/guides' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
     pubDate: z.date(),
     heroImage: z.string(),
   }),
-});
+})
 
 const projectsCollection = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/projects" }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/projects' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
     repo: z.string(),
     image: z.string().optional(),
   }),
-});
+})
 
 export const collections = {
   areas: areasCollection,
@@ -85,4 +85,4 @@ export const collections = {
   categories: categoriesCollection,
   guides: guidesCollection,
   uses: usesCollection,
-};
+}

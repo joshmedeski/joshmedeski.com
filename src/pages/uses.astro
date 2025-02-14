@@ -1,12 +1,12 @@
 ---
-import { getCollection } from "astro:content";
-import Layout from "../components/Layout.astro";
-import PageTitle from "../components/PageTitle.astro";
-import Wrapper from "../components/Wrapper.astro";
-import UseCard from "~/components/uses/UseCard.astro";
+import { getCollection } from 'astro:content'
+import Layout from '../components/Layout.astro'
+import PageTitle from '../components/PageTitle.astro'
+import Wrapper from '../components/Wrapper.astro'
+import UseCard from '~/components/uses/UseCard.astro'
 
-const areas = await getCollection("areas");
-const uses = await getCollection("uses");
+const areas = await getCollection('areas')
+const uses = await getCollection('uses')
 ---
 
 <Layout title="Uses">

@@ -1,15 +1,15 @@
 ---
-import { getCollection } from "astro:content";
-import PostCard from "./post/PostCard.astro";
+import { getCollection } from 'astro:content'
+import PostCard from './post/PostCard.astro'
 
 const posts = await getCollection(
-  "posts",
+  'posts',
   ({ data: { draft } }) => !draft,
 ).then((p) =>
   p.sort(
     ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime(),
   ),
-);
+)
 ---
 
 <section class="mb-32 grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8">

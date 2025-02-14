@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import type { CollectionEntry } from 'astro:content'
 import {
   ConversationsIcon,
   DevelopmentIcon,
@@ -7,14 +7,14 @@ import {
   PersonalDevelopmentIcon,
   ProductivityIcon,
   UsesIcon,
-} from "./index.astro";
+} from './index.astro'
 
 interface Props {
-  id: CollectionEntry<"categories">["id"];
-  class?: string;
+  id: CollectionEntry<'categories'>['id']
+  class?: string
 }
 
-const { id, class: className } = Astro.props;
+const { id, class: className } = Astro.props
 ---
 
 {id === "conversations" && <ConversationsIcon class={className} />}
