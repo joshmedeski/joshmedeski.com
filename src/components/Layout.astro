@@ -13,10 +13,18 @@ interface Props extends HeadProps {
 const props = Astro.props
 ---
 
+<script is:inline>
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+	document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+    document.documentElement.setAttribute('data-theme', event.matches ? 'dark' : 'light');
+  });
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
   <Head {...props} />
-  <body class="relative flex min-h-screen flex-col justify-between">
+  <body class="relative flex min-h-screen flex-col justify-between bg-white text-black">
     <header class="z-20">
       <Header themeColor={props.themeColor} />
     </header>

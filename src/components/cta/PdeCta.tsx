@@ -13,7 +13,7 @@ const PdeCta: FunctionalComponent = () => {
                 personal development environment
               </span>
             </h1>
-            <p className="mx-auto mt-3 max-w-[630px] text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl">
+            <p className="mx-auto mt-3 max-w-[630px] text-base text-neutral-500 sm:text-lg md:mt-5 md:text-xl">
               It's time to ditch your clunky editor for a{' '}
               <strong>terminal-based workflow</strong> that will help you become
               a <strong>better developer</strong> and{' '}

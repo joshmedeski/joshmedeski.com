@@ -18,7 +18,7 @@ export interface Props {
 const props = Astro.props
 ---
 
-<div style={props.themeColor && `background-color: ${props.themeColor}`}>
+<div class={`${props.themeColor && props.themeColor}`}>
   <Wrapper>
     <header class="grid content-center rounded-lg py-4 md:grid-cols-7">
       <div class="align-center col-span-2 flex items-center justify-between">
@@ -30,7 +30,7 @@ const props = Astro.props
           {SITE_TITLE}
         </a>
         <a href="#menu" class="mt-1 flex items-center md:hidden">
-          <MenuIcon class="mr-2 h-6 w-6 text-gray-800" />
+          <MenuIcon class="mr-2 h-6 w-6 text-neutral-800" />
           <span>Menu</span>
         </a>
       </div>

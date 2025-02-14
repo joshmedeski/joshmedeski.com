@@ -10,7 +10,7 @@ const { category } = Astro.props
 ---
 
 <div
-  class="not-prose relative isolate overflow-hidden rounded-3xl bg-gray-900 p-4 shadow-2xl sm:p-8 lg:flex lg:gap-x-20"
+  class="not-prose relative isolate overflow-hidden rounded-3xl bg-neutral-900 p-4 shadow-2xl sm:p-8 lg:flex lg:gap-x-20"
 >
   <svg
     viewBox="0 0 1024 1024"
@@ -35,7 +35,7 @@ const { category } = Astro.props
     <h2 class="text-2xl font-bold tracking-tight text-white sm:text-4xl">
       Sign-Up for New Posts
     </h2>
-    <p class="mt-2 leading-tight text-gray-300 sm:mt-6 sm:text-lg">
+    <p class="mt-2 leading-tight text-neutral-300 sm:mt-6 sm:text-lg">
       Stay in the loop and get the latest blog posts about {category} sent to your
       inbox.
     </p>
@@ -45,7 +45,7 @@ const { category } = Astro.props
         Or use the{" "}
       </p>
       <div
-        class="flex items-center gap-1 rounded-full bg-[#260e02] px-3 py-1 text-[#F26522] text-white"
+        class="flex items-center gap-1 rounded-full bg-rss-light px-3 py-1 text-rss-dark"
       >
         <RssIcon class="h-4 w-4" />
         <span>RSS Feed</span>
