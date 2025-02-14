@@ -1,0 +1,62 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true,
+    "defaultBranch": "main"
+  },
+  "files": { "ignoreUnknown": false, "ignore": [] },
+  "formatter": {
+    "enabled": true,
+    "useEditorconfig": true,
+    "formatWithErrors": false,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80,
+    "attributePosition": "auto",
+    "bracketSpacing": true,
+    "ignore": [
+      "**/dist/",
+      "**/node_modules/",
+      "**/npm-debug.log*",
+      "**/yarn-debug.log*",
+      "**/yarn-error.log*",
+      "**/pnpm-debug.log*",
+      "**/.env",
+      "**/.env.production",
+      "**/.DS_Store",
+      "**/.netlify",
+      "functions/.netlify",
+      "**/coverage"
+    ]
+  },
+  "organizeImports": { "enabled": true },
+  "linter": { "enabled": true, "rules": { "recommended": false } },
+  "javascript": {
+    "formatter": {
+      "jsxQuoteStyle": "double",
+      "quoteProperties": "asNeeded",
+      "trailingCommas": "all",
+      "semicolons": "asNeeded",
+      "arrowParentheses": "always",
+      "bracketSameLine": false,
+      "quoteStyle": "single",
+      "attributePosition": "auto",
+      "bracketSpacing": true
+    }
+  },
+  "overrides": [
+    { "include": ["*.astro"] },
+    {
+      "include": ["**/*.astro/*.js", "*.astro/*.js"],
+      "linter": { "rules": {} }
+    },
+    { "include": ["*.astro"] },
+    {
+      "include": ["**/*.astro/*.js", "*.astro/*.js"],
+      "linter": { "rules": {} }
+    }
+  ]
+}
