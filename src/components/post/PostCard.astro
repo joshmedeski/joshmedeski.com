@@ -12,8 +12,7 @@ const category = await getEntry(post.data.category)
 ---
 
 <div
-  class="relative flex flex-col justify-end rounded-lg px-4 py-4 shadow-md md:px-6"
-  style={{ backgroundColor: category?.data?.style?.themeColor }}
+  class=`relative flex flex-col justify-end rounded-lg px-4 py-4 shadow-md md:px-6 ${category?.data?.style?.themeColor}`
 >
   <a
     href={`/posts/${post.id}`}
