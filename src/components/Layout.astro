@@ -13,14 +13,6 @@ interface Props extends HeadProps {
 const props = Astro.props
 ---
 
-<script is:inline>
-  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-	document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-    document.documentElement.setAttribute('data-theme', event.matches ? 'dark' : 'light');
-  });
-</script>
-
 <!DOCTYPE html>
 <html lang="en">
   <Head {...props} />
@@ -33,5 +25,31 @@ const props = Astro.props
       <slot />
     </main>
     <Footer hideCta={props.hideCta} />
+
+    <script is:inline>
+      const getTheme = () => {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', getTheme());
+
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        const theme = event.matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+      });
+      document.addEventListener('astro:page-load', ()=>{
+        document.documentElement.setAttribute('data-theme', getTheme());
+      })
+      document.addEventListener('astro:before-swap', event => {
+          function setDarkMode(document) {
+            window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            document.documentElement.dataset.theme = theme;
+          }
+        setDarkMode(event.newDocument);
+      });
+
+      //document.addEventListener('astro:beforeload', ()=>{
+      //  document.documentElement.setAttribute('data-theme', getTheme());
+      //})
+    </script>
   </body>
 </html>

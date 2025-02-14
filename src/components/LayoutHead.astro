@@ -1,6 +1,6 @@
 ---
 import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
-import { ViewTransitions } from 'astro:transitions'
+import { ClientRouter } from 'astro:transitions'
 import { getImage } from 'astro:assets'
 import defaultSocialImage from '../assets/joshmedeski-social.jpeg'
 import type { ImageMetadata } from 'astro'
@@ -65,6 +65,7 @@ const socialImageUrl = new URL(socialImage.src, Astro.url)
   {
     isProd && (
       <script
+        is:inline
         src="https://cdn.usefathom.com/script.js"
         data-site="VLMOLRDQ"
         defer
@@ -72,5 +73,5 @@ const socialImageUrl = new URL(socialImage.src, Astro.url)
     )
   }
 
-  <ViewTransitions fallback="swap" />
+  <ClientRouter fallback="swap" />
 </head>
