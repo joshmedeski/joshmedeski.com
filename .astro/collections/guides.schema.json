@@ -33,7 +33,12 @@
           "type": "string"
         }
       },
-      "required": ["title", "description", "pubDate", "heroImage"],
+      "required": [
+        "title",
+        "description",
+        "pubDate",
+        "heroImage"
+      ],
       "additionalProperties": false
     }
   },
