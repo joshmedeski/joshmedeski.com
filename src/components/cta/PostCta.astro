@@ -40,7 +40,7 @@ const { category } = Astro.props
       inbox.
     </p>
     <PostCtaInput category={category} client:visible />
-    <a href="/rss.xml" class="mt-3 flex items-center gap-1">
+    <a href="/rss.xml" class="mt-3 flex items-center gap-2">
       <p class="text-white">
         Or use the{" "}
       </p>
@@ -48,7 +48,7 @@ const { category } = Astro.props
         class="flex items-center gap-1 rounded-full bg-rss-light px-3 py-1 text-rss-dark"
       >
         <RssIcon class="h-4 w-4" />
-        <span>RSS Feed</span>
+        <strong>RSS Feed</strong>
       </div>
     </a>
   </div>
