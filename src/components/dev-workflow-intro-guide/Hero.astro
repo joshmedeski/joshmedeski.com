@@ -13,7 +13,7 @@ const { overlapOnHeader } = Astro.props
 
 <div
   class={clsx(
-    "relative isolate mb-12 overflow-hidden border-t border-slate-100 bg-white px-6 pt-20 sm:pt-24 lg:overflow-visible lg:px-0",
+    "relative isolate overflow-hidden border-t border-slate-900 bg-neutral-900 px-6 pt-20 sm:pt-24 lg:overflow-visible lg:px-0",
     overlapOnHeader && "-mt-[104px] "
   )}
 >
@@ -34,12 +34,12 @@ const { overlapOnHeader } = Astro.props
       <div class="max-w-md flex-none">
         <GuideIcon class="mb-4 h-12 md:h-16" />
         <h1
-          class="mb-4 text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl"
+          class="mb-4 text-3xl font-bold tracking-tight text-neutral-100 sm:text-4xl"
         >
           Dev Workflow Intro
         </h1>
 
-        <p class="mb-12 text-xl leading-8 text-neutral-700">
+        <p class="mb-12 text-xl leading-8 text-neutral-300">
           Your guide to creating a powerful and intuitive <br
             class="hidden md:block"
           />development workflow in the terminal.

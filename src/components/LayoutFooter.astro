@@ -25,7 +25,7 @@ const categories = await getCollection('categories')
 
 {hideCta ? null : <Hero />}
 
-<footer class="bg-white pt-16" aria-labelledby="footer-heading" id="menu">
+<footer class="bg-neutral-950 pt-16" aria-labelledby="footer-heading" id="menu">
   <h2 class="sr-only">Footer</h2>
   <Wrapper>
     <div class="gap-4 lg:grid lg:grid-cols-6 lg:gap-6">
@@ -95,9 +95,9 @@ const categories = await getCollection('categories')
       </div>
     </div>
     <div
-      class="mx-auto mb-12 mt-10 max-w-screen-xl border-t border-neutral-200 pt-8 text-center"
+      class="mx-auto mb-12 mt-10 max-w-screen-xl border-t border-neutral-800 pt-8 text-center"
     >
-      <p class="text-base text-neutral-400 xl:text-center">
+      <p class="text-base text-neutral-600 xl:text-center">
         &copy; {today.getFullYear()}{" "}
         {SITE_TITLE}. All rights reserved.
       </p>
