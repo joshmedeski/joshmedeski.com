@@ -138,6 +138,7 @@
 @layer base {
   :root {
     color-scheme: light dark;
+
     --theme-color-black: oklch(0 0 0);
     --theme-color-white: oklch(1 0 0);
     --theme-color-foreground: var(--theme-color-black);
@@ -238,6 +239,22 @@
     --theme-color-warning-700: oklch(0.61 0.07 90);
     --theme-color-warning-800: oklch(0.5 0.07 90);
     --theme-color-warning-900: oklch(0.42 0.07 90);
+  }
+
+  .custom-pagefind-ui {
+    --pagefind-ui-scale: 1;
+    --pagefind-ui-primary: var(--color-white);
+    --pagefind-ui-text: var(--color-white);
+    --pagefind-ui-background: var(--color-black);
+    --pagefind-ui-border: var(--color-neutral-800);
+    --pagefind-ui-tag: var(--color-black);
+    --pagefind-ui-border-width: 2px;
+    --pagefind-ui-border-radius: 8px;
+    --pagefind-ui-image-border-radius: 8px;
+    --pagefind-ui-image-box-ratio: 3 / 2;
+    --pagefind-ui-font: system, -apple-system, "BlinkMacSystemFont",
+      ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI",
+      "Helvetica Neue", "Lucida Grande", "Ubuntu", "arial", sans-serif;
   }
 }
 
