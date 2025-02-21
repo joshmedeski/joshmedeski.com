@@ -1,0 +1,22 @@
+---
+import AboutMe from './AboutMe.astro'
+import Wrapper from '../Wrapper.astro'
+---
+
+<Wrapper>
+  <section
+    class="relative mx-auto flex aspect-video w-full overflow-hidden rounded-3xl shadow-xl bg-cover"
+    style={{backgroundImage: `url("/grid.png")`}}
+  >
+    <div class="mx-auto w-full grow duration-300 ease-in-out">
+      <main class="relative h-full w-full overflow-hidden">
+        <div
+          class="absolute left-1/2 top-1/2 z-[2] block w-full -translate-x-1/2 -translate-y-1/2 overflow-hidden text-center"
+        >
+          <AboutMe />
+        </div>
+        <didiv>
+      </main>
+    </div>
+  </section>
+</Wrapper>
