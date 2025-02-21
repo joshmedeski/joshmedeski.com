@@ -41,10 +41,10 @@ const { Content } = await render(category)
     class={clsx("text-center flex-grow pb-12", category.data.style.container)}
   >
     <CategoryIcon id={category.id} class="mx-auto w-32 pt-12" />
-    <h1 class="mb-2 mt-10 text-2xl font-extrabold md:text-4xl">
+    <h1 class={clsx("mb-2 mt-10 text-2xl font-extrabold md:text-4xl",  category.data.style.title)}>
       {category.data.title}
     </h1>
-    <p>{category.data.desc}</p>
+    <p class={`${category.data.style.desc}`}>{category.data.desc}</p>
   </header>
 
   <section class={clsx("px-4 py-12")}>
