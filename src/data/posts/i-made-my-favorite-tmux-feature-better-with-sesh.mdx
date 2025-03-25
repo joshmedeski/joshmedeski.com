@@ -1,0 +1,51 @@
+---
+title: I made my favorite tmux feature better with sesh
+pubDate: 2025-03-24T22:00:00.000Z
+youtubeUrl: https://www.youtube.com/embed/6I5xOAdSqLM
+duration: "5:03"
+heroImage: "../../assets/posts/i-made-my-favorite-tmux-feature-better.jpeg"
+description: Use the last command in tmux to switch between sessions easily, and learn how to improve it with sesh.
+category: dotfiles
+---
+
+I made one of my favorite TMUC sessions even better, so let's talk about it.
+
+## tmux last command
+
+So let's talk about the last command. It is bound to `<prefix>` capital L and it allows you to switch the attached client back to the last session. 
+
+So think of this like a command tab kind of feature, but for tmux. So if I was to open up a second session and we were to hit `<prefix>` capital L, you'll see that I'll be able to switch very easily back to the previous session. 
+
+## macOS keybinding
+
+I have done an extra step here and I have bound this to command L. And if you want to know about how I did that, I have a video all about how I can [bind macOS key bindings to tmux](/posts/macos-keyboard-shortcuts-for-tmux). And so this is fantastic. Maybe I'm working on the front end and the back end of something and I want to have two sessions open and quickly switch between them. Or maybe I'm messing with my configs, right? And I want to play around with that.
+
+## The problem
+
+However, this starts to quickly fall apart when there's a third introduced. And so now my workflow is I want to be able to quickly and easily close a tmux session. And then there's this detach on destroy feature that's really helpful. 
+
+```sh
+set -g detach-on-destroy off # don't exit from tmux when closing a session
+```
+
+So if I'm in neovim and I decide I don't want it anymore, I can close the final window. And when I do that, the last command actually stops working. You see that when I hit `⌘+l`, it says can't find last session. And so the feature sort of falls apart very quickly as soon as you start closing sessions, right? And so the way to fix that is you can switch back to one of the other sessions manually and then the feature comes back. And that's all right. But further it falls apart when we detach and we reattach. And so if we detach from a tmux session and come back, the idea of last goes away in tmux mind. And so you'll see that this feature still doesn't work. Can't find last session. 
+
+And so I thought, hey, you know, we know the attached order with the timestamp from tmux. tmux stores that data and tells us when we've attached to something for every session forever. It's one of those things that they have the information, but they're choosing not to use it with this command. And so I decided, hey, it doesn't work right now, right? Can't find last session. 
+
+## Introducing `sesh last`
+
+However, if I was to type sesh last, I was able to solve the problem. And so now `sesh last` can switch to the previous session no matter what it is. And now if I was to have a third session, I was to close it, right? Then I can do sesh last and it's able to switch to back to fish. And so you can see pretty easily this thing works as you'd expect it to. And the way that you end up binding it, it's sort of up to you. But I recommend that you just overwrite the default behavior. 
+
+```sh
+bind -N "⌘+l last-session (via sesh) " L run-shell "sesh last || tmux display-message -d 1000 'Only one session'"
+```
+
+And so you use the bind command in your tmux config. It's called run shell and you can run shell. You can say sesh last. And then optionally, I like this. You can have this double, this double pipe for or and you can say, you know, if sesh last fails, basically it's because there's only one session. And so I'll show you really quickly how that works. But basically when you make this kind of change, usually it's best to restart tmux. So we'll go ahead and kill it and restart it.
+
+And then we'll reopen it up. And you'll see the fallback where only one session, that makes sense. But if I open up more than one, right, it works as expected. And if I open up a third and was to close it, I'm still able to switch back. And if I was to detach and reattach, the feature still works. 
+
+## In conclusion
+
+And so this has been a huge time saver for me. I really love this feature. I just wanted it to always work. I haven't yet taken the time to contribute to the tmux source code. And so I just decided to extend my tmux session manager to include this feature.
+
+And so if you're not using it already, I highly recommend you take a look at my [video on sesh](/posts/smart-tmux-sessions-with-sesh) and how it works and all of its inner workings. This is a new feature, so I wanted to show it off. And I hope that you use the last command more and let me know if there's anything else that you want to know about this workflow.
