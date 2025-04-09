@@ -20,6 +20,9 @@ const uses = await getCollection('uses')
             <div class="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 lg:grid-cols-4">
               {uses
                 .filter((use) => use.data.area.id === area.id)
+                .sort((a, b) => 
+                  a.data.title.localeCompare(b.data.title)
+                )
                 .map((use) => (
                   <UseCard use={use} />
                 ))}
