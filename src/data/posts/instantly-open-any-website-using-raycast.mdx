@@ -1,0 +1,76 @@
+---
+title: Instantly Open Any Website Using Raycast
+pubDate: 2025-05-20T21:00:00.000Z
+youtubeUrl: https://www.youtube.com/embed/D5WiItfaVc4
+duration: "4:05"
+heroImage: "../../assets/posts/instantly-open-any-website-using-raycast.jpeg"
+description: Using an open-source search engine and Raycast, I can get to any website I want instantly.
+category: dotfiles
+---
+
+Using an open-source search engine and Raycast, I can get to any website I want instantly. In this post, I’ll show you how it works and why it’s changed the way I browse the web.
+
+## SearchXNG
+
+The search engine I use is called [SearXNG](https://github.com/searxng/searxng). It’s open-source and runs as a Docker container on your machine. You simply forward port 8080, and you’re ready to go.
+
+See the [SearXNG Docker Container instructions](https://docs.searxng.org/admin/installation-docker.html) for how to set it up.
+
+For example, if you search for `GitHub NeoVim`, you’d expect the first result to be `github.com/neovim/neovim`. This works for a variety of queries:
+
+-  Searching my own name, "joshmedeski", puts my website first.
+-  Searching for “joshmedeski blazing fast window management” brings up my blog post as the top result.
+-  Typing in “imdb andor” quickly brings up the IMDB page for the TV show, Andor.
+
+## Leveraging Search Engine Skills
+
+Most of us use search engines every day and have developed a sense for what results our keywords will produce. When you know you always want the first result, many search engines offer a “get lucky” feature—essentially rolling the dice to jump straight to the top hit.
+
+## Introducing "Bangs" and Auto Redirects
+
+A key part of this workflow is the use of bangs. [DuckDuckGo popularized the concept](https://duckduckgo.com/bangs) with exclamation points that redirect your search to specific sites.
+
+But SearXNG takes it further with a **double bang auto redirect**. When you use `!!` at the start of your query, you’re automatically redirected to the first result.
+
+### Example Searches
+
+-  `!! GitHub NeoVim` → Instantly opens the NeoVim GitHub page.
+-  `!! Paris France` → Redirects to the Wikipedia entry for France.
+
+Even if the first result isn’t perfect, it’s almost always contextual and relevant.
+
+## Setting Up with Raycast
+
+Here’s how I have it configured:
+
+Create a quicklink in Raycast with the following URL:
+
+```
+http://localhost:8080/search?q=!!%20{argument name="term"}
+```
+
+-  **Double bangs** (`!!`) trigger the auto-redirect.
+-  The search engine runs locally on `localhost:8080`.
+-  The API endpoint is `/search`.
+-  The query includes `!!` and the search term as arguments, which you can pass into Raycast.
+
+When I type `!!` and hit tab, Raycast prompts for the term. I enter what I want, and ARC gives me a preview window with the result.
+
+## Supercharging with a Keyboard Shortcut
+
+I took it a step further by binding the command to **⌥ + 1**. Since the exclamation point is on the `1` key, it’s a fast, muscle-memory shortcut to trigger a search.
+
+Now, I just type the shortcut, enter my keywords, and instantly jump to the page I want—like T-Mux’s documentation or any other site.
+
+## Why This Workflow Works for Me
+
+-  **No need for bookmarks:** If I know what I want, I can get to it with keywords.
+-  **Minimal management:** I don’t have to organize or maintain anything.
+-  **Accuracy:** I rarely end up on irrelevant pages.
+-  **Efficiency:** This method is fast, smart, and leverages my existing search skills.
+
+Traditional search engines have almost disappeared from my workflow. For research-heavy browsing, I use a different tool (which I’ll cover in a future post).
+
+---
+
+That’s an overview of how I use "searching" and Raycast together to instantly redirect to any website.
