@@ -1,0 +1,12 @@
+# https://www.joshmedeski.com/ llms.txt
+
+- [Developer Insights and Tools](https://www.joshmedeski.com/): Empowering developers with insights, tools, and live streams.
+- [AI in Neovim](https://www.joshmedeski.com/posts/ai-in-neovim-neovimconf-2024/): Explore AI plugins enhancing Neovim for developers' efficiency.
+- [Developer Workflow Videos](https://www.joshmedeski.com/videos/): Explore various videos on enhancing developer workflows and tools.
+- [Development and Productivity Insights](https://www.joshmedeski.com/posts/): Explore various posts on development, productivity, and tools.
+- [About Josh Medeski](https://www.joshmedeski.com/about/): Josh Medeski: a creative full-stack developer and magician.
+- [Essential Tools for Developers](https://www.joshmedeski.com/uses/): Explore essential audio, hardware, and keyboard tools for developers.
+- [Dev Workflow Guide](https://www.joshmedeski.com/search/): Learn to create an intuitive terminal development workflow.
+- [Terminal Development Guide](https://www.joshmedeski.com/appearances/): Learn to create an effective terminal development workflow.
+- [Weekly Review Guide](https://www.joshmedeski.com/posts/weekly-review/): A guide to conducting an effective weekly review for productivity.
+- [Abbreviate Everything](https://www.joshmedeski.com/posts/abbreviate-everything/): Learn shorthand techniques to enhance typing efficiency.
