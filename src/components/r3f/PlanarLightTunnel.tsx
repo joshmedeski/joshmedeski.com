@@ -4,7 +4,10 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useControls } from "leva";
 
 const vertexShader = `
+  varying vec2 vUv;
+  
   void main() {
+    vUv = uv;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
 `;
@@ -22,6 +25,7 @@ const fragmentShader = `
   uniform float _FrequencyZ;
   uniform float _Zoom;
 
+  varying vec2 vUv;
   out vec4 fragColor;
 
   vec3 hash31(float p)
@@ -41,8 +45,7 @@ const fragmentShader = `
     float z = iTime * _SpeedZ;
 
     float zOffset = z * _RandomSpeed;
-    vec2 uv = gl_FragCoord.xy/iResolution - 0.5;
-    uv.x *= iResolution.x / iResolution.y;
+    vec2 uv = vUv - 0.5;
     uv /= _Zoom;
 
     vec3 ray = normalize(vec3(uv.yx, 1.5));
@@ -87,15 +90,23 @@ function ShaderPlane() {
   const materialRef = useRef<THREE.ShaderMaterial>(null!);
   const { viewport, size } = useThree();
 
-  const { BandSpacing, FrequencyY, SpeedZ, RandomSpeed, FrequencyZ, Zoom } =
-    useControls({
-      BandSpacing: { value: 0.5, min: 0, max: 1, step: 0.01 },
-      FrequencyY: { value: 2.0, min: 0.1, max: 4, step: 0.01 },
-      SpeedZ: { value: 4.0, min: 0, max: 32, step: 0.01 },
-      RandomSpeed: { value: 3.0, min: 0, max: 8, step: 0.01 },
-      FrequencyZ: { value: 0.03, min: 0.001, max: 0.1, step: 0.01 },
-      Zoom: { value: 1.0, min: 0.1, max: 5, step: 0.1 },
-    });
+  const {
+    useShader,
+    BandSpacing,
+    FrequencyY,
+    SpeedZ,
+    RandomSpeed,
+    FrequencyZ,
+    Zoom,
+  } = useControls({
+    useShader: { value: true },
+    BandSpacing: { value: 0.5, min: 0, max: 1, step: 0.01 },
+    FrequencyY: { value: 2.0, min: 0.1, max: 4, step: 0.01 },
+    SpeedZ: { value: 50.0, min: 0, max: 256, step: 1 },
+    RandomSpeed: { value: 3.0, min: 0, max: 8, step: 0.01 },
+    FrequencyZ: { value: 0.03, min: 0.001, max: 0.1, step: 0.01 },
+    Zoom: { value: 1.0, min: 0.1, max: 5, step: 0.1 },
+  });
 
   const uniforms = useMemo(
     () => ({
@@ -127,30 +138,32 @@ function ShaderPlane() {
     }
   });
 
-  // Scale plane to viewport dimensions while maintaining 16:9 aspect
+  // Scale plane to fill entire viewport
   const scaleX = viewport.width;
-  const scaleY = viewport.height * (9 / 16); // Enforce 16:9 letterboxed
+  const scaleY = viewport.height;
 
   return (
     <mesh ref={meshRef} scale={[scaleX, scaleY, 1]}>
       <planeGeometry args={[1, 1]} />
-      <shaderMaterial
-        ref={materialRef}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
-        uniforms={uniforms}
-        glslVersion={THREE.GLSL3}
-      />
+      {useShader ? (
+        <shaderMaterial
+          ref={materialRef}
+          vertexShader={vertexShader}
+          fragmentShader={fragmentShader}
+          uniforms={uniforms}
+          glslVersion={THREE.GLSL3}
+        />
+      ) : (
+        <meshBasicMaterial color="#00ff00" />
+      )}
     </mesh>
   );
 }
 
 export default function Experience() {
   return (
-    <section className="h-screen w-full">
-      <Canvas>
-        <ShaderPlane />
-      </Canvas>
-    </section>
+    <Canvas className="w-full aspect-video">
+      <ShaderPlane />
+    </Canvas>
   );
 }
