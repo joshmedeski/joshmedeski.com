@@ -25,10 +25,7 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "id",
-                "collection"
-              ],
+              "required": ["id", "collection"],
               "additionalProperties": false
             },
             {
@@ -41,10 +38,7 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "slug",
-                "collection"
-              ],
+              "required": ["slug", "collection"],
               "additionalProperties": false
             }
           ]
@@ -56,12 +50,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "title",
-        "description",
-        "area",
-        "image"
-      ],
+      "required": ["title", "description", "area", "image"],
       "additionalProperties": false
     }
   },

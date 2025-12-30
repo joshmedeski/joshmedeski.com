@@ -1,11 +1,11 @@
 ---
+import { Image } from 'astro:assets'
 import { getCollection, render } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
-import { Image } from 'astro:assets'
-import GhRepo from '../../components/GhRepo.astro'
 import Layout from '~/components/Layout.astro'
 import Wrapper from '~/components/Wrapper.astro'
 import UseCard from '~/components/uses/UseCard.astro'
+import GhRepo from '../../components/GhRepo.astro'
 
 export async function getStaticPaths() {
   const uses = await getCollection('uses')

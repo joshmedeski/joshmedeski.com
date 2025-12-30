@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import type { FunctionalComponent, FunctionComponent, JSX } from 'preact'
+import type { FunctionComponent, FunctionalComponent, JSX } from 'preact'
 import { useState } from 'preact/hooks'
 
 const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({

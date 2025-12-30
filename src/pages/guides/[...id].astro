@@ -1,7 +1,7 @@
 ---
-import Layout from '../../components/Layout.astro'
 import { getCollection, render } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
+import Layout from '../../components/Layout.astro'
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides')
@@ -17,6 +17,7 @@ interface Props {
 
 const { guide } = Astro.props
 const { Content } = await render(guide)
+import Cover from '../../components/r3f/DevWorkflowCover.tsx'
 ---
 
 <Layout
@@ -24,5 +25,9 @@ const { Content } = await render(guide)
   description={guide.data.description}
   hideCta={true}
 >
+    
+  <Cover client:only="react">
+    <div slot="fallback">Loading</div>
+  </Cover>
   <Content />
 </Layout>

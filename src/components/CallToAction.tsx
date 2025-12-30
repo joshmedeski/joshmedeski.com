@@ -1,7 +1,7 @@
-import backgroundImage from '/webb-pattern.png'
 import clsx from 'clsx'
-import type { FunctionalComponent, FunctionComponent, JSX } from 'preact'
+import type { FunctionComponent, FunctionalComponent, JSX } from 'preact'
 import { useState } from 'preact/hooks'
+import backgroundImage from '/webb-pattern.png'
 
 const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
   className,

@@ -1,10 +1,10 @@
 ---
+import { Image } from 'astro:assets'
 import type { CollectionEntry } from 'astro:content'
 import { getEntry } from 'astro:content'
 import Layout from '../Layout.astro'
 import Wrapper from '../Wrapper.astro'
 import PostMeta from './PostMeta.astro'
-import { Image } from 'astro:assets'
 
 interface Props {
   post: CollectionEntry<'posts'>

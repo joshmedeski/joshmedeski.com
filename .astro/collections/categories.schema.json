@@ -26,23 +26,14 @@
               "type": "string"
             }
           },
-          "required": [
-            "container",
-            "title",
-            "desc",
-            "themeColor"
-          ],
+          "required": ["container", "title", "desc", "themeColor"],
           "additionalProperties": false
         },
         "$schema": {
           "type": "string"
         }
       },
-      "required": [
-        "title",
-        "desc",
-        "style"
-      ],
+      "required": ["title", "desc", "style"],
       "additionalProperties": false
     }
   },

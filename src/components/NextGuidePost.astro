@@ -2,9 +2,9 @@
 import { CollectionEntry, getCollection, getEntry } from 'astro:content'
 import clsx from 'clsx'
 import CategoryIcon from './CategoryIcon.astro'
+import Wrapper from './Wrapper.astro'
 import PostCard from './post/PostCard.astro'
 import PostMeta from './post/PostMeta.astro'
-import Wrapper from './Wrapper.astro'
 
 interface Props {
   currentPostGuide: CollectionEntry<'posts'>['data']['guide']

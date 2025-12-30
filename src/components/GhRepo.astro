@@ -1,7 +1,7 @@
 ---
-import { GitHubIcon } from './icons/index.astro'
-import { Octokit } from 'octokit'
 import { PrismaClient } from '@prisma/client'
+import { Octokit } from 'octokit'
+import { GitHubIcon } from './icons/index.astro'
 
 // TODO: optimize prisma by moving it to some global
 const prisma = new PrismaClient()

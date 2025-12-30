@@ -1,9 +1,9 @@
+import { describe, expect, it } from 'vitest'
 import {
   createNewSubscriber,
   validateBody,
   validateEmail,
 } from '../create-new-subscriber'
-import { describe, it, expect } from 'vitest'
 
 describe('validateEmail', () => {
   it('should require value', () => {

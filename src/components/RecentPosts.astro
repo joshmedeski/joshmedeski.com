@@ -1,8 +1,8 @@
 ---
-import PostCard from './post/PostCard.astro'
 import { getCollection } from 'astro:content'
-import Wrapper from './Wrapper.astro'
 import PageTitle from './PageTitle.astro'
+import Wrapper from './Wrapper.astro'
+import PostCard from './post/PostCard.astro'
 
 const allPosts = await getCollection('posts', ({ data: { draft } }) => !draft)
 const sortedPosts = allPosts.sort(

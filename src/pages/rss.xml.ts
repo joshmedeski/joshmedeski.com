@@ -1,5 +1,5 @@
-import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
 import rss from '@astrojs/rss'
+import { SITE_DESCRIPTION, SITE_TITLE } from '../config'
 
 export function GET() {
   return rss({

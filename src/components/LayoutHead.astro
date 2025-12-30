@@ -1,9 +1,9 @@
 ---
-import { SITE_TITLE, SITE_DESCRIPTION } from '../config'
-import { ClientRouter } from 'astro:transitions'
 import { getImage } from 'astro:assets'
-import defaultSocialImage from '../assets/joshmedeski-social.jpeg'
+import { ClientRouter } from 'astro:transitions'
 import type { ImageMetadata } from 'astro'
+import defaultSocialImage from '../assets/joshmedeski-social.jpeg'
+import { SITE_DESCRIPTION, SITE_TITLE } from '../config'
 
 const isProd = import.meta.env.PROD
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site)

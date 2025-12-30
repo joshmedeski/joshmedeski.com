@@ -1,5 +1,5 @@
-import { server } from './mocks/index.cjs'
 import { afterAll, afterEach, beforeAll } from 'vitest'
+import { server } from './mocks/index.cjs'
 
 // Establish API mocking before all tests.
 beforeAll(() => server.listen())

@@ -1,11 +1,11 @@
 ---
+import { Image } from 'astro:assets'
 import { getCollection, render } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
-import PostLayout from '../../components/post/PostLayout.astro'
 import NextGuidePost from '~/components/NextGuidePost.astro'
-import { Image } from 'astro:assets'
 import GhRepo from '../../components/GhRepo.astro'
 import Cta from '../../components/cta/PostCta.astro'
+import PostLayout from '../../components/post/PostLayout.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts')

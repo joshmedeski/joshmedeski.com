@@ -1,9 +1,9 @@
 ---
-import Layout from '../components/Layout.astro'
 import { getCollection } from 'astro:content'
-import Wrapper from '../components/Wrapper.astro'
+import Layout from '../components/Layout.astro'
 import PageTitle from '../components/PageTitle.astro'
 import Posts from '../components/Posts.astro'
+import Wrapper from '../components/Wrapper.astro'
 
 const posts = await getCollection(
   'posts',
