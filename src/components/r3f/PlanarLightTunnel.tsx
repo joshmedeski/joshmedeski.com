@@ -1,7 +1,7 @@
-import * as THREE from "three";
-import { useRef, useMemo } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useControls } from "leva";
+import * as THREE from 'three'
+import { useRef, useMemo } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { useControls } from 'leva'
 
 const vertexShader = `
   varying vec2 vUv;
@@ -10,7 +10,7 @@ const vertexShader = `
     vUv = uv;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
-`;
+`
 
 const fragmentShader = `
   precision highp float;
@@ -83,12 +83,25 @@ const fragmentShader = `
     color *= 1.3 - dot(uv, uv);
     fragColor = vec4(color,1.0);
   }
-`;
+`
+
+const blackOverlayFragmentShader = `
+  precision highp float;
+  
+  uniform float _Opacity;
+  varying vec2 vUv;
+  out vec4 fragColor;
+
+  void main() {
+    fragColor = vec4(0.0, 0.0, 0.0, _Opacity);
+  }
+`
 
 function ShaderPlane() {
-  const meshRef = useRef<THREE.Mesh>(null!);
-  const materialRef = useRef<THREE.ShaderMaterial>(null!);
-  const { viewport, size } = useThree();
+  const meshRef = useRef<THREE.Mesh>(null!)
+  const materialRef = useRef<THREE.ShaderMaterial>(null!)
+  const overlayMaterialRef = useRef<THREE.ShaderMaterial>(null!)
+  const { viewport, size } = useThree()
 
   const {
     useShader,
@@ -98,6 +111,7 @@ function ShaderPlane() {
     RandomSpeed,
     FrequencyZ,
     Zoom,
+    BlackOpacity,
   } = useControls({
     useShader: { value: true },
     BandSpacing: { value: 0.5, min: 0, max: 1, step: 0.01 },
@@ -106,7 +120,8 @@ function ShaderPlane() {
     RandomSpeed: { value: 3.0, min: 0, max: 8, step: 0.01 },
     FrequencyZ: { value: 0.03, min: 0.001, max: 0.1, step: 0.01 },
     Zoom: { value: 1.0, min: 0.1, max: 5, step: 0.1 },
-  });
+    BlackOpacity: { value: 0.0, min: 0, max: 1, step: 0.01 },
+  })
 
   const uniforms = useMemo(
     () => ({
@@ -120,50 +135,78 @@ function ShaderPlane() {
       _Zoom: { value: Zoom },
     }),
     [],
-  );
+  )
 
   useFrame((state) => {
     if (materialRef.current) {
-      materialRef.current.uniforms.iTime.value = state.clock.elapsedTime;
+      materialRef.current.uniforms.iTime.value = state.clock.elapsedTime
       materialRef.current.uniforms.iResolution.value.set(
         state.size.width,
         state.size.height,
-      );
-      materialRef.current.uniforms._BandSpacing.value = BandSpacing;
-      materialRef.current.uniforms._FrequencyY.value = FrequencyY;
-      materialRef.current.uniforms._SpeedZ.value = SpeedZ;
-      materialRef.current.uniforms._RandomSpeed.value = RandomSpeed;
-      materialRef.current.uniforms._FrequencyZ.value = FrequencyZ;
-      materialRef.current.uniforms._Zoom.value = Zoom;
+      )
+      materialRef.current.uniforms._BandSpacing.value = BandSpacing
+      materialRef.current.uniforms._FrequencyY.value = FrequencyY
+      materialRef.current.uniforms._SpeedZ.value = SpeedZ
+      materialRef.current.uniforms._RandomSpeed.value = RandomSpeed
+      materialRef.current.uniforms._FrequencyZ.value = FrequencyZ
+      materialRef.current.uniforms._Zoom.value = Zoom
     }
-  });
+    if (overlayMaterialRef.current) {
+      overlayMaterialRef.current.uniforms._Opacity.value = BlackOpacity
+    }
+  })
 
   // Scale plane to fill entire viewport
-  const scaleX = viewport.width;
-  const scaleY = viewport.height;
+  const scaleX = viewport.width
+  const scaleY = viewport.height
 
   return (
-    <mesh ref={meshRef} scale={[scaleX, scaleY, 1]}>
-      <planeGeometry args={[1, 1]} />
-      {useShader ? (
-        <shaderMaterial
-          ref={materialRef}
-          vertexShader={vertexShader}
-          fragmentShader={fragmentShader}
-          uniforms={uniforms}
-          glslVersion={THREE.GLSL3}
-        />
-      ) : (
-        <meshBasicMaterial color="#00ff00" />
+    <>
+      <mesh ref={meshRef} scale={[scaleX, scaleY, 1]}>
+        <planeGeometry args={[1, 1]} />
+        {useShader ? (
+          <shaderMaterial
+            ref={materialRef}
+            vertexShader={vertexShader}
+            fragmentShader={fragmentShader}
+            uniforms={uniforms}
+            glslVersion={THREE.GLSL3}
+          />
+        ) : (
+          <meshBasicMaterial color="#00ff00" />
+        )}
+      </mesh>
+      {useShader && (
+        <mesh scale={[scaleX, scaleY, 1.01]}>
+          <planeGeometry args={[1, 1]} />
+          <shaderMaterial
+            ref={overlayMaterialRef}
+            vertexShader={vertexShader}
+            fragmentShader={blackOverlayFragmentShader}
+            uniforms={{
+              _Opacity: { value: BlackOpacity },
+            }}
+            transparent={true}
+            glslVersion={THREE.GLSL3}
+          />
+        </mesh>
       )}
-    </mesh>
-  );
+    </>
+  )
 }
 
 export default function Experience() {
   return (
-    <Canvas className="w-full aspect-video">
-      <ShaderPlane />
-    </Canvas>
-  );
+    <div className="relative w-full aspect-video">
+      <Canvas className="absolute inset-0 w-full h-full">
+        <ShaderPlane />
+      </Canvas>
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <p className="text-6xl md:text-8xl font-bold text-white text-center drop-shadow-2xl">
+          Building at the
+          <br className="hidden:xl shadow-xl" /> speed of thought
+        </p>
+      </div>
+    </div>
+  )
 }
