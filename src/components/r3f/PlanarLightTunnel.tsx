@@ -1,13 +1,13 @@
-import * as THREE from 'three'
-import { useRef, useMemo } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useControls } from 'leva'
+import * as THREE from "three";
+import { useRef, useMemo } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useControls } from "leva";
 
 const vertexShader = `
   void main() {
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
   }
-`
+`;
 
 const fragmentShader = `
   precision highp float;
@@ -20,6 +20,7 @@ const fragmentShader = `
   uniform float _SpeedZ;
   uniform float _RandomSpeed;
   uniform float _FrequencyZ;
+  uniform float _Zoom;
 
   out vec4 fragColor;
 
@@ -42,6 +43,7 @@ const fragmentShader = `
     float zOffset = z * _RandomSpeed;
     vec2 uv = gl_FragCoord.xy/iResolution - 0.5;
     uv.x *= iResolution.x / iResolution.y;
+    uv /= _Zoom;
 
     vec3 ray = normalize(vec3(uv.yx, 1.5));
     float l = length(ray.xy);
@@ -78,21 +80,22 @@ const fragmentShader = `
     color *= 1.3 - dot(uv, uv);
     fragColor = vec4(color,1.0);
   }
-`
+`;
 
 function ShaderPlane() {
-  const meshRef = useRef<THREE.Mesh>(null!)
-  const materialRef = useRef<THREE.ShaderMaterial>(null!)
-  const { viewport, size } = useThree()
+  const meshRef = useRef<THREE.Mesh>(null!);
+  const materialRef = useRef<THREE.ShaderMaterial>(null!);
+  const { viewport, size } = useThree();
 
-  const { BandSpacing, FrequencyY, SpeedZ, RandomSpeed, FrequencyZ } =
+  const { BandSpacing, FrequencyY, SpeedZ, RandomSpeed, FrequencyZ, Zoom } =
     useControls({
       BandSpacing: { value: 0.5, min: 0, max: 1, step: 0.01 },
       FrequencyY: { value: 2.0, min: 0.1, max: 4, step: 0.01 },
       SpeedZ: { value: 4.0, min: 0, max: 32, step: 0.01 },
       RandomSpeed: { value: 3.0, min: 0, max: 8, step: 0.01 },
       FrequencyZ: { value: 0.03, min: 0.001, max: 0.1, step: 0.01 },
-    })
+      Zoom: { value: 1.0, min: 0.1, max: 5, step: 0.1 },
+    });
 
   const uniforms = useMemo(
     () => ({
@@ -103,27 +106,33 @@ function ShaderPlane() {
       _SpeedZ: { value: SpeedZ },
       _RandomSpeed: { value: RandomSpeed },
       _FrequencyZ: { value: FrequencyZ },
+      _Zoom: { value: Zoom },
     }),
     [],
-  )
+  );
 
   useFrame((state) => {
     if (materialRef.current) {
-      materialRef.current.uniforms.iTime.value = state.clock.elapsedTime
+      materialRef.current.uniforms.iTime.value = state.clock.elapsedTime;
       materialRef.current.uniforms.iResolution.value.set(
         state.size.width,
         state.size.height,
-      )
-      materialRef.current.uniforms._BandSpacing.value = BandSpacing
-      materialRef.current.uniforms._FrequencyY.value = FrequencyY
-      materialRef.current.uniforms._SpeedZ.value = SpeedZ
-      materialRef.current.uniforms._RandomSpeed.value = RandomSpeed
-      materialRef.current.uniforms._FrequencyZ.value = FrequencyZ
+      );
+      materialRef.current.uniforms._BandSpacing.value = BandSpacing;
+      materialRef.current.uniforms._FrequencyY.value = FrequencyY;
+      materialRef.current.uniforms._SpeedZ.value = SpeedZ;
+      materialRef.current.uniforms._RandomSpeed.value = RandomSpeed;
+      materialRef.current.uniforms._FrequencyZ.value = FrequencyZ;
+      materialRef.current.uniforms._Zoom.value = Zoom;
     }
-  })
+  });
+
+  // Scale plane to viewport dimensions while maintaining 16:9 aspect
+  const scaleX = viewport.width;
+  const scaleY = viewport.height * (9 / 16); // Enforce 16:9 letterboxed
 
   return (
-    <mesh ref={meshRef} scale={[viewport.width, viewport.height, 1]}>
+    <mesh ref={meshRef} scale={[scaleX, scaleY, 1]}>
       <planeGeometry args={[1, 1]} />
       <shaderMaterial
         ref={materialRef}
@@ -133,15 +142,15 @@ function ShaderPlane() {
         glslVersion={THREE.GLSL3}
       />
     </mesh>
-  )
+  );
 }
 
 export default function Experience() {
   return (
-    <section className="w-full aspect-video">
+    <section className="h-screen w-full">
       <Canvas>
         <ShaderPlane />
       </Canvas>
     </section>
-  )
+  );
 }
