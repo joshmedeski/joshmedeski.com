@@ -4,12 +4,17 @@ import RecentPosts from '../components/RecentPosts.astro'
 import LiveStreaming from '../components/sections/LiveStreaming.astro'
 import Projects from '~/components/sections/Projects.astro'
 import StaticImageGrid from '~/components/sections/StaticImageGrid.astro'
+import PlanarLightTunnel from '~/components/r3f/PlanarLightTunnel.tsx'
 ---
 
 <Layout
   title="Home"
   description="Empowering developers and creatives to build and grow with intention, by sharing insights and tools."
 >
+  <PlanarLightTunnel client:only="react">
+    <div slot="fallback">Loading</div>
+  </PlanarLightTunnel>
+
   <StaticImageGrid />
   <LiveStreaming />
   <Projects />

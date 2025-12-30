@@ -1,14 +1,16 @@
-import mdx from "@astrojs/mdx";
-import preact from "@astrojs/preact";
-import sitemap from "@astrojs/sitemap";
-import tailwindcss from "@tailwindcss/vite";
-import expressiveCode from "astro-expressive-code";
-import pagefind from "astro-pagefind";
-import { defineConfig } from "astro/config";
+import mdx from '@astrojs/mdx'
+import preact from '@astrojs/preact'
+import sitemap from '@astrojs/sitemap'
+import tailwindcss from '@tailwindcss/vite'
+import expressiveCode from 'astro-expressive-code'
+import pagefind from 'astro-pagefind'
+import { defineConfig } from 'astro/config'
+
+import react from '@astrojs/react'
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://joshmedeski.com/",
+  site: 'https://joshmedeski.com/',
   prefetch: true,
 
   integrations: [
@@ -17,10 +19,16 @@ export default defineConfig({
     mdx(),
     pagefind(),
     sitemap(),
-    preact(),
+    preact({
+      include: ['**/*.tsx', '**/*.ts'],
+      exclude: ['**/r3f/*.tsx'],
+    }),
+    react({
+      include: ['**/r3f/*.tsx'],
+    }),
   ],
 
   vite: {
     plugins: [tailwindcss()],
   },
-});
+})
