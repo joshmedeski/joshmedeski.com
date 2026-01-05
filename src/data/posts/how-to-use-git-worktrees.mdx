@@ -1,0 +1,136 @@
+---
+title: How To Use Git Worktrees to Switch Contexts Quickly and Easily
+pubDate: 2026-01-05T18:00:00.000Z
+heroImage: "../../assets/posts/how-i-use-git-worktrees.jpeg"
+youtubeUrl: https://www.youtube.com/embed/b46GKAnH89I
+description: "How I set up my Git Worktrees and how I use them to stay productive."
+category: "dotfiles"
+---
+
+Git Worktrees have become an invaluable piece of my workflow. They allow me to switch between contexts quickly and easily, isolate breaking changes, and do code reviews without disrupting my current work. In this post, I’m going to break down how I set up my Git Worktrees and how I use them to stay productive.
+
+## Why Use Git Worktrees?
+
+Not every repository needs to be using the worktree system. If a project is simple, strictly for research, or something you visit only once in a blue moon, the standard structure works fine. However, you should consider worktrees if you:
+
+*   **Do code reviews:** You need to check out other people's branches frequently without messing up your current state.
+*   **Handle breaking changes:** You work on dependency upgrades or architecture changes that are hard to switch back and forth from.
+*   **Work in Monorepos:** You have sub-projects within one repo and want to isolate specific areas of code.
+*   **Context switch often:** You are patching production, doing hotfixes, or working on multiple branches throughout the same day with incomplete states.
+
+If you are a full-time programmer, you will likely find worktrees beneficial for managing these different areas of responsibility seamlessly.
+
+My friend, Nick Nisi, has an [in-depth guide](https://nicknisi.com/posts/git-worktrees/) that I recommend reading as well. Let's get into my specific setup and how I use Git Worktrees in my daily workflow. I will cover how I set up the directory structure, how I create worktrees, and how I manage branches and sessions with tools like Sesh, GH Dash, Octo, and Treekanga to optimize my workflow. 
+
+By the end of this post, you should have a clear understanding of how to implement Git Worktrees in your own projects effectively. Let's dive in!
+
+## Setting Up the Directory Structure
+
+First, decide where to clone repositories. I keep it simple with a directory called `C` (for code) in my home directory. When creating worktrees, I recommend creating a parent folder with a simplified name for the project.
+
+For example, for my project [Sesh](https://github.com/joshmedeski/sesh), I would run:
+
+```bash
+cd ~/c
+mkdir sesh
+cd sesh
+```
+
+Inside this directory, I clone the repository as a bare repo. I prefer naming the folder `.git` rather than `.bare` to keep it consistent with standard Git conventions.
+
+```bash
+git clone --bare <repo-url> .git
+```
+
+### Tip: Cleaner shell history
+
+If you replace the URL contents by evaluating `pbpaste` (for macOS), it will paste the URL directly from your clipboard without adding extra characters or formatting that can clutter your shell history. This keeps your command history clean and makes it easier to reuse commands in the future.
+
+```sh
+git clone --bare $(pbpaste) .git # zsh bash
+git clone --bare (pbpaste) .git # fish
+```
+
+## Creating Worktrees
+
+Once cloned, you will see that the `.git` folder contains hooks, info, refs, config, etc. To create the actual working directories, you use the `worktree` command:
+
+```bash
+git worktree add main
+```
+
+This creates a folder named `main` where that branch lives. You can create additional worktrees for specific features or versions, such as:
+
+```bash
+git worktree add tui
+git worktree add v1
+```
+
+## Naming Conventions and Branch Management
+
+I like to have a dedicated worktree called `review` specifically for code reviews.
+
+One limitation to note is that you cannot check out the same branch twice in a worktree environment. If you try to check out `main` in your `review` folder while it is checked out in your `main` folder, Git will throw an error.
+
+To get around this, I often create a branch called `_main`. This allows me to fetch the latest changes or reference the main branch without conflicting with the actual `main` worktree.
+
+I also avoid using the worktree name as the branch name for complex features. Instead, I name worktrees based on the area of responsibility, such as:
+*   `ui` (for a UI package)
+*   `pm-portal` (for a specific area of the business)
+*   `add-bill-page` (for a large feature requiring multiple PRs)
+
+## Optimizing Your Workflow with Tools
+
+### Session Management with Sesh
+I use [Sesh](https://github.com/joshmedeski/sesh) to manage my Tmux sessions. It easily identifies the parent folder structure we set up.
+
+*   When I select `sesh main`, the session is named `sesh/main`.
+*   I can jump to `sesh/tui` or `sesh/review` instantly.
+*   In monorepos, I can target specific sub-projects.
+
+### Code Reviews with GH Dash and Octo
+For reviews, I use [`gh-dash`](https://github.com/dlvhdr/gh-dash), a terminal UI for GitHub issues and PRs. I configure gh-dash by adding the following entry to my config:
+
+```yaml title="~/.config/gh-dash/config.yml"
+repoPaths:
+  joshmedeski/sesh: ~/c/sesh/review
+```
+
+
+
+In my Sesh config, I set up a specific session for reviews:
+
+```toml title= "~/.config/sesh/sesh.toml"
+[[session]]
+name = "sesh reviews"
+path = "~/C/sesh/review"
+startup_command = "gh dash"
+```
+
+I also use a tool called **Octo** with custom keybindings. If I press `Shift+O`, it opens the PR in Octo, where I can see comments, add reviews, and manage the PR, all within the `review` worktree.
+
+### Cleaning Up with Treekanga
+One downside of worktrees is that they can bloat your hard drive, similar to cloning a project multiple times (especially with `node_modules`). It is important to prune your work when features are complete.
+
+I use a tool called [Treekanga](https://github.com/garrettkrohn/treekanga) to help with this. You can configure it to recognize your bare repo structure.
+
+```yaml title="~/.config/treekanga/treekanga.yml"
+repos:
+  sesh:
+    defaultBranch: main
+    worktreeTargetDir: /c/sesh
+    listDisplayMode: directory
+    bareRepoName: .git
+```
+
+Treekanga allows you to list your worktrees and use a `delete` command to delete stale or orphaned branches that are no longer needed.
+
+```
+treekanga delete --stale
+```
+
+## Conclusion
+
+Worktrees have changed my relationship with Git. They make it less frustrating to handle complex workflows, dependency updates, and frequent context switching. While I still use standard clones for simple repositories, worktrees are my go-to for big projects and complicated work sets.
+
+Start simple, build the muscle memory, and give it a try.
