@@ -1,0 +1,128 @@
+---
+title: "The Hidden Cost of Node.js Flexibility"
+pubDate: 2026-01-28
+description: "How circular dependencies cause intermittent test failures and what to do about them"
+heroImage: "../../assets/posts/the-hidden-cost-of-nodejs-flexibility.jpeg"
+category: "development"
+---
+
+```sh
+ReferenceError: someFunction is not defined
+```
+
+That error haunted me for weeks. It showed up intermittently in our Vitest runs - sometimes tests passed, sometimes they didn't. No code changes between runs. Just... chaos.
+
+After more debugging than I'd like to admit, I found the culprit: circular dependencies.
+
+## Node.js Doesn't Care (Until It Does)
+
+Here's the thing about Node.js - it's incredibly permissive. You can create modules and import them in any direction you want. Module A imports Module B? Fine. Module B imports Module A right back? Also fine. No warnings, no errors at build time.
+
+Until your test runner loads modules in a slightly different order and suddenly a function that _should_ exist... doesn't.
+
+The real gut punch came when I ran [madge](https://github.com/pahen/madge) on our codebase:
+
+```bash
+npx madge --circular --extensions ts src/
+```
+
+Hundreds. Hundreds of circular dependencies.
+
+## Why This Happens
+
+It's not always bad code. Sometimes it's just... reality.
+
+At [nutiliti](https://www.nutiliti.com/), we work with bills and houses. Bills belong to houses. But houses also have bills. The domain relationships are genuinely circular. When you're modeling real-world concepts, clean one-directional dependencies aren't always possible.
+
+But more often, circular dependencies sneak in through:
+
+**Barrel files.** Those convenient `index.ts` files that re-export everything from a directory. Your tsconfig might even auto-suggest the barrel import instead of the direct file. You import from `@/features/billing` instead of `@/features/billing/calculateTotal`, and suddenly you've pulled in the entire module graph.
+
+**Organic growth.** Developer A adds a utility to Module X. Developer B needs that utility in Module Y, which Module X already imports. Quick fix: import it anyway. The cycle is born.
+
+**Convenience over structure.** It's faster to import what you need from wherever it exists than to think about whether that import makes architectural sense.
+
+## What Good Actually Looks Like
+
+I know strict dependency injection is possible because I've done it - just not in Node.js.
+
+[Sesh](https://github.com/joshmedeski/sesh) is a terminal session manager I built in Go. When I rewrote it for version 2, I used the dependency injection patterns that Go's ecosystem actively encourages. The architecture has four distinct layers:
+
+```
+CLI Layer (commands, flags, user interaction)
+    ↓
+Domain Layer (lister, connector, namer - core business logic)
+    ↓
+Integration Layer (tmux, zoxide, git wrappers)
+    ↓
+Wrapper Layer (execwrap, oswrap - system abstractions)
+```
+
+Dependencies flow in one direction: down. The CLI layer depends on the domain layer, which depends on integrations, which depend on wrappers. Never the reverse. All instantiation happens in one place, with constructor functions wiring everything together.
+
+The result? Exhaustive mocking. Structured unit tests for every piece of the application. When I need to test the `Connector`, I inject mock implementations of `Tmux` and `Zoxide`. The boundaries are crystal clear.
+
+But here's the uncomfortable truth: **this required a complete rewrite.**
+
+Version 1 of Sesh wasn't architected this way. Getting to this level of structure meant starting over with the pattern in mind from day one. Go's community expects this approach - interfaces, constructor injection, clear layer boundaries. The language and tooling reinforce it.
+
+Node.js doesn't.
+
+## The Gap Between Ideal and Reality
+
+What I learned from Sesh is that other communities _do_ care about this. They have real solutions. But those solutions require either:
+
+1. Starting with strict patterns from the beginning, or
+2. Committing to a significant rewrite
+
+In a real-world Node.js codebase with multiple developers, competing business goals, and years of organic growth? Expecting that level of organization is... unlikely. Not impossible. But unlikely.
+
+The pressure to ship features will always conflict with the desire for architectural cleanliness. And unlike Go, nothing in the Node.js ecosystem pushes back when you take the convenient path.
+
+## The Compounding Problem
+
+Here's what made this genuinely difficult: I couldn't just fix it.
+
+With hundreds of existing circular dependencies, I couldn't enable any tooling that would block new ones. No ESLint rule, no pre-commit hook. Every new PR would fail against issues that predated it.
+
+So while I worked through the backlog with madge, new developers were unknowingly creating more cycles. Two steps forward, one step back.
+
+Tools that can help:
+
+- [madge](https://github.com/pahen/madge) - Visualize and detect circular dependencies
+- [vite-plugin-circular-dependency](https://www.npmjs.com/package/vite-plugin-circular-dependency) - Catch cycles in your Vite build
+- [ESLint import/no-cycle](https://sergiocarracedo.es/circular-dependencies/) - Block new cycles (once you've cleared existing ones)
+
+## The Actual Fix: Think Top-Down
+
+The solution isn't a tool. It's a mental model.
+
+Dependency injection. Understanding which code depends on which. Always passing dependencies _down_, never reaching back up.
+
+Think of your codebase as a tree. Data flows from trunk to branches to leaves. A leaf can use what the branch provides, but it should never reach back to grab something from the trunk directly.
+
+In practice:
+
+- Core utilities at the bottom, imported by everything, importing nothing domain-specific
+- Domain modules in the middle, importing utilities, exporting to features
+- Features at the top, importing from domains, never imported by them
+
+When you're about to add an import, ask: "Am I reaching up or down?"
+
+## What I Haven't Solved
+
+I'll be honest - the barrel file problem still bites us.
+
+TypeScript's auto-import suggestions often prefer the `index.ts` path over the direct file path. It's more convenient, the import looks cleaner. But it pulls in more than you need and dramatically increases cycle risk.
+
+I don't have a great answer yet. We're experimenting with being more intentional about what barrel files export, but it's friction against developer convenience.
+
+Some problems don't have clean solutions. You just... manage them.
+
+## The Takeaway
+
+Node.js gives you freedom. That freedom has a cost.
+
+If your tests are failing intermittently with bizarre "not defined" errors, check for circular dependencies. If you find some, assume there are more. And if you're starting a new project, set up detection _before_ the cycles accumulate.
+
+The best time to prevent circular dependencies was at project start. The second best time is now - before that number grows from dozens to hundreds.
