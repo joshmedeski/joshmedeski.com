@@ -28,6 +28,12 @@ npx madge --circular --extensions ts src/
 
 Hundreds. Hundreds of circular dependencies.
 
+### The Order Problem
+
+The reason these failures are intermittent comes down to module loading order. Imagine three modules with circular dependencies. When your test runner loads `userService.test.ts`, it might resolve dependencies in order X→Y→Z. But when it loads `billingService.test.ts`, those same underlying modules might load in order Y→X→Z.
+
+In a circular dependency, that order difference determines whether an export is defined or `undefined` at the exact moment it's accessed. Same code, different execution path, different result.
+
 ## Why This Happens
 
 It's not always bad code. Sometimes it's just... reality.
@@ -41,6 +47,20 @@ But more often, circular dependencies sneak in through:
 **Organic growth.** Developer A adds a utility to Module X. Developer B needs that utility in Module Y, which Module X already imports. Quick fix: import it anyway. The cycle is born.
 
 **Convenience over structure.** It's faster to import what you need from wherever it exists than to think about whether that import makes architectural sense.
+
+## But It Works in Production...
+
+If circular dependencies are such a problem, why does the application run fine in production?
+
+Because your production environment is hiding the fragility.
+
+Traditional build tools - a simple `tsc` compile, legacy bundlers, straightforward Node.js execution - load modules synchronously in a deterministic order. They figure out _an_ order that works and stick with it. Every deploy, same order, same result.
+
+Modern tooling doesn't give you that safety net. Vitest, built on Vite's philosophy of native ESM and on-demand module loading, isolates each test file with its own module context. Modules load lazily as tests request them. That isolation means each test can stumble into a different - and potentially broken - loading order.
+
+Vitest became our canary in the coal mine. The intermittent test failures weren't a bug in the test runner. They were revealing fragility that our production environment happened to hide.
+
+This matters beyond testing. If you want to adopt modern build systems - faster bundlers, better treeshaking, improved hot module replacement - circular dependencies become a blocker. The tools that enable those features also enable the chaos. Addressing circular dependencies isn't just about fixing flaky tests. It's about keeping your options open for the future.
 
 ## What Good Actually Looks Like
 
