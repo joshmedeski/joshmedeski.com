@@ -1,0 +1,232 @@
+{
+  "jesseduffield/lazygit": {
+    "fullName": "jesseduffield/lazygit",
+    "description": "simple terminal UI for git commands",
+    "url": "https://github.com/jesseduffield/lazygit"
+  },
+  "mhuggins7278/dotfiles": {
+    "fullName": "mhuggins7278/dotfiles",
+    "description": "my .files - powered by Ansible",
+    "url": "https://github.com/mhuggins7278/dotfiles"
+  },
+  "joshmedeski/dotfiles": {
+    "fullName": "joshmedeski/dotfiles",
+    "description": "Josh's dotfiles for his developer environment",
+    "url": "https://github.com/joshmedeski/dotfiles"
+  },
+  "nvim-lua/kickstart.nvim": {
+    "fullName": "nvim-lua/kickstart.nvim",
+    "description": "A launch point for your personal nvim configuration",
+    "url": "https://github.com/nvim-lua/kickstart.nvim"
+  },
+  "ThePrimeagen/harpoon": {
+    "fullName": "ThePrimeagen/harpoon",
+    "description": "Getting you where you want with the fewest keystrokes.",
+    "url": "https://github.com/ThePrimeagen/harpoon"
+  },
+  "zbirenbaum/copilot-cmp": {
+    "fullName": "zbirenbaum/copilot-cmp",
+    "description": "Lua plugin to turn github copilot into a cmp source",
+    "url": "https://github.com/zbirenbaum/copilot-cmp"
+  },
+  "nicknisi/dotfiles": {
+    "fullName": "nicknisi/dotfiles",
+    "description": "vim, zsh, git, homebrew, neovim - my whole world",
+    "url": "https://github.com/nicknisi/dotfiles"
+  },
+  "octokit/octokit.js": {
+    "fullName": "octokit/octokit.js",
+    "description": "The all-batteries-included GitHub SDK for Browsers, Node.js, and Deno.",
+    "url": "https://github.com/octokit/octokit.js"
+  },
+  "dlvhdr/dotfiles": {
+    "fullName": "dlvhdr/dotfiles",
+    "description": null,
+    "url": "https://github.com/dlvhdr/dotfiles"
+  },
+  "extrawurst/gitui": {
+    "fullName": "extrawurst/gitui",
+    "description": "Blazing fast terminal-ui for git written in rust",
+    "url": "https://github.com/extrawurst/gitui"
+  },
+  "folke/lazy.nvim": {
+    "fullName": "folke/lazy.nvim",
+    "description": "A modern plugin manager for Neovim",
+    "url": "https://github.com/folke/lazy.nvim"
+  },
+  "joshmedeski/tmux-nerd-font-window-name": {
+    "fullName": "joshmedeski/tmux-nerd-font-window-name",
+    "description": "Nerd Font icons for your tmux windows",
+    "url": "https://github.com/joshmedeski/tmux-nerd-font-window-name"
+  },
+  "ggandor/leap.nvim": {
+    "fullName": "ggandor/leap.nvim",
+    "description": "Neovim's answer to the mouse",
+    "url": "https://github.com/ggandor/leap.nvim"
+  },
+  "joshmedeski/t-smart-tmux-session-manager": {
+    "fullName": "joshmedeski/t-smart-tmux-session-manager",
+    "description": "t - the smart tmux session manager",
+    "url": "https://github.com/joshmedeski/t-smart-tmux-session-manager"
+  },
+  "pwntester/octo.nvim": {
+    "fullName": "pwntester/octo.nvim",
+    "description": "Edit and review GitHub issues and pull requests from the comfort of your favorite editor",
+    "url": "https://github.com/pwntester/octo.nvim"
+  },
+  "prochri/telescope-all-recent.nvim": {
+    "fullName": "prochri/telescope-all-recent.nvim",
+    "description": "(F)recency sorting for all Telescope pickers.",
+    "url": "https://github.com/prochri/telescope-all-recent.nvim"
+  },
+  "DNLHC/glance.nvim": {
+    "fullName": "DNLHC/glance.nvim",
+    "description": "Peek preview window for LSP locations in Neovim",
+    "url": "https://github.com/DNLHC/glance.nvim"
+  },
+  "dlvhdr/gh-dash": {
+    "fullName": "dlvhdr/gh-dash",
+    "description": "A beautiful CLI dashboard for GitHub",
+    "url": "https://github.com/dlvhdr/gh-dash"
+  },
+  "aaronhallaert/advanced-git-search.nvim": {
+    "fullName": "aaronhallaert/advanced-git-search.nvim",
+    "description": "Search your git history by commit message, content and author in Neovim",
+    "url": "https://github.com/aaronhallaert/advanced-git-search.nvim"
+  },
+  "kovidgoyal/kitty": {
+    "fullName": "kovidgoyal/kitty",
+    "description": "Cross-platform, fast, feature-rich, GPU based terminal",
+    "url": "https://github.com/kovidgoyal/kitty"
+  },
+  "fish-shell/fish-shell": {
+    "fullName": "fish-shell/fish-shell",
+    "description": "The user-friendly command line shell.",
+    "url": "https://github.com/fish-shell/fish-shell"
+  },
+  "starship/starship": {
+    "fullName": "starship/starship",
+    "description": "The minimal, blazing-fast, and infinitely customizable prompt for any shell!",
+    "url": "https://github.com/starship/starship"
+  },
+  "tmux/tmux": {
+    "fullName": "tmux/tmux",
+    "description": "tmux source code",
+    "url": "https://github.com/tmux/tmux"
+  },
+  "neovim/neovim": {
+    "fullName": "neovim/neovim",
+    "description": "Vim-fork focused on extensibility and usability",
+    "url": "https://github.com/neovim/neovim"
+  },
+  "ruifm/gitlinker.nvim": {
+    "fullName": "ruifm/gitlinker.nvim",
+    "description": "A lua neovim plugin to generate shareable file permalinks (with line ranges) for several git web frontend hosts. Inspired by tpope/vim-fugitive's :GBrowse",
+    "url": "https://github.com/ruifm/gitlinker.nvim"
+  },
+  "lewis6991/gitsigns.nvim": {
+    "fullName": "lewis6991/gitsigns.nvim",
+    "description": "Git integration for buffers",
+    "url": "https://github.com/lewis6991/gitsigns.nvim"
+  },
+  "joshmedeski/tmux-fzf-url": {
+    "fullName": "joshmedeski/tmux-fzf-url",
+    "description": "Quickly open urls on your terminal screen!",
+    "url": "https://github.com/joshmedeski/tmux-fzf-url"
+  },
+  "natecraddock/zf": {
+    "fullName": "natecraddock/zf",
+    "description": "a commandline fuzzy finder and zig module designed for filtering filepaths",
+    "url": "https://github.com/natecraddock/zf"
+  },
+  "charmbracelet/gum": {
+    "fullName": "charmbracelet/gum",
+    "description": "A tool for glamorous shell scripts",
+    "url": "https://github.com/charmbracelet/gum"
+  },
+  "lotabout/skim": {
+    "fullName": "lotabout/skim",
+    "description": "Fuzzy Finder in rust!",
+    "url": "https://github.com/lotabout/skim"
+  },
+  "junegunn/fzf": {
+    "fullName": "junegunn/fzf",
+    "description": "A command-line fuzzy finder",
+    "url": "https://github.com/junegunn/fzf"
+  },
+  "natecraddock/telescope-zf-native.nvim": {
+    "fullName": "natecraddock/telescope-zf-native.nvim",
+    "description": "native telescope bindings to zf for sorting results",
+    "url": "https://github.com/natecraddock/telescope-zf-native.nvim"
+  },
+  "joshmedeski/sesh": {
+    "fullName": "joshmedeski/sesh",
+    "description": "Smart session manager for the terminal",
+    "url": "https://github.com/joshmedeski/sesh"
+  },
+  "github/copilot.vim": {
+    "fullName": "github/copilot.vim",
+    "description": "Neovim plugin for GitHub Copilot",
+    "url": "https://github.com/github/copilot.vim"
+  },
+  "Exafunction/codeium.nvim": {
+    "fullName": "Exafunction/codeium.nvim",
+    "description": "A native neovim extension for Codeium",
+    "url": "https://github.com/Exafunction/codeium.nvim"
+  },
+  "codota/tabnine-nvim": {
+    "fullName": "codota/tabnine-nvim",
+    "description": "Tabnine Client for Neovim",
+    "url": "https://github.com/codota/tabnine-nvim"
+  },
+  "milanglacier/minuet-ai.nvim": {
+    "fullName": "milanglacier/minuet-ai.nvim",
+    "description": "Dance with Intelligence in Your Code. Minuet offers code completion as-you-type from popular LLMs including OpenAI, Gemini, Claude, Ollama, Llama.cpp, Codestral, and more.",
+    "url": "https://github.com/milanglacier/minuet-ai.nvim"
+  },
+  "yetone/avante.nvim": {
+    "fullName": "yetone/avante.nvim",
+    "description": "Use your Neovim like using Cursor AI IDE!",
+    "url": "https://github.com/yetone/avante.nvim"
+  },
+  "jackMort/ChatGPT.nvim": {
+    "fullName": "jackMort/ChatGPT.nvim",
+    "description": "ChatGPT Neovim Plugin: Effortless Natural Language Generation with OpenAI's ChatGPT API",
+    "url": "https://github.com/jackMort/ChatGPT.nvim"
+  },
+  "CopilotC-Nvim/CopilotChat.nvim": {
+    "fullName": "CopilotC-Nvim/CopilotChat.nvim",
+    "description": "Chat with GitHub Copilot in Neovim",
+    "url": "https://github.com/CopilotC-Nvim/CopilotChat.nvim"
+  },
+  "David-Kunz/gen.nvim": {
+    "fullName": "David-Kunz/gen.nvim",
+    "description": "Neovim plugin to generate text using LLMs with customizable prompts",
+    "url": "https://github.com/David-Kunz/gen.nvim"
+  },
+  "Robitx/gp.nvim": {
+    "fullName": "Robitx/gp.nvim",
+    "description": "Gp.nvim (GPT prompt) Neovim AI plugin: ChatGPT sessions & Instructable text/code operations & Speech to text [OpenAI, Ollama, Anthropic, ..]",
+    "url": "https://github.com/Robitx/gp.nvim"
+  },
+  "gsuuon/model.nvim": {
+    "fullName": "gsuuon/model.nvim",
+    "description": "Neovim plugin for interacting with LLM's and building editor integrated prompts.",
+    "url": "https://github.com/gsuuon/model.nvim"
+  },
+  "skim-rs/skim": {
+    "fullName": "skim-rs/skim",
+    "description": "Fuzzy Finder in rust!",
+    "url": "https://github.com/skim-rs/skim"
+  },
+  "gitui-org/gitui": {
+    "fullName": "gitui-org/gitui",
+    "description": "Blazing fast terminal-ui for git written in rust",
+    "url": "https://github.com/gitui-org/gitui"
+  },
+  "Exafunction/windsurf.nvim": {
+    "fullName": "Exafunction/windsurf.nvim",
+    "description": "A native neovim extension for Codeium",
+    "url": "https://github.com/Exafunction/windsurf.nvim"
+  }
+}
