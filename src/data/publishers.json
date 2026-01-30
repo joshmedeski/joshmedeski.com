@@ -1,0 +1,34 @@
+[
+  {
+    "name": "The Sweet Setup",
+    "imageUrl": "/images/publishers/the-sweet-setup.png"
+  },
+  {
+    "name": "Xquadrant",
+    "imageUrl": "/images/publishers/xquadrant.png"
+  },
+  {
+    "name": "ZSA: The People",
+    "imageUrl": "/images/publishers/zsa.svg"
+  },
+  {
+    "name": "Trello",
+    "imageUrl": "/images/publishers/trello.svg"
+  },
+  {
+    "name": "Lifehack",
+    "imageUrl": "/images/publishers/lifehack.webp"
+  },
+  {
+    "name": "Envato Tuts+",
+    "imageUrl": "/images/publishers/tuts-plus.svg"
+  },
+  {
+    "name": "Productivityist",
+    "imageUrl": "/images/publishers/productivityist.png"
+  },
+  {
+    "name": "One Intentional Life",
+    "imageUrl": "/images/publishers/one-intentional-life.webp"
+  }
+]

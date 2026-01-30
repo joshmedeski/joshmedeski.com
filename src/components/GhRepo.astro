@@ -1,66 +1,16 @@
 ---
 import { GitHubIcon } from './icons/index.astro'
-import { Octokit } from 'octokit'
-import { PrismaClient } from '@prisma/client'
-
-// TODO: optimize prisma by moving it to some global
-const prisma = new PrismaClient()
+import ghRepos from '../data/gh-repos.json'
 
 interface Props {
   repo: string
 }
 const { repo } = Astro.props
 
-async function getRepoData(repo: string) {
-  const octokit = new Octokit({ auth: process.env.GH_TOKEN })
-  const repoSplit = repo.split('/')
-  const { data } = await octokit.rest.repos.get({
-    owner: repoSplit[0],
-    repo: repoSplit[1],
-  })
-  return data
-}
-
-async function addRepoToCache(repo: string) {
-  const data = await getRepoData(repo)
-  const dataToSave = {
-    fullName: data.full_name,
-    ...(data.description ? { description: data.description } : {}),
-    stargazersCount: data.stargazers_count,
-    url: data.html_url,
-  }
-  return await prisma.ghRepo.upsert({
-    where: { fullName: data.full_name },
-    update: dataToSave,
-    create: dataToSave,
-  })
-}
-
-async function getRepo(repo: string) {
-  const cachedRepo = await prisma.ghRepo.findFirst({
-    where: { fullName: repo },
-  })
-
-  if (
-    !cachedRepo ||
-    cachedRepo.updatedAt <
-      new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 7)
-  ) {
-    try {
-      return await addRepoToCache(repo)
-    } catch (e) {
-      throw new Error(e.response.url || e)
-    }
-  } else {
-    return cachedRepo
-  }
-}
-
-const { fullName, description, stargazersCount, url } = await getRepo(repo)
-
-function prettyStargazersCount(count: number) {
-  return count.toLocaleString()
-}
+const data = ghRepos[repo as keyof typeof ghRepos]
+const fullName = data?.fullName ?? repo
+const description = data?.description ?? null
+const url = data?.url ?? `https://github.com/${repo}`
 ---
 
 <a href={url} target="_blank" class="not-prose mb-4 block no-underline text-gh-light">
@@ -72,10 +22,9 @@ function prettyStargazersCount(count: number) {
         <GitHubIcon class="h-6 w-6" />
         <strong class="sm:text-lg">{fullName}</strong>
       </div>
-      <p class="sm:text-md text-sm leading-none text-white">{description}</p>
-      <div>
-        🔭 {prettyStargazersCount(stargazersCount)}
-      </div>
+      {description && (
+        <p class="sm:text-md text-sm leading-none text-white">{description}</p>
+      )}
     </div>
   </section>
 </a>
