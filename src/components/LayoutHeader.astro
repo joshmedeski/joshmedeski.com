@@ -10,6 +10,7 @@ import {
   RssIcon,
   TwitchIcon,
 } from './icons/index.astro'
+import SearchButton from './SearchButton.astro'
 import Wrapper from './Wrapper.astro'
 
 export interface Props {
@@ -38,28 +39,15 @@ const props = Astro.props
       <nav
         class="col-span-3 hidden w-full items-center justify-center space-x-8 text-lg md:flex"
       >
-        <HeaderLink href="/posts">Posts</HeaderLink>
-        <HeaderLink href="/videos">Videos</HeaderLink>
+        <HeaderLink href="/content">Content</HeaderLink>
+        <HeaderLink href="/projects">Projects</HeaderLink>
+        <HeaderLink href="/guides">Guides</HeaderLink>
         <HeaderLink href="/about">About</HeaderLink>
-        <HeaderLink href="/uses">Uses</HeaderLink>
-        <HeaderLink href="/search">Search</HeaderLink>
+        <HeaderLink href="/now">Now</HeaderLink>
       </nav>
 
-      <div class="col-span-2 hidden items-center justify-end gap-4 md:flex">
-        <HeaderLink href="https://discord.gg/RQnZH7fFse" target="_blank">
-          <DiscordIcon class="w-6" />
-        </HeaderLink>
-        <HeaderLink href="https://www.youtube.com/joshmedeski" target="_blank">
-          <YouTubeIcon class="w-6" />
-        </HeaderLink>
-        <HeaderLink href="https://github.com/joshmedeski" target="_blank">
-          <GitHubIcon class="w-6" />
-        </HeaderLink>
-        <a
-          href="/guides/dev-workflow-intro"
-          class="inline-block text-nowrap rounded-lg bg-gradient-to-l from-indigo-500 to-purple-600 px-4 py-2 font-bold tracking-wider text-white transition-all duration-300 ease-in-out hover:from-indigo-700 hover:to-purple-800"
-          >Free Guide</a
-        >
+      <div class="col-span-2 hidden items-center justify-end md:flex">
+        <SearchButton />
       </div>
     </header>
   </Wrapper>
