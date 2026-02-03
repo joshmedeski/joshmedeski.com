@@ -10,7 +10,7 @@ const { project } = Astro.props
 const url = `https://github.com/${project.data.repo}`
 ---
 
-<a href={url} target="_blank" rel="noopener noreferrer" class="bg-neutral-800 p-4 rounded-lg shadow-lg">
+<a href={url} target="_blank" rel="noopener noreferrer" class="bg-neutral-800 p-4 rounded-xl shadow-lg">
   <Image
     src={project.data.heroImage}
     alt={project.data.title}
@@ -19,11 +19,13 @@ const url = `https://github.com/${project.data.repo}`
     class="mb-2 w-full rounded-lg bg-black shadow-md md:mb-4"
     transition:name={`project-${project.id}-thumb`}
   />
-  <h3
-    class="text-2xl font-bold"
-    transition:name={`project-${project.id}-title`}
-  >
-    {project.data.title}
-  </h3>
-  <p>{project.data.description}</p>
+  <div class="bg-neutral-700 rounded-b-xl -m-4 p-4 pt-16 -mt-16">
+    <h3
+      class="text-2xl font-bold mb-2"
+      transition:name={`project-${project.id}-title`}
+    >
+      {project.data.title}
+    </h3>
+    <p>{project.data.description}</p>
+  </div>
 </a>
