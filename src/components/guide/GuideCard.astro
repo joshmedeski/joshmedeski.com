@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { Image } from 'astro:assets'
+
+interface Props {
+  guide: CollectionEntry<'guides'>
+}
+
+const { guide } = Astro.props
+---
+
+<a href={`/guides/${guide.id}`} data-astro-prefetch>
+  <Image
+    src={guide.data.heroImage}
+    alt={guide.data.title}
+    width="558"
+    height="372"
+    class="mb-2 w-full rounded-lg bg-black shadow-md md:mb-4"
+    transition:name={`guide-${guide.id}-thumb`}
+  />
+  <h3 
+    class="text-2xl font-bold"
+    transition:name={`guide-${guide.id}-title`}
+  >
+    {guide.data.title}
+  </h3>
+  <p>{guide.data.description}</p>
+  <span class="mt-2 inline-block underline text-primary-500">
+    View Guide
+  </span>
+</a>
+
+<Image
+  src={guide.data.heroImage}
+  alt={guide.data.title}
+  width="1640"
+  height="1094"
+  class="hidden"
+/>

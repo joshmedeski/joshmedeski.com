@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '../components/Layout.astro'
+import PageTitle from '../components/PageTitle.astro'
+import Wrapper from '../components/Wrapper.astro'
+import GuideCard from '~/components/guide/GuideCard.astro'
+
+const guides = await getCollection('guides').then((g) =>
+  g.sort(
+    ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime(),
+  ),
+)
+---
+
+<Layout title="Guides" hideCta>
+  <Wrapper>
+    <PageTitle>Guides</PageTitle>
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 pb-12">
+      {guides.map((guide) => <GuideCard guide={guide} />)}
+    </div>
+  </Wrapper>
+</Layout>

@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '../components/Layout.astro'
+import PageTitle from '../components/PageTitle.astro'
+import Wrapper from '../components/Wrapper.astro'
+import GhRepo from '~/components/GhRepo.astro'
+
+const projects = await getCollection('projects')
+---
+
+<Layout title="Projects">
+  <Wrapper>
+    <PageTitle>Projects</PageTitle>
+    <p class="mb-6 text-center text-xl leading-tight md:text-xl">
+      Here are some helpful open-source projects I've built.
+    </p>
+    <section class="mx-auto flex max-w-[600px] flex-col gap-4">
+      {projects.map(({ data: { repo } }) => <GhRepo repo={repo} />)}
+    </section>
+  </Wrapper>
+</Layout>
