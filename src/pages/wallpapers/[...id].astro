@@ -29,7 +29,8 @@ const download1080p = await getImage({
   height: 1080,
 })
 
-const is4k = wallpaper.data.image.width >= 3840 && wallpaper.data.image.height >= 2160
+const { width = 0, height = 0 } = wallpaper.data
+const is4k = width >= 3840 && height >= 2160
 
 const download4k = is4k
   ? await getImage({
@@ -50,16 +51,7 @@ const download4k = is4k
         {wallpaper.data.title}
      </PageTitle>
 
-    <Image
-      src={wallpaper.data.image}
-      alt={wallpaper.data.title}
-      width="1920"
-      height="1080"
-      class="mb-6 w-full rounded-2xl bg-black shadow-md"
-      transition:name={`wallpaper-${wallpaper.id}-thumb`}
-    />
-
-    <div class="flex flex-wrap justify-center gap-4 mb-16">
+    <div class="flex flex-wrap justify-center gap-4 mb-6">
       <a
         href={download1080p.src}
         download={wallpaper.data.title + ' 1080p.jpeg'}
@@ -77,5 +69,14 @@ const download4k = is4k
         </a>
       )}
     </div>
+
+    <Image
+      src={wallpaper.data.image}
+      alt={wallpaper.data.title}
+      width="1920"
+      height="1080"
+      class="mb-16 w-full rounded-2xl bg-black shadow-md"
+      transition:name={`wallpaper-${wallpaper.id}-thumb`}
+    />
   </Wrapper>
 </Layout>
