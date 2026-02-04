@@ -8,7 +8,7 @@ interface Props {
 
 const { wallpaper } = Astro.props
 
-const { width } = wallpaper.data
+const { width, favorite } = wallpaper.data
 const resLabel = width && width >= 3840 ? '4K' : width && width >= 1920 ? 'HD' : null
 ---
 
@@ -22,11 +22,21 @@ const resLabel = width && width >= 3840 ? '4K' : width && width >= 1920 ? 'HD' :
       class="w-full rounded-lg bg-black shadow-md mb-4"
       transition:name={`wallpaper-${wallpaper.id}-thumb`}
     />
-    {resLabel && (
-      <span class="absolute top-2 right-2 rounded bg-black/70 px-2 py-0.5 text-xs font-bold text-white">
-        {resLabel}
-      </span>
-    )}
+    <div class="absolute top-2 right-2 flex gap-1">
+      {favorite && (
+        <span class="flex items-center gap-1 rounded bg-yellow-500/80 px-2 py-0.5 text-xs font-bold text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-3">
+            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+          </svg>
+          Favorite
+        </span>
+      )}
+      {resLabel && (
+        <span class="rounded bg-black/70 px-2 py-0.5 text-xs font-bold text-white">
+          {resLabel}
+        </span>
+      )}
+    </div>
   </div>
   <div class="">
     <h3 class="text-2xl font-bold leading-none" transition:name={`wallpaper-${wallpaper.id}-title`}>
