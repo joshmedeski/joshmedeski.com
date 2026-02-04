@@ -60,22 +60,33 @@ const areasCollection = defineCollection({
 
 const guidesCollection = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/guides' }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    pubDate: z.date(),
-    heroImage: z.string(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      pubDate: z.date(),
+      heroImage: image(),
+    }),
+})
+
+const wallpapersCollection = defineCollection({
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/wallpapers' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      image: image(),
+    }),
 })
 
 const projectsCollection = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/projects' }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    repo: z.string(),
-    image: z.string().optional(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      repo: z.string(),
+      heroImage: image(),
+    }),
 })
 
 export const collections = {
@@ -85,4 +96,5 @@ export const collections = {
   categories: categoriesCollection,
   guides: guidesCollection,
   uses: usesCollection,
+  wallpapers: wallpapersCollection,
 }

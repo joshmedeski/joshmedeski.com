@@ -5,10 +5,11 @@ import { GuideIcon } from '../icons/index.astro'
 import Points from '../Points.astro'
 import Wrapper from '../Wrapper.astro'
 interface Props {
+  showGetStartedButton?: boolean
   overlapOnHeader?: boolean
 }
 import heroAlt from '../../assets/guides/dev-workflow-intro/dev-workflow-intro-hero-alt.png'
-const { overlapOnHeader } = Astro.props
+const { overlapOnHeader, showGetStartedButton } = Astro.props
 ---
 
 <div
@@ -62,19 +63,21 @@ const { overlapOnHeader } = Astro.props
           ]}
         />
 
-        <a
-          href="/posts/manage-macos-packages-with-homebrew"
-          class={clsx([
-            "inline-block rounded-lg font-bold tracking-wider",
-            "mt-12 px-12 py-4 text-xl text-white",
-            "bg-gradient-to-l from-indigo-500 to-purple-600",
-            "shadow-lg hover:shadow-xl",
-            "hover:from-indigo-700 hover:to-purple-800",
-            "transition-all duration-300 ease-in-out",
-          ])}
-        >
-          Get Started
-        </a>
+        {showGetStartedButton !== false && (
+          <a
+            href="/guides/dev-workflow-intro"
+            class={clsx([
+              "inline-block rounded-lg font-bold tracking-wider",
+              "mt-12 px-12 py-4 text-xl text-white",
+              "bg-gradient-to-l from-indigo-500 to-purple-600",
+              "shadow-lg hover:shadow-xl",
+              "hover:from-indigo-700 hover:to-purple-800",
+              "transition-all duration-300 ease-in-out",
+            ])}
+          >
+            Get Started
+          </a>
+        )}
       </div>
     </section>
   </Wrapper>

@@ -50,6 +50,14 @@ const props = Astro.props
       //document.addEventListener('astro:beforeload', ()=>{
       //  document.documentElement.setAttribute('data-theme', getTheme());
       //})
+
+      // Global keyboard shortcut for search (⌘+K or Ctrl+K)
+      document.addEventListener('keydown', (event) => {
+        if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+          event.preventDefault();
+          window.location.href = '/search';
+        }
+      });
     </script>
   </body>
 </html>
