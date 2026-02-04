@@ -11,7 +11,7 @@ const wallpapers = await getCollection('wallpapers')
 <Layout title="Wallpapers">
   <Wrapper>
     <PageTitle>Wallpapers</PageTitle>
-    <div class="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 lg:grid-cols-4">
+    <div class="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-10 md:grid-cols-3 lg:grid-cols-4">
       {
         wallpapers
           .sort((a, b) => a.data.title.localeCompare(b.data.title))
