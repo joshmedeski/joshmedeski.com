@@ -69,6 +69,15 @@ const guidesCollection = defineCollection({
     }),
 })
 
+const wallpapersCollection = defineCollection({
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/wallpapers' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      image: image(),
+    }),
+})
+
 const projectsCollection = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/projects' }),
   schema: ({ image }) =>
@@ -87,4 +96,5 @@ export const collections = {
   categories: categoriesCollection,
   guides: guidesCollection,
   uses: usesCollection,
+  wallpapers: wallpapersCollection,
 }

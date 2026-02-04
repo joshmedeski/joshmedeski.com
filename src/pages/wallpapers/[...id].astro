@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
+import { Image } from 'astro:assets'
+import Layout from '~/components/Layout.astro'
+import Wrapper from '~/components/Wrapper.astro'
+import PageTitle from '~/components/PageTitle.astro'
+
+export async function getStaticPaths() {
+  const wallpapers = await getCollection('wallpapers')
+  return wallpapers.map((wallpaper) => {
+    return {
+      params: { id: wallpaper.id },
+      props: { wallpaper },
+    }
+  })
+}
+
+interface Props {
+  wallpaper: CollectionEntry<'wallpapers'>
+}
+
+const { wallpaper } = Astro.props
+---
+
+<Layout title={wallpaper.data.title} image={wallpaper.data.image}>
+  <Wrapper>
+    <a href="/wallpapers" class="mt-8 block text-primary-500">← Back to all wallpapers</a>
+
+    <PageTitle>
+        {wallpaper.data.title}
+     </PageTitle>
+
+    <Image
+      src={wallpaper.data.image}
+      alt={wallpaper.data.title}
+      width="1920"
+      height="1080"
+      class="mb-6 w-full rounded-2xl bg-black shadow-md"
+      transition:name={`wallpaper-${wallpaper.id}-thumb`}
+    />
+
+    <div class="text-center mb-16">
+      <a
+        href={wallpaper.data.image.src}
+        download={wallpaper.data.title}
+        class="inline-block mx-auto my-6 rounded-lg bg-primary-500 px-6 py-3 font-bold text-white"
+      >
+        Download
+      </a>
+    </div>
+  </Wrapper>
+</Layout>
