@@ -42,8 +42,8 @@ importers:
         specifier: ^0.40.1
         version: 0.40.1(astro@5.2.5(@netlify/blobs@8.1.2)(@types/node@20.17.19)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1))
       astro-pagefind:
-        specifier: ^1.8.0
-        version: 1.8.0(astro@5.2.5(@netlify/blobs@8.1.2)(@types/node@20.17.19)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1))
+        specifier: ^1.8.6
+        version: 1.8.6(astro@5.2.5(@netlify/blobs@8.1.2)(@types/node@20.17.19)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1))
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -1425,8 +1425,8 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-  '@pagefind/default-ui@1.3.0':
-    resolution: {integrity: sha512-CGKT9ccd3+oRK6STXGgfH+m0DbOKayX6QGlq38TfE1ZfUcPc5+ulTuzDbZUnMo+bubsEOIypm4Pl2iEyzZ1cNg==}
+  '@pagefind/default-ui@1.4.0':
+    resolution: {integrity: sha512-wie82VWn3cnGEdIjh4YwNESyS1G6vRHwL6cNjy9CFgNnWW/PGRjsLq300xjVH5sfPFK3iK36UxvIBymtQIEiSQ==}
 
   '@pagefind/linux-arm64@1.3.0':
     resolution: {integrity: sha512-8lsxNAiBRUk72JvetSBXs4WRpYrQrVJXjlRRnOL6UCdBN9Nlsz0t7hWstRk36+JqHpGWOKYiuHLzGYqYAqoOnQ==}
@@ -1551,8 +1551,8 @@ packages:
     resolution: {integrity: sha512-bWLDlHsBlgKY/05wDN/V3ETcn5G2SV/SiA2ZmNvKGGlmVX4G5li7GRDhHcgYvHJHyJ8TUStqg2xtHmCs0UbAbg==}
     engines: {node: '>=18'}
 
-  '@polka/url@1.0.0-next.28':
-    resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
+  '@polka/url@1.0.0-next.29':
+    resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
 
   '@preact/preset-vite@2.10.1':
     resolution: {integrity: sha512-59lyGBXNfZIr5OOuBUB4/IB8AqF/ULbvYnyItgK/2BJnsGJqaeaJobRVtMp1129obHQuj8oZ/dVxB9inmH8Xig==}
@@ -2329,10 +2329,10 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0
 
-  astro-pagefind@1.8.0:
-    resolution: {integrity: sha512-sbVIpoRFQ0mhivvE1CRznH0/B79i5KbCbgpWjE3fJKqmO/405IGxtKO27HDzw5fB+atzdXq/NEFHn93qdW75+g==}
+  astro-pagefind@1.8.6:
+    resolution: {integrity: sha512-pofDcWMgA3qLQX9gSJ1mc3NSJDv6o1PDs68MrtdupxMFIlAFT2yckFSiOoaab2stSDmKyX/wVaTObyj5FuBulA==}
     peerDependencies:
-      astro: ^2.0.4 || ^3 || ^4 || ^5
+      astro: ^2.0.4 || ^3 || ^4 || ^5 || ^6
 
   astro@5.2.5:
     resolution: {integrity: sha512-AYXyYkc+c5xbKTm48FyQA91y81nXyNPAaoyafR0LUugE4lAwuvIUcXDBfMzmbuP1lGRvsE33G2oypv6gbGaPFg==}
@@ -4944,6 +4944,10 @@ packages:
     resolution: {integrity: sha512-eu38+hdgojoyq63s+yTpN4XMBdt5l8HhMhc4VKLO9KM5caLIBvUm4thi7fFaxyTmCKeNnXZ5pAlBwCUnhA09uw==}
     engines: {node: '>=10'}
 
+  mrmime@2.0.1:
+    resolution: {integrity: sha512-Y3wQdFg2Va6etvQ5I82yUhGdsKrcYox6p7FfL1LbK2J4V01F9TGlepTIhnK24t7koZibmg82KGglhA1XK5IsLQ==}
+    engines: {node: '>=10'}
+
   ms@2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
 
@@ -6085,8 +6089,8 @@ packages:
   simple-swizzle@0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
 
-  sirv@3.0.0:
-    resolution: {integrity: sha512-BPwJGUeDaDCHihkORDchNyyTvWFhcusy1XMmhEVTQTwGeybFbp8YEmB+njbPnth1FibULBSBVwCQni25XlCUDg==}
+  sirv@3.0.2:
+    resolution: {integrity: sha512-2wcC/oGxHis/BoHkkPwldgiPSYcpZK3JU28WoMVv55yHJgcZ8rlXvuG9iZggz+sU1d4bRgIGASwyWqjxu3FM0g==}
     engines: {node: '>=18'}
 
   sisteransi@1.0.5:
@@ -8513,7 +8517,7 @@ snapshots:
   '@pagefind/darwin-x64@1.3.0':
     optional: true
 
-  '@pagefind/default-ui@1.3.0': {}
+  '@pagefind/default-ui@1.4.0': {}
 
   '@pagefind/linux-arm64@1.3.0':
     optional: true
@@ -8613,7 +8617,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@polka/url@1.0.0-next.28': {}
+  '@polka/url@1.0.0-next.29': {}
 
   '@preact/preset-vite@2.10.1(@babel/core@7.26.8)(preact@10.25.4)(vite@6.1.0(@types/node@20.17.19)(jiti@2.4.2)(lightningcss@1.29.1)(sass@1.84.0)(yaml@2.7.1))':
     dependencies:
@@ -9377,12 +9381,12 @@ snapshots:
       astro: 5.2.5(@netlify/blobs@8.1.2)(@types/node@20.17.19)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1)
       rehype-expressive-code: 0.40.1
 
-  astro-pagefind@1.8.0(astro@5.2.5(@netlify/blobs@8.1.2)(@types/node@20.17.19)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1)):
+  astro-pagefind@1.8.6(astro@5.2.5(@netlify/blobs@8.1.2)(@types/node@20.17.19)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1)):
     dependencies:
-      '@pagefind/default-ui': 1.3.0
+      '@pagefind/default-ui': 1.4.0
       astro: 5.2.5(@netlify/blobs@8.1.2)(@types/node@20.17.19)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1)
       pagefind: 1.3.0
-      sirv: 3.0.0
+      sirv: 3.0.2
 
   astro@5.2.5(@netlify/blobs@8.1.2)(@types/node@20.17.19)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1):
     dependencies:
@@ -12676,6 +12680,8 @@ snapshots:
 
   mrmime@2.0.0: {}
 
+  mrmime@2.0.1: {}
+
   ms@2.0.0: {}
 
   ms@2.1.2: {}
@@ -14136,10 +14142,10 @@ snapshots:
     dependencies:
       is-arrayish: 0.3.2
 
-  sirv@3.0.0:
+  sirv@3.0.2:
     dependencies:
-      '@polka/url': 1.0.0-next.28
-      mrmime: 2.0.0
+      '@polka/url': 1.0.0-next.29
+      mrmime: 2.0.1
       totalist: 3.0.1
 
   sisteransi@1.0.5: {}
