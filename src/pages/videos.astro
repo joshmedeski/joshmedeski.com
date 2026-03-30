@@ -5,13 +5,12 @@ import Wrapper from '../components/Wrapper.astro'
 import PageTitle from '../components/PageTitle.astro'
 import Posts from '../components/Posts.astro'
 
-const posts = await getCollection(
-  'posts',
-  ({ data: { draft, youtubeUrl } }) => !draft && !!youtubeUrl,
-).then((p) =>
-  p.sort(
-    ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime(),
-  ),
+const posts = await getCollection('posts').then((p) =>
+  p
+    .filter(({ data }) => !data.draft && !!data.youtubeUrl)
+    .sort(
+      ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime(),
+    ),
 )
 ---
 

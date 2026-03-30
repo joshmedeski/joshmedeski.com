@@ -33,6 +33,7 @@ const categories = await getCollection('categories')
         </div>
 
         <nav class="mb-8 flex flex-wrap items-center gap-6 sm:hidden">
+          <Link href="/videos">Videos</Link>
           <Link href="/posts">Posts</Link>
           <Link href="/guides">Guides</Link>
           <Link href="/projects">Projects</Link>
@@ -64,7 +65,7 @@ const categories = await getCollection('categories')
       class="mx-auto mb-12 mt-10 max-w-screen-xl border-t border-neutral-800 pt-8 text-center"
     >
       <p class="text-base text-neutral-600 xl:text-center">
-        &copy; {today.getFullYear()}{" "}
+        &copy; {today.getFullYear()}{' '}
         {SITE_TITLE}. All rights reserved.
       </p>
     </div>
