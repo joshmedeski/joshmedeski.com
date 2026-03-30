@@ -135,6 +135,71 @@
   --color-warning-subtle: var(--theme-color-warning-100);
 }
 
+@layer components {
+  .markdown-alert {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid;
+    border-radius: 0.25rem;
+  }
+
+  .prose .markdown-alert-title {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin: 0 !important;
+  }
+
+  .markdown-alert-title .octicon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5rem;
+    background-color: currentColor;
+    mask-image: var(--oct-icon);
+    mask-size: contain;
+    mask-repeat: no-repeat;
+  }
+
+  .markdown-alert-note {
+    border-color: var(--color-uncommon-300);
+    background-color: var(--color-uncommon-800);
+    color: var(--color-uncommon-100);
+  }
+
+  .markdown-alert-tip {
+    border-color: var(--color-success-300);
+    background-color: var(--color-success-800);
+    color: var(--color-success-100);
+  }
+
+  .markdown-alert-important {
+    border-color: var(--color-primary-300);
+    background-color: var(--color-primary-800);
+    color: var(--color-primary-100);
+  }
+
+  .markdown-alert-warning {
+    border-color: var(--color-warning-300);
+    background-color: var(--color-warning-800);
+    color: var(--color-warning-100);
+  }
+
+  .markdown-alert-caution {
+    border-color: var(--color-error-300);
+    background-color: var(--color-error-800);
+    color: var(--color-error-100);
+  }
+
+  .prose .markdown-alert > p:first-child {
+    margin-top: 0 !important;
+  }
+
+  .prose .markdown-alert > p:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
 @layer base {
   :root {
     color-scheme: light dark;
