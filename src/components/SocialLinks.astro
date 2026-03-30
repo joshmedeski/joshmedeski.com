@@ -1,0 +1,34 @@
+---
+import Link from './Link.astro'
+import {
+  DiscordIcon,
+  GitHubIcon,
+  RssIcon,
+  TwitterIcon,
+  YouTubeIcon,
+} from './icons/index.astro'
+
+interface Props {
+  iconSize?: string
+}
+
+const { iconSize = 'h-10' } = Astro.props
+---
+
+<div class="flex gap-4">
+  <Link href="https://github.com/joshmedeski" target="_blank">
+    <GitHubIcon class={iconSize} />
+  </Link>
+  <Link href="https://www.youtube.com/joshmedeski" target="_blank">
+    <YouTubeIcon class={iconSize} />
+  </Link>
+  <Link href="https://twitter.com/joshmedeski" target="_blank">
+    <TwitterIcon class={iconSize} />
+  </Link>
+  <Link href="https://discord.gg/RQnZH7fFse" target="_blank">
+    <DiscordIcon class={iconSize} />
+  </Link>
+  <Link href="/rss.xml" target="_blank">
+    <RssIcon class={iconSize} />
+  </Link>
+</div>

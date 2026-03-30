@@ -1,25 +1,29 @@
 ---
 import { Image } from 'astro:assets'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../config'
-import Wrapper from '~/components/Wrapper.astro'
+import SocialLinks from '../SocialLinks.astro'
 ---
 
 <section class="flex flex-col items-center justify-center gap-8 sm:flex-row">
   <Image
     src="/joshmedeski-profile-circle.png"
     alt="Josh Medeski"
-    width="150"
-    height="150"
+    width="200"
+    height="200"
   />
+
   <div class="text-center sm:text-left">
     <h2
       class="mb-2 text-3xl font-bold tracking-tight text-neutral-300 sm:text-4xl md:text-6xl"
     >
       {SITE_TITLE}
     </h2>
-    <p class="md:text-md mb-2 max-w-md text-xl leading-tight">
+    <p class="md:text-md mb-2 max-w-md text-xl">
       {SITE_DESCRIPTION}
     </p>
-    <a href="/about" class="text-xl text-primary-500 underline">Learn more</a>
+
+    <div class="mt-4">
+      <SocialLinks iconSize="h-12" />
+    </div>
   </div>
 </section>
