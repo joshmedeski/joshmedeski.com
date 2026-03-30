@@ -6,11 +6,10 @@
   "scripts": {
     "astro": "astro",
     "build": "astro build",
-    "check": "biome check --write .",
+    "check": "prettier --check .",
     "dev": "netlify dev",
     "dev-msw": "cross-env NODE_ENV=development binode --require ./mocks/index.cjs -- netlify-cli:netlify dev",
-    "lint": "biome lint --write .",
-    "format": "biome format --write .",
+    "format": "prettier --write .",
     "preview": "astro preview",
     "start": "astro dev --host",
     "sync": "astro sync",
@@ -38,7 +37,8 @@
     "tailwindcss": "^4.0.6"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "prettier": "^3.5.3",
+    "prettier-plugin-astro": "^0.14.1",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20.14.11",
     "@vitest/coverage-v8": "^0.34.6",
