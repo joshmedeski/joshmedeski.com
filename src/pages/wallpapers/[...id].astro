@@ -40,16 +40,17 @@ const download4k = is4k
       height: 2160,
     })
   : null
-
 ---
 
 <Layout title={wallpaper.data.title} image={wallpaper.data.image}>
   <Wrapper>
-    <a href="/wallpapers" class="mt-8 block text-primary-500">← Back to all wallpapers</a>
+    <a href="/wallpapers" class="mt-8 block text-primary-500"
+      >← Back to all wallpapers</a
+    >
 
     <PageTitle>
-        {wallpaper.data.title}
-     </PageTitle>
+      {wallpaper.data.title}
+    </PageTitle>
 
     <div class="flex flex-wrap justify-center gap-4 mb-6">
       <a
@@ -59,15 +60,17 @@ const download4k = is4k
       >
         Download HD
       </a>
-      {download4k && (
-        <a
-          href={download4k.src}
-          download={wallpaper.data.title + ' 4K.jpeg'}
-          class="rounded-lg bg-primary-500 px-6 py-3 font-bold text-white"
-        >
-          Download 4K
-        </a>
-      )}
+      {
+        download4k && (
+          <a
+            href={download4k.src}
+            download={wallpaper.data.title + ' 4K.jpeg'}
+            class="rounded-lg bg-primary-500 px-6 py-3 font-bold text-white"
+          >
+            Download 4K
+          </a>
+        )
+      }
     </div>
 
     <Image

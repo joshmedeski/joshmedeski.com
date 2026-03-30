@@ -15,7 +15,7 @@ description: Use when creating a blog post.
 
 ```yaml
 ---
-title: "Post Title"
+title: 'Post Title'
 pubDate: 2024-01-28T12:00:00.000Z
 description: Brief description of the post
 heroImage: ../../assets/posts/post-slug.jpeg
@@ -25,20 +25,20 @@ category: dotfiles
 
 ## Categories
 
-| Category | Description |
-|----------|-------------|
-| `conversations` | Talking with friends |
-| `development` | How I build web apps |
-| `dotfiles` | My dev workflows |
+| Category               | Description           |
+| ---------------------- | --------------------- |
+| `conversations`        | Talking with friends  |
+| `development`          | How I build web apps  |
+| `dotfiles`             | My dev workflows      |
 | `personal-development` | Living with intention |
-| `productivity` | How I get things done |
-| `tech` | Gear and tools I use |
+| `productivity`         | How I get things done |
+| `tech`                 | Gear and tools I use  |
 
 ## Optional Frontmatter
 
 ```yaml
 youtubeUrl: https://www.youtube.com/embed/VIDEO_ID
-duration: "5:22"
+duration: '5:22'
 draft: true
 thumbnail: ../../assets/posts/post-slug-thumb.jpeg
 guide:

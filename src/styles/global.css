@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @custom-variant dark (&:where(.dark, .dark *));
@@ -16,7 +16,7 @@
     }
   }
 
-  --animate-fade-in: fade-in 2.0s ease-out;
+  --animate-fade-in: fade-in 2s ease-out;
 
   --color-black: var(--theme-color-black);
   --color-white: var(--theme-color-white);
@@ -252,9 +252,10 @@
     --pagefind-ui-border-radius: 8px;
     --pagefind-ui-image-border-radius: 8px;
     --pagefind-ui-image-box-ratio: 3 / 2;
-    --pagefind-ui-font: system, -apple-system, "BlinkMacSystemFont",
-      ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI",
-      "Helvetica Neue", "Lucida Grande", "Ubuntu", "arial", sans-serif;
+    --pagefind-ui-font:
+      system, -apple-system, 'BlinkMacSystemFont', '.SFNSText-Regular',
+      'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Lucida Grande',
+      'Ubuntu', 'arial', sans-serif;
   }
 }
 

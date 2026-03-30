@@ -12,20 +12,20 @@ const {
 
 <a
   href={`/categories/${id}`}
-  class={clsx("shadow-sm rounded-lg p-3 flex items-center", style?.container)}
+  class={clsx('shadow-sm rounded-lg p-3 flex items-center', style?.container)}
 >
   <CategoryIcon id={id} class="mr-3 w-8" />
   <div>
     <h3
       class={clsx(
-        "font-extrabold leading-none mb-1 text-lg tracking-wide",
+        'font-extrabold leading-none mb-1 text-lg tracking-wide',
         style.title,
       )}
     >
       {title}
     </h3>
     <p
-      class={clsx("text-sm font-medium leading-none tracking-wide", style.desc)}
+      class={clsx('text-sm font-medium leading-none tracking-wide', style.desc)}
     >
       {desc}
     </p>

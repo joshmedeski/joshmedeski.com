@@ -13,10 +13,12 @@ interface Props extends HeadProps {
 const props = Astro.props
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <Head {...props} />
-  <body class="relative flex min-h-screen flex-col justify-between text-white bg-black">
+  <body
+    class="relative flex min-h-screen flex-col justify-between text-white bg-black"
+  >
     <header class="z-20">
       <Header themeColor={props.themeColor} />
     </header>
@@ -28,24 +30,30 @@ const props = Astro.props
 
     <script is:inline>
       const getTheme = () => {
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        return window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light'
       }
-      document.documentElement.setAttribute('data-theme', getTheme());
+      document.documentElement.setAttribute('data-theme', getTheme())
 
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-        const theme = event.matches ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', theme);
-      });
-      document.addEventListener('astro:page-load', ()=>{
-        document.documentElement.setAttribute('data-theme', getTheme());
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .addEventListener('change', (event) => {
+          const theme = event.matches ? 'dark' : 'light'
+          document.documentElement.setAttribute('data-theme', theme)
+        })
+      document.addEventListener('astro:page-load', () => {
+        document.documentElement.setAttribute('data-theme', getTheme())
       })
-      document.addEventListener('astro:before-swap', event => {
-          function setDarkMode(document) {
-            window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-            document.documentElement.dataset.theme = theme;
-          }
-        setDarkMode(event.newDocument);
-      });
+      document.addEventListener('astro:before-swap', (event) => {
+        function setDarkMode(document) {
+          window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light'
+          document.documentElement.dataset.theme = theme
+        }
+        setDarkMode(event.newDocument)
+      })
 
       //document.addEventListener('astro:beforeload', ()=>{
       //  document.documentElement.setAttribute('data-theme', getTheme());
@@ -54,10 +62,10 @@ const props = Astro.props
       // Global keyboard shortcut for search (⌘+K or Ctrl+K)
       document.addEventListener('keydown', (event) => {
         if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
-          event.preventDefault();
-          window.location.href = '/search';
+          event.preventDefault()
+          window.location.href = '/search'
         }
-      });
+      })
     </script>
   </body>
 </html>

@@ -38,16 +38,21 @@ const { Content } = await render(category)
   themeColor={category.data.style.themeColor}
 >
   <header
-    class={clsx("text-center flex-grow pb-12", category.data.style.container)}
+    class={clsx('text-center flex-grow pb-12', category.data.style.container)}
   >
     <CategoryIcon id={category.id} class="mx-auto w-32 pt-12" />
-    <h1 class={clsx("mb-2 mt-10 text-2xl font-extrabold md:text-4xl",  category.data.style.title)}>
+    <h1
+      class={clsx(
+        'mb-2 mt-10 text-2xl font-extrabold md:text-4xl',
+        category.data.style.title,
+      )}
+    >
       {category.data.title}
     </h1>
     <p class={`${category.data.style.desc}`}>{category.data.desc}</p>
   </header>
 
-  <section class={clsx("px-4 py-12")}>
+  <section class={clsx('px-4 py-12')}>
     <div class="mx-auto max-w-screen-2xl">
       <section class="grid gap-4 sm:grid-cols-2 sm:gap-8">
         {posts.map((post) => <PostCard post={post} />)}
@@ -55,7 +60,7 @@ const { Content } = await render(category)
     </div>
   </section>
 
-  <main class={clsx("bg-white mb-20 mt-32")}>
+  <main class={clsx('bg-white mb-20 mt-32')}>
     <article
       class="prose mx-auto max-w-screen-md bg-white px-4 prose-a:text-blue-600 hover:prose-a:text-blue-500"
     >

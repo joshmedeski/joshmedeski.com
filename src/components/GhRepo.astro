@@ -13,7 +13,11 @@ const description = data?.description ?? null
 const url = data?.url ?? `https://github.com/${repo}`
 ---
 
-<a href={url} target="_blank" class="not-prose mb-4 block no-underline text-gh-light">
+<a
+  href={url}
+  target="_blank"
+  class="not-prose mb-4 block no-underline text-gh-light"
+>
   <section
     class="flex flex-col gap-2 rounded bg-gh-dark p-2 sm:flex-row sm:gap-4 sm:p-4"
   >
@@ -22,9 +26,13 @@ const url = data?.url ?? `https://github.com/${repo}`
         <GitHubIcon class="h-6 w-6" />
         <strong class="sm:text-lg">{fullName}</strong>
       </div>
-      {description && (
-        <p class="sm:text-md text-sm leading-none text-white">{description}</p>
-      )}
+      {
+        description && (
+          <p class="sm:text-md text-sm leading-none text-white">
+            {description}
+          </p>
+        )
+      }
     </div>
   </section>
 </a>

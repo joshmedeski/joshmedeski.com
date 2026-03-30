@@ -1,7 +1,7 @@
 ---
-layout: "../components/Page.astro"
-title: "About Me"
-description: "Full-stack developer, teacher, speaker, and writer."
+layout: '../components/Page.astro'
+title: 'About Me'
+description: 'Full-stack developer, teacher, speaker, and writer.'
 ---
 
 ![collage of Josh](../assets/collage-of-josh.jpg)

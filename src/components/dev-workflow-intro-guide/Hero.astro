@@ -14,11 +14,10 @@ const { overlapOnHeader, showGetStartedButton } = Astro.props
 
 <div
   class={clsx(
-    "relative isolate overflow-hidden border-t border-slate-900 bg-neutral-900 px-6 pt-20 sm:pt-24 lg:overflow-visible lg:px-0",
-    overlapOnHeader && "-mt-[104px] "
+    'relative isolate overflow-hidden border-t border-slate-900 bg-neutral-900 px-6 pt-20 sm:pt-24 lg:overflow-visible lg:px-0',
+    overlapOnHeader && '-mt-[104px] ',
   )}
 >
-
   <Wrapper>
     <section class="flex flex-col gap-8 py-12 md:flex-row-reverse md:py-24">
       <div class="w-full">
@@ -55,29 +54,31 @@ const { overlapOnHeader, showGetStartedButton } = Astro.props
 
         <Points
           points={[
-            "Install packages and keep them up-to-date",
-            "Design a minimalist, distraction-free, user-interface",
-            "Use familiar keyboard shortcuts",
-            "Manage multiple projects with ease",
-            "Integrate with Git and GitHub",
+            'Install packages and keep them up-to-date',
+            'Design a minimalist, distraction-free, user-interface',
+            'Use familiar keyboard shortcuts',
+            'Manage multiple projects with ease',
+            'Integrate with Git and GitHub',
           ]}
         />
 
-        {showGetStartedButton !== false && (
-          <a
-            href="/guides/dev-workflow-intro"
-            class={clsx([
-              "inline-block rounded-lg font-bold tracking-wider",
-              "mt-12 px-12 py-4 text-xl text-white",
-              "bg-gradient-to-l from-indigo-500 to-purple-600",
-              "shadow-lg hover:shadow-xl",
-              "hover:from-indigo-700 hover:to-purple-800",
-              "transition-all duration-300 ease-in-out",
-            ])}
-          >
-            Get Started
-          </a>
-        )}
+        {
+          showGetStartedButton !== false && (
+            <a
+              href="/guides/dev-workflow-intro"
+              class={clsx([
+                'inline-block rounded-lg font-bold tracking-wider',
+                'mt-12 px-12 py-4 text-xl text-white',
+                'bg-gradient-to-l from-indigo-500 to-purple-600',
+                'shadow-lg hover:shadow-xl',
+                'hover:from-indigo-700 hover:to-purple-800',
+                'transition-all duration-300 ease-in-out',
+              ])}
+            >
+              Get Started
+            </a>
+          )
+        }
       </div>
     </section>
   </Wrapper>

@@ -40,7 +40,7 @@ const postChunks = Array.from({ length: columns }, (_, i) =>
             postChunks.map((chunk, i) => {
               return (
                 <div
-                  class={`grid grid-cols-1 gap-4 ${i % 2 !== 0 ? "translate-y-[-50px]" : ""}`}
+                  class={`grid grid-cols-1 gap-4 ${i % 2 !== 0 ? 'translate-y-[-50px]' : ''}`}
                 >
                   {chunk.map((post) => (
                     <img
@@ -52,7 +52,7 @@ const postChunks = Array.from({ length: columns }, (_, i) =>
                     />
                   ))}
                 </div>
-              );
+              )
             })
           }
         </div>

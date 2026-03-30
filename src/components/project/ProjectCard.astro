@@ -10,7 +10,12 @@ const { project } = Astro.props
 const url = `https://github.com/${project.data.repo}`
 ---
 
-<a href={url} target="_blank" rel="noopener noreferrer" class="bg-neutral-800 p-4 rounded-xl shadow-lg">
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="bg-neutral-800 p-4 rounded-xl shadow-lg"
+>
   <Image
     src={project.data.heroImage}
     alt={project.data.title}

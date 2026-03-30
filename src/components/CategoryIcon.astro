@@ -17,13 +17,9 @@ interface Props {
 const { id, class: className } = Astro.props
 ---
 
-{id === "conversations" && <ConversationsIcon class={className} />}
-{id === "development" && <DevelopmentIcon class={className} />}
-{id === "dotfiles" && <DotfilesIcon class={className} />}
-{
-  id === "personal-development" && (
-    <PersonalDevelopmentIcon class={className} />
-  )
-}
-{id === "productivity" && <ProductivityIcon class={className} />}
-{id === "tech" && <UsesIcon class={className} />}
+{id === 'conversations' && <ConversationsIcon class={className} />}
+{id === 'development' && <DevelopmentIcon class={className} />}
+{id === 'dotfiles' && <DotfilesIcon class={className} />}
+{id === 'personal-development' && <PersonalDevelopmentIcon class={className} />}
+{id === 'productivity' && <ProductivityIcon class={className} />}
+{id === 'tech' && <UsesIcon class={className} />}

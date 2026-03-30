@@ -32,7 +32,7 @@ const socialImageUrl = new URL(socialImage.src, Astro.url)
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="generator" content={Astro.generator} />
-  <meta name="theme-color" content={themeColor ?? "#ffffff"} />
+  <meta name="theme-color" content={themeColor ?? '#ffffff'} />
 
   <link rel="icon" href="/favicon.ico" sizes="any" /><!-- 32×32 -->
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -41,7 +41,7 @@ const socialImageUrl = new URL(socialImage.src, Astro.url)
 
   <!-- Primary Meta Tags -->
   <title>{title} | {SITE_TITLE}</title>
-  <meta name="title" content={title || "Home"} />
+  <meta name="title" content={title || 'Home'} />
   <meta name="description" content={description || SITE_DESCRIPTION} />
   <link rel="canonical" href={canonicalUrl} />
 

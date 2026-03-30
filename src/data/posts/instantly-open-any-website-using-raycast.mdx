@@ -2,8 +2,8 @@
 title: Instantly Open Any Website Using Raycast
 pubDate: 2025-05-20T21:00:00.000Z
 youtubeUrl: https://www.youtube.com/embed/Xd-xmPtLoqI
-duration: "4:05"
-heroImage: "../../assets/posts/instantly-open-any-website-using-raycast.jpeg"
+duration: '4:05'
+heroImage: '../../assets/posts/instantly-open-any-website-using-raycast.jpeg'
 description: Using an open-source search engine and Raycast, I can get to any website I want instantly.
 category: dotfiles
 ---
@@ -18,9 +18,9 @@ See the [SearXNG Docker Container instructions](https://docs.searxng.org/admin/i
 
 For example, if you search for `GitHub NeoVim`, you’d expect the first result to be `github.com/neovim/neovim`. This works for a variety of queries:
 
--  Searching my own name, "joshmedeski", puts my website first.
--  Searching for “joshmedeski blazing fast window management” brings up my blog post as the top result.
--  Typing in “imdb andor” quickly brings up the IMDB page for the TV show, Andor.
+- Searching my own name, "joshmedeski", puts my website first.
+- Searching for “joshmedeski blazing fast window management” brings up my blog post as the top result.
+- Typing in “imdb andor” quickly brings up the IMDB page for the TV show, Andor.
 
 ## Leveraging Search Engine Skills
 
@@ -34,8 +34,8 @@ But SearXNG takes it further with a **double bang auto redirect**. When you use 
 
 ### Example Searches
 
--  `!! GitHub NeoVim` → Instantly opens the NeoVim GitHub page.
--  `!! Paris France` → Redirects to the Wikipedia entry for France.
+- `!! GitHub NeoVim` → Instantly opens the NeoVim GitHub page.
+- `!! Paris France` → Redirects to the Wikipedia entry for France.
 
 Even if the first result isn’t perfect, it’s almost always contextual and relevant.
 
@@ -49,10 +49,10 @@ Create a quicklink in Raycast with the following URL:
 http://localhost:8080/search?q=!!%20{argument name="term"}
 ```
 
--  **Double bangs** (`!!`) trigger the auto-redirect.
--  The search engine runs locally on `localhost:8080`.
--  The API endpoint is `/search`.
--  The query includes `!!` and the search term as arguments, which you can pass into Raycast.
+- **Double bangs** (`!!`) trigger the auto-redirect.
+- The search engine runs locally on `localhost:8080`.
+- The API endpoint is `/search`.
+- The query includes `!!` and the search term as arguments, which you can pass into Raycast.
 
 When I type `!!` and hit tab, Raycast prompts for the term. I enter what I want, and ARC gives me a preview window with the result.
 
@@ -64,10 +64,10 @@ Now, I just type the shortcut, enter my keywords, and instantly jump to the page
 
 ## Why This Workflow Works for Me
 
--  **No need for bookmarks:** If I know what I want, I can get to it with keywords.
--  **Minimal management:** I don’t have to organize or maintain anything.
--  **Accuracy:** I rarely end up on irrelevant pages.
--  **Efficiency:** This method is fast, smart, and leverages my existing search skills.
+- **No need for bookmarks:** If I know what I want, I can get to it with keywords.
+- **Minimal management:** I don’t have to organize or maintain anything.
+- **Accuracy:** I rarely end up on irrelevant pages.
+- **Efficiency:** This method is fast, smart, and leverages my existing search skills.
 
 Traditional search engines have almost disappeared from my workflow. For research-heavy browsing, I use a different tool (which I’ll cover in a future post).
 
