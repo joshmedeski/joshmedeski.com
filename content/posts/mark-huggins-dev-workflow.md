@@ -1,0 +1,53 @@
+---
+title: Mark Huggins' Dev Workflow
+description: >-
+  Mark shares his Neovim and tmux dev workflow and Moonlander keyboard layout. I
+  share my dev workflow as well.
+duration: '50:13'
+youtubeUrl: 'https://www.youtube.com/embed/9Zq3pyufesI'
+category: conversations
+heroImage: ../attachments/posts/mark-huggins-dev-workflow/mark-huggins-dev-workflow.jpeg
+pubDate: 2023-05-20T16:00:00.000Z
+---
+
+Mark and I talk about our Moonlander keyboard layouts and developer workflows using tmux and neovim including plugins and shortcuts we used for coding and navigating our environments. We mention various tools and plugins that we had use to customize our workflows, such as LazyVim, gitmux, and fzf. We also discuss how we use copilot in Neovim, and why we prefer minimal setups. Our conversation emphasize the importance of continually experimenting with and adapting our workflows to find what works best for us.
+
+## Mark's Stuff
+
+::gh-repo{repo="mhuggins7278/dotfiles"}<div style="padding-top: 60%; position: relative;">
+
+  <iframe
+    src="https://configure.zsa.io/embed/moonlander/layouts/9qQGW/latest/0"
+    style="border: 0; height: 100%; left: 0; position: absolute; top: 0; width: 100%"
+  ></iframe>
+</div>
+
+## Josh's Stuff
+
+::gh-repo{repo="joshmedeski/dotfiles"}<div style="padding-top: 60%; position: relative;">
+
+  <iframe
+    src="https://configure.zsa.io/embed/moonlander/layouts/3qe37/latest/0"
+    style="border: 0; height: 100%; left: 0; position: absolute; top: 0; width: 100%"
+  ></iframe>
+</div>
+
+## neovim
+
+- [LazyVim - neovim setup](https://www.lazyvim.org/)
+- [LunarVim](https://www.lunarvim.org/)
+  ::gh-repo{repo="nvim-lua/kickstart.nvim"}::gh-repo{repo="ThePrimeagen/harpoon"}::gh-repo{repo="zbirenbaum/copilot-cmp"}## tmux
+
+- [macOS Keyboard Shortcuts for tmux - video](https://www.joshmedeski.com/posts/macos-keyboard-shortcuts-for-tmux/)
+- [Smart tmux sessions with zoxide and fzf - video](https://www.joshmedeski.com/posts/smart-tmux-sessions-with-zoxide-and-fzf/)
+- [t-smart-tmux-session-manager - tmux plugin](https://github.com/joshmedeski/t-smart-tmux-session-manager)
+- [gitmux - git for tmux status bar](https://github.com/arl/gitmux)
+- [tmux-fzf-url - tmux plugin](https://github.com/joshmedeski/tmux-fzf-url)
+- [tmux Nerd Font window name plugin](https://www.joshmedeski.com/posts/tmux-nerd-font-window-name-plugin/)
+- [Popup history with tmux and fzf - popup](https://www.joshmedeski.com/posts/popup-history-with-tmux-and-fzf/)
+
+## Terminal
+
+- [starship - shell prompt](https://starship.rs/)
+- [A Pretty Terminal in 5 minutes! - video](https://www.youtube.com/watch?v=Mu4frtvHPOY)
+- [lazygit - git terminal user interface (TUI)](https://github.com/jesseduffield/lazygit)

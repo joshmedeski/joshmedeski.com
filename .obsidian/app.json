@@ -1,0 +1,32 @@
+{
+  "attachmentFolderPath": "content/attachments",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "content/posts",
+  "useMarkdownLinks": false,
+  "newLinkFormat": "absolute",
+  "alwaysUpdateLinks": true,
+  "useTab": false,
+  "tabSize": 2,
+  "userIgnoreFilters": [
+    "src/",
+    "public/",
+    "dist/",
+    "node_modules/",
+    "functions/",
+    "prisma/",
+    "scripts/",
+    "mocks/",
+    ".git/",
+    ".vscode/",
+    ".claude/",
+    "*.astro",
+    "*.ts",
+    "*.tsx",
+    "*.json",
+    "*.toml",
+    "*.yaml",
+    "*.yml",
+    "*.mjs",
+    "*.config.*"
+  ]
+}

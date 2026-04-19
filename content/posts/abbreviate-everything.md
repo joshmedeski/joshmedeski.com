@@ -1,0 +1,15 @@
+---
+title: 'Abbreviate Everything: Lessons from a Stenographer'
+pubDate: 2021-11-15T12:00:00.000Z
+youtubeUrl: 'https://www.youtube.com/embed/G0pmpc9JAI4'
+duration: '20:17'
+heroImage: ../attachments/posts/abbreviate-everything/abbreviate-everything.jpg
+description: An overview of how to manage macOS windows and desktops at blazing speeds!
+category: dotfiles
+---
+
+From Vimconf 2021.
+
+I hope it inspired you to start using text expanders and shorthand to start typing less and getting more done.
+
+**Note:** The promotion in the video has expired, but reach to me on social media if you want to talk about your personal shorthand dictionary!

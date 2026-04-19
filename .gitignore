@@ -24,3 +24,8 @@ functions/.netlify
 coverage
 \n.astro
 .astro
+
+# Obsidian per-user state (commit .obsidian/app.json)
+.obsidian/workspace*
+.obsidian/cache
+.obsidian/graph.json
