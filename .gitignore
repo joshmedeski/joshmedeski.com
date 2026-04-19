@@ -30,3 +30,6 @@ content/.obsidian/workspace*
 content/.obsidian/cache
 content/.obsidian/graph.json
 content/.obsidian/appearance.json
+
+# Stray .obsidian at repo root (user may open repo root by accident)
+/.obsidian/

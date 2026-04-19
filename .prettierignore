@@ -1,0 +1,5 @@
+.obsidian/
+content/.obsidian/
+pnpm-lock.yaml
+dist/
+.astro/
