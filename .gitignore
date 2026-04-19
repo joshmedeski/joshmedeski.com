@@ -25,7 +25,8 @@ coverage
 \n.astro
 .astro
 
-# Obsidian per-user state (commit .obsidian/app.json)
-.obsidian/workspace*
-.obsidian/cache
-.obsidian/graph.json
+# Obsidian per-user state (commit content/.obsidian/app.json only)
+content/.obsidian/workspace*
+content/.obsidian/cache
+content/.obsidian/graph.json
+content/.obsidian/appearance.json
