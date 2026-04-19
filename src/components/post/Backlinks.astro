@@ -1,0 +1,35 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { getBacklinks } from '../../utils/backlinks'
+
+interface Props {
+  entry: CollectionEntry<'posts'> | CollectionEntry<'guides'>
+}
+
+const { entry } = Astro.props
+const backlinks = await getBacklinks(entry.collection, entry.id)
+---
+
+{
+  backlinks.length > 0 && (
+    <section class="backlinks mt-8 border-t border-neutral-800 pt-6">
+      <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-neutral-400">
+        Linked from
+      </h2>
+      <ul class="space-y-1">
+        {backlinks.map((b) => (
+          <li>
+            <a href={b.url} class="text-neutral-200 hover:underline">
+              {b.title}
+            </a>
+            {b.collection !== entry.collection && (
+              <span class="ml-2 text-xs uppercase tracking-wide text-neutral-500">
+                {b.collection}
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
