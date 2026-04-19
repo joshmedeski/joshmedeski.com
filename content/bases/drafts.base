@@ -1,0 +1,12 @@
+filters:
+  and:
+    - draft == true
+views:
+  - type: table
+    name: Table
+    order:
+      - file.name
+      - title
+      - category
+      - file.ctime
+      - file.mtime
