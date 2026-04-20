@@ -19,7 +19,10 @@ export default defineConfig({
 
   integrations: [
     // NOTE: expressiveCode must be before mdx
-    expressiveCode(),
+    expressiveCode({
+      themes: ['github-dark'],
+      useDarkModeMediaQuery: false,
+    }),
     mdx(),
     pagefind(),
     sitemap(),

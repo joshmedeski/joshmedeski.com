@@ -15,6 +15,15 @@
 .callout-title-icon {
   color: var(--rc-color-dark, var(--rc-color-default)) !important;
 }
+
+/* Expressive-code scopes token colors under [data-theme='github-dark'],
+   which isn't set on our dark-only site. Apply them unconditionally. */
+.expressive-code .ec-line :where(span[style^='--']:not([class])) {
+  color: var(--0, inherit) !important;
+  font-style: var(--0fs, inherit) !important;
+  font-weight: var(--0fw, inherit) !important;
+  text-decoration: var(--0td, inherit) !important;
+}
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @custom-variant dark (&:where(.dark, .dark *));
 
