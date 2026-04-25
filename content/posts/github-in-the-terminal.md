@@ -14,7 +14,9 @@ Let's integrate GitHub into the terminal using the GitHub CLI, gh-dash, and the 
 
 ## gh-dash
 
-::gh-repo{repo="dlvhdr/gh-dash"}Here are a couple of features I added to gh-dash:
+::gh-repo{repo="dlvhdr/gh-dash"}
+
+Here are a couple of features I added to gh-dash:
 
 ```yaml title="~/.config/gh-dash/config.yml"
 keybindings:
@@ -39,7 +41,9 @@ gh extension upgrade --all
 
 ## Octo.nvim
 
-::gh-repo{repo="pwntester/octo.nvim"}Here is how I configure Octo.nvim using the Lazy.nvim plugin manager:
+::gh-repo{repo="pwntester/octo.nvim"}
+
+Here is how I configure Octo.nvim using the Lazy.nvim plugin manager:
 
 ```lua title="~/.config/nvim/lua/plugins/octo.lua"
 return {
@@ -64,7 +68,9 @@ I had previously created many custom leader key bindings but found I wasn't usin
 
 ## gitlinker.nvim
 
-::gh-repo{repo="ruifm/gitlinker.nvim"}This plugin makes it easy to get a unique GitHub URL to a line of code in a repo. You can use the following lines to install it with lazy.nvim:
+::gh-repo{repo="ruifm/gitlinker.nvim"}
+
+This plugin makes it easy to get a unique GitHub URL to a line of code in a repo. You can use the following lines to install it with lazy.nvim:
 
 ```lua title="~/.config/nvim/lua/plugins/gitlinker.lua"
 return {
@@ -78,7 +84,9 @@ Now, you can press `<leader>gy` and it will automatically detect the line your c
 
 ## gitsigns.nvim
 
-::gh-repo{repo="lewis6991/gitsigns.nvim"}This is my favorite git plugin for Neovim. It has many features, primarily showing git diff status in the sign column. Here is how I configure it using lazy.nvim:
+::gh-repo{repo="lewis6991/gitsigns.nvim"}
+
+This is my favorite git plugin for Neovim. It has many features, primarily showing git diff status in the sign column. Here is how I configure it using lazy.nvim:
 
 ```lua title="~/.config/nvim/lua/plugins/gitsigns.lua
 return {
@@ -122,7 +130,9 @@ The commands I hightlight in the live stream are `]g` and `[g` to navigate betwe
 
 ## lazygit
 
-::gh-repo{repo="jesseduffield/lazygit"}Lastly, I integrated Octo more into my favorite git CLI tool, lazygit, by overwritting the "o" command with a custom command and setting the origional command to "O".
+::gh-repo{repo="jesseduffield/lazygit"}
+
+Lastly, I integrated Octo more into my favorite git CLI tool, lazygit, by overwritting the "o" command with a custom command and setting the origional command to "O".
 
 ```yaml title="~/Library/Application Support/lazygit/config.yml
 customCommands:

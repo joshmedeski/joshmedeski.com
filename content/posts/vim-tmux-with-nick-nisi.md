@@ -14,7 +14,11 @@ Nick and I talk about our developer workflows and what tools we're finding inter
 
 ## Resources
 
-::gh-repo{repo="nicknisi/dotfiles"}::gh-repo{repo="joshmedeski/dotfiles"}- [vim + tmux - OMG!Code video](https://www.youtube.com/watch?v=5r6yzFEXajQ)
+::gh-repo{repo="nicknisi/dotfiles"}
+
+::gh-repo{repo="joshmedeski/dotfiles"}
+
+- [vim + tmux - OMG!Code video](https://www.youtube.com/watch?v=5r6yzFEXajQ)
 
 - [Git worktree docs](https://git-scm.com/docs/git-worktree)
 - [ThePrimeagen's git worktree video](https://www.youtube.com/watch?v=2uEqYw-N8uE)

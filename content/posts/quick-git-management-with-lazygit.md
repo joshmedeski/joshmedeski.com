@@ -14,7 +14,9 @@ guide:
 
 Git is a central part of the development workflow. It's important to have a good understanding of how it works and how to use it. [`lazygit`](https://github.com/jesseduffield/lazygit) is a terminal UI for git that makes it easy to run common git commands efficiently and with ease.
 
-::gh-repo{repo="jesseduffield/lazygit"}## Install
+::gh-repo{repo="jesseduffield/lazygit"}
+
+## Install
 
 To install lazygit, you guessed it, run the following homebrew command.
 

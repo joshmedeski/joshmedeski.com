@@ -21,9 +21,17 @@ plugins available for code completion in Neovim.
 
 My Choice:
 
-::gh-repo{repo="github/copilot.vim"}Alternatives:
+::gh-repo{repo="github/copilot.vim"}
 
-::gh-repo{repo="zbirenbaum/copilot-cmp"}::gh-repo{repo="codota/tabnine-nvim"}::gh-repo{repo="Exafunction/codeium.nvim"}::gh-repo{repo="milanglacier/minuet-ai.nvim"}
+### Alternatives:
+
+::gh-repo{repo="zbirenbaum/copilot-cmp"}
+
+::gh-repo{repo="codota/tabnine-nvim"}
+
+::gh-repo{repo="Exafunction/codeium.nvim"}
+
+::gh-repo{repo="milanglacier/minuet-ai.nvim"}
 
 ```lua
 return {
@@ -46,9 +54,13 @@ code snippets, writing documentation, or even just having a conversation.
 
 My Choice:
 
-::gh-repo{repo="CopilotC-Nvim/CopilotChat.nvim"}Alternatives:
+::gh-repo{repo="CopilotC-Nvim/CopilotChat.nvim"}
 
-::gh-repo{repo="yetone/avante.nvim"}::gh-repo{repo="jackMort/ChatGPT.nvim"}
+Alternatives:
+
+::gh-repo{repo="yetone/avante.nvim"}
+
+::gh-repo{repo="jackMort/ChatGPT.nvim"}
 
 ```lua
 return {
@@ -66,9 +78,13 @@ writing code faster and with fewer errors.
 
 My Choice:
 
-::gh-repo{repo="robitx/gp.nvim"}Alternatives:
+::gh-repo{repo="robitx/gp.nvim"}
 
-::gh-repo{repo="David-Kunz/gen.nvim"}::gh-repo{repo="gsuuon/model.nvim"}
+Alternatives:
+
+::gh-repo{repo="David-Kunz/gen.nvim"}
+
+::gh-repo{repo="gsuuon/model.nvim"}
 
 ````lua
 return {

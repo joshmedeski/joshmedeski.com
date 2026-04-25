@@ -10,21 +10,53 @@ pubDate: 2023-08-18T12:30:00.000Z
 
 Learn about Dolev's, creator of gh-dash, tmux and neovim setup on macOS.
 
-::gh-repo{repo="dlvhdr/dotfiles"}## Terminal Emulator
+::gh-repo{repo="dlvhdr/dotfiles"}
 
-::gh-repo{repo="kovidgoyal/kitty"}## Shell
+## Terminal Emulator
 
-::gh-repo{repo="fish-shell/fish-shell"}## Prompt
+::gh-repo{repo="kovidgoyal/kitty"}
 
-::gh-repo{repo="starship/starship"}## Multiplexer
+## Shell
 
-::gh-repo{repo="tmux/tmux"}### Tmux Plugins
+::gh-repo{repo="fish-shell/fish-shell"}
 
-::gh-repo{repo="joshmedeski/t-smart-tmux-session-manager"}::gh-repo{repo="joshmedeski/tmux-nerd-font-window-name"}## Code Editor
+## Prompt
 
-::gh-repo{repo="neovim/neovim"}### Neovim Plugins
+::gh-repo{repo="starship/starship"}
 
-::gh-repo{repo="folke/lazy.nvim"}::gh-repo{repo="DNLHC/glance.nvim"}::gh-repo{repo="ggandor/leap.nvim"}::gh-repo{repo="prochri/telescope-all-recent.nvim"}::gh-repo{repo="aaronhallaert/advanced-git-search.nvim"}::gh-repo{repo="pwntester/octo.nvim"}::gh-repo{repo="dlvhdr/gh-dash"}::gh-repo{repo="extrawurst/gitui"}## Keyboard Layout
+## Multiplexer
+
+::gh-repo{repo="tmux/tmux"}
+
+### Tmux Plugins
+
+::gh-repo{repo="joshmedeski/t-smart-tmux-session-manager"}
+
+::gh-repo{repo="joshmedeski/tmux-nerd-font-window-name"}
+
+## Code Editor
+
+::gh-repo{repo="neovim/neovim"}
+
+### Neovim Plugins
+
+::gh-repo{repo="folke/lazy.nvim"}
+
+::gh-repo{repo="DNLHC/glance.nvim"}
+
+::gh-repo{repo="ggandor/leap.nvim"}
+
+::gh-repo{repo="prochri/telescope-all-recent.nvim"}
+
+::gh-repo{repo="aaronhallaert/advanced-git-search.nvim"}
+
+::gh-repo{repo="pwntester/octo.nvim"}
+
+::gh-repo{repo="dlvhdr/gh-dash"}
+
+::gh-repo{repo="extrawurst/gitui"}
+
+## Keyboard Layout
 
 <div style="padding-top: 60%; position: relative;">
   <iframe

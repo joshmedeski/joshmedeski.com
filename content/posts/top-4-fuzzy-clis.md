@@ -18,20 +18,30 @@ All of these CLIs can be installed with homebrew. So they all pass my first test
 
 ## 4. zf
 
-::gh-repo{repo="natecraddock/zf"}Written in Zig, zf is fast and simple. It's a little more minimal than the others, but it gets the job done. It is the least popular on this list, but has a focus on file paths and I discovered it while looking for a way to improve the fuzzy results for Neovim's Telescope plugin.
+::gh-repo{repo="natecraddock/zf"}
 
-::gh-repo{repo="natecraddock/telescope-zf-native.nvim"}Overall this is bottom of the list because you can't do much to change the look of it and the configuration options are pretty limited as a CLI. But in Telescope, it's great.
+Written in Zig, zf is fast and simple. It's a little more minimal than the others, but it gets the job done. It is the least popular on this list, but has a focus on file paths and I discovered it while looking for a way to improve the fuzzy results for Neovim's Telescope plugin.
+
+::gh-repo{repo="natecraddock/telescope-zf-native.nvim"}
+
+Overall this is bottom of the list because you can't do much to change the look of it and the configuration options are pretty limited as a CLI. But in Telescope, it's great.
 
 ## 3. gum
 
-::gh-repo{repo="charmbracelet/gum"}Gum is the most feature-filled CLI that I use, but as a fuzzy CLI it ranks 3rd on my list. It's written in Go and is apart of the Charmbracelet suite of CLI tools. The fuzzy feature is a subcommand called "filter" and most of the configuration options are focused on the way it looks.
+::gh-repo{repo="charmbracelet/gum"}
+
+Gum is the most feature-filled CLI that I use, but as a fuzzy CLI it ranks 3rd on my list. It's written in Go and is apart of the Charmbracelet suite of CLI tools. The fuzzy feature is a subcommand called "filter" and most of the configuration options are focused on the way it looks.
 
 I think the fuzzy algorithm and the visuals make it one of my favorites, personally, but it's lack of configuration options compared to the next two put it in 3rd place.
 
 ## 2. skim
 
-::gh-repo{repo="lotabout/skim"}Skim is a one I recently discovered and it is written in Rust, a fan favorite language for terminal tools. It offers many great features and is fast.
+::gh-repo{repo="lotabout/skim"}
+
+Skim is a one I recently discovered and it is written in Rust, a fan favorite language for terminal tools. It offers many great features and is fast.
 
 ## 1. fzf
 
-::gh-repo{repo="junegunn/fzf"}fzf is the most popular (by a lot) in the fuzzy CLI space, I have been using it for many years and it's very feature rich including keybindings to update the list and execute commands. It's written in Go and is a crowd favorite.
+::gh-repo{repo="junegunn/fzf"}
+
+fzf is the most popular (by a lot) in the fuzzy CLI space, I have been using it for many years and it's very feature rich including keybindings to update the list and execute commands. It's written in Go and is a crowd favorite.

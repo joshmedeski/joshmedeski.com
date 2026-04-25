@@ -14,7 +14,9 @@ Mark and I talk about our Moonlander keyboard layouts and developer workflows us
 
 ## Mark's Stuff
 
-::gh-repo{repo="mhuggins7278/dotfiles"}<div style="padding-top: 60%; position: relative;">
+::gh-repo{repo="mhuggins7278/dotfiles"}
+
+<div style="padding-top: 60%; position: relative;">
 
   <iframe
     src="https://configure.zsa.io/embed/moonlander/layouts/9qQGW/latest/0"
@@ -24,7 +26,9 @@ Mark and I talk about our Moonlander keyboard layouts and developer workflows us
 
 ## Josh's Stuff
 
-::gh-repo{repo="joshmedeski/dotfiles"}<div style="padding-top: 60%; position: relative;">
+::gh-repo{repo="joshmedeski/dotfiles"}
+
+<div style="padding-top: 60%; position: relative;">
 
   <iframe
     src="https://configure.zsa.io/embed/moonlander/layouts/3qe37/latest/0"
@@ -36,7 +40,14 @@ Mark and I talk about our Moonlander keyboard layouts and developer workflows us
 
 - [LazyVim - neovim setup](https://www.lazyvim.org/)
 - [LunarVim](https://www.lunarvim.org/)
-  ::gh-repo{repo="nvim-lua/kickstart.nvim"}::gh-repo{repo="ThePrimeagen/harpoon"}::gh-repo{repo="zbirenbaum/copilot-cmp"}## tmux
+
+::gh-repo{repo="nvim-lua/kickstart.nvim"}
+
+::gh-repo{repo="ThePrimeagen/harpoon"}
+
+::gh-repo{repo="zbirenbaum/copilot-cmp"}
+
+## tmux
 
 - [macOS Keyboard Shortcuts for tmux - video](https://www.joshmedeski.com/posts/macos-keyboard-shortcuts-for-tmux/)
 - [Smart tmux sessions with zoxide and fzf - video](https://www.joshmedeski.com/posts/smart-tmux-sessions-with-zoxide-and-fzf/)

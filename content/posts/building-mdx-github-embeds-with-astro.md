@@ -67,7 +67,9 @@ const {
 
 It will look something like this:
 
-::gh-repo{repo="octokit/octokit.js"}Note, I'm using TailwindCSS, and emoji, and an SVG icon component that I created. You can use whatever you want to style your component.
+::gh-repo{repo="octokit/octokit.js"}
+
+Note, I'm using TailwindCSS, and emoji, and an SVG icon component that I created. You can use whatever you want to style your component.
 
 ## 2. Use the component in an MDX file
 

@@ -326,7 +326,7 @@ function rewriteBody(
       /<GhRepo\s+repo=["']([^"']+)["']\s*\/?>\s*(?:<\/GhRepo>)?/g,
       (_full, repo: string) => {
         report.ghRepoDirectiveCount++
-        return `::gh-repo{repo="${repo}"}`
+        return `\n\n::gh-repo{repo="${repo}"}\n\n`
       },
     )
   }
