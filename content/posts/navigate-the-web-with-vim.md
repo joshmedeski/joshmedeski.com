@@ -45,10 +45,4 @@ Here are some final points I'd give about using this tool:
 
 I hope this tool to navigate the web with Vim can help you in some of the ways it's helped me.
 
-<a
-href="https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en"
-target="\_blank"
-rel="noopener"
-
-> Download the Chrome Extension - Vimium
-> </a>
+[Download the Chrome Extension - Vimium](https://chrome.google.com/webstore/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb?hl=en)

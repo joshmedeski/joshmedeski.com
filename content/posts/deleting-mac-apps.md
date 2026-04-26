@@ -16,25 +16,13 @@ Here's a quick solution for deleting Mac apps in record time! It uses Alfred, my
 
 AppCleaner is a powerful little app that scans your system for all the files and folders related to an application so you can thoroughly remove an app from your system.
 
-<a
-title="Download AppCleaner"
-href="http://www.freemacsoft.net/appcleaner/"
-target="\_blank"
-rel="noopener"
-
-> Download AppCleaner
-> </a>
+[Download AppCleaner](http://www.freemacsoft.net/appcleaner/)
 
 ## Alfred Workflow
 
 Jonas Eriksen (aiyodk) has created a Alfred workflow that implements Alfred's powerful search feature with AppCleaner. Type "un" and search for the app you want to uninstall.
 
-<a
-title="AppCleaner.alfredworkflow"
-href="https://github.com/aiyodk/Alfred-Extensions/raw/master/AlfredApp_2.x/AppCleaner/AppCleaner.alfredworkflow"
-
-> Download the workflow
-> </a>
+[Download the workflow](https://github.com/aiyodk/Alfred-Extensions/raw/master/AlfredApp_2.x/AppCleaner/AppCleaner.alfredworkflow)
 
 ## Instructions
 
@@ -51,5 +39,3 @@ Type "un" then the name of the app you want to delete (in my case it's Candybar)
 <img src="/attachments/posts/deleting-mac-apps/app-cleaner-candybar-screenshot.png" alt="App cleaning candybar screenshot" width="320" class="mb-2 mr-4 sm:float-left" />Next, AppCleaner will display all the necessary files to delete to remove the app. Click the "delete" button and your all done!
 
 That's it! You could use AppCleaner by itself but with the help of Alfred it's extremely quick to delete mac apps from your system.
-
-Did you find this helpful? Is there something missing in this workflow that I should know about deleting mac apps? Let me know in the comments below.
