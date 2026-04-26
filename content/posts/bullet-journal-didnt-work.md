@@ -48,5 +48,3 @@ It's possible I'm not great at writing todos, and the Bullet Journal could help 
 Well that's my thoughts on why the Bullet Journal didn't work for me. I'm a strong GTD user and really like the workflow David Allen created, which I have not found to be benefitted by Bullet Journal practices.
 
 I find the power of search with digital solutions extremely helpful, I prefer typing to hand writing, I want to bring revisions to my todos more frequently and I want to be able to easily read, and understand my tasks at a glance. All of these things are unfortunately not compatible with the Bullet Journal.
-
-Have you tried the Bullet Journal? Did/does it work for you? Let me know in the comments!

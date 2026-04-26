@@ -25,5 +25,3 @@ And most importantly, if you have multiple items pending at the same time, this
 To get started, get out a blank piece of paper, set a timer for ten minutes and write down everything you are waiting for from someone else. Feel free to move this list into your to-do app and make sure you visit this list at regularly scheduled intervals, or set reminders on your calendar for those time-sensitive items.
 
 You will be amazed at how smart you look when you follow up with a cold lead, a delayed email, or a software update when the rest of the world around you lets these little things get missed in this busy world.
-
-Do you have any stories about how your "waiting for" list saved you from trouble? Let me know in the comments.

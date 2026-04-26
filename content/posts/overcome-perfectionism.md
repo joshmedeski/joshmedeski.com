@@ -26,4 +26,4 @@ There is always more than one way to do something, and your never going to know 
 >
 > <cite>Thomas Edison</cite>
 
-Well that's just a few ways for you to overcome perfectionism. Do you have any advice on this subject? Let me know in the comments below.
+Well that's just a few ways for you to overcome perfectionism.

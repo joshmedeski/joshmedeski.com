@@ -55,7 +55,7 @@ I'll go through each piece of my setup, give you some tips, and explain how to m
 - I chose [Fully](https://www.fully.com) over [IKEA's standing desk options](https://www.ikea.com/us/en/search/products/?q=standing%20desk) because I had multiple friends with Fully models and were very happy with it. Also, I hadn't heard anything good about IKEA's standing desk options and figured quality over cost was important for the standing desk motor.
 - If I had more money, I would buy a real wood countertop. The veneer looks nice, but my parents are woodworkers and I've always appreciated the real thing. Maybe one day I'll upgrade.
 - I don't recommend a permanently standing desk. I like being able to switch between sitting and standing throughout the day, it helps my brain work in different ways and sometimes I get tired of standing.
-- I purposefully didn't mention what chair I use. It's just a basic kitchen table chair. If you have any suggestions please leave them in the comments.
+- I purposefully didn't mention what chair I use. It's just a basic kitchen table chair.
 - If there's something in the pictures you want to more about but I haven't talked about checking out my [uses page](/uses) where I discuss computers, audio equipment, and more.
 
 ### How to make an IKEA hack standing desk
@@ -66,8 +66,8 @@ I'll go through each piece of my setup, give you some tips, and explain how to m
 - [SIGNUM - Cable management](https://www.ikea.com/us/en/p/signum-cable-management-horizontal-silver-color-30200253/)
 - [Amazon - Power Strip](https://www.amazon.com/dp/B08FCDWYJ1/)
 
-<img src="/attachments/posts/how-to-make-an-ikea-hack-standing-desk/ikea-hack-standing-desk-sitting.jpg" alt="Standing desk" width="400" height="298" class="m-0 rounded-xl" />## Conclusion
+<img src="/attachments/posts/how-to-make-an-ikea-hack-standing-desk/ikea-hack-standing-desk-sitting.jpg" alt="Standing desk" width="400" height="298" class="m-0 rounded-xl" />
+
+## Conclusion
 
 I'm very happy with how I made an IKEA hack standing desk. It took years of iteration before I finally got to this state and I may make more changes in the future. Hopefully, this guide was helpful and now you can make an IKEA hack standing desk of your own.
-
-Have you built your desk? Have questions about my setup? Let me know in the comments below.

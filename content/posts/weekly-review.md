@@ -86,5 +86,3 @@ This last part I learned from my life coach, Whitney Hutten. I ask myself the fo
 ---
 
 That's my weekly review! It adapts and changes over time, but the principles remain the same. Schedule a consistent time, catch up, brain dump, reflect. I've found it invaluable and I hope looking into my weekly review will shape your weekly review or get you started on actually making it happen!
-
-What secrets do you have for the weekly review? Tell me in the comments!

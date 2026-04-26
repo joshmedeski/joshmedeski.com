@@ -62,8 +62,6 @@ This simple model helps shift your thinking to long-term strategic planning and 
 
 I hope this matrix helps you; remember to add labels to each new item you put into Todoist, and regularly check your filter to make sure you're getting your priorities straight.
 
-Have you use the Eisenhower matrix before? What works for you and what doesn't? Please let me know by jotting down your tips and tricks about this productivity method in the comments below.
-
 ---
 
 **Update:** David Stephens adapted this idea using Todoist priority levels, take a look in the picture below!
