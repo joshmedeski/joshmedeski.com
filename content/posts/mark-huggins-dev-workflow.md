@@ -16,25 +16,9 @@ Mark and I talk about our Moonlander keyboard layouts and developer workflows us
 
 ::gh-repo{repo="mhuggins7278/dotfiles"}
 
-<div style="padding-top: 60%; position: relative;">
-
-  <iframe
-    src="https://configure.zsa.io/embed/moonlander/layouts/9qQGW/latest/0"
-    style="border: 0; height: 100%; left: 0; position: absolute; top: 0; width: 100%"
-  ></iframe>
-</div>
-
 ## Josh's Stuff
 
 ::gh-repo{repo="joshmedeski/dotfiles"}
-
-<div style="padding-top: 60%; position: relative;">
-
-  <iframe
-    src="https://configure.zsa.io/embed/moonlander/layouts/3qe37/latest/0"
-    style="border: 0; height: 100%; left: 0; position: absolute; top: 0; width: 100%"
-  ></iframe>
-</div>
 
 ## neovim
 
