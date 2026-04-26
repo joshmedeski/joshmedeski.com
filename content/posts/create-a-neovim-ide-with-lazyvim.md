@@ -91,4 +91,4 @@ There is so much to cover with LazyVim, if you want to get a solid overview of a
 LazyVim allows you to quickly setup an IDE for Neovim. It's a great starting point for beginners and offers a simple and flexible structure to modify and extend it to your liking. We covered how to install it and overwrite the theme with Catppuccin. If you want to learn more about LazyVim, I recommend checking the following resources.
 
 - [LazyVim documentation](https://www.lazyvim.org/).
-- [My Neovim config](https://github.com/joshmedeski/dotfiles/tree/main/.config/nvim)
+- [My Neovim config](https://github.com/joshmedeski/dotfiles-nvim)
