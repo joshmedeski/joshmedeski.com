@@ -19,11 +19,11 @@ Code completion is a feature in which the editor suggests completions for the cu
 or symbol. This can be helpful for writing code faster and with fewer errors. There are many
 plugins available for code completion in Neovim.
 
-My Choice:
+### My Choice
 
 ::gh-repo{repo="github/copilot.vim"}
 
-### Alternatives:
+### Alternatives
 
 ::gh-repo{repo="zbirenbaum/copilot-cmp"}
 
@@ -32,6 +32,8 @@ My Choice:
 ::gh-repo{repo="Exafunction/codeium.nvim"}
 
 ::gh-repo{repo="milanglacier/minuet-ai.nvim"}
+
+### Configuration
 
 ```lua
 return {
@@ -52,15 +54,17 @@ AI Chat in the editor is a feature that allows you to chat with an
 AI assistant directly in your editor. This can be helpful for generating
 code snippets, writing documentation, or even just having a conversation.
 
-My Choice:
+### My Choice
 
 ::gh-repo{repo="CopilotC-Nvim/CopilotChat.nvim"}
 
-Alternatives:
+### Alternatives
 
 ::gh-repo{repo="yetone/avante.nvim"}
 
 ::gh-repo{repo="jackMort/ChatGPT.nvim"}
+
+### Configuration
 
 ```lua
 return {
@@ -76,15 +80,17 @@ AI code generation is a feature that allows you to generate code snippets using 
 This can be helpful for
 writing code faster and with fewer errors.
 
-My Choice:
+### My Choice
 
 ::gh-repo{repo="robitx/gp.nvim"}
 
-Alternatives:
+### Alternatives
 
 ::gh-repo{repo="David-Kunz/gen.nvim"}
 
 ::gh-repo{repo="gsuuon/model.nvim"}
+
+### Configuration
 
 ````lua
 return {
