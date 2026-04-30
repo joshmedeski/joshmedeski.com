@@ -10,12 +10,12 @@ import remarkDirective from 'remark-directive'
 import rehypeCallouts from 'rehype-callouts'
 
 import remarkGhRepoDirective from './src/utils/remarkGhRepoDirective'
-import remarkWikiLink from './src/utils/remarkWikiLink'
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://joshmedeski.com/',
   prefetch: true,
+  cacheDir: './.astro-cache',
 
   integrations: [
     // NOTE: expressiveCode must be before mdx
@@ -27,7 +27,7 @@ export default defineConfig({
   ],
 
   markdown: {
-    remarkPlugins: [remarkDirective, remarkGhRepoDirective, remarkWikiLink],
+    remarkPlugins: [remarkDirective, remarkGhRepoDirective],
     rehypePlugins: [rehypeCallouts],
   },
 

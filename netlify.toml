@@ -6,6 +6,11 @@ command = 'npx pnpm i --store=node_modules/.pnpm-store && npm run build'
 publish = 'dist'
 functions = "functions"
 
+[[plugins]]
+package = "netlify-plugin-cache"
+[plugins.inputs]
+paths = [".astro-cache"]
+
 [dev]
 command = "npm run start"
 # framework = "#auto"
