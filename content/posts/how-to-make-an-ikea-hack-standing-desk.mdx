@@ -10,6 +10,16 @@ heroImage: >-
 category: tech
 ---
 
+import { Image } from 'astro:assets'
+import joshSitting from '../attachments/posts/how-to-make-an-ikea-hack-standing-desk/josh-sitting-at-desk.jpg'
+import karlby from '../attachments/posts/how-to-make-an-ikea-hack-standing-desk/karlby-countertop-walnut-veneer.jpg'
+import alexDrawer from '../attachments/posts/how-to-make-an-ikea-hack-standing-desk/alex-drawer-unit-white.jpg'
+import signum from '../attachments/posts/how-to-make-an-ikea-hack-standing-desk/signum-cable-management-horizontal.jpg'
+import cableManagement from '../attachments/posts/how-to-make-an-ikea-hack-standing-desk/cable-management-example.jpg'
+import jarvisFrame from '../attachments/posts/how-to-make-an-ikea-hack-standing-desk/fully-jarvis-frame-only.jpg'
+import screenbar from '../attachments/posts/how-to-make-an-ikea-hack-standing-desk/screenbar.jpg'
+import sittingFinal from '../attachments/posts/how-to-make-an-ikea-hack-standing-desk/ikea-hack-standing-desk-sitting.jpg'
+
 Standing desks have gained a lot of popularity in the last few years. At a previous job, I had a nice standing desk from [Herman Miller](https://www.hermanmiller.com). Unfortunately, it was very expensive which is something I couldn't afford for my home. So, I built an IKEA hack standing desk.
 
 The office at my previous house was recently featured on [ZSA's people blog](https://people.zsa.io/josh-medeski/). Since then, I took it one step further and converted it into a standing desk. After lots of research, including helping a friend set up a standing desk of her own, I chose what would work best for me.
@@ -18,31 +28,93 @@ Thankfully, [IKEA](https://www.ikea.com/) offers quality products at an affordab
 
 Here were my criteria for how to make an IKEA hack standing desk:
 
-<img src="/attachments/posts/how-to-make-an-ikea-hack-standing-desk/josh-sitting-at-desk.jpg" alt="Josh sitting at desk" width="300" height="225" class="rounded-xl sm:float-right sm:mb-2 sm:ml-2 sm:mt-0" />1. Lots of counter space 2. Lots of storage 3. Doesn't break the bank 4. Looks good 5. Can be customized in the future
+<Image
+  src={joshSitting}
+  alt="Josh sitting at desk"
+  width={300}
+  class="rounded-xl sm:float-right sm:mb-2 sm:ml-2 sm:mt-0"
+/>
+1. Lots of counter space 2. Lots of storage 3. Doesn't break the bank 4. Looks
+good 5. Can be customized in the future
 
 I'll go through each piece of my setup, give you some tips, and explain how to make an IKEA hack standing desk.
 
 ## The Countertop
 
-<img src="/attachments/posts/how-to-make-an-ikea-hack-standing-desk/karlby-countertop-walnut-veneer.jpg" alt="Karlby Countertop" width="240" height="132" class="sm:float-left sm:mb-16 sm:mr-4 sm:mt-0" />The countertop is the most important element of a desk. It's the foundation for a good desk. That's why so many companies charge a lot for their desks: good quality material is expensive. Thankfully, a wood veneer is a great alternative. I got IKEA's [KARLBY Countertop](https://www.ikea.com/us/en/p/karlby-countertop-walnut-veneer-70335212/). It's 98 inches which is plenty wide enough space for my needs.
+<Image
+  src={karlby}
+  alt="Karlby Countertop"
+  width={240}
+  class="sm:float-left sm:mb-16 sm:mr-4 sm:mt-0"
+/>
+The countertop is the most important element of a desk. It's the foundation for
+a good desk. That's why so many companies charge a lot for their desks: good
+quality material is expensive. Thankfully, a wood veneer is a great alternative.
+I got IKEA's [KARLBY
+Countertop](https://www.ikea.com/us/en/p/karlby-countertop-walnut-veneer-70335212/).
+It's 98 inches which is plenty wide enough space for my needs.
 
 ## Storage
 
-<img src="/attachments/posts/how-to-make-an-ikea-hack-standing-desk/alex-drawer-unit-white.jpg" alt="Alex Drawer unit in white" width="137" height="200" class="rounded-xl sm:float-right sm:mb-2 sm:ml-2 sm:mt-0" />The next step for a great desk is its support. When I first built it I didn't have the budget for a standing desk. I know IKEA sells [basic furniture legs](https://www.ikea.com/us/en/p/torsklint-leg-light-neutral-90365458/) but, as someone who lives in apartments, I wanted good storage. I got two [ALEX Drawer units](https://www.ikea.com/us/en/p/alex-drawer-unit-white-00473546/). My long desk had plenty of room to give me comfortable legroom in the middle.
+<Image
+  src={alexDrawer}
+  alt="Alex Drawer unit in white"
+  width={137}
+  class="rounded-xl sm:float-right sm:mb-2 sm:ml-2 sm:mt-0"
+/>
+The next step for a great desk is its support. When I first built it I didn't
+have the budget for a standing desk. I know IKEA sells [basic furniture
+legs](https://www.ikea.com/us/en/p/torsklint-leg-light-neutral-90365458/) but,
+as someone who lives in apartments, I wanted good storage. I got two [ALEX
+Drawer units](https://www.ikea.com/us/en/p/alex-drawer-unit-white-00473546/). My
+long desk had plenty of room to give me comfortable legroom in the middle.
 
 ## Cable Management
 
-<img src="/attachments/posts/how-to-make-an-ikea-hack-standing-desk/signum-cable-management-horizontal.jpg" alt="Karlby Countertop" width="200" height="65" class="rounded-xl sm:float-right sm:mb-2 sm:ml-2 sm:mt-0" />Cable management is hard. There are lots of potential solutions, but I got the [SIGNUM cable management tool](https://www.ikea.com/us/en/p/signum-cable-management-horizontal-silver-color-30200253/) and a [power strip](https://www.amazon.com/dp/B08FCDWYJ1/) that I could mount to the bottom of the countertop. With some time, patience, and attention to detail, I was able to tuck everything out of sight.
+<Image
+  src={signum}
+  alt="Signum cable management"
+  width={200}
+  class="rounded-xl sm:float-right sm:mb-2 sm:ml-2 sm:mt-0"
+/>
+Cable management is hard. There are lots of potential solutions, but I got the
+[SIGNUM cable management
+tool](https://www.ikea.com/us/en/p/signum-cable-management-horizontal-silver-color-30200253/)
+and a [power strip](https://www.amazon.com/dp/B08FCDWYJ1/) that I could mount to
+the bottom of the countertop. With some time, patience, and attention to detail,
+I was able to tuck everything out of sight.
 
-<img src="/attachments/posts/how-to-make-an-ikea-hack-standing-desk/cable-management-example.jpg" alt="Karlby Countertop" width="820" height="349" />All the items above make a great desk, the Alex units do a good job holding the countertop and if you're on a budget I'd recommend you stop there. I had this setup for years before I decided to upgrade to a standing desk.
+<Image src={cableManagement} alt="Cable management example" width={820} />
+All the items above make a great desk, the Alex units do a good job holding the
+countertop and if you're on a budget I'd recommend you stop there. I had this
+setup for years before I decided to upgrade to a standing desk.
 
 ## Standing Desk
 
-<img src="/attachments/posts/how-to-make-an-ikea-hack-standing-desk/fully-jarvis-frame-only.jpg" alt="Fully Jarvin Standing desk frame" width="400" height="400" class="h-auto w-[200px] rounded-xl sm:float-right sm:mb-2 sm:ml-2 sm:mt-0" />I thought about getting rid of my IKEA hack and upgrading to a standing desk. I realized getting something similar (without the storage) was going to cost me almost $1000! Because everything was still in good shape, and I already liked the look of the desk, I got [Fully's Jarvis frame only](https://www.fully.com/jarvis-frame-only.html). The white frame with the Alex units made it match the setup perfectly! I'm glad I went in this direction because it was easy to install myself. I made sure to install the frame so the Alex units could still fit perfectly on the edges of the countertop.
+<Image
+  src={jarvisFrame}
+  alt="Fully Jarvin Standing desk frame"
+  width={400}
+  class="h-auto w-[200px] rounded-xl sm:float-right sm:mb-2 sm:ml-2 sm:mt-0"
+/>
+I thought about getting rid of my IKEA hack and upgrading to a standing desk. I
+realized getting something similar (without the storage) was going to cost me
+almost $1000! Because everything was still in good shape, and I already liked
+the look of the desk, I got [Fully's Jarvis frame
+only](https://www.fully.com/jarvis-frame-only.html). The white frame with the
+Alex units made it match the setup perfectly! I'm glad I went in this direction
+because it was easy to install myself. I made sure to install the frame so the
+Alex units could still fit perfectly on the edges of the countertop.
 
 ## Accessories
 
-<img src="/attachments/posts/how-to-make-an-ikea-hack-standing-desk/screenbar.jpg" alt="BenQ screenbar plus" width="140" height="200" class="rounded-xl sm:float-right sm:mb-2 sm:ml-2 sm:mt-0" />There are a few accessories I recommend for lighting and comfort:
+<Image
+  src={screenbar}
+  alt="BenQ screenbar plus"
+  width={140}
+  class="rounded-xl sm:float-right sm:mb-2 sm:ml-2 sm:mt-0"
+/>
+There are a few accessories I recommend for lighting and comfort:
 
 - [BenQ's Computer Monitor Light ScreenBar Plus](https://www.benq.com/en-us/lamps/computer-desklamp/screenbar-plus.html) goes on top of your monitor and gives you a bright counter space without creating a glare.
 - [Steelseries's XXL mouse pad](https://steelseries.com/gaming-mousepads/qck-heavy-series?size=xxl) provides a soft surface for your mouse and keyboard.
@@ -66,7 +138,12 @@ I'll go through each piece of my setup, give you some tips, and explain how to m
 - [SIGNUM - Cable management](https://www.ikea.com/us/en/p/signum-cable-management-horizontal-silver-color-30200253/)
 - [Amazon - Power Strip](https://www.amazon.com/dp/B08FCDWYJ1/)
 
-<img src="/attachments/posts/how-to-make-an-ikea-hack-standing-desk/ikea-hack-standing-desk-sitting.jpg" alt="Standing desk" width="400" height="298" class="m-0 rounded-xl" />
+<Image
+  src={sittingFinal}
+  alt="Standing desk"
+  width={400}
+  class="m-0 rounded-xl"
+/>
 
 ## Conclusion
 

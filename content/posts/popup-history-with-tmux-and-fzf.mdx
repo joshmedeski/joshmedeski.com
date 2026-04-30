@@ -9,6 +9,9 @@ heroImage: >-
 category: dotfiles
 ---
 
+import { Image } from 'astro:assets'
+import popupPreview from '../attachments/posts/popup-history-with-tmux-and-fzf/popup-history-with-tmux-and-fzf.jpeg'
+
 Many times a minute I use the `ctrl-r` keyboard shortcut in my terminal to pull up my history. The [80/20 rule](https://en.wikipedia.org/wiki/Pareto_principle) states that 80% of the input comes from 20% of the output. Applying that principle to my activity in the terminal means the majority of commands I want to run I
 
 Thankfully fzf wrote a [fzf-tmux script](https://github.com/junegunn/fzf/blob/master/bin/fzf-tmux) that makes it easy to integrate fzf with tmux.
@@ -41,4 +44,10 @@ I hope you like it! `fzf-tmux` with popup support has been a game-changer. I had
 
 This is a simple change, but having a polish balanced screen makes all the difference for me, here it is one more time:
 
-<img src="/attachments/posts/popup-history-with-tmux-and-fzf/popup-history-with-tmux-and-fzf.jpeg" alt="preview of history using fzf" class="overflow-hidden rounded-md shadow-md" />Thanks for reading, I will continue to post tips and tricks for how to be more productive in the terminal and macOS.
+<Image
+  src={popupPreview}
+  alt="preview of history using fzf"
+  class="overflow-hidden rounded-md shadow-md"
+/>
+Thanks for reading, I will continue to post tips and tricks for how to be more
+productive in the terminal and macOS.

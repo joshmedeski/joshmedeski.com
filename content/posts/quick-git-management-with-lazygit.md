@@ -26,7 +26,7 @@ brew install lazygit
 
 It can be opened by moving to a in your teriminal to a git repository and run the `lazygit` command. It will open a terminal UI that offers a lot of useful git commands. You can view the available commands by pressing `?`.
 
-![lazygit preview](/attachments/posts/quick-git-management-with-lazygit/lazygit-preview.png)
+![lazygit preview](../attachments/posts/quick-git-management-with-lazygit/lazygit-preview.png)
 
 ### Custom shortcut
 

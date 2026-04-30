@@ -45,7 +45,7 @@ fisher install joshmedeski/fish-lf-icons
 
 Here's a preview of what it looks like:
 
-![lf preview](/attachments/posts/manage-files-with-lf/lf-preview.png)
+![lf preview](../attachments/posts/manage-files-with-lf/lf-preview.png)
 
 I also like to have access to lf while inside neovim, so you can add the following plugin to your LazyVim setup.
 
@@ -68,7 +68,7 @@ return {
 
 You'll have to restart LazyVim, but after that you can press `<space>+f+f` to open lf as a floating window in the directory of the file you have open.
 
-![lf preview](/attachments/posts/manage-files-with-lf/lf-preview-in-neovim.png)
+![lf preview](../attachments/posts/manage-files-with-lf/lf-preview-in-neovim.png)
 
 ## Conclusion
 

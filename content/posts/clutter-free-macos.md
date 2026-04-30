@@ -14,4 +14,4 @@ I have a minimal, clutter-free, setup on my macOS environment, using tools like 
 
 The two most helpful settings for making macOS clutter free are in the "Desktop & Dock" settings in macOS Ventura.
 
-![macOS setting screenshot](/attachments/posts/clutter-free-macos/clutter-free-macos-settings.png)
+![macOS setting screenshot](../attachments/posts/clutter-free-macos/clutter-free-macos-settings.png)

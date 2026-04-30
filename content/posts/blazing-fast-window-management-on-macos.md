@@ -155,4 +155,4 @@ shift + alt - p : yabai -m window --display previous; yabai -m display --focus p
 
 **Update:** In macOS Ventura, it has been moved to a "Mission Control" dropdown in the keyboard shortcut section.
 
-![switch to desktop keyboard shortcut ventura](/attachments/posts/blazing-fast-window-management-on-macos/switch-to-desktop-keyboard-shortcut-ventura.png)
+![switch to desktop keyboard shortcut ventura](../attachments/posts/blazing-fast-window-management-on-macos/switch-to-desktop-keyboard-shortcut-ventura.png)
