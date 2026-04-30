@@ -25,17 +25,3 @@ coverage
 \n.astro
 .astro
 
-# Obsidian per-user / per-device state
-content/.obsidian/workspace*
-content/.obsidian/cache
-content/.obsidian/graph.json
-
-# Plugins and themes live in their own repos — ignore the code,
-# keep the list files so the vault still declares what it wants.
-content/.obsidian/plugins/
-content/.obsidian/themes/
-!content/.obsidian/community-plugins.json
-!content/.obsidian/community-themes.json
-
-# Stray .obsidian at repo root (in case the repo root is opened by accident)
-/.obsidian/
