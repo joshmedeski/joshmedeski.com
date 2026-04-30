@@ -1,6 +1,5 @@
 ---
 import Layout from '../../components/Layout.astro'
-import Backlinks from '../../components/post/Backlinks.astro'
 import { getCollection, render } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 
@@ -26,5 +25,4 @@ const { Content } = await render(guide)
   hideCta={true}
 >
   <Content />
-  <Backlinks entry={guide} />
 </Layout>

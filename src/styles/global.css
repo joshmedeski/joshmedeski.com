@@ -283,29 +283,6 @@
   }
 }
 
-@layer base {
-  .internal-link {
-    color: var(--color-primary-400);
-    text-decoration: underline;
-    text-decoration-style: dotted;
-    text-underline-offset: 3px;
-  }
-
-  .broken-link {
-    color: var(--color-neutral-500);
-    text-decoration: line-through;
-    cursor: not-allowed;
-  }
-
-  .backlinks a {
-    color: var(--color-neutral-200);
-    text-decoration: none;
-  }
-  .backlinks a:hover {
-    text-decoration: underline;
-  }
-}
-
 @utility prose {
   --tw-prose-body: var(--color-black);
   --tw-prose-headings: var(--color-neutral-900);

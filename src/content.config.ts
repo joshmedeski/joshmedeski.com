@@ -23,7 +23,6 @@ const postsCollection = defineCollection({
           position: z.number(),
         })
         .optional(),
-      aliases: z.array(z.string()).optional(),
     }),
 })
 
@@ -67,7 +66,6 @@ const guidesCollection = defineCollection({
       description: z.string(),
       pubDate: z.date(),
       heroImage: image(),
-      aliases: z.array(z.string()).optional(),
     }),
 })
 
