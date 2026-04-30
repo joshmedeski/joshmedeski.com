@@ -16,6 +16,11 @@ export default defineConfig({
   site: 'https://joshmedeski.com/',
   prefetch: true,
   cacheDir: './.astro-cache',
+  compressHTML: true,
+
+  build: {
+    inlineStylesheets: 'auto',
+  },
 
   integrations: [
     // NOTE: expressiveCode must be before mdx

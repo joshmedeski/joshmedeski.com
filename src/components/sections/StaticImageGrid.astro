@@ -1,12 +1,20 @@
 ---
+import { getImage } from 'astro:assets'
+import gridImage from '~/assets/grid.png'
 import AboutMe from './AboutMe.astro'
 import Wrapper from '../Wrapper.astro'
+
+const optimizedGrid = await getImage({
+  src: gridImage,
+  format: 'webp',
+  width: 1920,
+})
 ---
 
 <Wrapper>
   <section
     class="relative mx-auto flex aspect-video w-full overflow-hidden rounded-3xl shadow-xl bg-cover"
-    style={{ backgroundImage: `url("/grid.png")` }}
+    style={{ backgroundImage: `url("${optimizedGrid.src}")` }}
   >
     <div class="mx-auto w-full grow duration-300 ease-in-out">
       <main class="relative h-full w-full overflow-hidden">
