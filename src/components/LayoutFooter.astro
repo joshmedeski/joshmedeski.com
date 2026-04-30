@@ -18,7 +18,12 @@ const categories = await getCollection('categories')
 ---
 
 <!-- {hideCta ? null : <Hero />} -->
-<footer class="bg-neutral-950 pt-16" aria-labelledby="footer-heading" id="menu">
+<footer
+  class="bg-neutral-950 pt-16"
+  aria-labelledby="footer-heading"
+  id="menu"
+  data-pagefind-ignore
+>
   <h2 class="sr-only">Footer</h2>
   <Wrapper>
     <div class="gap-4 lg:grid lg:grid-cols-6 lg:gap-6">

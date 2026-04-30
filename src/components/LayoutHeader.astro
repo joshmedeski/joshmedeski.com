@@ -11,7 +11,7 @@ export interface Props {
 const props = Astro.props
 ---
 
-<div class={`${props.themeColor && props.themeColor}`}>
+<div class={`${props.themeColor && props.themeColor}`} data-pagefind-ignore>
   <Wrapper>
     <header class="grid content-center rounded-lg py-4 md:grid-cols-7">
       <div class="align-center col-span-2 flex items-center justify-between">

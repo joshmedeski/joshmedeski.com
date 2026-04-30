@@ -9,6 +9,7 @@ import clsx from 'clsx'
 interface Props extends HeadProps {
   hideCta?: boolean
   overlapHeader?: boolean
+  noIndex?: boolean
 }
 const props = Astro.props
 ---
@@ -23,7 +24,10 @@ const props = Astro.props
       <Header themeColor={props.themeColor} />
     </header>
 
-    <main class={clsx(props.overlapHeader && `-mt-[104px] z-10`)}>
+    <main
+      class={clsx(props.overlapHeader && `-mt-[104px] z-10`)}
+      data-pagefind-ignore={props.noIndex ? 'all' : undefined}
+    >
       <slot />
     </main>
     <Footer hideCta={props.hideCta} />
