@@ -3,12 +3,14 @@ import { getCollection, render } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import PostLayout from '../../components/post/PostLayout.astro'
 import NextGuidePost from '~/components/NextGuidePost.astro'
-import { Image } from 'astro:assets'
-import GhRepo from '../../components/GhRepo.astro'
 import Cta from '../../components/cta/PostCta.astro'
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts')
+  const includeDrafts = import.meta.env.DEV
+  const posts = await getCollection(
+    'posts',
+    ({ data }) => includeDrafts || !data.draft,
+  )
   return posts.map((post) => {
     return {
       params: { id: post.id },
@@ -27,7 +29,7 @@ const { Content } = await render(post)
 ---
 
 <PostLayout post={post}>
-  <Content components={{ GhRepo, Image }} />
+  <Content />
   <Cta category={post.data.category.id} />
   <NextGuidePost currentPostGuide={post.data.guide} slot="after-post" />
 </PostLayout>

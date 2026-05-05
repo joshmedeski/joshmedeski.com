@@ -8,13 +8,13 @@ import { describe, it, expect } from 'vitest'
 describe('validateEmail', () => {
   it('should require value', () => {
     expect(() => validateEmail(null)).toThrowErrorMatchingInlineSnapshot(
-      '"Email is missing"',
+      `[ClientError: Email is missing]`,
     )
   })
   it('should be an invalid email', () => {
     expect(() =>
       validateEmail('invalid-email'),
-    ).toThrowErrorMatchingInlineSnapshot('"Email is invalid"')
+    ).toThrowErrorMatchingInlineSnapshot(`[ClientError: Email is invalid]`)
   })
   it('should be an valid email', () => {
     expect(validateEmail('example@example.com')).toBe('example@example.com')
@@ -24,13 +24,13 @@ describe('validateEmail', () => {
 describe('validateBody', () => {
   it('should require value', () => {
     expect(() => validateBody(null)).toThrowErrorMatchingInlineSnapshot(
-      '"Body is missing"',
+      `[ClientError: Body is missing]`,
     )
   })
   it('should be an invalid email', () => {
     expect(() =>
       validateBody(JSON.stringify({ email: 'invalid-email' })),
-    ).toThrowErrorMatchingInlineSnapshot('"Email is invalid"')
+    ).toThrowErrorMatchingInlineSnapshot(`[ClientError: Email is invalid]`)
   })
   it('should be an valid body', () => {
     expect(

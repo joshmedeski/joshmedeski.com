@@ -2,16 +2,17 @@
 import { Image } from 'astro:assets'
 import Wrapper from '~/components/Wrapper.astro'
 import { YouTubeIcon } from '~/components/icons/index.astro'
+import liveStreamingImage from '~/assets/live-streaming.png'
 ---
 
 <section class="py-16 md:py-32">
   <Wrapper>
     <div class="flex flex-col items-center justify-center gap-8 lg:flex-row">
       <Image
-        src="/live-streaming.png"
+        src={liveStreamingImage}
         alt="Preview of Josh live streaming"
-        width="500"
-        height="281"
+        width={500}
+        height={281}
         class="rounded-sm"
       />
       <div>

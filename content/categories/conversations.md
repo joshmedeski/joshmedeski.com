@@ -1,0 +1,10 @@
+---
+title: Conversations
+desc: Talking with friends
+slug: conversations
+style:
+  container: bg-yellow-950 shadow-yellow-800
+  title: text-yellow-200
+  desc: text-yellow-50
+  themeColor: bg-yellow-950
+---

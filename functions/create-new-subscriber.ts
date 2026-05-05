@@ -1,5 +1,4 @@
-import { Handler } from '@netlify/functions'
-import fetch from 'node-fetch'
+import type { Context } from '@netlify/functions'
 
 class ClientError extends Error {
   constructor(message: string) {
@@ -36,8 +35,8 @@ const validateBody = (body: string | null): Body => {
   return parsedBody
 }
 
-type Response = {
-  creation_date: Date
+type SubscriberResponse = {
+  creation_date: string
   email: string
   id: string
   metadata: {}
@@ -52,42 +51,31 @@ type Response = {
   utm_source: string
 }
 
-const createNewSubscriber = async (body: Body) => {
-  try {
-    return await fetch('https://api.buttondown.email/v1/subscribers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Token ${process.env.BUTTONDOWN_API_KEY}`,
-      },
-      body: JSON.stringify(body),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        if (process.env.NODE_ENV !== 'test') console.info(response)
-        // TODO: Handle non-201 responses (duplicate, error, etc...)
-        return response
-      })
-      .then((body) => body as Response)
-  } catch (e: unknown) {
-    throw new Error('Error creating subscriber')
-  }
+const createNewSubscriber = async (body: Body): Promise<SubscriberResponse> => {
+  const response = await fetch('https://api.buttondown.email/v1/subscribers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Token ${process.env.BUTTONDOWN_API_KEY}`,
+    },
+    body: JSON.stringify(body),
+  })
+  const data = (await response.json()) as SubscriberResponse
+  if (process.env.NODE_ENV !== 'test') console.info(data)
+  return data
 }
 
-const handler: Handler = async (event) => {
+export default async (req: Request, _ctx: Context): Promise<Response> => {
   try {
-    const validatedBody = validateBody(event.body)
+    const validatedBody = validateBody(await req.text())
     await createNewSubscriber(validatedBody)
-    return {
-      statusCode: 201,
-      body: 'Created new subscriber successfully',
-    }
+    return new Response('Created new subscriber successfully', { status: 201 })
   } catch (e: unknown) {
     console.error(e)
-    let body = e instanceof Error ? e.message : 'Error creating subscriber'
-    const statusCode = e instanceof ClientError ? 400 : 500
-    return { statusCode, body }
+    const body = e instanceof Error ? e.message : 'Error creating subscriber'
+    const status = e instanceof ClientError ? 400 : 500
+    return new Response(body, { status })
   }
 }
 
-export { validateEmail, validateBody, createNewSubscriber, handler }
+export { validateEmail, validateBody, createNewSubscriber }

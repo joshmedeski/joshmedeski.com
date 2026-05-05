@@ -2,7 +2,7 @@ import { glob } from 'astro/loaders'
 import { z, defineCollection, reference } from 'astro:content'
 
 const postsCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/posts' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './content/posts' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -27,7 +27,7 @@ const postsCollection = defineCollection({
 })
 
 const categoriesCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/categories' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './content/categories' }),
   schema: z.object({
     title: z.string(),
     desc: z.string(),
@@ -41,7 +41,7 @@ const categoriesCollection = defineCollection({
 })
 
 const usesCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/uses' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './content/uses' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -52,14 +52,14 @@ const usesCollection = defineCollection({
 })
 
 const areasCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/areas' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './content/areas' }),
   schema: z.object({
     title: z.string(),
   }),
 })
 
 const guidesCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/guides' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './content/guides' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -70,7 +70,7 @@ const guidesCollection = defineCollection({
 })
 
 const wallpapersCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/wallpapers' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './content/wallpapers' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -82,7 +82,7 @@ const wallpapersCollection = defineCollection({
 })
 
 const projectsCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/data/projects' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './content/projects' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),

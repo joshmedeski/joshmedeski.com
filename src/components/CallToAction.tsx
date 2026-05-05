@@ -1,4 +1,4 @@
-import backgroundImage from '/webb-pattern.png'
+import backgroundImage from '~/assets/webb-pattern.png'
 import clsx from 'clsx'
 import type { FunctionalComponent, FunctionComponent, JSX } from 'preact'
 import { useState } from 'preact/hooks'

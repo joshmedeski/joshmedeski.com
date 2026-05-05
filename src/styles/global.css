@@ -1,5 +1,29 @@
 @import 'tailwindcss';
+@import 'rehype-callouts/theme/obsidian';
 @plugin "@tailwindcss/typography";
+
+/* Force dark-mode callout styles (site only has a dark theme).
+   Otherwise rehype-callouts' `.dark` scoped rules don't apply and
+   callouts fade into the black background. */
+.callout {
+  mix-blend-mode: lighten !important;
+  background-color: rgb(
+    from var(--rc-color-dark, var(--rc-color-default)) r g b / 0.1
+  ) !important;
+}
+.callout-title,
+.callout-title-icon {
+  color: var(--rc-color-dark, var(--rc-color-default)) !important;
+}
+
+/* Expressive-code scopes token colors under [data-theme='github-dark'],
+   which isn't set on our dark-only site. Apply them unconditionally. */
+.expressive-code .ec-line :where(span[style^='--']:not([class])) {
+  color: var(--0, inherit) !important;
+  font-style: var(--0fs, inherit) !important;
+  font-weight: var(--0fw, inherit) !important;
+  text-decoration: var(--0td, inherit) !important;
+}
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @custom-variant dark (&:where(.dark, .dark *));
 

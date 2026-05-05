@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets'
 import { SITE_TITLE } from '../config'
 import Category from './Category.astro'
 import Link from './Link.astro'
@@ -6,6 +7,7 @@ import SocialLinks from './SocialLinks.astro'
 import { getCollection } from 'astro:content'
 import Wrapper from './Wrapper.astro'
 import Hero from './dev-workflow-intro-guide/Hero.astro'
+import profileCircle from '~/assets/joshmedeski-profile-circle.png'
 
 const today = new Date()
 interface Props {
@@ -15,9 +17,13 @@ const { hideCta } = Astro.props
 const categories = await getCollection('categories')
 ---
 
-{hideCta ? null : <Hero />}
-
-<footer class="bg-neutral-950 pt-16" aria-labelledby="footer-heading" id="menu">
+<!-- {hideCta ? null : <Hero />} -->
+<footer
+  class="bg-neutral-950 pt-16"
+  aria-labelledby="footer-heading"
+  id="menu"
+  data-pagefind-ignore
+>
   <h2 class="sr-only">Footer</h2>
   <Wrapper>
     <div class="gap-4 lg:grid lg:grid-cols-6 lg:gap-6">
@@ -33,10 +39,10 @@ const categories = await getCollection('categories')
         </div>
 
         <nav class="mb-8 flex flex-wrap items-center gap-6 sm:hidden">
-          <Link href="/videos">Videos</Link>
           <Link href="/posts">Posts</Link>
-          <Link href="/guides">Guides</Link>
+          <Link href="/videos">Videos</Link>
           <Link href="/projects">Projects</Link>
+          <Link href="/guides">Guides</Link>
           <Link href="/about">About</Link>
           <Link href="/uses">Uses</Link>
           <Link href="/search">Search</Link>
@@ -45,10 +51,13 @@ const categories = await getCollection('categories')
         <div>
           <h3 class="mb-1 font-bold">Find me online</h3>
           <div class="flex flex-wrap items-center gap-6">
-            <img
-              src="/joshmedeski-profile-circle.png"
+            <Image
+              src={profileCircle}
               alt="Josh's profile"
+              width={40}
+              height={40}
               class="w-10"
+              loading="lazy"
             />
             <SocialLinks />
           </div>

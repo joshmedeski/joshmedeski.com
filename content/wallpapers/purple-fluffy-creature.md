@@ -1,0 +1,7 @@
+---
+title: Purple Fluffy Creature
+image: >-
+  ../attachments/wallpapers/joshmedeski-envision-an-adorably-charming-fluffy-creature-the-e-242ef933-be68-4cea-b5c9-5ed654cf2dce.jpeg
+width: 2912
+height: 1632
+---

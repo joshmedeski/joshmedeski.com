@@ -36,6 +36,7 @@ const { Content } = await render(category)
   title={category.data.title}
   description={category.data.desc}
   themeColor={category.data.style.themeColor}
+  noIndex
 >
   <header
     class={clsx('text-center flex-grow pb-12', category.data.style.container)}

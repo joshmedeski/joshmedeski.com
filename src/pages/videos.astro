@@ -14,7 +14,7 @@ const posts = await getCollection('posts').then((p) =>
 )
 ---
 
-<Layout title="Videos">
+<Layout title="Videos" noIndex>
   <Wrapper>
     <PageTitle>Videos</PageTitle>
     <Posts posts={posts} />

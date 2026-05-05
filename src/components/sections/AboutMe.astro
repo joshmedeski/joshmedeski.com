@@ -2,14 +2,16 @@
 import { Image } from 'astro:assets'
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../config'
 import SocialLinks from '../SocialLinks.astro'
+import profileCircle from '~/assets/joshmedeski-profile-circle.png'
 ---
 
 <section class="flex flex-col items-center justify-center gap-8 sm:flex-row">
   <Image
-    src="/joshmedeski-profile-circle.png"
+    src={profileCircle}
     alt="Josh Medeski"
-    width="200"
-    height="200"
+    width={200}
+    height={200}
+    loading="eager"
   />
 
   <div class="text-center sm:text-left">
