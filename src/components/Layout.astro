@@ -4,6 +4,7 @@ import Footer from './LayoutFooter.astro'
 import Head from './LayoutHead.astro'
 import type { Props as HeadProps } from './LayoutHead.astro'
 import Header from './LayoutHeader.astro'
+import Search from './Search.astro'
 import clsx from 'clsx'
 
 interface Props extends HeadProps {
@@ -31,6 +32,7 @@ const props = Astro.props
       <slot />
     </main>
     <Footer hideCta={props.hideCta} />
+    <Search />
 
     <script is:inline>
       const getTheme = () =>
@@ -38,28 +40,55 @@ const props = Astro.props
           ? 'dark'
           : 'light'
 
-      document.documentElement.dataset.theme = getTheme()
+      const applyTheme = (element, theme) => {
+        element.dataset.theme = theme
+        element.dataset.pfTheme = theme
+      }
+
+      applyTheme(document.documentElement, getTheme())
 
       window
         .matchMedia('(prefers-color-scheme: dark)')
         .addEventListener('change', (event) => {
-          document.documentElement.dataset.theme = event.matches
-            ? 'dark'
-            : 'light'
+          applyTheme(document.documentElement, event.matches ? 'dark' : 'light')
         })
 
       document.addEventListener('astro:page-load', () => {
-        document.documentElement.dataset.theme = getTheme()
+        applyTheme(document.documentElement, getTheme())
       })
 
       document.addEventListener('astro:before-swap', (event) => {
-        event.newDocument.documentElement.dataset.theme = getTheme()
+        applyTheme(event.newDocument.documentElement, getTheme())
       })
+
+      const openSearchModal = async () => {
+        try {
+          await customElements.whenDefined('pagefind-modal')
+        } catch (err) {
+          console.warn('pagefind-modal registration failed', err)
+          return
+        }
+
+        const modal = document.getElementById('site-search-modal')
+        if (modal && typeof modal.open === 'function') {
+          modal.open()
+        } else {
+          console.warn('pagefind-modal instance not ready', modal)
+        }
+      }
 
       document.addEventListener('keydown', (event) => {
         if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
           event.preventDefault()
-          window.location.href = '/search'
+          openSearchModal()
+        }
+      })
+
+      document.addEventListener('click', (event) => {
+        const trigger = event.target?.closest?.('[data-search-trigger]')
+        if (trigger) {
+          event.preventDefault()
+          openSearchModal()
         }
       })
     </script>

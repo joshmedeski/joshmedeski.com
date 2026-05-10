@@ -1,7 +1,13 @@
 ---
-import Search from 'astro-pagefind/components/Search'
+import { join } from 'node:path/posix'
+
+const bundlePath = join(import.meta.env.BASE_URL, 'pagefind/')
 ---
 
-<section class="max-w-xl mx-auto mb-6 pagefind-ui custom-pagefind-ui">
-  <Search id="search" uiOptions={{ showImages: false }} />
-</section>
+<link rel="stylesheet" href={`${bundlePath}pagefind-component-ui.css`} />
+<script is:inline type="module" src={`${bundlePath}pagefind-component-ui.js`}
+></script>
+
+<pagefind-config bundle-path={bundlePath}></pagefind-config>
+<pagefind-modal id="site-search-modal" class="custom-pagefind-ui"
+></pagefind-modal>
