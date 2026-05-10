@@ -39,8 +39,8 @@ importers:
         specifier: ^0.40.1
         version: 0.40.1(astro@5.2.5(@netlify/blobs@8.1.2)(@types/node@22.19.18)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1))
       astro-pagefind:
-        specifier: file:../astro-pagefind-experimental/packages/astro-pagefind
-        version: file:../astro-pagefind-experimental/packages/astro-pagefind(astro@5.2.5(@netlify/blobs@8.1.2)(@types/node@22.19.18)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1))
+        specifier: ^2.0.0
+        version: 2.0.0(astro@5.2.5(@netlify/blobs@8.1.2)(@types/node@22.19.18)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1))
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -2048,8 +2048,8 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0
 
-  astro-pagefind@file:../astro-pagefind-experimental/packages/astro-pagefind:
-    resolution: {directory: ../astro-pagefind-experimental/packages/astro-pagefind, type: directory}
+  astro-pagefind@2.0.0:
+    resolution: {integrity: sha512-i270YlJ/8aX/eRkvtuAPANSk+WK1uyp9DEj/TuuWem4pA0xBUGQk7agNFdu71nRxtH0j7TZxee2qwQRlrfZa1g==}
     peerDependencies:
       astro: ^2.0.4 || ^3 || ^4 || ^5 || ^6
 
@@ -8819,7 +8819,7 @@ snapshots:
       astro: 5.2.5(@netlify/blobs@8.1.2)(@types/node@22.19.18)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1)
       rehype-expressive-code: 0.40.1
 
-  astro-pagefind@file:../astro-pagefind-experimental/packages/astro-pagefind(astro@5.2.5(@netlify/blobs@8.1.2)(@types/node@22.19.18)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1)):
+  astro-pagefind@2.0.0(astro@5.2.5(@netlify/blobs@8.1.2)(@types/node@22.19.18)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1)):
     dependencies:
       '@pagefind/component-ui': 1.5.2
       astro: 5.2.5(@netlify/blobs@8.1.2)(@types/node@22.19.18)(jiti@2.4.2)(lightningcss@1.29.1)(rollup@4.34.6)(sass@1.84.0)(typescript@5.7.3)(yaml@2.7.1)
