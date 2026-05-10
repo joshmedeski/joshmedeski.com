@@ -1,4 +1,5 @@
 import { useThree } from '@react-three/fiber'
+import { useControls } from 'leva'
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 
@@ -10,6 +11,7 @@ interface CameraControlsProps {
   zoomSpeed?: number
   minDistance?: number
   maxDistance?: number
+  initialDistance?: number
 }
 
 export default function CameraControls({
@@ -20,12 +22,42 @@ export default function CameraControls({
   zoomSpeed = 0.1,
   minDistance = 1,
   maxDistance = 100,
+  initialDistance = 5,
 }: CameraControlsProps) {
   const { camera, gl } = useThree()
   const mouseRef = useRef({ x: 0, y: 0, isDown: false })
   const targetRef = useRef(new THREE.Vector3())
   const rotationRef = useRef({ x: 0, y: 0 })
-  const distanceRef = useRef(5)
+  const distanceRef = useRef(initialDistance)
+
+  const [
+    {
+      zoomSpeed: levaZoomSpeed,
+      minDistance: levaMinDistance,
+      maxDistance: levaMaxDistance,
+      distance: levaDistance,
+    },
+    set,
+  ] = useControls(
+    'Camera Zoom',
+    () => ({
+      zoomSpeed: { value: zoomSpeed, min: 0.001, max: 1, step: 0.001 },
+      minDistance: { value: minDistance, min: 0.1, max: 100, step: 0.1 },
+      maxDistance: { value: maxDistance, min: 1, max: 500, step: 1 },
+      distance: {
+        value: initialDistance,
+        min: -2,
+        max: 20,
+        step: 0.1,
+        label: 'Zoom Level',
+      },
+    }),
+    [zoomSpeed, minDistance, maxDistance, initialDistance],
+  )
+
+  useEffect(() => {
+    distanceRef.current = levaDistance
+  }, [levaDistance])
 
   useEffect(() => {
     if (!enable) return
@@ -79,11 +111,13 @@ export default function CameraControls({
     const handleWheel = (event: WheelEvent) => {
       event.preventDefault()
 
-      const delta = event.deltaY * zoomSpeed * 0.01
-      distanceRef.current = Math.max(
-        minDistance,
-        Math.min(maxDistance, distanceRef.current + delta),
+      const delta = event.deltaY * levaZoomSpeed * 0.01
+      const newDistance = Math.max(
+        levaMinDistance,
+        Math.min(levaMaxDistance, distanceRef.current + delta),
       )
+      distanceRef.current = newDistance
+      set({ distance: newDistance })
     }
 
     const updateCamera = () => {
@@ -135,9 +169,10 @@ export default function CameraControls({
     damping,
     rotationSpeed,
     panSpeed,
-    zoomSpeed,
-    minDistance,
-    maxDistance,
+    levaZoomSpeed,
+    levaMinDistance,
+    levaMaxDistance,
+    set, // Added set to dependency array
   ])
 
   return null
