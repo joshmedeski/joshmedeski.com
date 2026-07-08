@@ -51,7 +51,9 @@ const { Content } = await render(use)
       <div class="space-y-4">
         <h1 class="text-5xl font-bold">{use.data.title}</h1>
         <p>{use.data.description}</p>
-        <Content components={{ GhRepo, Image }} />
+        <div class="prose prose-invert max-w-full">
+          <Content components={{ GhRepo, Image }} />
+        </div>
       </div>
     </section>
 
