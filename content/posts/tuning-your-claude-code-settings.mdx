@@ -219,60 +219,6 @@ I don't want Claude co-authoring my commits.
 }
 ```
 
-## Hooks
-
-Mine are heavier than most starter configs. Three do the real work: a desktop notifier on `Notification` events, a leaderkey config reorder after any `Write`/`Edit`, and the [RTK](https://github.com/rtk-ai/rtk) hook on every Bash call. RTK is a Rust CLI proxy that compresses verbose command output (`git status`, test runs, `ls`, and 100+ others) into token-efficient summaries; the hook transparently rewrites each command to its `rtk` equivalent, cutting 60–90% of the tokens those outputs would otherwise eat.
-
-```json
-{
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "permission_prompt",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/path/to/claude-notifier.sh Notification permission_prompt"
-          }
-        ]
-      },
-      {
-        "matcher": "idle_prompt",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/path/to/claude-notifier.sh Notification idle_prompt"
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [{ "type": "command", "command": "rtk hook claude" }]
-      }
-    ]
-  }
-}
-```
-
-The valid hook events include `PreToolUse`, `PostToolUse`, `Notification`, `Stop`, `SubagentStop`, `PreCompact`, `SessionStart`, and more. The schema lists them all once you've wired up `$schema`.
-
-## Status line
-
-I run a custom status line via a compiled command rather than the `/statusline` generator. It's more capable and feeds data to a separate watcher.
-
-```json
-{
-  "statusLine": {
-    "type": "command",
-    "command": "node /path/to/claude-statusline.mjs"
-  }
-}
-```
-
-`type` is either `command` (run a script) or `static` (a fixed string).
-
 ## Spinner verbs
 
 A small joy: I replace the default spinner text with my own list. `mode` is `replace` (swap the whole list) or `append` (add to it). Because I like these, I deliberately do **not** set `spinnerTipsEnabled: false`.
