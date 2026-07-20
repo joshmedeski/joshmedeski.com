@@ -65,6 +65,18 @@ describe('getPageviewsByPathname', () => {
     vi.unstubAllEnvs()
   })
 
+  it('normalizes trailing slashes so pathnames match the no-slash lookup key', async () => {
+    vi.stubEnv('FATHOM_API_KEY', 'test-token')
+    server.use(
+      http.get(AGG_URL, () =>
+        HttpResponse.json([{ pathname: '/posts/foo/', pageviews: '42' }]),
+      ),
+    )
+    const map = await getPageviewsByPathname()
+    expect(map.get('/posts/foo')).toBe(42)
+    vi.unstubAllEnvs()
+  })
+
   it('returns an empty map when the token is missing', async () => {
     vi.stubEnv('FATHOM_API_KEY', '')
     const map = await getPageviewsByPathname()

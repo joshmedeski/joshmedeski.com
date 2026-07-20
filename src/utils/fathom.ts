@@ -25,6 +25,8 @@ const FATHOM_AGGREGATIONS_URL = 'https://api.usefathom.com/v1/aggregations'
 
 type FathomAggregationRow = { pathname: string; pageviews: string }
 
+// Serialized in UTC from the build machine's clock (toISOString); a few hours of
+// timezone skew in date_to is immaterial when totaling lifetime pageviews.
 function fathomTimestamp(date: Date): string {
   return date.toISOString().slice(0, 19).replace('T', ' ')
 }
@@ -57,7 +59,12 @@ export async function getPageviewsByPathname(): Promise<Map<string, number>> {
     }
     const rows = (await res.json()) as FathomAggregationRow[]
     return new Map(
-      rows.map((row) => [row.pathname, parseInt(row.pageviews, 10) || 0]),
+      rows.map((row) => {
+        // Normalize away a trailing slash so keys match rankPosts' `/posts/<id>` lookup —
+        // Astro's directory build format serves posts at `/posts/<id>/`.
+        const key = row.pathname.replace(/\/+$/, '') || '/'
+        return [key, parseInt(row.pageviews, 10) || 0]
+      }),
     )
   } catch (error) {
     console.warn('[fathom] aggregations request errored:', error)
