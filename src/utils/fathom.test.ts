@@ -1,5 +1,9 @@
 import { describe, it, expect } from 'vitest'
-import { rankPosts } from './fathom'
+import { http, HttpResponse } from 'msw'
+import { vi } from 'vitest'
+import { rankPosts, getPageviewsByPathname } from './fathom'
+// @ts-expect-error - cjs mock module has no types
+import { server } from '../../mocks/index.cjs'
 
 type TestPost = { id: string; data: { pubDate: Date } }
 
@@ -39,5 +43,40 @@ describe('rankPosts', () => {
       'older-nodata',
     ])
     expect(ranked.map((r) => r.pageviews)).toEqual([5, 0, 0])
+  })
+})
+
+const AGG_URL = 'https://api.usefathom.com/v1/aggregations'
+
+describe('getPageviewsByPathname', () => {
+  it('parses string counts into a pathname->int map', async () => {
+    vi.stubEnv('FATHOM_API_KEY', 'test-token')
+    server.use(
+      http.get(AGG_URL, () =>
+        HttpResponse.json([
+          { pathname: '/posts/a', pageviews: '1200' },
+          { pathname: '/posts/b', pageviews: '30' },
+        ]),
+      ),
+    )
+    const map = await getPageviewsByPathname()
+    expect(map.get('/posts/a')).toBe(1200)
+    expect(map.get('/posts/b')).toBe(30)
+    vi.unstubAllEnvs()
+  })
+
+  it('returns an empty map when the token is missing', async () => {
+    vi.stubEnv('FATHOM_API_KEY', '')
+    const map = await getPageviewsByPathname()
+    expect(map.size).toBe(0)
+    vi.unstubAllEnvs()
+  })
+
+  it('returns an empty map on a failed request', async () => {
+    vi.stubEnv('FATHOM_API_KEY', 'test-token')
+    server.use(http.get(AGG_URL, () => new HttpResponse(null, { status: 500 })))
+    const map = await getPageviewsByPathname()
+    expect(map.size).toBe(0)
+    vi.unstubAllEnvs()
   })
 })
