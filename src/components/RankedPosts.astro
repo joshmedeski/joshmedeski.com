@@ -1,0 +1,68 @@
+---
+import { Image } from 'astro:assets'
+import type { RankedPost } from '../utils/fathom'
+
+interface Props {
+  posts: RankedPost[]
+}
+
+const { posts } = Astro.props
+const format = new Intl.NumberFormat('en-US')
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+  dateStyle: 'medium',
+  timeZone: 'UTC',
+})
+const maxViews = Math.max(0, ...posts.map(({ pageviews }) => pageviews))
+---
+
+<ol class="flex flex-col gap-1">
+  {
+    posts.map(({ post, pageviews }, index) => {
+      const width = maxViews > 0 ? (pageviews / maxViews) * 100 : 0
+      const thumbnail = post.data.thumbnail ?? post.data.heroImage
+      return (
+        <li>
+          <a
+            href={`/posts/${post.id}`}
+            data-astro-prefetch
+            class="group -mx-2 flex items-center gap-3 rounded-lg px-2 py-3 transition-colors hover:bg-white/[0.06] sm:gap-4"
+          >
+            <span class="w-6 shrink-0 text-right text-sm tabular-nums text-neutral-500">
+              {index + 1}
+            </span>
+            <Image
+              src={thumbnail}
+              alt=""
+              width={192}
+              height={108}
+              class="aspect-video w-20 shrink-0 rounded-md bg-black object-cover outline outline-1 -outline-offset-1 outline-black/10 sm:w-24 dark:outline-white/10"
+            />
+            <div class="min-w-0 flex-1">
+              <span class="block truncate text-pretty font-medium group-hover:underline">
+                {post.data.title}
+              </span>
+              <span class="mt-0.5 block text-xs text-neutral-500">
+                {dateFormat.format(post.data.pubDate)}
+              </span>
+              <div class="mt-1.5 flex items-center gap-3">
+                <div class="relative h-3 flex-1 overflow-hidden rounded-full bg-white/10">
+                  <div
+                    class="absolute inset-y-0 left-0 rounded-full bg-primary-500"
+                    style={`width: ${width}%`}
+                    aria-hidden="true"
+                  />
+                </div>
+                <span
+                  class="w-16 shrink-0 text-right text-sm tabular-nums text-neutral-500"
+                  aria-label={`${format.format(pageviews)} views`}
+                >
+                  {format.format(pageviews)}
+                </span>
+              </div>
+            </div>
+          </a>
+        </li>
+      )
+    })
+  }
+</ol>

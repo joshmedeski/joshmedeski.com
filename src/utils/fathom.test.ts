@@ -1,0 +1,92 @@
+import { describe, it, expect } from 'vitest'
+import { http, HttpResponse } from 'msw'
+import { rankPosts, fetchPageviews, pageviewsFromRecord } from './fathom'
+// @ts-expect-error - cjs mock module has no types
+import { server } from '../../mocks/index.cjs'
+
+type TestPost = { id: string; data: { pubDate: Date } }
+
+const post = (id: string, pubDate: string): TestPost => ({
+  id,
+  data: { pubDate: new Date(pubDate) },
+})
+
+describe('rankPosts', () => {
+  it('sorts posts by pageviews descending', () => {
+    const posts = [
+      post('low', '2020-01-01'),
+      post('high', '2020-01-02'),
+      post('mid', '2020-01-03'),
+    ] as any
+    const views = new Map([
+      ['/posts/low', 10],
+      ['/posts/high', 100],
+      ['/posts/mid', 50],
+    ])
+    const ranked = rankPosts(posts, views)
+    expect(ranked.map((r) => r.post.id)).toEqual(['high', 'mid', 'low'])
+    expect(ranked.map((r) => r.pageviews)).toEqual([100, 50, 10])
+  })
+
+  it('defaults missing posts to 0 views and falls back to pubDate desc', () => {
+    const posts = [
+      post('older-nodata', '2020-01-01'),
+      post('newer-nodata', '2020-06-01'),
+      post('hasviews', '2019-01-01'),
+    ] as any
+    const views = new Map([['/posts/hasviews', 5]])
+    const ranked = rankPosts(posts, views)
+    expect(ranked.map((r) => r.post.id)).toEqual([
+      'hasviews',
+      'newer-nodata',
+      'older-nodata',
+    ])
+    expect(ranked.map((r) => r.pageviews)).toEqual([5, 0, 0])
+  })
+})
+
+describe('pageviewsFromRecord', () => {
+  it('rebuilds a Map from a snapshot record', () => {
+    const map = pageviewsFromRecord({ '/posts/a': 1200, '/posts/b': 30 })
+    expect(map.get('/posts/a')).toBe(1200)
+    expect(map.get('/posts/b')).toBe(30)
+    expect(map.size).toBe(2)
+  })
+})
+
+const AGG_URL = 'https://api.usefathom.com/v1/aggregations'
+
+describe('fetchPageviews', () => {
+  it('parses string counts into a pathname->int map', async () => {
+    server.use(
+      http.get(AGG_URL, () =>
+        HttpResponse.json([
+          { pathname: '/posts/a', pageviews: '1200' },
+          { pathname: '/posts/b', pageviews: '30' },
+        ]),
+      ),
+    )
+    const map = await fetchPageviews('test-token')
+    expect(map.get('/posts/a')).toBe(1200)
+    expect(map.get('/posts/b')).toBe(30)
+  })
+
+  it('normalizes trailing slashes so pathnames match the no-slash lookup key', async () => {
+    server.use(
+      http.get(AGG_URL, () =>
+        HttpResponse.json([{ pathname: '/posts/foo/', pageviews: '42' }]),
+      ),
+    )
+    const map = await fetchPageviews('test-token')
+    expect(map.get('/posts/foo')).toBe(42)
+  })
+
+  it('throws when the token is missing', async () => {
+    await expect(fetchPageviews('')).rejects.toThrow(/FATHOM_API_KEY/)
+  })
+
+  it('throws on a failed request', async () => {
+    server.use(http.get(AGG_URL, () => new HttpResponse(null, { status: 500 })))
+    await expect(fetchPageviews('test-token')).rejects.toThrow(/500/)
+  })
+})

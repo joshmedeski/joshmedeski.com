@@ -19,8 +19,9 @@ const { title, description, themeColor, image } = Astro.props
 
 const socialImage = await getImage({
   src: image ?? defaultSocialImage,
-  width: 1024,
-  height: 768,
+  width: 1200,
+  height: 630,
+  fit: 'cover',
   format: 'jpeg',
 })
 
@@ -51,6 +52,9 @@ const socialImageUrl = new URL(socialImage.src, Astro.url)
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={socialImageUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
@@ -58,8 +62,8 @@ const socialImageUrl = new URL(socialImage.src, Astro.url)
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={socialImageUrl} />
-  <meta name="twitter:image:width" content="1024" />
-  <meta name="twitter:image:height" content="768" />
+  <meta name="twitter:image:width" content="1200" />
+  <meta name="twitter:image:height" content="630" />
 
   <!-- Use Fathom Analytics cSpell:word VLMOLRDQ -->
   {
