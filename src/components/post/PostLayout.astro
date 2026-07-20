@@ -24,10 +24,8 @@ const category = await getEntry(post.data.category)
   <section class="pt-16">
     <Wrapper>
       <div data-pagefind-body>
-        <header
-          class="mb-12 flex flex-col gap-6 md:flex-row md:items-center md:gap-10"
-        >
-          <div class="relative aspect-video w-full md:flex-[1_1_55%]">
+        <header class="mb-12 flex flex-col gap-6">
+          <div class="relative aspect-video w-full">
             {
               post.data.youtubeUrl && (
                 <div class="animate-fade-in absolute inset-0 z-20 w-full rounded-xl shadow-lg">
@@ -56,7 +54,7 @@ const category = await getEntry(post.data.category)
             />
           </div>
 
-          <div class="text-center lg:text-left md:flex-[1_1_45%]">
+          <div class="text-center">
             <h1 class="mb-4 text-4xl font-extrabold md:text-6xl">
               {post.data.title}
             </h1>
