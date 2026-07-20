@@ -5,9 +5,10 @@ import PageTitle from '../components/PageTitle.astro'
 import Wrapper from '../components/Wrapper.astro'
 import Posts from '../components/Posts.astro'
 
+const includeDrafts = import.meta.env.DEV
 const posts = await getCollection(
   'posts',
-  ({ data: { draft } }) => !draft,
+  ({ data: { draft } }) => includeDrafts || !draft,
 ).then((p) =>
   p.sort(
     ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime(),
