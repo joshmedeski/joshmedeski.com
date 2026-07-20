@@ -5,9 +5,11 @@ import { DateIcon, DurationIcon, GuideIcon } from '../icons/index.astro'
 
 interface Props {
   post: CollectionEntry<'posts'>
+  align?: 'left' | 'center'
 }
 
 const {
+  align = 'center',
   post: {
     data: { pubDate, duration, guide: postGuide, category: postCategory },
   },
@@ -20,7 +22,10 @@ if (postGuide) guide = await getEntry(postGuide.ref)
 ---
 
 <div
-  class="flex w-full flex-wrap items-center justify-center gap-5 text-base font-medium md:text-lg"
+  class:list={[
+    'flex w-full flex-wrap items-center gap-5 text-base font-medium md:text-lg',
+    align === 'left' ? 'justify-start' : 'justify-center',
+  ]}
 >
   <a href={`/categories/${category.id}`} class={'flex items-center'}>
     <CategoryIcon id={postCategory.id} class="mr-1 h-5" />
