@@ -19,23 +19,25 @@ let guide: CollectionEntry<'guides'> | undefined
 if (postGuide) guide = await getEntry(postGuide.ref)
 ---
 
-<div class="flex w-full flex-wrap gap-4 font-medium">
+<div
+  class="flex w-full flex-wrap items-center justify-center gap-5 text-base font-medium md:text-lg"
+>
   <a href={`/categories/${category.id}`} class={'flex items-center'}>
-    <CategoryIcon id={postCategory.id} class="mr-1 h-4" />
+    <CategoryIcon id={postCategory.id} class="mr-1 h-5" />
     <span class={category.data.style.title}>{category.data.title}</span>
   </a>
 
   {
     guide && (
       <a href={`/guides/${guide.id}`} class="flex items-center">
-        <GuideIcon class="mr-2 w-4" />
+        <GuideIcon class="mr-2 w-5" />
         <span>{guide.data.title}</span>
       </a>
     )
   }
 
   <div class="flex items-center">
-    <DateIcon class="mr-2 h-4" />
+    <DateIcon class="mr-2 h-5" />
     <span>
       <time>
         {
@@ -52,7 +54,7 @@ if (postGuide) guide = await getEntry(postGuide.ref)
   {
     duration && (
       <div class="flex items-center">
-        <DurationIcon class="mr-2 w-4" />
+        <DurationIcon class="mr-2 w-5" />
         <span>{duration}</span>
       </div>
     )
