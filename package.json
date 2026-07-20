@@ -14,6 +14,7 @@
     "dev-msw": "cross-env NODE_ENV=development binode --require ./mocks/index.cjs -- netlify-cli:netlify dev",
     "format": "prettier --write .",
     "preview": "astro preview",
+    "refresh:stats": "node --env-file=.env scripts/refresh-stats.ts",
     "pagefind:playground": "pnpm run build && pnpx pagefind --site dist --serve",
     "start": "astro dev --host",
     "sync": "astro sync",

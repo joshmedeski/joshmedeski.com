@@ -13,10 +13,18 @@
 - Preact for interaction
 - Depolyed on Netlify
 
-## Environment variables
+## Ranked posts stats
 
-- `FATHOM_API_KEY` — Fathom Analytics personal API token (create at
-  https://app.usefathom.com/api). Used at build time to rank posts by lifetime
-  pageviews on `/posts/ranked`. Set it in the Netlify build environment and, for
-  local builds, in a `.env` file. Without it the page still builds (view counts
-  show `0`).
+`/posts/ranked` ranks posts by lifetime pageviews from a **committed snapshot**
+at `src/data/pageviews.json`, so normal builds never change the numbers.
+
+Refresh the snapshot manually (not automatic):
+
+```sh
+pnpm refresh:stats
+```
+
+This fetches Fathom, rewrites `src/data/pageviews.json` (with a `fetchedAt`
+timestamp shown on the page), and you commit the result. Requires
+`FATHOM_API_KEY` in a local `.env` file — a Fathom personal API token from
+https://app.usefathom.com/api. The build itself needs no Fathom access.
