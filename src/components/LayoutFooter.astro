@@ -37,16 +37,19 @@ const { hideCta } = Astro.props
           </p>
         </div>
 
-        <div class="flex items-center gap-4">
-          <Image
-            src={profileCircle}
-            alt="Josh's profile"
-            width={40}
-            height={40}
-            class="w-10 shrink-0"
-            loading="lazy"
-          />
-          <SocialLinks iconSize="h-6" />
+        <div>
+          <h3 class="mb-3 font-bold">Follow me on social</h3>
+          <div class="flex items-center gap-4">
+            <Image
+              src={profileCircle}
+              alt="Josh's profile"
+              width={40}
+              height={40}
+              class="w-10 shrink-0"
+              loading="lazy"
+            />
+            <SocialLinks iconSize="h-6" />
+          </div>
         </div>
       </div>
 
