@@ -20,16 +20,15 @@ const category = await getEntry(post.data.category)
   image={post.data.heroImage}
   themeColor={category?.data.style.themeColor}
 >
-  <div class={`mb-[20px] md:pt-[350px] ${category?.data.style.themeColor}`}>
-  </div>
-  <section class="md:-mt-[300px]">
+  <div class={`mb-[20px] ${category?.data.style.themeColor}`}></div>
+  <section class="pt-16">
     <Wrapper>
-      <section class="mb-20 md:flex md:flex-row-reverse">
-        <div class="relative aspect-video flex-auto">
-          <div class="z-40 w-full md:sticky md:top-4 md:mb-[450px]">
+      <article class="mx-auto max-w-[680px]" data-pagefind-body>
+        <header class="post-header mb-10" data-layout="A">
+          <div class="post-header__media relative aspect-video w-full">
             {
               post.data.youtubeUrl && (
-                <div class="absolute animate-fade-in z-20 w-full rounded-xl shadow-lg md:top-0">
+                <div class="post-header__video animate-fade-in absolute inset-0 z-20 w-full rounded-xl shadow-lg">
                   <iframe
                     width="100%"
                     height="100%"
@@ -45,7 +44,7 @@ const category = await getEntry(post.data.category)
             <Image
               class:list={[
                 post.data.heroClasses,
-                'absolute top-0 z-10 aspect-video w-full rounded-xl bg-black shadow-lg',
+                'absolute inset-0 z-10 aspect-video w-full rounded-xl bg-black shadow-lg',
               ]}
               src={post.data.heroImage}
               width="1640"
@@ -54,24 +53,21 @@ const category = await getEntry(post.data.category)
               transition:name={`post-${post.id}-thumb`}
             />
           </div>
-        </div>
 
-        <article class="max-w-prose flex-none" data-pagefind-body>
-          <h1 class="mb-6 mt-10 text-2xl font-extrabold md:mr-6 md:text-4xl">
-            {post.data.title}
-          </h1>
-
-          <div class="mb-4 md:mr-6">
-            <PostMeta post={post} />
+          <div class="post-header__text mt-8">
+            <h1 class="post-title mb-4 text-4xl font-extrabold md:text-6xl">
+              {post.data.title}
+            </h1>
+            <div class="post-meta">
+              <PostMeta post={post} />
+            </div>
           </div>
+        </header>
 
-          <main
-            class="prose prose-invert max-w-full rounded-lg bg-neutral-900 py-5 md:-ml-6 md:px-6"
-          >
-            <slot />
-          </main>
-        </article>
-      </section>
+        <main class="prose prose-invert prose-lg max-w-full">
+          <slot />
+        </main>
+      </article>
     </Wrapper>
     <slot name="after-post" />
   </section>
