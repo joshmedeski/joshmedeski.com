@@ -24,8 +24,12 @@ const category = await getEntry(post.data.category)
   <section class="pt-16">
     <Wrapper>
       <div data-pagefind-body>
-        <header class="post-header mb-12">
-          <div class="post-header__media relative aspect-video w-full">
+        <header
+          class="post-header mb-12 flex flex-col gap-6 md:flex-row md:items-center md:gap-10"
+        >
+          <div
+            class="post-header__media relative aspect-video w-full md:flex-[1_1_55%]"
+          >
             {
               post.data.youtubeUrl && (
                 <div class="post-header__video animate-fade-in absolute inset-0 z-20 w-full rounded-xl shadow-lg">
@@ -54,7 +58,7 @@ const category = await getEntry(post.data.category)
             />
           </div>
 
-          <div class="post-header__text">
+          <div class="post-header__text text-center md:flex-[1_1_45%]">
             <h1 class="post-title mb-4 text-4xl font-extrabold md:text-6xl">
               {post.data.title}
             </h1>
@@ -74,30 +78,3 @@ const category = await getEntry(post.data.category)
     <slot name="after-post" />
   </section>
 </Layout>
-
-<style>
-  /* Full-width header. Mobile: thumbnail on top, title + meta below.
-     md+: thumbnail on the left, title + meta centered to the right. */
-  .post-header {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  .post-header__text {
-    text-align: center;
-  }
-
-  @media (min-width: 768px) {
-    .post-header {
-      flex-direction: row;
-      align-items: center;
-      gap: 2.5rem;
-    }
-    .post-header__media {
-      flex: 1 1 55%;
-    }
-    .post-header__text {
-      flex: 1 1 45%;
-    }
-  }
-</style>
