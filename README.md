@@ -12,3 +12,11 @@
 - Tailwind CSS for styling
 - Preact for interaction
 - Depolyed on Netlify
+
+## Environment variables
+
+- `FATHOM_API_KEY` — Fathom Analytics personal API token (create at
+  https://app.usefathom.com/api). Used at build time to rank posts by lifetime
+  pageviews on `/posts/ranked`. Set it in the Netlify build environment and, for
+  local builds, in a `.env` file. Without it the page still builds (view counts
+  show `0`).

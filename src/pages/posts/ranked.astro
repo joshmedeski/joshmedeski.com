@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '../../components/Layout.astro'
+import PageTitle from '../../components/PageTitle.astro'
+import Wrapper from '../../components/Wrapper.astro'
+import RankedPosts from '../../components/RankedPosts.astro'
+import { getPageviewsByPathname, rankPosts } from '../../utils/fathom'
+
+const includeDrafts = import.meta.env.DEV
+const posts = await getCollection(
+  'posts',
+  ({ data: { draft } }) => includeDrafts || !draft,
+)
+const viewsByPathname = await getPageviewsByPathname()
+const ranked = rankPosts(posts, viewsByPathname)
+---
+
+<Layout title="Ranked Posts">
+  <Wrapper>
+    <PageTitle>Ranked Posts</PageTitle>
+    <RankedPosts posts={ranked} />
+  </Wrapper>
+</Layout>
