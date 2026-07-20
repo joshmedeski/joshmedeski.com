@@ -35,23 +35,20 @@ const { hideCta } = Astro.props
           </p>
         </div>
 
-        <div class="space-y-4">
+        <div class="flex items-center gap-4">
           <Image
             src={profileCircle}
             alt="Josh's profile"
             width={40}
             height={40}
-            class="w-10"
+            class="w-10 shrink-0"
             loading="lazy"
           />
           <SocialLinks iconSize="h-6" />
         </div>
       </div>
 
-      <nav
-        class="mt-12 grid grid-cols-2 gap-8 md:mt-0 lg:col-span-4"
-        aria-label="Sitemap"
-      >
+      <nav class="mt-12 flex gap-12 md:mt-0 lg:col-span-4" aria-label="Sitemap">
         <div>
           <h3 class="mb-3 font-bold">Content</h3>
           <ul class="space-y-2 text-neutral-400">
