@@ -63,14 +63,14 @@ const category = await getEntry(post.data.category)
           </header>
         </Wrapper>
       </section>
+    </div>
 
-      <div
-        class="mx-auto max-w-[760px] -mt-32 rounded-t-[2.5rem] bg-black px-6 pt-8 md:px-10 md:pt-10"
-      >
-        <main class="prose prose-invert prose-lg max-w-full pb-16 md:pb-20">
-          <slot />
-        </main>
-      </div>
+    <div
+      class="mx-auto max-w-[760px] -mt-32 rounded-t-[2.5rem] bg-black px-6 pt-8 md:px-10 md:pt-10"
+    >
+      <main class="prose prose-invert prose-lg max-w-full pb-16 md:pb-20">
+        <slot />
+      </main>
     </div>
   </div>
   <slot name="after-post" />
