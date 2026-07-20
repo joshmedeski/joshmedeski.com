@@ -1,0 +1,348 @@
+---
+title: Tuning Your Claude Code Settings
+pubDate: 2026-07-20T12:00:00.000Z
+updatedDate: '2026-07-20'
+description: >-
+  A short guide to the Claude Code settings I've changed, why I changed them,
+  and the community tips I evaluated but skipped.
+heroImage: >-
+  ../attachments/posts/tuning-your-claude-code-settings/tuning-your-claude-code-settings.jpeg
+category: dotfiles
+draft: true
+---
+
+> [!NOTE] Last edited: July 20, 2026
+> This is a living post. I tweak my Claude Code setup constantly, so I'll keep this updated and bump the date whenever I do.
+
+Claude Code ships with a ton of features, and not all of them are useful. Some of them actively get in the way. There are also a lot of options for tuning it, enough that it gets overwhelming fast. So this is a short guide to everything I've done to tune my Claude Code settings, and why. I hope it helps you.
+
+Every JSON block below is copy-ready. Drop the pieces you want into your own `settings.json`, and the `$schema` line validates them as you go, which is exactly why that's the first thing to set up.
+
+## Start with the schema
+
+The single most helpful change is one line, and it makes every other change easier. Point your settings file at the JSON schema and your editor gives you autocomplete, inline docs, and validation for every key and value, so you stop guessing which options exist and what they accept.
+
+```json
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json"
+}
+```
+
+Get this right first and everything below becomes self-documenting in your editor.
+
+> [!NOTE]
+> For the `$schema` line to do anything, your editor needs a JSON language server installed. The one that powers this is Microsoft's [vscode-json-languageservice](https://github.com/microsoft/vscode-json-languageservice). In Neovim I run it as `jsonls` via [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig), pointed at both the settings and keybindings schemas:
+>
+> ```lua
+> jsonls = {
+>   settings = {
+>     json = {
+>       schemas = {
+>         {
+>           fileMatch = { '**/.claude/settings.json', '**/.claude/settings.local.json' },
+>           url = 'https://json.schemastore.org/claude-code-settings.json',
+>         },
+>         {
+>           fileMatch = { '**/.claude/keybindings.json' },
+>           url = 'https://json.schemastore.org/claude-code-keybindings.json',
+>         },
+>       },
+>       validate = { enable = true },
+>     },
+>   },
+> }
+> ```
+
+## Privacy and outbound traffic
+
+I opt out of the outbound analytics. I run client work through Claude, so the less that leaves my machine, the better. These go in the `env` block, plus `feedbackSurveyRate: 0` to kill the "How is Claude doing?" survey.
+
+```json
+{
+  "env": {
+    "DISABLE_TELEMETRY": "1",
+    "DISABLE_ERROR_REPORTING": "1",
+    "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1"
+  },
+  "feedbackSurveyRate": 0
+}
+```
+
+Note that `env` values are strings (`"1"`, not `1`), since they're environment variables. `feedbackSurveyRate` is a number between `0` and `1`.
+
+## Context management
+
+```json
+{
+  "cleanupPeriodDays": 365
+}
+```
+
+- `cleanupPeriodDays: 365` keeps a year of transcript history instead of losing anything older than the default 30 days.
+
+## Permissions
+
+My permissions are curated, not blanket. `defaultMode: auto` lets the classifier decide what's safe, but the allow list only names things I'm comfortable running unattended, and the deny list hard-blocks the stuff I never want touched.
+
+```json
+{
+  "permissions": {
+    "defaultMode": "auto",
+    "allow": [
+      "Read",
+      "Edit",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git switch:*)",
+      "Bash(git stash:*)",
+      "Bash(git fetch:*)",
+      "Bash(git pull:*)",
+      "Bash(git restore:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git remote:*)",
+      "Bash(git tag:*)",
+      "Bash(git blame:*)",
+      "Bash(git worktree:*)",
+      "Bash(npm *)",
+      "Bash(pnpm *)",
+      "Bash(node *)",
+      "Bash(ls *)",
+      "Bash(which *)",
+      "Bash(mkdir *)",
+      "Bash(cat *)",
+      "Bash(jq *)"
+    ],
+    "deny": [
+      "Read(.env*)",
+      "Edit(.env*)",
+      "Bash(cat *.env*)",
+      "Bash(head *.env*)",
+      "Bash(tail *.env*)",
+      "Bash(less *.env*)",
+      "Bash(more *.env*)"
+    ]
+  }
+}
+```
+
+The valid values for `defaultMode` are `default`, `acceptEdits`, `plan`, and `auto`. I'm on `auto`.
+
+The key idea in the allow list is that I enumerate safe git verbs rather than granting `Bash(git *)` wholesale. Everyday work like status, diff, commit, branch, and checkout stays prompt-free. But destructive verbs I didn't list (`reset --hard`, `rebase`, `clean`) fall through to the classifier and ask first. That's the tradeoff: a little friction on the dangerous stuff, none on the daily stuff.
+
+The deny list layers several `.env` denials instead of trusting one. That's deliberate; see the [Gotchas](#gotchas) below.
+
+## Trimming the system prompt
+
+This is a different token angle from everything above. The privacy settings trim _outbound traffic_. These trim the _system prompt itself_: the tool and feature definitions Claude Code ships on every request. Matt Pocock's point is that harnesses front-load thousands of tokens of built-in tooling you may never use, and disabling a feature removes its definition from the prompt entirely. His logic, which I buy: the less you send over the wire, the less there is to distract the agent, so outputs get better, not just cheaper.
+
+```json
+{
+  "disableArtifact": true,
+  "disableWorkflows": true,
+  "disableBundledSkills": true,
+  "env": {
+    "CLAUDE_CODE_DISABLE_CRON": "1"
+  }
+}
+```
+
+What each one turns off:
+
+- `disableArtifact` — the Artifact tool. No use for it in a terminal workflow.
+- `disableWorkflows` — the dynamic Workflow orchestration tool. Big footprint, never used it.
+- `disableBundledSkills` — nukes **all** first-party bundled skills (`/init`, `/run`, `/simplify`, `/keybindings-help`, etc.), not just the one I was after. My plugin skills and custom vault skills are unaffected. I chose the full cut for the token savings.
+- `CLAUDE_CODE_DISABLE_CRON: "1"` — cron / scheduled tasks. This one is env-var only; there's no `settings.json` key for it.
+
+**What I kept on purpose:** `AskUserQuestion` (I like being asked to choose), and remote control — it exists as `disableRemoteControl`, but leaving it off is what drives my phone push notifications during sessions.
+
+**What I couldn't disable:** plan mode. There's no key for it; `EnterPlanMode` / `ExitPlanMode` are hardwired, and the disable is a [known open request](https://github.com/anthropics/claude-code/issues/30042).
+
+### Does it actually help?
+
+I measured it instead of taking anyone's word. I pointed `ANTHROPIC_BASE_URL` at a tiny local server, ran `claude -p "hi"` once with the flags off and once on, and diffed the captured request body.
+
+| System prompt + tools |  Before |   After |          Δ |
+| --------------------- | ------: | ------: | ---------: |
+| Tool count            |      10 |       9 |         −1 |
+| Estimated tokens      | ~20,162 | ~14,770 | **−5,391** |
+
+That's a ~27% smaller baseline, ~5,391 tokens saved per request. The entire delta was `disableWorkflows` removing the `Workflow` tool.
+
+One caveat: this measured **print mode** (`claude -p`), which uses a deferred-tool architecture, so `disableArtifact`, `disableBundledSkills`, and cron showed zero effect in this test. Those get injected at runtime in interactive sessions, so their real savings land there and weren't captured here.
+
+## Attribution
+
+I don't want Claude co-authoring my commits.
+
+```json
+{
+  "includeCoAuthoredBy": false
+}
+```
+
+## Hooks
+
+Mine are heavier than most starter configs. Three do the real work: a desktop notifier on `Notification` events, a leaderkey config reorder after any `Write`/`Edit`, and the [RTK](https://github.com/joshmedeski) token-saving proxy rewrite on every Bash call.
+
+```json
+{
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/path/to/claude-notifier.sh Notification permission_prompt"
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/path/to/claude-notifier.sh Notification idle_prompt"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [{ "type": "command", "command": "rtk hook claude" }]
+      }
+    ]
+  }
+}
+```
+
+The valid hook events include `PreToolUse`, `PostToolUse`, `Notification`, `Stop`, `SubagentStop`, `PreCompact`, `SessionStart`, and more. The schema lists them all once you've wired up `$schema`.
+
+## Status line
+
+I run a custom status line via a compiled command rather than the `/statusline` generator. It's more capable and feeds data to a separate watcher.
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "node /path/to/claude-statusline.mjs"
+  }
+}
+```
+
+`type` is either `command` (run a script) or `static` (a fixed string).
+
+## Spinner verbs
+
+A small joy: I replace the default spinner text with my own list. `mode` is `replace` (swap the whole list) or `append` (add to it). Because I like these, I deliberately do **not** set `spinnerTipsEnabled: false`.
+
+```json
+{
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [
+      "Hallucinating responsibly",
+      "Pretending to think",
+      "Confidently guessing",
+      "Consulting my imagination",
+      "Speedrunning your tech debt",
+      "Apologizing in advance",
+      "Vibing with your codebase",
+      "Submitting my best guess",
+      "Amaze amaze amaze",
+      "Breeding astrophage",
+      "Harvesting xenonite",
+      "Using the Force",
+      "Making the Kessel Run",
+      "Powering up the hyperdrive",
+      "Negotiating aggressively",
+      "Bypassing the compressor",
+      "Walking into Mordor",
+      "Speaking friend and entering",
+      "Dodging bullets",
+      "Downloading kung fu",
+      "Following the white rabbit",
+      "Declaring bankruptcy",
+      "Treating myself",
+      "Casting Expelliarmus",
+      "Brewing polyjuice potion",
+      "Hitting 88 mph",
+      "Storming the castle",
+      "Warping through pipes",
+      "Making a huge mistake",
+      "Making fetch happen",
+      "Riding the sandworm",
+      "Enhancing the image",
+      "Hacking the mainframe",
+      "Assembling the Avengers",
+      "Choosing violence",
+      "Rolling a nat 20",
+      "Pulling a Leeroy Jenkins",
+      "Activating ludicrous speed",
+      "Activating lightspeed",
+      "Stealing the moon",
+      "Reconnecting the chiral network",
+      "Refining the scary numbers",
+      "Trying to exit Vim",
+      "Compiling shaders",
+      "Pulling a shot"
+    ]
+  }
+}
+```
+
+## Keybindings I actually use
+
+These aren't in `settings.json`. They live in `~/.claude/keybindings.json` (editable via `/keybindings`). The three I reach for most at the prompt:
+
+- **Ctrl-S** — stash the current prompt. Whatever I've typed gets set aside; press Ctrl-S again on an empty prompt to bring it back. Good for parking a half-written thought.
+- **Ctrl-G** — send the current prompt to `$EDITOR`. For anything longer than a line or two I'd rather compose in vim. (`Ctrl-X Ctrl-E` is the readline alias.)
+- **Ctrl-V** — paste from the clipboard, including images (drops in as an `[Image #N]` chip).
+
+Others worth knowing:
+
+| Key           | What it does                                  | Why I care                                      |
+| ------------- | --------------------------------------------- | ----------------------------------------------- |
+| **Shift-Tab** | Cycle permission modes                        | Switch to plan mode without leaving the prompt  |
+| **Esc Esc**   | Open the rewind menu                          | Restore conversation/code to an earlier point   |
+| **Ctrl-R**    | Reverse-search prompt history                 | Fuzzy find a prompt I've run before             |
+| **Ctrl-O**    | Toggle the transcript viewer                  | Full tool trace, timestamps, expanded MCP calls |
+| **Ctrl-B**    | Background the running task                   | Park a long build/test and keep working         |
+| **Ctrl-T**    | Toggle Claude's task checklist                | Glance at the current plan                      |
+| **/btw**      | Ask a side question without polluting history | Quick "what's this?" while Claude works         |
+
+macOS caveat: the Option/Alt bindings need Option-as-Meta enabled (iTerm: Profiles → Keys → Left/Right Option = "Esc+"). Ctrl-C and Ctrl-D are hardcoded and can't be rebound.
+
+## Gotchas
+
+- **`deny` rules aren't a hard secrets boundary.** There are reports of Claude reading `.env` despite a deny rule, which is why I layer multiple `.env` denials rather than trusting one. Don't treat deny as a security guarantee.
+- **Narrowing git means `reset --hard` / `rebase` / `clean` now prompt.** Everyday commits stay prompt-free; the destructive verbs intentionally ask first.
+- **Fable 5 ignores all thinking toggles.** `MAX_THINKING_TOKENS=0`, the session toggle, and `alwaysThinkingEnabled` have no effect on it, since it always reasons adaptively.
+
+## Settings I evaluated but skipped
+
+- **`defaultMode: plan`** (the plan-then-auto-accept loop) — deliberately staying on `auto`; it's a workflow philosophy change, not a clear win for me.
+- **`spinnerTipsEnabled: false`** — I like my custom spinner verbs too much.
+- **`/sandbox` mode** — file + network isolation that reduces prompts; worth revisiting.
+- **`disableClaudeAiConnectors`** — kills the Gmail/QuickBooks/MongoDB/Slack connector definitions in one shot, likely the single biggest remaining token chunk. Worth measuring with a proxy before pulling.
+
+## Wrapping up
+
+Claude Code is a powerful tool with a lot of capabilities, and that's exactly why it's worth spending some time on it. Sometimes just a few minutes to tweak your preferences and adjust your settings. A few well-chosen changes cut the noise and get the tool out of your way. Take what's useful here, skip what isn't, and tune it until it gives you the best results.
+
+## Sources
+
+- [Trimming the Claude Code system prompt](https://www.tiktok.com/@mattpocockuk/video/7663094223117290785) — Matt Pocock
+- [12 Hidden Settings to Enable in Claude Code](https://www.youtube.com/watch?v=M2p7OvKLAWw) — Simon Scrapes
+- [Claude Code settings.json complete guide](https://www.eesel.ai/blog/settings-json-claude-code) — eesel AI
+- [My Claude Code Setup (2026 Edition)](https://blog.marcolancini.it/2026/blog-my-claude-code-setup/) — Marco Lancini
+- [How I Use Every Claude Code Feature](https://blog.sshh.io/p/how-i-use-every-claude-code-feature) — Shrivu Shankar
+- [Claude Code docs: environment variables](https://code.claude.com/docs/en/env-vars)
