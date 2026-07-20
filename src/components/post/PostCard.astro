@@ -22,11 +22,7 @@ const category = await getEntry(post.data.category)
     <div
       class="flex flex-col justify-end md:col-span-2 md:col-start-4 md:row-start-1"
     >
-      <div
-        class="relative"
-        data-pixelate-render
-        data-pixelate-render-trigger="inview"
-      >
+      <div class="relative">
         {
           post.data.draft && (
             <span class="absolute right-2 top-2 z-30 rounded bg-amber-400 px-2 py-0.5 text-xs font-extrabold uppercase tracking-wider text-black shadow-md">
@@ -42,7 +38,6 @@ const category = await getEntry(post.data.category)
           class="mb-2 aspect-video w-full rounded-lg bg-black shadow-md md:mb-8"
           transition:name={`post-${post.id}-thumb`}
           style={{ backgroundColor: category?.data.style.themeColor }}
-          data-pixelate-render-img
         />
       </div>
       <Image
@@ -73,8 +68,3 @@ const category = await getEntry(post.data.category)
     <PostMeta post={post} align="left" />
   </div>
 </div>
-
-<script>
-  import { initPixelateRender } from '../../scripts/pixelateRender'
-  document.addEventListener('astro:page-load', initPixelateRender)
-</script>
