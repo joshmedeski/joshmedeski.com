@@ -23,19 +23,21 @@ const { hideCta } = Astro.props
 >
   <h2 class="sr-only">Footer</h2>
   <Wrapper>
-    <div class="flex flex-col items-center gap-12 text-center">
-      <div class="space-y-6">
+    <div
+      class="flex flex-col items-center gap-12 md:flex-row md:items-start md:justify-center md:gap-16"
+    >
+      <div class="max-w-sm space-y-6">
         <div>
-          <a href="/" class="flex justify-center" data-astro-prefetch>
+          <a href="/" class="flex items-center" data-astro-prefetch>
             <span class="text-2xl font-bold">{SITE_TITLE}</span>
           </a>
-          <p class="mx-auto max-w-md text-base text-neutral-500">
+          <p class="text-base text-neutral-500">
             Empowering developers and creatives to build and grow with
             intention, by sharing insights and tools.
           </p>
         </div>
 
-        <div class="flex items-center justify-center gap-4">
+        <div class="flex items-center gap-4">
           <Image
             src={profileCircle}
             alt="Josh's profile"
@@ -48,28 +50,27 @@ const { hideCta } = Astro.props
         </div>
       </div>
 
-      <nav class="flex justify-center gap-12" aria-label="Sitemap">
-        <div>
-          <h3 class="mb-3 font-bold">Content</h3>
-          <ul class="space-y-2 text-neutral-400">
-            <li><Link href="/posts">Posts</Link></li>
-            <li><Link href="/videos">Videos</Link></li>
-            <li><Link href="/projects">Projects</Link></li>
-            <li><Link href="/guides">Guides</Link></li>
-            <li><Link href="/categories">Categories</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="mb-3 font-bold">Explore</h3>
-          <ul class="space-y-2 text-neutral-400">
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/wallpapers">Wallpapers</Link></li>
-            <li><Link href="/uses">Uses</Link></li>
-            <li><Link href="/stats">Stats</Link></li>
-            <li><Link href="/appearances">Appearances</Link></li>
-          </ul>
-        </div>
-      </nav>
+      <div>
+        <h3 class="mb-3 font-bold">Content</h3>
+        <ul class="space-y-2 text-neutral-400">
+          <li><Link href="/posts">Posts</Link></li>
+          <li><Link href="/videos">Videos</Link></li>
+          <li><Link href="/projects">Projects</Link></li>
+          <li><Link href="/guides">Guides</Link></li>
+          <li><Link href="/categories">Categories</Link></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="mb-3 font-bold">Explore</h3>
+        <ul class="space-y-2 text-neutral-400">
+          <li><Link href="/about">About</Link></li>
+          <li><Link href="/wallpapers">Wallpapers</Link></li>
+          <li><Link href="/uses">Uses</Link></li>
+          <li><Link href="/stats">Stats</Link></li>
+          <li><Link href="/appearances">Appearances</Link></li>
+        </ul>
+      </div>
     </div>
     <div
       class="mx-auto mb-12 mt-10 max-w-screen-xl border-t border-neutral-800 pt-8 text-center"
