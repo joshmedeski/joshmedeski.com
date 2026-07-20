@@ -22,10 +22,10 @@ const category = await getEntry(post.data.category)
 >
   <div data-pagefind-body>
     <div class={category?.data.style.themeColor}>
-      <section class="pt-16 pb-16">
+      <section class="pt-16 pb-48">
         <Wrapper>
           <header class="flex flex-col gap-6">
-            <div class="relative aspect-video w-full">
+            <div class="relative aspect-video max-w-[810px] mx-auto w-full">
               {
                 post.data.youtubeUrl && (
                   <div class="animate-fade-in absolute inset-0 z-20 w-full rounded-xl shadow-lg">
@@ -65,7 +65,7 @@ const category = await getEntry(post.data.category)
       </section>
     </div>
 
-    <div class="-mt-8 rounded-t-3xl bg-black">
+    <div class="-mt-32 rounded-t-[2.5rem] bg-black">
       <Wrapper>
         <article class="mx-auto max-w-[680px] py-16">
           <main class="prose prose-invert prose-lg max-w-full">
