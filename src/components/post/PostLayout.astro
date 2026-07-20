@@ -25,7 +25,9 @@ const category = await getEntry(post.data.category)
       <section class="pt-16 pb-64">
         <Wrapper>
           <header class="flex flex-col gap-6">
-            <div class="relative aspect-video max-w-[810px] mx-auto w-full">
+            <div
+              class="relative aspect-video max-w-[810px] mx-auto w-full mb-12"
+            >
               {
                 post.data.youtubeUrl && (
                   <div class="animate-fade-in absolute inset-0 z-20 w-full rounded-xl shadow-lg">
