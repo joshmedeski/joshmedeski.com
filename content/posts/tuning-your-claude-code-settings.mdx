@@ -77,6 +77,18 @@ Note that `env` values are strings (`"1"`, not `1`), since they're environment v
 
 - `cleanupPeriodDays: 365` keeps a year of transcript history instead of losing anything older than the default 30 days.
 
+## Update channel
+
+I pin updates to the stable channel. On client work I'd rather the tool not shift under me mid-session, so I trade a few days of lag for a build I can trust.
+
+```json
+{
+  "autoUpdatesChannel": "stable"
+}
+```
+
+The other value is `latest`, which pulls new features (and the occasional rough edge) sooner. If you like being on the bleeding edge, flip it.
+
 ## Permissions
 
 My permissions are curated, not blanket. `defaultMode: auto` lets the classifier decide what's safe, but the allow list only names things I'm comfortable running unattended, and the deny list hard-blocks the stuff I never want touched.
@@ -173,6 +185,30 @@ That's a ~27% smaller baseline, ~5,391 tokens saved per request. The entire delt
 
 One caveat: this measured **print mode** (`claude -p`), which uses a deferred-tool architecture, so `disableArtifact`, `disableBundledSkills`, and cron showed zero effect in this test. Those get injected at runtime in interactive sessions, so their real savings land there and weren't captured here.
 
+## Token limits
+
+The trimming above shrinks what goes _out_ on every request. These cap what comes _back_, so a single response, tool call, or subagent can't blow up my context in one shot. They all live in the same `env` block as the privacy settings.
+
+```json
+{
+  "env": {
+    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "16000",
+    "MAX_THINKING_TOKENS": "8000",
+    "MAX_MCP_OUTPUT_TOKENS": "25000",
+    "TASK_MAX_OUTPUT_LENGTH": "20000"
+  }
+}
+```
+
+What each one caps:
+
+- `CLAUDE_CODE_MAX_OUTPUT_TOKENS` — the ceiling on a single response. Keeps replies from running away.
+- `MAX_THINKING_TOKENS` — the extended-thinking budget. `8000` is plenty for the reasoning I want without paying for a marathon.
+- `MAX_MCP_OUTPUT_TOKENS` — how much an MCP tool call can dump back into context. MCP responses are the worst offenders for silently eating the window, so this one earns its keep.
+- `TASK_MAX_OUTPUT_LENGTH` — the cap on what a subagent `Task` returns to the main thread.
+
+Same rule as before: these are strings (`"16000"`), since they're environment variables. And as noted in the [Gotchas](#gotchas), Fable 5 ignores `MAX_THINKING_TOKENS` entirely, since it always reasons adaptively.
+
 ## Attribution
 
 I don't want Claude co-authoring my commits.
@@ -185,7 +221,7 @@ I don't want Claude co-authoring my commits.
 
 ## Hooks
 
-Mine are heavier than most starter configs. Three do the real work: a desktop notifier on `Notification` events, a leaderkey config reorder after any `Write`/`Edit`, and the [RTK](https://github.com/joshmedeski) token-saving proxy rewrite on every Bash call.
+Mine are heavier than most starter configs. Three do the real work: a desktop notifier on `Notification` events, a leaderkey config reorder after any `Write`/`Edit`, and the [RTK](https://github.com/rtk-ai/rtk) hook on every Bash call. RTK is a Rust CLI proxy that compresses verbose command output (`git status`, test runs, `ls`, and 100+ others) into token-efficient summaries; the hook transparently rewrites each command to its `rtk` equivalent, cutting 60–90% of the tokens those outputs would otherwise eat.
 
 ```json
 {
