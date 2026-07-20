@@ -25,14 +25,12 @@ const category = await getEntry(post.data.category)
     <Wrapper>
       <div data-pagefind-body>
         <header
-          class="post-header mb-12 flex flex-col gap-6 md:flex-row md:items-center md:gap-10"
+          class="mb-12 flex flex-col gap-6 md:flex-row md:items-center md:gap-10"
         >
-          <div
-            class="post-header__media relative aspect-video w-full md:flex-[1_1_55%]"
-          >
+          <div class="relative aspect-video w-full md:flex-[1_1_55%]">
             {
               post.data.youtubeUrl && (
-                <div class="post-header__video animate-fade-in absolute inset-0 z-20 w-full rounded-xl shadow-lg">
+                <div class="animate-fade-in absolute inset-0 z-20 w-full rounded-xl shadow-lg">
                   <iframe
                     width="100%"
                     height="100%"
@@ -58,13 +56,11 @@ const category = await getEntry(post.data.category)
             />
           </div>
 
-          <div class="post-header__text text-center md:flex-[1_1_45%]">
-            <h1 class="post-title mb-4 text-4xl font-extrabold md:text-6xl">
+          <div class="text-center lg:text-left md:flex-[1_1_45%]">
+            <h1 class="mb-4 text-4xl font-extrabold md:text-6xl">
               {post.data.title}
             </h1>
-            <div class="post-meta">
-              <PostMeta post={post} />
-            </div>
+            <PostMeta post={post} />
           </div>
         </header>
 
