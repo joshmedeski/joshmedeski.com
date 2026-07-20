@@ -23,26 +23,8 @@ const category = await getEntry(post.data.category)
   <div class={`mb-[20px] ${category?.data.style.themeColor}`}></div>
   <section class="pt-16">
     <Wrapper>
-      {
-        import.meta.env.DEV && (
-          <fieldset class="post-layout-toggle mx-auto mb-8 flex max-w-[680px] flex-wrap items-center gap-3 rounded-lg border border-neutral-700 bg-neutral-900 p-3 text-sm">
-            <legend class="px-1 font-semibold">Header layout (dev)</legend>
-            {['A', 'B', 'C', 'D'].map((v) => (
-              <label class="flex cursor-pointer items-center gap-1">
-                <input
-                  type="radio"
-                  name="post-layout"
-                  value={v}
-                  checked={v === 'A'}
-                />
-                {v}
-              </label>
-            ))}
-          </fieldset>
-        )
-      }
-      <article class="mx-auto max-w-[680px]" data-pagefind-body>
-        <header class="post-header mb-10" data-layout="A">
+      <div data-pagefind-body>
+        <header class="post-header mb-12">
           <div class="post-header__media relative aspect-video w-full">
             {
               post.data.youtubeUrl && (
@@ -72,7 +54,7 @@ const category = await getEntry(post.data.category)
             />
           </div>
 
-          <div class="post-header__text mt-8">
+          <div class="post-header__text">
             <h1 class="post-title mb-4 text-4xl font-extrabold md:text-6xl">
               {post.data.title}
             </h1>
@@ -82,101 +64,40 @@ const category = await getEntry(post.data.category)
           </div>
         </header>
 
-        <main class="prose prose-invert prose-lg max-w-full">
-          <slot />
-        </main>
-      </article>
+        <article class="mx-auto max-w-[680px]">
+          <main class="prose prose-invert prose-lg max-w-full">
+            <slot />
+          </main>
+        </article>
+      </div>
     </Wrapper>
     <slot name="after-post" />
   </section>
 </Layout>
 
 <style>
-  /* A — Above (default): media on top, text below, centered */
-  .post-header[data-layout='A'] {
-    text-align: center;
-  }
-  .post-header[data-layout='A'] .post-header__text {
-    margin-top: 2rem;
-  }
-
-  /* B — Below: text (title + meta) on top, media under, centered */
-  .post-header[data-layout='B'] {
+  /* Full-width header. Mobile: thumbnail on top, title + meta below.
+     md+: thumbnail on the left, title + meta centered to the right. */
+  .post-header {
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
+  }
+  .post-header__text {
     text-align: center;
   }
-  .post-header[data-layout='B'] .post-header__text {
-    order: 1;
-    margin-top: 0;
-    margin-bottom: 2rem;
-  }
-  .post-header[data-layout='B'] .post-header__media {
-    order: 2;
-  }
 
-  /* C — Center/hero: big centered title first, large media under, meta last */
-  .post-header[data-layout='C'] {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
-  .post-header[data-layout='C'] .post-title {
-    order: 1;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    margin-bottom: 1.5rem;
-  }
-  .post-header[data-layout='C'] .post-header__media {
-    order: 2;
-  }
-  .post-header[data-layout='C'] .post-meta {
-    order: 3;
-    margin-top: 1.5rem;
-  }
-  /* keep title out of the text wrapper flow for C */
-  .post-header[data-layout='C'] .post-header__text {
-    display: contents;
-  }
-
-  /* D — Side: media right, text left (two columns on md+) */
   @media (min-width: 768px) {
-    .post-header[data-layout='D'] {
-      display: flex;
-      flex-direction: row-reverse;
-      gap: 1.5rem;
-      text-align: left;
+    .post-header {
+      flex-direction: row;
+      align-items: center;
+      gap: 2.5rem;
     }
-    .post-header[data-layout='D'] .post-header__media {
+    .post-header__media {
       flex: 1 1 55%;
     }
-    .post-header[data-layout='D'] .post-header__text {
+    .post-header__text {
       flex: 1 1 45%;
-      margin-top: 0;
-      align-self: center;
     }
   }
 </style>
-
-{
-  import.meta.env.DEV && (
-    <script is:inline>
-      {`
-        (function () {
-          var header = document.querySelector('.post-header');
-          var saved = localStorage.getItem('postLayout');
-          if (header && saved) {
-            header.dataset.layout = saved;
-            var pre = document.querySelector('input[name="post-layout"][value="' + saved + '"]');
-            if (pre) pre.checked = true;
-          }
-          document.querySelectorAll('input[name="post-layout"]').forEach(function (el) {
-            el.addEventListener('change', function (e) {
-              if (header) header.dataset.layout = e.target.value;
-              localStorage.setItem('postLayout', e.target.value);
-            });
-          });
-        })();
-      `}
-    </script>
-  )
-}
