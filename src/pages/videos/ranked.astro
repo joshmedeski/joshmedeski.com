@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '../../components/Layout.astro'
+import PageTitle from '../../components/PageTitle.astro'
+import Wrapper from '../../components/Wrapper.astro'
+import RankedVideos from '../../components/RankedVideos.astro'
+import { viewsFromRecord, rankVideos } from '../../utils/youtube'
+import snapshot from '../../data/youtube-views.json'
+
+const includeDrafts = import.meta.env.DEV
+const posts = await getCollection(
+  'posts',
+  ({ data: { draft } }) => includeDrafts || !draft,
+)
+const viewsByVideoId = viewsFromRecord(snapshot.views)
+const ranked = rankVideos(posts, viewsByVideoId)
+
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+  dateStyle: 'medium',
+  timeZone: 'UTC',
+})
+const updated = dateFormat.format(new Date(snapshot.fetchedAt))
+---
+
+<Layout title="Ranked Videos">
+  <Wrapper>
+    <PageTitle>Ranked Videos</PageTitle>
+    <p class="-mt-8 mb-12 text-center text-sm text-neutral-500">
+      Lifetime YouTube views · Updated {updated}
+    </p>
+    <RankedVideos posts={ranked} />
+  </Wrapper>
+</Layout>
