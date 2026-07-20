@@ -23,6 +23,24 @@ const category = await getEntry(post.data.category)
   <div class={`mb-[20px] ${category?.data.style.themeColor}`}></div>
   <section class="pt-16">
     <Wrapper>
+      {
+        import.meta.env.DEV && (
+          <fieldset class="post-layout-toggle mx-auto mb-8 flex max-w-[680px] flex-wrap items-center gap-3 rounded-lg border border-neutral-700 bg-neutral-900 p-3 text-sm">
+            <legend class="px-1 font-semibold">Header layout (dev)</legend>
+            {['A', 'B', 'C', 'D'].map((v) => (
+              <label class="flex cursor-pointer items-center gap-1">
+                <input
+                  type="radio"
+                  name="post-layout"
+                  value={v}
+                  checked={v === 'A'}
+                />
+                {v}
+              </label>
+            ))}
+          </fieldset>
+        )
+      }
       <article class="mx-auto max-w-[680px]" data-pagefind-body>
         <header class="post-header mb-10" data-layout="A">
           <div class="post-header__media relative aspect-video w-full">
@@ -138,3 +156,27 @@ const category = await getEntry(post.data.category)
     }
   }
 </style>
+
+{
+  import.meta.env.DEV && (
+    <script is:inline>
+      {`
+        (function () {
+          var header = document.querySelector('.post-header');
+          var saved = localStorage.getItem('postLayout');
+          if (header && saved) {
+            header.dataset.layout = saved;
+            var pre = document.querySelector('input[name="post-layout"][value="' + saved + '"]');
+            if (pre) pre.checked = true;
+          }
+          document.querySelectorAll('input[name="post-layout"]').forEach(function (el) {
+            el.addEventListener('change', function (e) {
+              if (header) header.dataset.layout = e.target.value;
+              localStorage.setItem('postLayout', e.target.value);
+            });
+          });
+        })();
+      `}
+    </script>
+  )
+}
