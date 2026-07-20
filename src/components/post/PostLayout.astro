@@ -22,7 +22,7 @@ const category = await getEntry(post.data.category)
 >
   <div data-pagefind-body>
     <div class={category?.data.style.themeColor}>
-      <section class="pt-16 pb-48">
+      <section class="pt-16 pb-64">
         <Wrapper>
           <header class="flex flex-col gap-6">
             <div class="relative aspect-video max-w-[810px] mx-auto w-full">
@@ -66,7 +66,7 @@ const category = await getEntry(post.data.category)
     </div>
 
     <div
-      class="mx-auto max-w-[760px] -mt-32 rounded-t-[2.5rem] bg-black px-6 pt-8 md:px-10 md:pt-10"
+      class="mx-auto max-w-[760px] -mt-48 rounded-t-[2.5rem] bg-black px-6 pt-8 md:px-10 md:pt-10"
     >
       <main class="prose prose-invert prose-lg max-w-full pb-16 md:pb-20">
         <slot />
