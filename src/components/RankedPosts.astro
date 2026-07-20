@@ -21,7 +21,7 @@ const maxViews = Math.max(0, ...posts.map(({ pageviews }) => pageviews))
           <a
             href={`/posts/${post.id}`}
             data-astro-prefetch
-            class="group -mx-2 flex items-center gap-3 rounded-lg px-2 py-2 transition-colors hover:bg-neutral-100 sm:gap-4 dark:hover:bg-neutral-900"
+            class="group -mx-2 flex items-center gap-3 rounded-lg px-2 py-3 transition-colors hover:bg-white/[0.06] sm:gap-4"
           >
             <span class="w-6 shrink-0 text-right text-sm tabular-nums text-neutral-500">
               {index + 1}
@@ -29,16 +29,16 @@ const maxViews = Math.max(0, ...posts.map(({ pageviews }) => pageviews))
             <Image
               src={thumbnail}
               alt=""
-              width={160}
-              height={90}
-              class="aspect-video w-16 shrink-0 rounded-md bg-black object-cover outline outline-1 -outline-offset-1 outline-black/10 sm:w-20 dark:outline-white/10"
+              width={192}
+              height={108}
+              class="aspect-video w-20 shrink-0 rounded-md bg-black object-cover outline outline-1 -outline-offset-1 outline-black/10 sm:w-24 dark:outline-white/10"
             />
             <div class="min-w-0 flex-1">
               <span class="block truncate text-pretty font-medium group-hover:underline">
                 {post.data.title}
               </span>
               <div class="mt-1.5 flex items-center gap-3">
-                <div class="relative h-2 flex-1 overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-800">
+                <div class="relative h-3 flex-1 overflow-hidden rounded-full bg-white/10">
                   <div
                     class="absolute inset-y-0 left-0 rounded-full bg-primary-500"
                     style={`width: ${width}%`}
