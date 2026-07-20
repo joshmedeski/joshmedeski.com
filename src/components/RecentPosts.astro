@@ -4,7 +4,11 @@ import { getCollection } from 'astro:content'
 import Wrapper from './Wrapper.astro'
 import PageTitle from './PageTitle.astro'
 
-const allPosts = await getCollection('posts', ({ data: { draft } }) => !draft)
+const includeDrafts = import.meta.env.DEV
+const allPosts = await getCollection(
+  'posts',
+  ({ data: { draft } }) => includeDrafts || !draft,
+)
 const sortedPosts = allPosts.sort(
   ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime(),
 )

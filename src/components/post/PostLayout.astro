@@ -20,59 +20,60 @@ const category = await getEntry(post.data.category)
   image={post.data.heroImage}
   themeColor={category?.data.style.themeColor}
 >
-  <div class={`mb-[20px] md:pt-[350px] ${category?.data.style.themeColor}`}>
-  </div>
-  <section class="md:-mt-[300px]">
-    <Wrapper>
-      <section class="mb-20 md:flex md:flex-row-reverse">
-        <div class="relative aspect-video flex-auto">
-          <div class="z-40 w-full md:sticky md:top-4 md:mb-[450px]">
-            {
-              post.data.youtubeUrl && (
-                <div class="absolute animate-fade-in z-20 w-full rounded-xl shadow-lg md:top-0">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    class="aspect-video w-full rounded-xl bg-black shadow-lg"
-                    src={post.data.youtubeUrl}
-                    title="YouTube video player"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  />
-                </div>
-              )
-            }
-            <Image
-              class:list={[
-                post.data.heroClasses,
-                'absolute top-0 z-10 aspect-video w-full rounded-xl bg-black shadow-lg',
-              ]}
-              src={post.data.heroImage}
-              width="1640"
-              height="922.5"
-              alt={`${post.data.title} hero`}
-              transition:name={`post-${post.id}-thumb`}
-            />
-          </div>
-        </div>
+  <div data-pagefind-body>
+    <div class={category?.data.style.themeColor}>
+      <section class="pt-16 pb-64">
+        <Wrapper>
+          <header class="flex flex-col gap-6">
+            <div
+              class="relative aspect-video max-w-[810px] mx-auto w-full mb-12"
+            >
+              {
+                post.data.youtubeUrl && (
+                  <div class="animate-fade-in absolute inset-0 z-20 w-full rounded-xl shadow-lg">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      class="aspect-video w-full rounded-xl bg-black shadow-lg"
+                      src={post.data.youtubeUrl}
+                      title="YouTube video player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    />
+                  </div>
+                )
+              }
+              <Image
+                class:list={[
+                  post.data.heroClasses,
+                  'absolute inset-0 z-10 aspect-video w-full rounded-xl bg-black shadow-lg',
+                ]}
+                src={post.data.heroImage}
+                width="1920"
+                height="1080"
+                alt={`${post.data.title} hero`}
+                transition:name={`post-${post.id}-thumb`}
+              />
+            </div>
 
-        <article class="max-w-prose flex-none" data-pagefind-body>
-          <h1 class="mb-6 mt-10 text-2xl font-extrabold md:mr-6 md:text-4xl">
-            {post.data.title}
-          </h1>
-
-          <div class="mb-4 md:mr-6">
-            <PostMeta post={post} />
-          </div>
-
-          <main
-            class="prose prose-invert max-w-full rounded-lg bg-neutral-900 py-5 md:-ml-6 md:px-6"
-          >
-            <slot />
-          </main>
-        </article>
+            <div class="text-center">
+              <h1 class="mb-4 text-balance text-4xl font-extrabold md:text-6xl">
+                {post.data.title}
+              </h1>
+              <PostMeta post={post} />
+            </div>
+          </header>
+        </Wrapper>
       </section>
-    </Wrapper>
-    <slot name="after-post" />
-  </section>
+    </div>
+
+    <div
+      class="mx-auto max-w-[760px] -mt-48 rounded-t-[2.5rem] bg-black px-6 pt-8 md:px-10 md:pt-10"
+    >
+      <main class="prose prose-invert prose-lg max-w-full pb-16 md:pb-20">
+        <slot />
+      </main>
+    </div>
+  </div>
+  <slot name="after-post" />
 </Layout>

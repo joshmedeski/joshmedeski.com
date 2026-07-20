@@ -20,9 +20,12 @@ interface Props {
 }
 
 const { category } = Astro.props
+const includeDrafts = import.meta.env.DEV
 const posts = await getCollection(
   'posts',
-  (post) => !post.data.draft && category.id === post.data.category.id,
+  (post) =>
+    (includeDrafts || !post.data.draft) &&
+    category.id === post.data.category.id,
 ).then((posts) =>
   posts.sort(
     (a, b) =>

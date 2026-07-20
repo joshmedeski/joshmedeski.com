@@ -22,15 +22,24 @@ const category = await getEntry(post.data.category)
     <div
       class="flex flex-col justify-end md:col-span-2 md:col-start-4 md:row-start-1"
     >
-      <Image
-        src={post.data.heroImage}
-        alt={post.data.title}
-        width="500"
-        height="281.25"
-        class="mb-2 aspect-video w-full rounded-lg bg-black shadow-md md:mb-8"
-        transition:name={`post-${post.id}-thumb`}
-        style={{ backgroundColor: category?.data.style.themeColor }}
-      />
+      <div class="relative">
+        {
+          post.data.draft && (
+            <span class="absolute right-2 top-2 z-30 rounded bg-amber-400 px-2 py-0.5 text-xs font-extrabold uppercase tracking-wider text-black shadow-md">
+              Draft
+            </span>
+          )
+        }
+        <Image
+          src={post.data.heroImage}
+          alt={post.data.title}
+          width="500"
+          height="281.25"
+          class="mb-2 aspect-video w-full rounded-lg bg-black shadow-md md:mb-8"
+          transition:name={`post-${post.id}-thumb`}
+          style={{ backgroundColor: category?.data.style.themeColor }}
+        />
+      </div>
       <Image
         src={post.data.heroImage}
         alt={post.data.title}
@@ -44,7 +53,7 @@ const category = await getEntry(post.data.category)
       class="md:col-start-0 flex flex-col justify-end md:col-span-3 md:row-start-1"
     >
       <div class="flex grow flex-col justify-center">
-        <h3 class="mb-2 mr-4 text-xl font-extrabold leading-tight">
+        <h3 class="mb-2 mr-4 text-balance text-xl font-extrabold leading-tight">
           {post.data.title}
         </h3>
       </div>
@@ -56,6 +65,6 @@ const category = await getEntry(post.data.category)
   </a>
 
   <div class="z-10 -mx-6 -mb-4 -mt-20 rounded-b-lg bg-black px-6 pb-2 pt-14">
-    <PostMeta post={post} />
+    <PostMeta post={post} align="left" />
   </div>
 </div>
