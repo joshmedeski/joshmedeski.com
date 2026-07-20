@@ -8,10 +8,14 @@ interface Props {
 
 const { posts } = Astro.props
 const format = new Intl.NumberFormat('en-US')
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+  dateStyle: 'medium',
+  timeZone: 'UTC',
+})
 const maxViews = Math.max(0, ...posts.map(({ views }) => views))
 ---
 
-<ol class="mb-32 flex flex-col gap-1">
+<ol class="flex flex-col gap-1">
   {
     posts.map(({ post, views }, index) => {
       const width = maxViews > 0 ? (views / maxViews) * 100 : 0
@@ -36,6 +40,9 @@ const maxViews = Math.max(0, ...posts.map(({ views }) => views))
             <div class="min-w-0 flex-1">
               <span class="block truncate text-pretty font-medium group-hover:underline">
                 {post.data.title}
+              </span>
+              <span class="mt-0.5 block text-xs text-neutral-500">
+                {dateFormat.format(post.data.pubDate)}
               </span>
               <div class="mt-1.5 flex items-center gap-3">
                 <div class="relative h-3 flex-1 overflow-hidden rounded-full bg-white/10">

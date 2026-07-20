@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '../components/Layout.astro'
+import PageTitle from '../components/PageTitle.astro'
+import Wrapper from '../components/Wrapper.astro'
+import RankedVideos from '../components/RankedVideos.astro'
+import RankedPosts from '../components/RankedPosts.astro'
+import { pageviewsFromRecord, rankPosts } from '../utils/fathom'
+import { viewsFromRecord, rankVideos } from '../utils/youtube'
+import pageviewSnapshot from '../data/pageviews.json'
+import youtubeSnapshot from '../data/youtube-views.json'
+
+const includeDrafts = import.meta.env.DEV
+const posts = await getCollection(
+  'posts',
+  ({ data: { draft } }) => includeDrafts || !draft,
+)
+
+const rankedVideos = rankVideos(posts, viewsFromRecord(youtubeSnapshot.views))
+const rankedPosts = rankPosts(
+  posts,
+  pageviewsFromRecord(pageviewSnapshot.pageviews),
+)
+
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+  dateStyle: 'medium',
+  timeZone: 'UTC',
+})
+const postsSince = dateFormat.format(new Date(pageviewSnapshot.since))
+const postsUpdated = dateFormat.format(new Date(pageviewSnapshot.fetchedAt))
+const videosUpdated = dateFormat.format(new Date(youtubeSnapshot.fetchedAt))
+---
+
+<Layout title="Stats">
+  <Wrapper>
+    <PageTitle>Stats</PageTitle>
+    <div class="mb-32 grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-2">
+      <section>
+        <h2 class="text-center text-2xl font-bold">Ranked Videos</h2>
+        <p class="mb-8 mt-1 text-center text-sm text-neutral-500">
+          Lifetime YouTube views · Updated {videosUpdated}
+        </p>
+        <RankedVideos posts={rankedVideos} />
+      </section>
+      <section>
+        <h2 class="text-center text-2xl font-bold">Ranked Posts</h2>
+        <p class="mb-8 mt-1 text-center text-sm text-neutral-500">
+          Lifetime pageviews since {postsSince} · Updated {postsUpdated}
+        </p>
+        <RankedPosts posts={rankedPosts} />
+      </section>
+    </div>
+  </Wrapper>
+</Layout>
