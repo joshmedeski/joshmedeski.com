@@ -11,6 +11,13 @@ export type VideoViewsSnapshot = {
   views: Record<string, number>
 }
 
+const YOUTUBE_VIDEOS_URL = 'https://www.googleapis.com/youtube/v3/videos'
+const BATCH_SIZE = 50 // YouTube Data API max ids per request
+
+type YouTubeVideosResponse = {
+  items?: { id: string; statistics?: { viewCount?: string } }[]
+}
+
 // YouTube video IDs are 11 chars of [A-Za-z0-9_-]. Pull it out of the
 // `/embed/<id>` path, ignoring any `?si=`/`?t=` query string.
 export function extractVideoId(youtubeUrl: string): string | null {
@@ -42,4 +49,40 @@ export function rankVideos(
       if (b.views !== a.views) return b.views - a.views
       return b.post.data.pubDate.getTime() - a.post.data.pubDate.getTime()
     })
+}
+
+function chunk<T>(items: T[], size: number): T[][] {
+  const out: T[][] = []
+  for (let i = 0; i < items.length; i += size)
+    out.push(items.slice(i, i + size))
+  return out
+}
+
+// Fetch lifetime view counts for the given video ids from the YouTube Data
+// API v3. Throws on a missing key or bad response so the refresh script fails
+// loudly rather than writing an empty snapshot. Not used at build time.
+export async function fetchVideoViews(
+  token: string | undefined,
+  ids: string[],
+): Promise<Map<string, number>> {
+  if (!token)
+    throw new Error('YOUTUBE_API_KEY is required to fetch video views')
+
+  const views = new Map<string, number>()
+  for (const batch of chunk(ids, BATCH_SIZE)) {
+    const params = new URLSearchParams({
+      part: 'statistics',
+      id: batch.join(','),
+      key: token,
+    })
+    const res = await fetch(`${YOUTUBE_VIDEOS_URL}?${params}`)
+    if (!res.ok) {
+      throw new Error(`YouTube videos request failed: ${res.status}`)
+    }
+    const body = (await res.json()) as YouTubeVideosResponse
+    for (const item of body.items ?? []) {
+      views.set(item.id, parseInt(item.statistics?.viewCount ?? '0', 10) || 0)
+    }
+  }
+  return views
 }
