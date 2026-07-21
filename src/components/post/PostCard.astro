@@ -1,18 +1,21 @@
 ---
-import { getEntry } from 'astro:content'
+import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import { Image } from 'astro:assets'
 import PostMeta from './PostMeta.astro'
+import { resolveThemeArea } from '~/utils/areas'
 
 interface Props {
   post: CollectionEntry<'posts'>
 }
 const { post } = Astro.props
-const category = await getEntry(post.data.category)
+const areas = await getCollection('areas')
+const themeColor =
+  resolveThemeArea(post, areas)?.data.themeColor ?? 'bg-neutral-900'
 ---
 
 <div
-  class=`relative flex flex-col justify-end rounded-lg px-4 py-4 shadow-md md:px-6 ${category?.data?.style?.themeColor}`
+  class=`relative flex flex-col justify-end rounded-lg px-4 py-4 shadow-md md:px-6 ${themeColor}`
 >
   <a
     href={`/posts/${post.id}`}
@@ -37,7 +40,7 @@ const category = await getEntry(post.data.category)
           height="281.25"
           class="mb-2 aspect-video w-full rounded-lg bg-black shadow-md md:mb-8"
           transition:name={`post-${post.id}-thumb`}
-          style={{ backgroundColor: category?.data.style.themeColor }}
+          style={{ backgroundColor: '#000' }}
         />
       </div>
       <Image

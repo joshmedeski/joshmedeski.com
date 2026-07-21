@@ -1,7 +1,6 @@
 ---
 import { CollectionEntry, getCollection, getEntry } from 'astro:content'
 import clsx from 'clsx'
-import CategoryIcon from './CategoryIcon.astro'
 import PostCard from './post/PostCard.astro'
 import PostMeta from './post/PostMeta.astro'
 import Wrapper from './Wrapper.astro'
@@ -29,15 +28,10 @@ let guide: CollectionEntry<'guides'> | undefined
 if (nextPost?.data.guide?.ref) {
   guide = await getEntry('guides', nextPost.data.guide.ref.id)
 }
-
-let category: CollectionEntry<'categories'> | undefined
-if (nextPost?.data.category) {
-  category = await getEntry('categories', nextPost.data.category.id)
-}
 ---
 
 {
-  nextPost && guide && category && (
+  nextPost && guide && (
     <Wrapper>
       <section class="mb-12 grid grid-cols-4">
         <div class="col-span-2 col-start-2">

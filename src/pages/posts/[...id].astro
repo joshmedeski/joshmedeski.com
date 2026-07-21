@@ -1,5 +1,5 @@
 ---
-import { getCollection, render } from 'astro:content'
+import { getCollection, getEntry, render } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import PostLayout from '../../components/post/PostLayout.astro'
 import NextGuidePost from '~/components/NextGuidePost.astro'
@@ -26,10 +26,12 @@ interface Props {
 
 const { post } = Astro.props
 const { Content } = await render(post)
+const primaryRef = post.data.areas?.[0]
+const primaryArea = primaryRef ? await getEntry(primaryRef) : undefined
 ---
 
 <PostLayout post={post}>
   <Content />
-  <Cta category={post.data.category.id} />
+  <Cta topic={primaryArea?.data.title} />
   <NextGuidePost currentPostGuide={post.data.guide} slot="after-post" />
 </PostLayout>

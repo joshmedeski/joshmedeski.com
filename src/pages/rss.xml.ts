@@ -24,7 +24,7 @@ export async function GET(context: { site: URL }) {
         description: post.data.description,
         pubDate: post.data.pubDate,
         link: `/posts/${post.id}/`,
-        categories: [post.data.category.id],
+        categories: post.data.areas?.map((a) => a.id) ?? [],
         content,
       }
     }),
