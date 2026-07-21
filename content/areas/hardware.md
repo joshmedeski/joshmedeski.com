@@ -1,4 +1,5 @@
 ---
 title: Hardware
-slug: hardware
+icon: 🖥️
+themeColor: bg-slate-800
 ---

@@ -1,4 +1,5 @@
 ---
 title: Audio
-slug: audio
+icon: 🎧
+themeColor: bg-emerald-900
 ---

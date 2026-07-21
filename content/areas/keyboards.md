@@ -1,4 +1,5 @@
 ---
 title: Keyboards
-slug: keyboards
+icon: ⌨️
+themeColor: bg-amber-900
 ---
