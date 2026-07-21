@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '../../components/Layout.astro'
+import PageTitle from '../../components/PageTitle.astro'
+import Wrapper from '../../components/Wrapper.astro'
+import AreaIcon from '~/components/AreaIcon.astro'
+import {
+  topLevelAreas,
+  subAreasOf,
+  contentForArea,
+  areaHref,
+  validateTwoLevel,
+} from '~/utils/areas'
+
+const includeDrafts = import.meta.env.DEV
+const areas = await getCollection('areas')
+validateTwoLevel(areas)
+const posts = await getCollection(
+  'posts',
+  ({ data }) => includeDrafts || !data.draft,
+)
+const uses = await getCollection('uses')
+const allItems = [...posts, ...uses]
+const tops = topLevelAreas(areas)
+---
+
+<Layout title="Areas" description="Browse everything by topic area.">
+  <Wrapper>
+    <PageTitle>Areas</PageTitle>
+    <div class="mb-32 grid gap-8 sm:grid-cols-2">
+      {
+        tops.map((area) => {
+          const subs = subAreasOf(area, areas)
+          const count = contentForArea(area, areas, allItems).length
+          return (
+            <section
+              class={`rounded-2xl p-6 ${area.data.themeColor ?? 'bg-neutral-900'}`}
+            >
+              <a href={areaHref(area)} class="flex items-center gap-3">
+                <AreaIcon icon={area.data.icon} class="text-3xl" />
+                <div>
+                  <h2 class="text-2xl font-bold">{area.data.title}</h2>
+                  <p class="text-sm opacity-80">
+                    {count} {count === 1 ? 'item' : 'items'}
+                  </p>
+                </div>
+              </a>
+              {subs.length > 0 && (
+                <ul class="mt-4 flex flex-wrap gap-2">
+                  {subs.map((sub) => (
+                    <li>
+                      <a
+                        href={areaHref(sub)}
+                        class="rounded-full bg-black/30 px-3 py-1 text-sm hover:bg-black/50"
+                      >
+                        {sub.data.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          )
+        })
+      }
+    </div>
+  </Wrapper>
+</Layout>
