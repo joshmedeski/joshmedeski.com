@@ -76,6 +76,11 @@ describe('areas utils', () => {
     expect(contentForArea(claude, areas, items)).toHaveLength(1)
   })
 
+  it('contentForArea matches an item tagged with multiple areas', () => {
+    const items = [item('claude-code', 'hardware')]
+    expect(contentForArea(ai, areas, items)).toHaveLength(1)
+  })
+
   it('areaHref builds the hub path', () => {
     expect(areaHref(ai)).toBe('/areas/ai')
   })
