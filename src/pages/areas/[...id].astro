@@ -1,0 +1,115 @@
+---
+import { getCollection, render } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
+import { Image } from 'astro:assets'
+import Layout from '../../components/Layout.astro'
+import Wrapper from '../../components/Wrapper.astro'
+import PostCard from '~/components/post/PostCard.astro'
+import UseCard from '~/components/uses/UseCard.astro'
+import AreaIcon from '~/components/AreaIcon.astro'
+import {
+  contentForArea,
+  resolveTopLevel,
+  areaHref,
+  validateTwoLevel,
+} from '~/utils/areas'
+
+export async function getStaticPaths() {
+  const areas = await getCollection('areas')
+  validateTwoLevel(areas)
+  return areas.map((area) => ({ params: { id: area.id }, props: { area } }))
+}
+
+interface Props {
+  area: CollectionEntry<'areas'>
+}
+
+const { area } = Astro.props
+const includeDrafts = import.meta.env.DEV
+const areas = await getCollection('areas')
+const allPosts = await getCollection(
+  'posts',
+  ({ data }) => includeDrafts || !data.draft,
+)
+const allUses = await getCollection('uses')
+
+const posts = contentForArea(area, areas, allPosts).sort(
+  (a, b) =>
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+)
+const uses = contentForArea(area, areas, allUses).sort((a, b) =>
+  a.data.title.localeCompare(b.data.title),
+)
+
+const parent = area.data.parent ? resolveTopLevel(area, areas) : undefined
+const themeArea = parent ?? area
+const themeColor = themeArea.data.themeColor ?? 'bg-neutral-900'
+const { Content } = await render(area)
+---
+
+<Layout
+  title={area.data.title}
+  description={area.data.description ?? `Content in ${area.data.title}`}
+  themeColor={themeColor}
+  noIndex
+>
+  <header class={`py-16 text-center ${themeColor}`}>
+    <Wrapper>
+      {
+        parent && (
+          <a href={areaHref(parent)} class="mb-2 inline-block opacity-80">
+            ← {parent.data.title}
+          </a>
+        )
+      }
+      {
+        themeArea.data.cover && (
+          <Image
+            src={themeArea.data.cover}
+            alt={area.data.title}
+            width="1200"
+            height="480"
+            class="mx-auto mb-6 aspect-[5/2] w-full max-w-3xl rounded-2xl object-cover shadow-lg"
+          />
+        )
+      }
+      <div class="text-5xl"><AreaIcon icon={area.data.icon} /></div>
+      <h1 class="mt-4 text-4xl font-extrabold">{area.data.title}</h1>
+      {
+        area.data.description && (
+          <p class="mt-2 opacity-80">{area.data.description}</p>
+        )
+      }
+    </Wrapper>
+  </header>
+
+  <Wrapper>
+    {
+      posts.length > 0 && (
+        <section class="py-12">
+          <h2 class="mb-6 text-2xl font-bold">Posts</h2>
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+            {posts.map((post) => (
+              <PostCard post={post} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+    {
+      uses.length > 0 && (
+        <section class="py-12">
+          <h2 class="mb-6 text-2xl font-bold">Uses</h2>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {uses.map((use) => (
+              <UseCard use={use} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+    <article class="prose prose-invert mx-auto max-w-screen-md py-12">
+      <Content />
+    </article>
+  </Wrapper>
+</Layout>
