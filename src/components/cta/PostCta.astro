@@ -1,12 +1,11 @@
 ---
-import type { CollectionEntry } from 'astro:content'
 import PostCtaInput from './PostCtaInput.tsx'
 import RssIcon from '../icons/RssIcon.astro'
 interface Props {
-  category: CollectionEntry<'posts'>['data']['category']['id']
+  topic?: string
 }
 
-const { category } = Astro.props
+const { topic } = Astro.props
 ---
 
 <div
@@ -36,10 +35,11 @@ const { category } = Astro.props
       Sign-Up for New Posts
     </h2>
     <p class="mt-2 leading-tight text-neutral-300 sm:mt-6 sm:text-lg">
-      Stay in the loop and get the latest blog posts about {category} sent to your
-      inbox.
+      Stay in the loop and get the latest blog posts{
+        topic ? ` about ${topic}` : ''
+      } sent to your inbox.
     </p>
-    <PostCtaInput category={category} client:visible />
+    <PostCtaInput topic={topic} client:visible />
     <a href="/rss.xml" class="mt-3 flex items-center gap-2">
       <p class="text-white">
         Or use the{' '}

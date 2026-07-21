@@ -41,9 +41,7 @@ const ArrowRightIcon: FunctionComponent<JSX.SVGAttributes<SVGSVGElement>> = (
   </svg>
 )
 
-const PostCtaInput: FunctionalComponent<{ category: string }> = ({
-  category,
-}) => {
+const PostCtaInput: FunctionalComponent<{ topic?: string }> = ({ topic }) => {
   const [isSubscribed, setIsSubscribed] = useState(false)
   const [error, setError] = useState('')
 
@@ -56,7 +54,11 @@ const PostCtaInput: FunctionalComponent<{ category: string }> = ({
     try {
       await fetch(`/.netlify/functions/create-new-subscriber`, {
         method: 'POST',
-        body: JSON.stringify({ email, referrer_url, tags: [category] }),
+        body: JSON.stringify({
+          email,
+          referrer_url,
+          tags: topic ? [topic] : [],
+        }),
       })
       // TODO: add fathom to window type
       // @ts-ignore
