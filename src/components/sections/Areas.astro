@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content'
+import Section from './Section.astro'
+import AreaIcon from '~/components/AreaIcon.astro'
+import { topLevelAreas, areaHref } from '~/utils/areas'
+
+const areas = await getCollection('areas')
+const tops = topLevelAreas(areas)
+---
+
+<Section
+  title="Explore by Area"
+  viewAllHref="/areas"
+  viewAllLabel="Browse all areas →"
+>
+  <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+    {
+      tops.map((area) => (
+        <a
+          href={areaHref(area)}
+          class={`flex flex-col items-center gap-2 rounded-2xl p-6 text-center ${area.data.themeColor ?? 'bg-neutral-900'}`}
+        >
+          <AreaIcon icon={area.data.icon} class="text-4xl" />
+          <span class="font-bold">{area.data.title}</span>
+        </a>
+      ))
+    }
+  </div>
+</Section>
