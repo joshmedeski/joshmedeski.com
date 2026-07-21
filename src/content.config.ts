@@ -75,6 +75,7 @@ const wallpapersCollection = defineCollection({
     z.object({
       title: z.string(),
       image: image(),
+      added: z.date().optional(),
       width: z.number().optional(),
       height: z.number().optional(),
       favorite: z.boolean().optional(),
