@@ -8,7 +8,6 @@ const postsCollection = defineCollection({
       title: z.string(),
       description: z.string(),
       pubDate: z.date(),
-      category: reference('categories'),
       areas: z.array(reference('areas')).optional(),
       duration: z.string().optional(),
       heroImage: image(),
@@ -27,27 +26,12 @@ const postsCollection = defineCollection({
     }),
 })
 
-const categoriesCollection = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './content/categories' }),
-  schema: z.object({
-    title: z.string(),
-    desc: z.string(),
-    style: z.object({
-      container: z.string(),
-      title: z.string(),
-      desc: z.string(),
-      themeColor: z.string(),
-    }),
-  }),
-})
-
 const usesCollection = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './content/uses' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
       description: z.string(),
-      area: reference('areas'),
       areas: z.array(reference('areas')).optional(),
       image: image(),
     }),
@@ -105,7 +89,6 @@ export const collections = {
   areas: areasCollection,
   posts: postsCollection,
   projects: projectsCollection,
-  categories: categoriesCollection,
   guides: guidesCollection,
   uses: usesCollection,
   wallpapers: wallpapersCollection,

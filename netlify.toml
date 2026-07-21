@@ -49,3 +49,13 @@ from = "/posts/pdes-with-abhishek-keshri"
 to = "/posts/abhishek-keshris-dev-workflow"
 status = 301
 force = true
+
+[[redirects]]
+  from = "/categories"
+  to = "/areas"
+  status = 301
+
+[[redirects]]
+  from = "/categories/*"
+  to = "/areas"
+  status = 301
