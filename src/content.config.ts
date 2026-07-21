@@ -9,6 +9,7 @@ const postsCollection = defineCollection({
       description: z.string(),
       pubDate: z.date(),
       category: reference('categories'),
+      areas: z.array(reference('areas')).optional(),
       duration: z.string().optional(),
       heroImage: image(),
       draft: z.boolean().optional(),
@@ -47,15 +48,22 @@ const usesCollection = defineCollection({
       title: z.string(),
       description: z.string(),
       area: reference('areas'),
+      areas: z.array(reference('areas')).optional(),
       image: image(),
     }),
 })
 
 const areasCollection = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './content/areas' }),
-  schema: z.object({
-    title: z.string(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      icon: z.string().optional(),
+      parent: reference('areas').optional(),
+      themeColor: z.string().optional(),
+      cover: image().optional(),
+      description: z.string().optional(),
+    }),
 })
 
 const guidesCollection = defineCollection({
