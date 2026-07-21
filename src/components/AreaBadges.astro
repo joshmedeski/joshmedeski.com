@@ -1,0 +1,31 @@
+---
+import { getEntry } from 'astro:content'
+import { areaHref } from '~/utils/areas'
+import AreaIcon from './AreaIcon.astro'
+
+interface Props {
+  areas?: { collection: 'areas'; id: string }[]
+}
+const { areas = [] } = Astro.props
+const resolved = (
+  await Promise.all((areas ?? []).map((ref) => getEntry(ref)))
+).filter((a) => a != null)
+---
+
+{
+  resolved.length > 0 && (
+    <ul class="flex flex-wrap items-center gap-2">
+      {resolved.map((area) => (
+        <li>
+          <a
+            href={areaHref(area)}
+            class="flex items-center gap-1 rounded-full bg-neutral-800 px-3 py-1 text-sm text-neutral-200 hover:bg-neutral-700"
+          >
+            <AreaIcon icon={area.data.icon} />
+            <span>{area.data.title}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}
