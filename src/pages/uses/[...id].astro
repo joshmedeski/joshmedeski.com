@@ -6,6 +6,7 @@ import GhRepo from '../../components/GhRepo.astro'
 import Layout from '~/components/Layout.astro'
 import Wrapper from '~/components/Wrapper.astro'
 import UseCard from '~/components/uses/UseCard.astro'
+import { areaIdsFor } from '~/utils/areas'
 
 export async function getStaticPaths() {
   const uses = await getCollection('uses')
@@ -22,11 +23,11 @@ interface Props {
 }
 
 const { use } = Astro.props
-const relatedUses = await getCollection(
-  'uses',
+const useAreaIds = new Set(areaIdsFor(use))
+const relatedUses = (await getCollection('uses')).filter(
   (relatedUse) =>
-    relatedUse.data.area.id === use.data.area.id &&
-    relatedUse.data.title !== use.data.title,
+    relatedUse.id !== use.id &&
+    areaIdsFor(relatedUse).some((id) => useAreaIds.has(id)),
 )
 const { Content } = await render(use)
 ---
@@ -60,7 +61,7 @@ const { Content } = await render(use)
     {
       relatedUses.length > 0 && (
         <footer class="mb-12">
-          <h3 class="mb-4 text-4xl font-bold">Related {use.data.area.id}</h3>
+          <h3 class="mb-4 text-4xl font-bold">Related uses</h3>
           <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
             {relatedUses
               .sort((a, b) => a.data.title.localeCompare(b.data.title))

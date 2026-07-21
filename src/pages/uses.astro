@@ -4,9 +4,13 @@ import Layout from '../components/Layout.astro'
 import PageTitle from '../components/PageTitle.astro'
 import Wrapper from '../components/Wrapper.astro'
 import UseCard from '~/components/uses/UseCard.astro'
+import { topLevelAreas, contentForArea } from '~/utils/areas'
 
 const areas = await getCollection('areas')
 const uses = await getCollection('uses')
+const groups = topLevelAreas(areas)
+  .map((area) => ({ area, uses: contentForArea(area, areas, uses) }))
+  .filter((g) => g.uses.length > 0)
 ---
 
 <Layout title="Uses" noIndex>
@@ -14,12 +18,11 @@ const uses = await getCollection('uses')
     <PageTitle>Uses</PageTitle>
     <div class="mb-12 space-y-8 sm:space-y-24">
       {
-        areas.map((area) => (
+        groups.map(({ area, uses }) => (
           <section>
             <h2 class="mb-4 text-4xl font-bold">{area.data.title}</h2>
             <div class="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 lg:grid-cols-4">
               {uses
-                .filter((use) => use.data.area.id === area.id)
                 .sort((a, b) => a.data.title.localeCompare(b.data.title))
                 .map((use) => (
                   <UseCard use={use} />
