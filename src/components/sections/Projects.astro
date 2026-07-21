@@ -1,26 +1,13 @@
 ---
 import { getCollection } from 'astro:content'
-import Wrapper from '~/components/Wrapper.astro'
+import Section from '~/components/sections/Section.astro'
 import ProjectCard from '~/components/project/ProjectCard.astro'
 
 const projects = await getCollection('projects')
 ---
 
-<section class="py-16 md:py-32">
-  <Wrapper>
-    <div>
-      <h1
-        class="mb-2 text-center text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl"
-      >
-        Projects
-      </h1>
-      <p class="mb-6 text-center text-xl leading-tight md:text-xl">
-        Here are some helpful open-source projects I've built.
-      </p>
-
-      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => <ProjectCard project={project} />)}
-      </div>
-    </div>
-  </Wrapper>
-</section>
+<Section title="Projects">
+  <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    {projects.map((project) => <ProjectCard project={project} />)}
+  </div>
+</Section>

@@ -1,0 +1,35 @@
+---
+import Wrapper from '~/components/Wrapper.astro'
+
+interface Props {
+  title: string
+  viewAllHref?: string
+  viewAllLabel?: string
+}
+
+const { title, viewAllHref, viewAllLabel } = Astro.props
+---
+
+<section class="py-16 md:py-32">
+  <Wrapper>
+    <div>
+      <h1
+        class="mb-8 text-center text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl"
+      >
+        {title}
+      </h1>
+
+      <slot />
+
+      {
+        viewAllHref && (
+          <div class="mt-8 text-center">
+            <a href={viewAllHref} class="text-primary-500 text-xl underline">
+              {viewAllLabel}
+            </a>
+          </div>
+        )
+      }
+    </div>
+  </Wrapper>
+</section>

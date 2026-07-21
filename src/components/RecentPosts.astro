@@ -1,8 +1,7 @@
 ---
 import PostCard from './post/PostCard.astro'
 import { getCollection } from 'astro:content'
-import Wrapper from './Wrapper.astro'
-import PageTitle from './PageTitle.astro'
+import Section from './sections/Section.astro'
 
 const includeDrafts = import.meta.env.DEV
 const allPosts = await getCollection(
@@ -15,14 +14,12 @@ const sortedPosts = allPosts.sort(
 const recentPosts = sortedPosts.slice(0, 4)
 ---
 
-<Wrapper>
-  <PageTitle>Recent Posts</PageTitle>
-  <section class="grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8">
+<Section
+  title="Recent Posts"
+  viewAllHref="/posts"
+  viewAllLabel="View all posts"
+>
+  <div class="grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8">
     {recentPosts.map((post) => <PostCard post={post} />)}
-  </section>
-  <a
-    href="/posts"
-    class="mb-24 mt-8 block text-center text-xl text-primary-500 underline"
-    >View all posts</a
-  >
-</Wrapper>
+  </div>
+</Section>

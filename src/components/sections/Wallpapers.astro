@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content'
+import Section from '~/components/sections/Section.astro'
+import WallpaperCard from '~/components/wallpaper/WallpaperCard.astro'
+
+const wallpapers = (await getCollection('wallpapers'))
+  .sort((a, b) => {
+    const aTime = a.data.added?.getTime() ?? 0
+    const bTime = b.data.added?.getTime() ?? 0
+    return bTime - aTime
+  })
+  .slice(0, 8)
+---
+
+<Section
+  title="Wallpapers"
+  viewAllHref="/wallpapers"
+  viewAllLabel="View all wallpapers"
+>
+  <div
+    class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-10 md:grid-cols-3 lg:grid-cols-4"
+  >
+    {wallpapers.map((wallpaper) => <WallpaperCard wallpaper={wallpaper} />)}
+  </div>
+</Section>
