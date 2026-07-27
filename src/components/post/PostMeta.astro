@@ -2,11 +2,12 @@
 import { CollectionEntry, getEntry } from 'astro:content'
 import AreaBadges from '../AreaBadges.astro'
 import { GuideIcon } from '../icons/index.astro'
+import { pillClass, type PillSize } from '~/utils/pills'
 
 interface Props {
   post: CollectionEntry<'posts'>
   align?: 'left' | 'center'
-  size?: 'sm' | 'lg'
+  size?: PillSize
 }
 
 const {
@@ -17,10 +18,7 @@ const {
   },
 } = Astro.props
 
-const pill =
-  size === 'lg'
-    ? 'flex items-center gap-2 rounded-full bg-neutral-800 px-4 py-1.5 text-base text-neutral-200 md:text-lg'
-    : 'flex items-center gap-1 rounded-full bg-neutral-800 px-3 py-1 text-sm text-neutral-200'
+const pill = pillClass(size)
 
 let guide: CollectionEntry<'guides'> | undefined
 if (postGuide) guide = await getEntry(postGuide.ref)
