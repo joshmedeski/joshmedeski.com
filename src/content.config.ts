@@ -83,6 +83,12 @@ const projectsCollection = defineCollection({
       repo: z.string(),
       areas: z.array(reference('areas')).optional(),
       heroImage: image(),
+      cta: z
+        .object({
+          label: z.string(),
+          url: z.string(),
+        })
+        .optional(),
     }),
 })
 

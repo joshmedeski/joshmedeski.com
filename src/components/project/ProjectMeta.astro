@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import AreaBadges from '../AreaBadges.astro'
+import { GitHubIcon } from '../icons/index.astro'
+import { pillClass, type PillSize } from '~/utils/pills'
+
+interface Props {
+  project: CollectionEntry<'projects'>
+  align?: 'left' | 'center'
+  size?: PillSize
+}
+
+const {
+  align = 'center',
+  size = 'sm',
+  project: {
+    data: { repo, areas },
+  },
+} = Astro.props
+
+const pill = pillClass(size)
+---
+
+<div
+  class:list={[
+    'flex w-full flex-wrap items-center gap-2 font-medium',
+    align === 'left' ? 'justify-start' : 'justify-center',
+  ]}
+>
+  <AreaBadges areas={areas} pillClass={pill} />
+
+  <a
+    href={`https://github.com/${repo}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    class={`${pill} hover:bg-neutral-700`}
+  >
+    <GitHubIcon class={size === 'lg' ? 'h-5 w-5' : 'h-4 w-4'} />
+    <span>{repo}</span>
+  </a>
+</div>
