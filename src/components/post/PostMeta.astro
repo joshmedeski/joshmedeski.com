@@ -1,19 +1,26 @@
 ---
 import { CollectionEntry, getEntry } from 'astro:content'
 import AreaBadges from '../AreaBadges.astro'
-import { DateIcon, DurationIcon, GuideIcon } from '../icons/index.astro'
+import { GuideIcon } from '../icons/index.astro'
 
 interface Props {
   post: CollectionEntry<'posts'>
   align?: 'left' | 'center'
+  size?: 'sm' | 'lg'
 }
 
 const {
   align = 'center',
+  size = 'sm',
   post: {
     data: { pubDate, duration, guide: postGuide, areas },
   },
 } = Astro.props
+
+const pill =
+  size === 'lg'
+    ? 'flex items-center gap-2 rounded-full bg-neutral-800 px-4 py-1.5 text-base text-neutral-200 md:text-lg'
+    : 'flex items-center gap-1 rounded-full bg-neutral-800 px-3 py-1 text-sm text-neutral-200'
 
 let guide: CollectionEntry<'guides'> | undefined
 if (postGuide) guide = await getEntry(postGuide.ref)
@@ -21,23 +28,23 @@ if (postGuide) guide = await getEntry(postGuide.ref)
 
 <div
   class:list={[
-    'flex w-full flex-wrap items-center gap-5 text-base font-medium md:text-lg',
+    'flex w-full flex-wrap items-center gap-2 font-medium',
     align === 'left' ? 'justify-start' : 'justify-center',
   ]}
 >
-  <AreaBadges areas={areas} />
+  <AreaBadges areas={areas} pillClass={pill} />
 
   {
     guide && (
-      <a href={`/guides/${guide.id}`} class="flex items-center">
-        <GuideIcon class="mr-2 w-5" />
+      <a href={`/guides/${guide.id}`} class={`${pill} hover:bg-neutral-700`}>
+        <GuideIcon class={size === 'lg' ? 'w-5' : 'w-4'} />
         <span>{guide.data.title}</span>
       </a>
     )
   }
 
-  <div class="flex items-center">
-    <DateIcon class="mr-2 h-5" />
+  <div class={pill}>
+    <span aria-hidden="true">📅</span>
     <span>
       <time>
         {
@@ -53,8 +60,8 @@ if (postGuide) guide = await getEntry(postGuide.ref)
 
   {
     duration && (
-      <div class="flex items-center">
-        <DurationIcon class="mr-2 w-5" />
+      <div class={pill}>
+        <span aria-hidden="true">🎬</span>
         <span>{duration}</span>
       </div>
     )

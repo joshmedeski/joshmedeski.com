@@ -5,8 +5,12 @@ import AreaIcon from './AreaIcon.astro'
 
 interface Props {
   areas?: { collection: 'areas'; id: string }[]
+  pillClass?: string
 }
-const { areas = [] } = Astro.props
+const {
+  areas = [],
+  pillClass = 'flex items-center gap-1 rounded-full bg-neutral-800 px-3 py-1 text-sm text-neutral-200',
+} = Astro.props
 const resolved = (
   await Promise.all((areas ?? []).map((ref) => getEntry(ref)))
 ).filter((a) => a != null)
@@ -14,13 +18,10 @@ const resolved = (
 
 {
   resolved.length > 0 && (
-    <ul class="flex flex-wrap items-center gap-2">
+    <ul class="contents">
       {resolved.map((area) => (
         <li>
-          <a
-            href={areaHref(area)}
-            class="flex items-center gap-1 rounded-full bg-neutral-800 px-3 py-1 text-sm text-neutral-200 hover:bg-neutral-700"
-          >
+          <a href={areaHref(area)} class={`${pillClass} hover:bg-neutral-700`}>
             <AreaIcon icon={area.data.icon} />
             <span>{area.data.title}</span>
           </a>
