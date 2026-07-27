@@ -12,10 +12,14 @@ const { post } = Astro.props
 const areas = await getCollection('areas')
 const themeColor =
   resolveThemeArea(post, areas)?.data.themeColor ?? 'bg-neutral-900'
+// Tailwind can't generate a `border-*` class built at runtime, so the border
+// color comes from the theme variable backing the area's `bg-*` utility.
+const borderColor = `var(${themeColor.replace('bg-', '--color-')})`
 ---
 
 <div
-  class=`relative flex flex-col justify-end rounded-lg px-4 py-4 shadow-md md:px-6 ${themeColor}`
+  class=`relative flex flex-col justify-end rounded-lg border-2 px-4 py-4 shadow-md md:px-6 ${themeColor}`
+  style={`border-color: ${borderColor}`}
 >
   <a
     href={`/posts/${post.id}`}
@@ -61,13 +65,17 @@ const themeColor =
         </h3>
       </div>
 
-      <p class="-ml-3 mb-12 rounded-t-md bg-black p-3 text-sm text-slate-500">
+      <p
+        class="-ml-3 mb-12 rounded-t-md bg-neutral-900 p-3 text-sm text-slate-500"
+      >
         {post.data.description}
       </p>
     </div>
   </a>
 
-  <div class="z-10 -mx-6 -mb-4 -mt-20 rounded-b-lg bg-black px-6 pb-2 pt-14">
+  <div
+    class="z-10 -mx-4 -mb-4 -mt-20 rounded-b-md bg-neutral-900 px-4 pb-2 pt-14 md:-mx-6 md:px-6"
+  >
     <PostMeta post={post} align="left" />
   </div>
 </div>
