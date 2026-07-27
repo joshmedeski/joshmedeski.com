@@ -8,7 +8,9 @@ heroImage: >-
 description: >-
   Using an open-source search engine and Raycast, I can get to any website I
   want instantly.
-category: dotfiles
+areas:
+  - macos
+  - productivity
 ---
 
 Using an open-source search engine and Raycast, I can get to any website I want instantly. In this post, I’ll show you how it works and why it’s changed the way I browse the web.

@@ -5,7 +5,8 @@ description: >-
   Perfectionism is stopping you from growing your business, building your cause,
   and doing what you love.
 heroImage: ../attachments/posts/overcome-perfectionism/overcome-perfectionism-thumb.jpeg
-category: personal-development
+areas:
+  - growth
 ---
 
 Perfectionism is stopping you from growing your business, building your cause, and doing what you love. It's important to face this problem head on. Here are 3 tips to overcome perfectionism.

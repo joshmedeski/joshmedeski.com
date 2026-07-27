@@ -1,10 +1,12 @@
 ---
 title: Switching from Mackup to Stow Dotfiles Manager
 description: 'My journey to a new, simpler, dotfiles manager from Mackup to GNU Stow.'
-category: dotfiles
 heroImage: >-
   ../attachments/posts/moving-from-mackup-to-stow/switching-from-mackup-to-stow-dotfiles-manager.jpeg
 pubDate: 2024-04-15T09:00:00.000Z
+areas:
+  - terminal
+  - macos
 ---
 
 For many years, I used mackup to manage my dotfiles. However, its opinionated and complicated system started feeling more burdensome than beneficial. Craving simplicity, I switched gears towards GNU Stow. This article chronicles my transition from Mackup to the minimalist environment of Stow, demonstrating how simplicity can streamline your workflow.

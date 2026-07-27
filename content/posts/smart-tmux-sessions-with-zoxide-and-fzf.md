@@ -6,7 +6,8 @@ duration: '14:55'
 heroImage: >-
   ../attachments/posts/smart-tmux-sessions-with-zoxide-and-fzf/smart-tmux-sessions-with-zoxide-and-fzf.jpeg
 description: Create and manage tmux sessions automatically with a custom script
-category: dotfiles
+areas:
+  - tmux
 ---
 
 Create and manage tmux sessions automatically with a custom script that uses zoxide and fzf.

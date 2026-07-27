@@ -8,7 +8,8 @@ heroImage: >-
 description: >-
   Use the last command in tmux to switch between sessions easily, and learn how
   to improve it with sesh.
-category: dotfiles
+areas:
+  - tmux
 ---
 
 I made one of my favorite tmux sessions even better, so let's talk about it.

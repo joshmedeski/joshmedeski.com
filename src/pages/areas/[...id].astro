@@ -6,6 +6,7 @@ import Layout from '../../components/Layout.astro'
 import Wrapper from '../../components/Wrapper.astro'
 import PostCard from '~/components/post/PostCard.astro'
 import UseCard from '~/components/uses/UseCard.astro'
+import ProjectCard from '~/components/project/ProjectCard.astro'
 import AreaIcon from '~/components/AreaIcon.astro'
 import {
   contentForArea,
@@ -32,12 +33,16 @@ const allPosts = await getCollection(
   ({ data }) => includeDrafts || !data.draft,
 )
 const allUses = await getCollection('uses')
+const allProjects = await getCollection('projects')
 
 const posts = contentForArea(area, areas, allPosts).sort(
   (a, b) =>
     new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
 )
 const uses = contentForArea(area, areas, allUses).sort((a, b) =>
+  a.data.title.localeCompare(b.data.title),
+)
+const projects = contentForArea(area, areas, allProjects).sort((a, b) =>
   a.data.title.localeCompare(b.data.title),
 )
 
@@ -91,6 +96,18 @@ const { Content } = await render(area)
           <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
             {posts.map((post) => (
               <PostCard post={post} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+    {
+      projects.length > 0 && (
+        <section class="py-12">
+          <h2 class="mb-6 text-2xl font-bold">Projects</h2>
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+            {projects.map((project) => (
+              <ProjectCard project={project} />
             ))}
           </div>
         </section>

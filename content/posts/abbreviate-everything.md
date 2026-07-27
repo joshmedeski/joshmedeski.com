@@ -5,7 +5,9 @@ youtubeUrl: 'https://www.youtube.com/embed/G0pmpc9JAI4'
 duration: '20:17'
 heroImage: ../attachments/posts/abbreviate-everything/abbreviate-everything.jpg
 description: An overview of how to manage macOS windows and desktops at blazing speeds!
-category: dotfiles
+areas:
+  - fish
+  - productivity
 ---
 
 From Vimconf 2021.

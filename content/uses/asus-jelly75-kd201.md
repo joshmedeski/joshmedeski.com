@@ -3,7 +3,6 @@ title: ASUS Jelly75 KD201
 description: >-
   A 75% gasket-mounted tri-mode mechanical keyboard in the Orange Meadow
   colorway with hot-swappable pre-lubed linear switches.
-area: keyboards
 areas:
   - keyboards
 image: ../attachments/uses/asus-jelly75-kd201.jpeg

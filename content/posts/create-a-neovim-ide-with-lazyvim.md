@@ -6,10 +6,11 @@ heroImage: >-
 thumbnail: >-
   ../attachments/posts/create-a-neovim-ide-with-lazyvim/create-a-neovim-ide-with-lazyvim-thumb.jpeg
 description: LazyVim allows you to quickly setup an IDE for Neovim.
-category: dotfiles
 guide:
   ref: dev-workflow-intro
   position: 6
+areas:
+  - neovim
 ---
 
 [LazyVim](https://www.lazyvim.org/) is a Neovim setup powered by [💤 lazy.nvim]() to make it easy to customize and extend your config. It turns Neovim into a IDE with very little effort and offers a simple and flexible structure to modify and extend it to your liking.

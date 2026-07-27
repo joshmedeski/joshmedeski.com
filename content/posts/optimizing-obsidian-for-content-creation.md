@@ -8,7 +8,9 @@ description: >-
 youtubeUrl: 'https://www.youtube.com/embed/rm_BDdEPR8w'
 heroImage: >-
   ../attachments/posts/optimizing-obsidian-for-content-creation/optimizing-obsidian-for-content-creation.jpeg
-category: conversations
+areas:
+  - obsidian
+  - productivity
 ---
 
 My friend, [Brandon Boswell](https://brandonkboswell.com/), recently sat down again with me. I'm in the process of adopting [Obsidian](https://obsidian.md/). We cover what Brandon has learned over the last 2 years of using Obsidian and some tips he’s found for finishing the creative process to actually deliver more content. We also cover a bunch of tips and best practices for getting the most out of Obsidian.

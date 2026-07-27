@@ -8,10 +8,12 @@ thumbnail: >-
 description: >-
   Starship is a minimal, blazing-fast, and infinitely customizable prompt for
   any shell.
-category: dotfiles
 guide:
   ref: dev-workflow-intro
   position: 4
+areas:
+  - terminal
+  - fish
 ---
 
 [Starship](https://starship.rs/) is a minimal, blazing-fast, and infinitely customizable prompt for any shell. I've been [interviewing developers](https://www.youtube.com/playlist?list=PLdtuRouvdurxRCLs_PnVBVxd9pc2po1em) recently and the majority of them are using Starship! It's easy to setup and configure. Here's how to get started.

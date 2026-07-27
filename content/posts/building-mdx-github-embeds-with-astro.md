@@ -4,11 +4,12 @@ description: >-
   Learn how to easily create MDX GitHub embeds using Astro in this step-by-step
   tutorial.
 youtubeUrl: 'https://www.youtube.com/embed/3o0gPmusT0Y?t=1m10s'
-category: development
 heroImage: >-
   ../attachments/posts/building-mdx-github-embeds-with-astro/building-mdx-github-embeds-with-astro-thumbnail.jpeg
 pubDate: 2023-08-10T12:00:00.000Z
 duration: '01:36:15'
+areas:
+  - development
 ---
 
 Learn how to easily create MDX GitHub embeds using Astro in this step-by-step tutorial. Enhance your blog posts with dynamic GitHub content for a seamless and interactive reading experience. Here's how to build an MDX GitHub embed with Astro!

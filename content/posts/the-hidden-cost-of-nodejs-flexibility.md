@@ -6,7 +6,8 @@ description: >-
   about them
 heroImage: >-
   ../attachments/posts/the-hidden-cost-of-nodejs-flexibility/the-hidden-cost-of-nodejs-flexibility.jpeg
-category: development
+areas:
+  - development
 ---
 
 ```sh

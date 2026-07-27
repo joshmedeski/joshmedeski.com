@@ -7,7 +7,9 @@ duration: '19:06'
 heroImage: >-
   ../attachments/posts/blazing-fast-window-management-on-macos/blazing-fast-window-management-on-macos.jpeg
 description: An overview of how to manage macOS windows and desktops at blazing speeds!
-category: dotfiles
+areas:
+  - macos
+  - productivity
 ---
 
 An overview of how to manage macOS windows and desktops at blazing speeds!

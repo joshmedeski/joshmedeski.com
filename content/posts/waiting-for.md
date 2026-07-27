@@ -5,7 +5,8 @@ description: >-
   You live in a world that depends on other people to get work done. On any day
   you could be waiting for a handful of people to take action
 heroImage: ../attachments/posts/waiting-for/waiting-for-thumb.jpeg
-category: productivity
+areas:
+  - productivity
 ---
 
 You live in a world that depends on other people to get work done. On any day you could be waiting for a handful of people to take action on something before you can take the next step on a project. So how do you keep track of all those items?

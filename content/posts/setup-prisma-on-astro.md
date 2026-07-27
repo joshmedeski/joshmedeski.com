@@ -5,7 +5,8 @@ description: ''
 heroImage: >-
   ../attachments/posts/setup-prisma-on-astro/setup-prisma-on-astro-thumbnail.jpeg
 draft: true
-category: development
+areas:
+  - development
 ---
 
 Intro

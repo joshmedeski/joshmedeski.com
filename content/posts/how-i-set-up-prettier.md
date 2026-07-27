@@ -8,7 +8,8 @@ length: 2 mins
 tag: Development
 heroImage: ../attachments/posts/how-i-set-up-prettier/prettier.jpeg
 heroClasses: 'md:rounded-3xl shadow-md'
-category: development
+areas:
+  - development
 ---
 
 Prettier is a opinionated code formatter that allows you to create more consistent code automatically.

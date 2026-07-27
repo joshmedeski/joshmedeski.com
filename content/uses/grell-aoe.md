@@ -1,7 +1,6 @@
 ---
 title: Grell AOE1
 description: Open back headphones with a detachable cable.
-area: audio
 areas:
   - audio
 image: ../attachments/uses/drop-grell-aoe1-signature-headphones.jpeg

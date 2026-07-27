@@ -8,7 +8,9 @@ heroImage: >-
   ../attachments/posts/ai-in-neovim-neovimconf-2024/ai-in-neovim-neovimconf-2024.jpeg
 youtubeUrl: 'https://www.youtube.com/embed/GKQ9rJ12hjc?si=Wn_klpgsSU431AIL'
 duration: '17:57'
-category: dotfiles
+areas:
+  - neovim
+  - ai
 ---
 
 Discover how AI plugins using LLMs are transforming Neovim into a cutting-edge tool for developers. This talk will explore the latest AI-powered plugins and integrations that enhance coding efficiency, streamline workflows, and elevate your development experience. Whether you're a seasoned Neovim user or new to the editor, learn how AI can revolutionize your coding practices and prepare you for the future of software development.

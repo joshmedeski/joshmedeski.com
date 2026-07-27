@@ -1,11 +1,12 @@
 ---
 title: Top 4 Fuzzy CLIs
 description: My list of the top 4 fuzzy command-line interfaces that I've used and like.
-category: dotfiles
 duration: '04:31'
 youtubeUrl: 'https://www.youtube.com/embed/T0O2qrOhauY'
 heroImage: ../attachments/posts/top-4-fuzzy-clis/top-4-fuzzy-clis.jpeg
 pubDate: 2024-01-22T09:00:00.000Z
+areas:
+  - terminal
 ---
 
 Command-line interfaces (CLIs) are great for productivity, but they often Fuzzy CLIs make it easier to use the command line by providing a fuzzy search interface that allows you to find commands quickly and easily.

@@ -6,10 +6,11 @@ heroImage: >-
 thumbnail: >-
   ../attachments/posts/manage-terminal-sessions-with-tmux/manage-terminal-sessions-with-tmux-thumb.jpeg
 description: tmux is a terminal multiplexer with lets you create multiple terminal session.
-category: dotfiles
 guide:
   ref: dev-workflow-intro
   position: 5
+areas:
+  - tmux
 ---
 
 [tmux](https://github.com/tmux/tmux/wiki) is a terminal multiplexer that allows you to create and manage multiple terminal sessions within a single window. It enables you to run multiple programs or shell sessions simultaneously, switch between them easily, and detach and reattach sessions, even if you disconnect from the terminal.

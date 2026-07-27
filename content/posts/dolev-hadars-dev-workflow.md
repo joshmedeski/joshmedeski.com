@@ -1,11 +1,12 @@
 ---
 title: Dolev Hadar's Dev Workflow
 description: "Learn about Dolev's, creator of gh-dash, tmux and neovim setup on macOS."
-category: conversations
 youtubeUrl: 'https://www.youtube.com/embed/CHV0TWO-b4A'
 duration: '29:14'
 heroImage: ../attachments/posts/dolev-hadars-dev-workflow/dolev-hadars-dev-workflow.jpeg
 pubDate: 2023-08-18T12:30:00.000Z
+areas:
+  - terminal
 ---
 
 Learn about Dolev's, creator of gh-dash, tmux and neovim setup on macOS.

@@ -8,7 +8,8 @@ heroImage: >-
 description: >-
   A beginner-friendly walkthrough of the layer-by-layer method for solving a
   standard 3x3 Rubik's Cube.
-category: development
+areas:
+  - growth
 ---
 
 One of my earliest videos: a straightforward, beginner-friendly guide to solving a standard 3x3 Rubik's Cube.

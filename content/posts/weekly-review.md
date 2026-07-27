@@ -5,7 +5,9 @@ description: >-
   A good weekly review is important in my productivity. It allows me to evaluate
   my recent actions and plan out the following week.
 heroImage: ../attachments/posts/weekly-review/weekly-review.jpeg
-category: productivity
+areas:
+  - productivity
+  - growth
 ---
 
 A good weekly review is important in my productivity. It allows me to evaluate my recent actions and plan out the following week. The weekly review also gives me a chance to catch up with everything.
