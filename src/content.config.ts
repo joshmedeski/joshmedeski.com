@@ -95,7 +95,23 @@ const projectsCollection = defineCollection({
     }),
 })
 
+const appearancesCollection = defineCollection({
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './content/appearances' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      publisher: z.string(),
+      url: z.string().url(),
+      pubDate: z.date(),
+      areas: z.array(reference('areas')).optional(),
+      projects: z.array(reference('projects')).optional(),
+      heroImage: image(),
+    }),
+})
+
 export const collections = {
+  appearances: appearancesCollection,
   areas: areasCollection,
   posts: postsCollection,
   projects: projectsCollection,

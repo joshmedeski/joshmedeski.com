@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import EntityCard from '../EntityCard.astro'
+import AppearanceMeta from './AppearanceMeta.astro'
+
+interface Props {
+  appearance: CollectionEntry<'appearances'>
+}
+const { appearance } = Astro.props
+---
+
+<EntityCard
+  href={appearance.data.url}
+  title={appearance.data.title}
+  description={appearance.data.description}
+  image={appearance.data.heroImage}
+  areas={appearance.data.areas}
+  transitionPrefix={`appearance-${appearance.id}`}
+>
+  <AppearanceMeta slot="meta" appearance={appearance} align="left" />
+</EntityCard>

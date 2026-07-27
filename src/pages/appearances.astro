@@ -1,13 +1,28 @@
 ---
+import { getCollection } from 'astro:content'
 import Layout from '../components/Layout.astro'
+import PageTitle from '../components/PageTitle.astro'
+import Wrapper from '../components/Wrapper.astro'
+import AppearanceCard from '~/components/appearance/AppearanceCard.astro'
+
 // TODO: redirect `/publications` to `/appearances`
+const appearances = (await getCollection('appearances')).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+)
 ---
 
 <Layout title="Appearances" noIndex>
-  <main>
-    <div class="mx-auto max-w-screen-lg">
-      <h1 class="font-extrabold text-3xl">Appearances</h1>
-      <p>Coming soon</p>
+  <Wrapper>
+    <PageTitle>Appearances</PageTitle>
+    <p class="mb-6 text-center text-xl leading-tight md:text-xl">
+      Interviews, profiles, and features published elsewhere.
+    </p>
+    <div class="grid grid-cols-1 gap-8 pb-12 sm:grid-cols-2">
+      {
+        appearances.map((appearance) => (
+          <AppearanceCard appearance={appearance} />
+        ))
+      }
     </div>
-  </main>
+  </Wrapper>
 </Layout>
