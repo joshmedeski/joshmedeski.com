@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import AreaBadges from '../AreaBadges.astro'
+import { pillClass, type PillSize } from '~/utils/pills'
+
+interface Props {
+  appearance: CollectionEntry<'appearances'>
+  align?: 'left' | 'center'
+  size?: PillSize
+}
+
+const {
+  align = 'center',
+  size = 'sm',
+  appearance: {
+    data: { publisher, pubDate, areas },
+  },
+} = Astro.props
+
+const pill = pillClass(size)
+---
+
+<div
+  class:list={[
+    'flex w-full flex-wrap items-center gap-2 font-medium',
+    align === 'left' ? 'justify-start' : 'justify-center',
+  ]}
+>
+  <AreaBadges areas={areas} pillClass={pill} />
+
+  <div class={pill}>
+    <span aria-hidden="true">📰</span>
+    <span>{publisher}</span>
+  </div>
+
+  <div class={pill}>
+    <span aria-hidden="true">📅</span>
+    <span>
+      <time datetime={pubDate.toISOString()}>
+        {
+          pubDate.toLocaleDateString('en-US', {
+            month: 'short',
+            day: '2-digit',
+            year: 'numeric',
+            timeZone: 'UTC',
+          })
+        }
+      </time>
+    </span>
+  </div>
+</div>

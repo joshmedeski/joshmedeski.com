@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { postsForProject, splitVideos } from './projects'
+import { entriesForProject, splitVideos } from './projects'
 
 const post = (
   id: string,
@@ -27,21 +27,21 @@ const untagged = post('untagged')
 
 const all = [seshVideo, seshArticle, other, untagged]
 
-describe('postsForProject', () => {
+describe('entriesForProject', () => {
   it('returns only posts referencing the project', () => {
-    expect(postsForProject({ id: 'sesh' }, all).map((p) => p.id)).toEqual([
+    expect(entriesForProject({ id: 'sesh' }, all).map((p) => p.id)).toEqual([
       'sesh-article',
       'sesh-video',
     ])
   })
 
   it('sorts newest first', () => {
-    const [first] = postsForProject({ id: 'sesh' }, all)
+    const [first] = entriesForProject({ id: 'sesh' }, all)
     expect(first.id).toBe('sesh-article')
   })
 
   it('returns an empty list when nothing references the project', () => {
-    expect(postsForProject({ id: 'unknown' }, all)).toEqual([])
+    expect(entriesForProject({ id: 'unknown' }, all)).toEqual([])
   })
 })
 

@@ -7,8 +7,9 @@ import Wrapper from '../Wrapper.astro'
 import ProjectMeta from './ProjectMeta.astro'
 import ProjectCta from './ProjectCta.astro'
 import PostCard from '../post/PostCard.astro'
+import AppearanceCard from '../appearance/AppearanceCard.astro'
 import { resolveThemeArea } from '~/utils/areas'
-import { postsForProject, splitVideos } from '~/utils/projects'
+import { entriesForProject, splitVideos } from '~/utils/projects'
 
 interface Props {
   project: CollectionEntry<'projects'>
@@ -24,7 +25,11 @@ const allPosts = await getCollection(
   'posts',
   ({ data }) => includeDrafts || !data.draft,
 )
-const { videos, articles } = splitVideos(postsForProject(project, allPosts))
+const { videos, articles } = splitVideos(entriesForProject(project, allPosts))
+const appearances = entriesForProject(
+  project,
+  await getCollection('appearances'),
+)
 ---
 
 <Layout
@@ -86,7 +91,7 @@ const { videos, articles } = splitVideos(postsForProject(project, allPosts))
     </div>
 
     {
-      (videos.length > 0 || articles.length > 0) && (
+      (videos.length > 0 || articles.length > 0 || appearances.length > 0) && (
         <Wrapper>
           <div data-pagefind-ignore>
             {videos.length > 0 && (
@@ -105,6 +110,16 @@ const { videos, articles } = splitVideos(postsForProject(project, allPosts))
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
                   {articles.map((post) => (
                     <PostCard post={post} />
+                  ))}
+                </div>
+              </section>
+            )}
+            {appearances.length > 0 && (
+              <section class="py-12">
+                <h2 class="mb-6 text-2xl font-bold">Appearances</h2>
+                <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+                  {appearances.map((appearance) => (
+                    <AppearanceCard appearance={appearance} />
                   ))}
                 </div>
               </section>

@@ -29,6 +29,7 @@ const {
 } = Astro.props
 
 const hasMeta = Astro.slots.has('meta')
+const isExternal = href.startsWith('http')
 const areas = await getCollection('areas')
 const themeColor =
   resolveThemeArea({ data: { areas: areaRefs } }, areas)?.data.themeColor ??
@@ -45,7 +46,9 @@ const borderColor = `var(${themeColor.replace('bg-', '--color-')})`
   <a
     href={href}
     class="z-20 grid grow gap-4 md:grid-cols-5 md:gap-6"
-    data-astro-prefetch
+    data-astro-prefetch={!isExternal}
+    target={isExternal ? '_blank' : undefined}
+    rel={isExternal ? 'noopener noreferrer' : undefined}
   >
     <div
       class="flex flex-col justify-end md:col-span-2 md:col-start-4 md:row-start-1"
