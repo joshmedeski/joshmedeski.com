@@ -1,5 +1,5 @@
 ---
 title: Hardware
 icon: 🖥️
-themeColor: bg-slate-800
+themeColor: bg-area-hardware
 ---

@@ -21,7 +21,7 @@ const groups = topLevelAreas(areas)
         groups.map(({ area, uses }) => (
           <section>
             <h2 class="mb-4 text-4xl font-bold">{area.data.title}</h2>
-            <div class="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-8 md:grid-cols-3 lg:grid-cols-4">
+            <div class="grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8">
               {uses
                 .sort((a, b) => a.data.title.localeCompare(b.data.title))
                 .map((use) => (

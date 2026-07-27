@@ -157,6 +157,14 @@
   --color-warning-900: var(--theme-color-warning-900);
   --color-warning-default: var(--theme-color-warning-500);
   --color-warning-subtle: var(--theme-color-warning-100);
+
+  --color-area-ai: var(--theme-color-area-ai);
+  --color-area-development: var(--theme-color-area-development);
+  --color-area-hardware: var(--theme-color-area-hardware);
+  --color-area-macos: var(--theme-color-area-macos);
+  --color-area-obsidian: var(--theme-color-area-obsidian);
+  --color-area-productivity: var(--theme-color-area-productivity);
+  --color-area-terminal: var(--theme-color-area-terminal);
 }
 
 @layer base {
@@ -263,6 +271,54 @@
     --theme-color-warning-700: oklch(0.61 0.07 90);
     --theme-color-warning-800: oklch(0.5 0.07 90);
     --theme-color-warning-900: oklch(0.42 0.07 90);
+
+    /* Top-level area theme colors. Mostly derived from the Tailwind hues each
+       area used to point at (hardware is brass, picked to clear macos/rose),
+       holding L near 0.52 and keeping chroma in a narrow
+       0.068–0.092 band so the areas read as one muted family instead of
+       seven competing accents.
+
+       Each is then cut with neutral-900 -- the fallback surface untinted areas
+       already use -- so the themed areas read as tints of the base surface
+       rather than separate accents. Raise --area-neutral-mix for more washout;
+       every step also darkens, so white text only gains contrast (all >= 7:1
+       at 20%). */
+    --area-neutral-mix: 20%;
+    --theme-color-area-ai: color-mix(
+      in oklab,
+      oklch(0.541 0.092 293.009),
+      var(--theme-color-neutral-900) var(--area-neutral-mix)
+    );
+    --theme-color-area-development: color-mix(
+      in oklab,
+      oklch(0.488 0.086 264.376),
+      var(--theme-color-neutral-900) var(--area-neutral-mix)
+    );
+    --theme-color-area-hardware: color-mix(
+      in oklab,
+      oklch(0.553 0.09 82),
+      var(--theme-color-neutral-900) var(--area-neutral-mix)
+    );
+    --theme-color-area-macos: color-mix(
+      in oklab,
+      oklch(0.514 0.083 16.935),
+      var(--theme-color-neutral-900) var(--area-neutral-mix)
+    );
+    --theme-color-area-obsidian: color-mix(
+      in oklab,
+      oklch(0.518 0.088 323.949),
+      var(--theme-color-neutral-900) var(--area-neutral-mix)
+    );
+    --theme-color-area-productivity: color-mix(
+      in oklab,
+      oklch(0.532 0.074 131.589),
+      var(--theme-color-neutral-900) var(--area-neutral-mix)
+    );
+    --theme-color-area-terminal: color-mix(
+      in oklab,
+      oklch(0.508 0.068 165.612),
+      var(--theme-color-neutral-900) var(--area-neutral-mix)
+    );
   }
 
   .custom-pagefind-ui {

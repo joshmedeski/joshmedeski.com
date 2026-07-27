@@ -1,0 +1,18 @@
+---
+interface Props {
+  cta: { label: string; url: string }
+  class?: string
+}
+
+const { cta, class: className } = Astro.props
+---
+
+<a
+  href={cta.url}
+  class:list={[
+    'inline-block rounded-full bg-white px-6 py-3 text-lg font-bold text-black no-underline shadow-lg transition-colors hover:bg-neutral-200',
+    className,
+  ]}
+>
+  {cta.label}
+</a>

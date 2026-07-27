@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import AreaBadges from '../AreaBadges.astro'
+import { pillClass, type PillSize } from '~/utils/pills'
+
+interface Props {
+  use: CollectionEntry<'uses'>
+  align?: 'left' | 'center'
+  size?: PillSize
+}
+
+const { use, align = 'center', size = 'sm' } = Astro.props
+
+const pill = pillClass(size)
+---
+
+<div
+  class:list={[
+    'flex w-full flex-wrap items-center gap-2 font-medium',
+    align === 'left' ? 'justify-start' : 'justify-center',
+  ]}
+>
+  <AreaBadges areas={use.data.areas} pillClass={pill} />
+</div>

@@ -62,7 +62,7 @@ const { Content } = await render(use)
       relatedUses.length > 0 && (
         <footer class="mb-12">
           <h3 class="mb-4 text-4xl font-bold">Related uses</h3>
-          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
             {relatedUses
               .sort((a, b) => a.data.title.localeCompare(b.data.title))
               .map((use) => (
