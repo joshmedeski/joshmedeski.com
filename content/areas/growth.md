@@ -1,6 +1,6 @@
 ---
 title: Growth Mindset
 icon: 🌱
-themeColor: bg-sky-900
+parent: productivity
 description: Living with intention, reflection, and personal development.
 ---
