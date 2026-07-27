@@ -1,7 +1,6 @@
 ---
 title: Audio-Engine A2
 description: A pair of powered bookshelf speakers with a built-in DAC.
-area: audio
 areas:
   - audio
 image: ../attachments/uses/audio-engine-a2-bookshelf.jpeg

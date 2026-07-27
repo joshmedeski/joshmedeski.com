@@ -8,7 +8,8 @@ heroImage: >-
 description: >-
   Here's a quick guide on how to take your ugly terminal and make it pretty in
   just 5 minutes!
-category: dotfiles
+areas:
+  - terminal
 ---
 
 Here's a quick guide on how to take your ugly terminal and make it pretty in just 5 minutes!

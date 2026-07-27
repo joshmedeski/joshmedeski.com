@@ -6,7 +6,8 @@ duration: '9:27'
 heroImage: >-
   ../attachments/posts/smart-tmux-sessions-with-sesh/smart-tmux-sessions-with-sesh.jpeg
 description: Make your tmux workflow smarter and faster with the sesh session manager.
-category: dotfiles
+areas:
+  - tmux
 ---
 
 The way I use Tmux has changed a lot in the last year, so let's talk about it.

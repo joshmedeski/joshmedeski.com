@@ -5,9 +5,11 @@ description: >-
   interesting with tmux and neovim.
 youtubeUrl: 'https://www.youtube.com/embed/17o9QrCcF_o'
 duration: '01:08:44'
-category: conversations
 heroImage: ../attachments/posts/vim-tmux-with-nick-nisi/vim-tmux-with-nick-nisi.jpeg
 pubDate: 2023-02-23T18:00:00.000Z
+areas:
+  - neovim
+  - tmux
 ---
 
 Nick and I talk about our developer workflows and what tools we're finding interesting in the world of tmux and neovim.

@@ -3,10 +3,11 @@ title: Bullet Journal Didn't Work for Me
 description: >-
   The Bullet Journal is an analog productivity system used for capturing
   everything during your day (todos, appointments, notes).
-category: productivity
 heroImage: >-
   ../attachments/posts/bullet-journal-didnt-work/bullet-journal-didnt-work-thumb.jpeg
 pubDate: 2014-06-16T15:24:00.169Z
+areas:
+  - productivity
 ---
 
 The Bullet Journal is an <a href="http://bulletjournal.com" target="_blank" rel="noopener">analog productivity system</a> used for capturing everything during your day (todos, appointments, notes). Everything is written down in one chronological list. Each month you clean up your list and sort through whatever todos haven't been check off yet. The creator, Ryder Carroll, described it as...

@@ -5,7 +5,9 @@ heroImage: ../attachments/posts/how-to-use-git-worktrees/how-to-use-git-worktree
 youtubeUrl: 'https://www.youtube.com/embed/b46GKAnH89I'
 duration: '18:44'
 description: How I set up my Git Worktrees and how I use them to stay productive.
-category: dotfiles
+areas:
+  - git
+  - terminal
 ---
 
 Git Worktrees have become an invaluable piece of my workflow. They allow me to switch between contexts quickly and easily, isolate breaking changes, and do code reviews without disrupting my current work. In this post, I’m going to break down how I set up my Git Worktrees and how I use them to stay productive.

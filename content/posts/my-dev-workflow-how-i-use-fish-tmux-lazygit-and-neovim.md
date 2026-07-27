@@ -8,7 +8,12 @@ heroImage: >-
 description: >-
   A quick tour of my terminal-based development workflow built around fish,
   tmux, lazygit, and Neovim.
-category: dotfiles
+areas:
+  - terminal
+  - fish
+  - tmux
+  - neovim
+  - git
 ---
 
 This is a quick, raw walkthrough of my development workflow — all of it living in the terminal. I combine a few tools that each do one job well:

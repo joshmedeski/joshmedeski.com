@@ -3,11 +3,13 @@ title: GitHub In The Terminal
 description: >-
   Let's integrate GitHub into the terminal using the GitHub CLI, gh-dash, and
   the Octo Neovim plugin.
-category: dotfiles
 youtubeUrl: 'https://www.youtube.com/embed/TzAi3IcltkY'
 duration: '1:20:07'
 heroImage: ../attachments/posts/github-in-the-terminal/github-in-the-terminal.jpeg
 pubDate: 2023-08-16T21:00:00.000Z
+areas:
+  - terminal
+  - git
 ---
 
 Let's integrate GitHub into the terminal using the GitHub CLI, gh-dash, and the Octo Neovim plugin. In this live stream I experiment with adding new features to my tools to improve my experience with using GitHub on the command line.

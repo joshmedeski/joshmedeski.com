@@ -6,10 +6,12 @@ heroImage: >-
 thumbnail: >-
   ../attachments/posts/quick-git-management-with-lazygit/quick-git-management-with-lazygit-thumb.jpeg
 description: Lazygit makes it quick to run git commands.
-category: dotfiles
 guide:
   ref: dev-workflow-intro
   position: 7
+areas:
+  - git
+  - terminal
 ---
 
 Git is a central part of the development workflow. It's important to have a good understanding of how it works and how to use it. [`lazygit`](https://github.com/jesseduffield/lazygit) is a terminal UI for git that makes it easy to run common git commands efficiently and with ease.

@@ -3,9 +3,10 @@ title: What is the terminal?
 description: Terminology related to the terminal are often misinterpreted. The terminal is
 youtubeUrl: 'https://www.youtube.com/embed/bbc0ex3eNKk'
 duration: '15:16'
-category: dotfiles
 heroImage: ../attachments/posts/what-is-the-terminal/what-is-the-terminal.jpeg
 pubDate: 2022-10-27T12:00:00.000Z
+areas:
+  - terminal
 ---
 
 Terminology related to the terminal are often misinterpreted. The terminal is kind of a scary thing for some people. So I want to demystify how it works and break down the different terms.

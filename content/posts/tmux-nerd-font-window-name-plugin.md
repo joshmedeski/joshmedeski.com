@@ -5,10 +5,11 @@ description: >-
   that you can install in minutes
 youtubeUrl: 'https://www.youtube.com/embed/nFYidbeT264'
 duration: '3:47'
-category: dotfiles
 heroImage: >-
   ../attachments/posts/tmux-nerd-font-window-name-plugin/tmux-nerd-font-window-name-thumb.jpeg
 pubDate: 2023-03-01T18:00:00.000Z
+areas:
+  - tmux
 ---
 
 Automatically rename your tmux windows to Nerd Font icons.

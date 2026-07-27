@@ -1,11 +1,12 @@
 ---
 title: Using bun with astro
 description: Experimenting with the new bun runtime with the astro framework.
-category: development
 youtubeUrl: 'https://www.youtube.com/embed/JgACR7xQY2g'
 duration: '02:40:22'
 heroImage: ../attachments/posts/using-bun-with-astro/using-bun-with-astro.jpeg
 pubDate: 2023-09-13T19:00:00.000Z
+areas:
+  - development
 ---
 
 Experimenting with the new bun runtime with the astro framework.

@@ -1,12 +1,13 @@
 ---
 title: More fun in the terminal with Wezterm!
 description: Wezterm is a my new favorite terminal emulator. It's been fun to create
-category: dotfiles
 youtubeUrl: 'https://www.youtube.com/embed/hqP0XdB7VcA'
 duration: '05:13'
 heroImage: >-
   ../attachments/posts/more-fun-in-the-terminal-with-wezterm/more-fun-in-the-terminal-with-wezterm.jpeg
 pubDate: 2023-12-14T16:00:00.000Z
+areas:
+  - terminal
 ---
 
 Wezterm is a my new favorite terminal emulator. It's been fun to create some customizations for it using the lua programming language. In this video, I'll show you how I swap out background images, fonts, and color schemes using lua. I'll also show you a tip for how to get rid of the notch if you have a MacBook.

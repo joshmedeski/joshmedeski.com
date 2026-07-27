@@ -8,7 +8,8 @@ heroImage: >-
   ../attachments/posts/underrated-square-bracket/the-underrated-square-bracket.jpeg
 youtubeUrl: 'https://www.youtube.com/embed/vHNtl9gTWSU?si=8aaJVNu-Da45cZLq'
 duration: '03:23'
-category: dotfiles
+areas:
+  - neovim
 ---
 
 Let's talk about the underrated square bracket. I don't think it's a very popular Vim motion but I hope that after this talk you add it to your workflow. It's a really simple Vim motion that helps me be more efficient, which is all we want with NeoVim right, I'm excited to show you how it works so let's get into it.

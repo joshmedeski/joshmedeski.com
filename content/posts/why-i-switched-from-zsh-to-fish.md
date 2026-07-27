@@ -3,10 +3,11 @@ title: Why I Switched from zsh to fish
 description: >-
   My experience using zsh and changing to using the friendly interactive shell
   to improve performance
-category: dotfiles
 heroImage: >-
   ../attachments/posts/why-i-switched-from-zsh-to-fish/why-i-switched-from-zsh-to-fish.jpeg
 pubDate: 2019-07-30T12:00:00.000Z
+areas:
+  - fish
 ---
 
 I've been using the `zsh` terminal with the infamous [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) framework for many years now. The features and improvements it makes on plain old bash are impressive. But as my needs change, so does my shell. I made the switch to the `fish` shell almost a year ago and here is why I switched.

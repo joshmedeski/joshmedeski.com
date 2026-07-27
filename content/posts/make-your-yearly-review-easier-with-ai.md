@@ -4,12 +4,14 @@ description: >-
   AI tools like ChatGPT can make the process of doing a yearly review much
   easier! I'll go over the AI prompt and process that I used this year for my
   yearly review.
-category: personal-development
 youtubeUrl: 'https://www.youtube.com/embed/7TNGf11x6Tc'
 duration: '05:52'
 heroImage: >-
   ../attachments/posts/make-your-yearly-review-easier-with-ai/make-your-yearly-review-easier-with-ai.jpeg
 pubDate: 2024-01-08T09:00:00.000Z
+areas:
+  - ai
+  - growth
 ---
 
 AI tools like ChatGPT can make the process of doing a yearly review much easier! I'll go over the AI prompt and process that I used this year for my yearly review.

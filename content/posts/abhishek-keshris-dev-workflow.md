@@ -5,10 +5,11 @@ description: >-
   various tools and plugins to be productive as developers.
 youtubeUrl: 'https://www.youtube.com/embed/KhQG3gku618'
 duration: '1:02:53'
-category: conversations
 heroImage: >-
   ../attachments/posts/abhishek-keshris-dev-workflow/abhishek-keshris-dev-workflow.jpeg
 pubDate: 2023-03-23T18:00:00.000Z
+areas:
+  - terminal
 ---
 
 The conversation is about me and Abhishek's developer environment setup. We discuss our use of various tools and plugins, including Lazygit, fuzzy-finder, and Catppuccin for transparency. We also discuss different key bindings for Git and file management, and our use of abbreviations in our shell environment. We share tips and tricks for optimizing our workflow, and express an interest in trying out each other's favorite tools. The conversation ends with an agreement to keep in touch and share updates on our respective setups.
