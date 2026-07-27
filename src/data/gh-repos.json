@@ -228,5 +228,10 @@
     "fullName": "Exafunction/windsurf.nvim",
     "description": "A native neovim extension for Codeium",
     "url": "https://github.com/Exafunction/windsurf.nvim"
+  },
+  "joshmedeski/obsidian-dynamic-wallpapers": {
+    "fullName": "joshmedeski/obsidian-dynamic-wallpapers",
+    "description": "An Obsidian plugin that shows a wallpaper that dynamically changes based on the context.",
+    "url": "https://github.com/joshmedeski/obsidian-dynamic-wallpapers"
   }
 }
