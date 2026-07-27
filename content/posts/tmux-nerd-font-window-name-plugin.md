@@ -10,6 +10,8 @@ heroImage: >-
 pubDate: 2023-03-01T18:00:00.000Z
 areas:
   - tmux
+projects:
+  - tmux-nerd-font-window-name
 ---
 
 Automatically rename your tmux windows to Nerd Font icons.

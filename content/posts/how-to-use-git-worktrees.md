@@ -8,6 +8,8 @@ description: How I set up my Git Worktrees and how I use them to stay productive
 areas:
   - git
   - terminal
+projects:
+  - sesh
 ---
 
 Git Worktrees have become an invaluable piece of my workflow. They allow me to switch between contexts quickly and easily, isolate breaking changes, and do code reviews without disrupting my current work. In this post, I’m going to break down how I set up my Git Worktrees and how I use them to stay productive.

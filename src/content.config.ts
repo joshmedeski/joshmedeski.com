@@ -9,6 +9,7 @@ const postsCollection = defineCollection({
       description: z.string(),
       pubDate: z.date(),
       areas: z.array(reference('areas')).optional(),
+      projects: z.array(reference('projects')).optional(),
       duration: z.string().optional(),
       heroImage: image(),
       draft: z.boolean().optional(),
