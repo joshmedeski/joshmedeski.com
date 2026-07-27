@@ -6,7 +6,9 @@ import Layout from '../Layout.astro'
 import Wrapper from '../Wrapper.astro'
 import ProjectMeta from './ProjectMeta.astro'
 import ProjectCta from './ProjectCta.astro'
+import PostCard from '../post/PostCard.astro'
 import { resolveThemeArea } from '~/utils/areas'
+import { postsForProject, splitVideos } from '~/utils/projects'
 
 interface Props {
   project: CollectionEntry<'projects'>
@@ -16,6 +18,13 @@ const { project } = Astro.props
 const areas = await getCollection('areas')
 const themeColor =
   resolveThemeArea(project, areas)?.data.themeColor ?? 'bg-neutral-900'
+
+const includeDrafts = import.meta.env.DEV
+const allPosts = await getCollection(
+  'posts',
+  ({ data }) => includeDrafts || !data.draft,
+)
+const { videos, articles } = splitVideos(postsForProject(project, allPosts))
 ---
 
 <Layout
@@ -75,5 +84,34 @@ const themeColor =
         }
       </main>
     </div>
+
+    {
+      (videos.length > 0 || articles.length > 0) && (
+        <Wrapper>
+          <div data-pagefind-ignore>
+            {videos.length > 0 && (
+              <section class="py-12">
+                <h2 class="mb-6 text-2xl font-bold">Videos</h2>
+                <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+                  {videos.map((video) => (
+                    <PostCard post={video} />
+                  ))}
+                </div>
+              </section>
+            )}
+            {articles.length > 0 && (
+              <section class="py-12">
+                <h2 class="mb-6 text-2xl font-bold">Posts</h2>
+                <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+                  {articles.map((post) => (
+                    <PostCard post={post} />
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
+        </Wrapper>
+      )
+    }
   </div>
 </Layout>

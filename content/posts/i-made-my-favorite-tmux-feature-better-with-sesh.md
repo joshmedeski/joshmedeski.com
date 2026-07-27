@@ -10,6 +10,8 @@ description: >-
   to improve it with sesh.
 areas:
   - tmux
+projects:
+  - sesh
 ---
 
 I made one of my favorite tmux sessions even better, so let's talk about it.

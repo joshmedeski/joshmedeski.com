@@ -11,6 +11,8 @@ guide:
   position: 5
 areas:
   - tmux
+projects:
+  - tmux-fzf-url
 ---
 
 [tmux](https://github.com/tmux/tmux/wiki) is a terminal multiplexer that allows you to create and manage multiple terminal sessions within a single window. It enables you to run multiple programs or shell sessions simultaneously, switch between them easily, and detach and reattach sessions, even if you disconnect from the terminal.
