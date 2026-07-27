@@ -7,6 +7,7 @@ import Wrapper from '../../components/Wrapper.astro'
 import PostCard from '~/components/post/PostCard.astro'
 import UseCard from '~/components/uses/UseCard.astro'
 import ProjectCard from '~/components/project/ProjectCard.astro'
+import GuideCard from '~/components/guide/GuideCard.astro'
 import AreaIcon from '~/components/AreaIcon.astro'
 import {
   contentForArea,
@@ -34,11 +35,20 @@ const allPosts = await getCollection(
 )
 const allUses = await getCollection('uses')
 const allProjects = await getCollection('projects')
+const allGuides = await getCollection('guides')
 
-const posts = contentForArea(area, areas, allPosts).sort(
+const guides = contentForArea(area, areas, allGuides).sort(
   (a, b) =>
     new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
 )
+
+const areaPosts = contentForArea(area, areas, allPosts).sort(
+  (a, b) =>
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+)
+// Same split as /videos: a post with a YouTube URL is a video.
+const videos = areaPosts.filter(({ data }) => !!data.youtubeUrl)
+const posts = areaPosts.filter(({ data }) => !data.youtubeUrl)
 const uses = contentForArea(area, areas, allUses).sort((a, b) =>
   a.data.title.localeCompare(b.data.title),
 )
@@ -90,18 +100,6 @@ const { Content } = await render(area)
 
   <Wrapper>
     {
-      posts.length > 0 && (
-        <section class="py-12">
-          <h2 class="mb-6 text-2xl font-bold">Posts</h2>
-          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
-            {posts.map((post) => (
-              <PostCard post={post} />
-            ))}
-          </div>
-        </section>
-      )
-    }
-    {
       projects.length > 0 && (
         <section class="py-12">
           <h2 class="mb-6 text-2xl font-bold">Projects</h2>
@@ -114,10 +112,46 @@ const { Content } = await render(area)
       )
     }
     {
+      guides.length > 0 && (
+        <section class="py-12">
+          <h2 class="mb-6 text-2xl font-bold">Guides</h2>
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+            {guides.map((guide) => (
+              <GuideCard guide={guide} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+    {
+      videos.length > 0 && (
+        <section class="py-12">
+          <h2 class="mb-6 text-2xl font-bold">Videos</h2>
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+            {videos.map((video) => (
+              <PostCard post={video} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+    {
+      posts.length > 0 && (
+        <section class="py-12">
+          <h2 class="mb-6 text-2xl font-bold">Posts</h2>
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+            {posts.map((post) => (
+              <PostCard post={post} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+    {
       uses.length > 0 && (
         <section class="py-12">
           <h2 class="mb-6 text-2xl font-bold">Uses</h2>
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
             {uses.map((use) => (
               <UseCard use={use} />
             ))}

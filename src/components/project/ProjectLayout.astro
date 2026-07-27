@@ -5,6 +5,7 @@ import { Image } from 'astro:assets'
 import Layout from '../Layout.astro'
 import Wrapper from '../Wrapper.astro'
 import ProjectMeta from './ProjectMeta.astro'
+import ProjectCta from './ProjectCta.astro'
 import { resolveThemeArea } from '~/utils/areas'
 
 interface Props {
@@ -51,12 +52,7 @@ const themeColor =
               <ProjectMeta project={project} size="lg" />
               {
                 project.data.cta && (
-                  <a
-                    href={project.data.cta.url}
-                    class="mt-6 inline-block rounded-full bg-white px-6 py-3 text-lg font-bold text-black shadow-lg transition-colors hover:bg-neutral-200"
-                  >
-                    {project.data.cta.label}
-                  </a>
+                  <ProjectCta cta={project.data.cta} class="mt-6" />
                 )
               }
             </div>
@@ -70,6 +66,13 @@ const themeColor =
     >
       <main class="prose prose-invert prose-lg max-w-full pb-16 md:pb-20">
         <slot />
+        {
+          project.data.cta && (
+            <div class="mt-12 text-center" data-pagefind-ignore>
+              <ProjectCta cta={project.data.cta} />
+            </div>
+          )
+        }
       </main>
     </div>
   </div>

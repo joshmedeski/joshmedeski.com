@@ -57,7 +57,9 @@ const guidesCollection = defineCollection({
       title: z.string(),
       description: z.string(),
       pubDate: z.date(),
+      areas: z.array(reference('areas')).optional(),
       heroImage: image(),
+      firstLesson: z.string().optional(),
     }),
 })
 

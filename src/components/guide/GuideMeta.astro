@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
+import AreaBadges from '../AreaBadges.astro'
+import { pillClass, type PillSize } from '~/utils/pills'
+
+interface Props {
+  guide: CollectionEntry<'guides'>
+  align?: 'left' | 'center'
+  size?: PillSize
+}
+
+const { guide, align = 'center', size = 'sm' } = Astro.props
+
+const pill = pillClass(size)
+
+const lessonCount = await getCollection(
+  'posts',
+  (post) => post.data.guide?.ref.id === guide.id,
+).then((posts) => posts.length)
+---
+
+<div
+  class:list={[
+    'flex w-full flex-wrap items-center gap-2 font-medium',
+    align === 'left' ? 'justify-start' : 'justify-center',
+  ]}
+>
+  <AreaBadges areas={guide.data.areas} pillClass={pill} />
+
+  <div class={pill}>
+    <span aria-hidden="true">📚</span>
+    <span>{lessonCount} {lessonCount === 1 ? 'lesson' : 'lessons'}</span>
+  </div>
+</div>

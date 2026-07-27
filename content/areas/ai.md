@@ -1,6 +1,6 @@
 ---
 title: AI
 icon: 🤖
-themeColor: bg-indigo-900
+themeColor: bg-area-ai
 description: Artificial intelligence tools, agents, and workflows.
 ---

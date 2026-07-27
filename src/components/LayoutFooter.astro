@@ -1,12 +1,22 @@
 ---
 import { Image } from 'astro:assets'
+import { getCollection } from 'astro:content'
 import { SITE_TITLE } from '../config'
+import AreaIcon from './AreaIcon.astro'
 import Link from './Link.astro'
 import SocialLinks from './SocialLinks.astro'
 import Wrapper from './Wrapper.astro'
 import Hero from './dev-workflow-intro-guide/Hero.astro'
 import profileCircle from '~/assets/joshmedeski-profile-circle.png'
+import { topLevelAreas, subAreasOf, areaHref } from '~/utils/areas'
 
+const areas = await getCollection('areas')
+const areaChips = topLevelAreas(areas).flatMap((top) =>
+  [top, ...subAreasOf(top, areas)].map((area) => ({
+    area,
+    themeColor: top.data.themeColor ?? 'bg-neutral-900',
+  })),
+)
 const today = new Date()
 interface Props {
   hideCta?: boolean
@@ -24,9 +34,9 @@ const { hideCta } = Astro.props
   <h2 class="sr-only">Footer</h2>
   <Wrapper>
     <div
-      class="flex flex-col items-center gap-12 md:flex-row md:items-start md:justify-center md:gap-16"
+      class="flex flex-col items-center gap-12 md:flex-row md:items-start md:justify-between md:gap-16"
     >
-      <div class="max-w-sm space-y-6">
+      <div class="max-w-sm space-y-6 md:shrink-0">
         <div>
           <a href="/" class="flex items-center" data-astro-prefetch>
             <span class="text-2xl font-bold">{SITE_TITLE}</span>
@@ -53,7 +63,7 @@ const { hideCta } = Astro.props
         </div>
       </div>
 
-      <div>
+      <div class="md:shrink-0">
         <h3 class="mb-3 font-bold">Content</h3>
         <ul class="space-y-2 text-neutral-400">
           <li><Link href="/posts">Posts</Link></li>
@@ -64,7 +74,7 @@ const { hideCta } = Astro.props
         </ul>
       </div>
 
-      <div>
+      <div class="md:shrink-0">
         <h3 class="mb-3 font-bold">Explore</h3>
         <ul class="space-y-2 text-neutral-400">
           <li><Link href="/about">About</Link></li>
@@ -72,6 +82,25 @@ const { hideCta } = Astro.props
           <li><Link href="/uses">Uses</Link></li>
           <li><Link href="/stats">Stats</Link></li>
           <li><Link href="/appearances">Appearances</Link></li>
+        </ul>
+      </div>
+
+      <div class="w-full md:min-w-0 md:flex-1">
+        <h3 class="mb-3 font-bold">Areas</h3>
+        <ul class="flex flex-wrap gap-2">
+          {
+            areaChips.map(({ area, themeColor }) => (
+              <li>
+                <a
+                  href={areaHref(area)}
+                  class={`inline-flex items-center gap-2 rounded-full px-4 py-1 text-sm transition-opacity hover:opacity-80 ${themeColor}`}
+                >
+                  <AreaIcon icon={area.data.icon} />
+                  {area.data.title}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
     </div>
