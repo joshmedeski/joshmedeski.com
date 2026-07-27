@@ -1,0 +1,76 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { getCollection } from 'astro:content'
+import { Image } from 'astro:assets'
+import Layout from '../Layout.astro'
+import Wrapper from '../Wrapper.astro'
+import ProjectMeta from './ProjectMeta.astro'
+import { resolveThemeArea } from '~/utils/areas'
+
+interface Props {
+  project: CollectionEntry<'projects'>
+}
+
+const { project } = Astro.props
+const areas = await getCollection('areas')
+const themeColor =
+  resolveThemeArea(project, areas)?.data.themeColor ?? 'bg-neutral-900'
+---
+
+<Layout
+  title={project.data.title}
+  description={project.data.description}
+  image={project.data.heroImage}
+  themeColor={themeColor}
+>
+  <div data-pagefind-body>
+    <div class={themeColor}>
+      <section class="pb-64 pt-16">
+        <Wrapper>
+          <header class="flex flex-col gap-6">
+            <div
+              class="relative mx-auto mb-12 aspect-video w-full max-w-[810px]"
+            >
+              <Image
+                class="absolute inset-0 z-10 aspect-video w-full rounded-xl bg-black shadow-lg"
+                src={project.data.heroImage}
+                width="1920"
+                height="1080"
+                alt={`${project.data.title} hero`}
+                transition:name={`project-${project.id}-thumb`}
+              />
+            </div>
+
+            <div class="text-center">
+              <h1
+                class="mb-4 text-balance text-4xl font-extrabold md:text-6xl"
+                transition:name={`project-${project.id}-title`}
+              >
+                {project.data.title}
+              </h1>
+              <ProjectMeta project={project} size="lg" />
+              {
+                project.data.cta && (
+                  <a
+                    href={project.data.cta.url}
+                    class="mt-6 inline-block rounded-full bg-white px-6 py-3 text-lg font-bold text-black shadow-lg transition-colors hover:bg-neutral-200"
+                  >
+                    {project.data.cta.label}
+                  </a>
+                )
+              }
+            </div>
+          </header>
+        </Wrapper>
+      </section>
+    </div>
+
+    <div
+      class="-mt-48 mx-auto max-w-[760px] rounded-t-[2.5rem] bg-black px-6 pt-8 md:px-10 md:pt-10"
+    >
+      <main class="prose prose-invert prose-lg max-w-full pb-16 md:pb-20">
+        <slot />
+      </main>
+    </div>
+  </div>
+</Layout>
