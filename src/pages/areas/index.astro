@@ -27,32 +27,30 @@ const tops = topLevelAreas(areas)
 <Layout title="Areas" description="Browse everything by topic area.">
   <Wrapper>
     <PageTitle>Areas</PageTitle>
-    <div class="mb-32 grid gap-8 sm:grid-cols-2">
+    <div class="mb-32 flex flex-row flex-wrap items-start gap-8">
       {
         tops.map((area) => {
           const subs = subAreasOf(area, areas)
           const count = contentForArea(area, areas, allItems).length
           return (
-            <section
-              class={`rounded-2xl p-6 ${area.data.themeColor ?? 'bg-neutral-900'}`}
-            >
-              <a href={areaHref(area)} class="flex items-center gap-3">
-                <AreaIcon icon={area.data.icon} class="text-3xl" />
-                <div>
-                  <h2 class="text-2xl font-bold">{area.data.title}</h2>
-                  <p class="text-sm opacity-80">
-                    {count} {count === 1 ? 'item' : 'items'}
-                  </p>
-                </div>
+            <section>
+              <a
+                href={areaHref(area)}
+                class={`inline-flex items-center gap-3 rounded-full px-5 py-2 text-2xl font-bold transition-opacity hover:opacity-80 ${area.data.themeColor ?? 'bg-neutral-900'}`}
+              >
+                <AreaIcon icon={area.data.icon} />
+                {area.data.title}
+                <span class="text-sm font-normal opacity-70">{count}</span>
               </a>
               {subs.length > 0 && (
-                <ul class="mt-4 flex flex-wrap gap-2">
+                <ul class="mt-3 flex flex-wrap gap-2 pl-5">
                   {subs.map((sub) => (
                     <li>
                       <a
                         href={areaHref(sub)}
-                        class="rounded-full bg-black/30 px-3 py-1 text-sm hover:bg-black/50"
+                        class={`inline-flex items-center gap-2 rounded-full px-4 py-1 text-base transition-opacity hover:opacity-80 ${area.data.themeColor ?? 'bg-neutral-900'}`}
                       >
+                        <AreaIcon icon={sub.data.icon} />
                         {sub.data.title}
                       </a>
                     </li>
