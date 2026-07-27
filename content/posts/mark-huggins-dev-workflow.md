@@ -9,6 +9,7 @@ heroImage: ../attachments/posts/mark-huggins-dev-workflow/mark-huggins-dev-workf
 pubDate: 2023-05-20T16:00:00.000Z
 areas:
   - terminal
+  - keyboards
 ---
 
 Mark and I talk about our Moonlander keyboard layouts and developer workflows using tmux and neovim including plugins and shortcuts we used for coding and navigating our environments. We mention various tools and plugins that we had use to customize our workflows, such as LazyVim, gitmux, and fzf. We also discuss how we use copilot in Neovim, and why we prefer minimal setups. Our conversation emphasize the importance of continually experimenting with and adapting our workflows to find what works best for us.
