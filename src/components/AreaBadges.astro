@@ -2,15 +2,13 @@
 import { getEntry } from 'astro:content'
 import { areaHref } from '~/utils/areas'
 import AreaIcon from './AreaIcon.astro'
+import { pillClass as defaultPill } from '~/utils/pills'
 
 interface Props {
   areas?: { collection: 'areas'; id: string }[]
   pillClass?: string
 }
-const {
-  areas = [],
-  pillClass = 'flex items-center gap-1 rounded-full bg-neutral-800 px-3 py-1 text-sm text-neutral-200',
-} = Astro.props
+const { areas = [], pillClass = defaultPill() } = Astro.props
 const resolved = (
   await Promise.all((areas ?? []).map((ref) => getEntry(ref)))
 ).filter((a) => a != null)
