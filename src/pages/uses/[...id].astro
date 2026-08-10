@@ -38,39 +38,41 @@ const { Content } = await render(use)
   hideCta={false}
   image={use.data.image}
 >
-  <Wrapper>
-    <a href="/uses" class="mb-2 block text-primary-500">← Back to all uses</a>
-    <section class="grid grid-cols-2 gap-6">
-      <Image
-        src={use.data.image}
-        alt={use.data.title}
-        width="1640"
-        height="1094"
-        class="mb-2 w-full rounded-lg bg-black shadow-md md:mb-8"
-        transition:name={`use-${use.data.title}-thumb`}
-      />
-      <div class="space-y-4">
-        <h1 class="text-5xl font-bold">{use.data.title}</h1>
-        <p>{use.data.description}</p>
-        <div class="prose prose-invert max-w-full">
-          <Content components={{ GhRepo, Image }} />
-        </div>
-      </div>
-    </section>
-
-    {
-      relatedUses.length > 0 && (
-        <footer class="mb-12">
-          <h3 class="mb-4 text-4xl font-bold">Related uses</h3>
-          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
-            {relatedUses
-              .sort((a, b) => a.data.title.localeCompare(b.data.title))
-              .map((use) => (
-                <UseCard use={use} />
-              ))}
+  <div data-pagefind-body>
+    <Wrapper>
+      <a href="/uses" class="mb-2 block text-primary-500">← Back to all uses</a>
+      <section class="grid grid-cols-2 gap-6">
+        <Image
+          src={use.data.image}
+          alt={use.data.title}
+          width="1640"
+          height="1094"
+          class="mb-2 w-full rounded-lg bg-black shadow-md md:mb-8"
+          transition:name={`use-${use.data.title}-thumb`}
+        />
+        <div class="space-y-4">
+          <h1 class="text-5xl font-bold">{use.data.title}</h1>
+          <p>{use.data.description}</p>
+          <div class="prose prose-invert max-w-full">
+            <Content components={{ GhRepo, Image }} />
           </div>
-        </footer>
-      )
-    }
-  </Wrapper>
+        </div>
+      </section>
+
+      {
+        relatedUses.length > 0 && (
+          <footer class="mb-12" data-pagefind-ignore>
+            <h3 class="mb-4 text-4xl font-bold">Related uses</h3>
+            <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+              {relatedUses
+                .sort((a, b) => a.data.title.localeCompare(b.data.title))
+                .map((use) => (
+                  <UseCard use={use} />
+                ))}
+            </div>
+          </footer>
+        )
+      }
+    </Wrapper>
+  </div>
 </Layout>

@@ -72,113 +72,127 @@ const { Content } = await render(area)
   title={area.data.title}
   description={area.data.description ?? `Content in ${area.data.title}`}
   themeColor={themeColor}
-  noIndex
 >
-  <header class={`py-16 text-center ${themeColor}`}>
-    <Wrapper>
-      {
-        parent && (
-          <a href={areaHref(parent)} class="mb-2 inline-block opacity-80">
-            ← {parent.data.title}
-          </a>
-        )
-      }
-      {
-        themeArea.data.cover && (
-          <Image
-            src={themeArea.data.cover}
-            alt={area.data.title}
-            width="1200"
-            height="480"
-            class="mx-auto mb-6 aspect-[5/2] w-full max-w-3xl rounded-2xl object-cover shadow-lg"
-          />
-        )
-      }
-      <div class="text-5xl"><AreaIcon icon={area.data.icon} /></div>
-      <h1 class="mt-4 text-4xl font-extrabold">{area.data.title}</h1>
-      {
-        area.data.description && (
-          <p class="mt-2 opacity-80">{area.data.description}</p>
-        )
-      }
-    </Wrapper>
-  </header>
+  <div data-pagefind-body>
+    <header class={`py-16 text-center ${themeColor}`}>
+      <Wrapper>
+        {
+          parent && (
+            <a href={areaHref(parent)} class="mb-2 inline-block opacity-80">
+              ← {parent.data.title}
+            </a>
+          )
+        }
+        {
+          themeArea.data.cover && (
+            <Image
+              src={themeArea.data.cover}
+              alt={area.data.title}
+              width="1200"
+              height="480"
+              class="mx-auto mb-6 aspect-[5/2] w-full max-w-3xl rounded-2xl object-cover shadow-lg"
+            />
+          )
+        }
+        <div class="text-5xl"><AreaIcon icon={area.data.icon} /></div>
+        {
+          /*
+          Areas are hub pages, so they should outrank individual entities that
+          only mention the term. Pagefind gives an h1 weight 7 by default; 10 is
+          the max. Weight it here rather than on the pagefind-body wrapper --
+          weighting the whole body also inflates the page's effective length,
+          which the length normalisation then cancels back out.
+        */
+        }
+        <h1 class="mt-4 text-4xl font-extrabold" data-pagefind-weight="10">
+          {area.data.title}
+        </h1>
+        {
+          area.data.description && (
+            <p class="mt-2 opacity-80">{area.data.description}</p>
+          )
+        }
+      </Wrapper>
+    </header>
 
-  <Wrapper>
-    {
-      projects.length > 0 && (
-        <section class="py-12">
-          <h2 class="mb-6 text-2xl font-bold">Projects</h2>
-          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
-            {projects.map((project) => (
-              <ProjectCard project={project} />
-            ))}
-          </div>
-        </section>
-      )
-    }
-    {
-      guides.length > 0 && (
-        <section class="py-12">
-          <h2 class="mb-6 text-2xl font-bold">Guides</h2>
-          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
-            {guides.map((guide) => (
-              <GuideCard guide={guide} />
-            ))}
-          </div>
-        </section>
-      )
-    }
-    {
-      videos.length > 0 && (
-        <section class="py-12">
-          <h2 class="mb-6 text-2xl font-bold">Videos</h2>
-          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
-            {videos.map((video) => (
-              <PostCard post={video} />
-            ))}
-          </div>
-        </section>
-      )
-    }
-    {
-      posts.length > 0 && (
-        <section class="py-12">
-          <h2 class="mb-6 text-2xl font-bold">Posts</h2>
-          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
-            {posts.map((post) => (
-              <PostCard post={post} />
-            ))}
-          </div>
-        </section>
-      )
-    }
-    {
-      uses.length > 0 && (
-        <section class="py-12">
-          <h2 class="mb-6 text-2xl font-bold">Uses</h2>
-          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
-            {uses.map((use) => (
-              <UseCard use={use} />
-            ))}
-          </div>
-        </section>
-      )
-    }
-    {
-      appearances.length > 0 && (
-        <section class="py-12">
-          <h2 class="mb-6 text-2xl font-bold">Appearances</h2>
-          <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
-            {appearances.map((appearance) => (
-              <AppearanceCard appearance={appearance} />
-            ))}
-          </div>
-        </section>
-      )
-    }
-    <article class="prose prose-invert mx-auto max-w-screen-md py-12">
-      <Content />
-    </article>
-  </Wrapper>
+    <Wrapper>
+      <div data-pagefind-ignore>
+        {
+          projects.length > 0 && (
+            <section class="py-12">
+              <h2 class="mb-6 text-2xl font-bold">Projects</h2>
+              <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+                {projects.map((project) => (
+                  <ProjectCard project={project} />
+                ))}
+              </div>
+            </section>
+          )
+        }
+        {
+          guides.length > 0 && (
+            <section class="py-12">
+              <h2 class="mb-6 text-2xl font-bold">Guides</h2>
+              <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+                {guides.map((guide) => (
+                  <GuideCard guide={guide} />
+                ))}
+              </div>
+            </section>
+          )
+        }
+        {
+          videos.length > 0 && (
+            <section class="py-12">
+              <h2 class="mb-6 text-2xl font-bold">Videos</h2>
+              <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+                {videos.map((video) => (
+                  <PostCard post={video} />
+                ))}
+              </div>
+            </section>
+          )
+        }
+        {
+          posts.length > 0 && (
+            <section class="py-12">
+              <h2 class="mb-6 text-2xl font-bold">Posts</h2>
+              <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+                {posts.map((post) => (
+                  <PostCard post={post} />
+                ))}
+              </div>
+            </section>
+          )
+        }
+        {
+          uses.length > 0 && (
+            <section class="py-12">
+              <h2 class="mb-6 text-2xl font-bold">Uses</h2>
+              <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+                {uses.map((use) => (
+                  <UseCard use={use} />
+                ))}
+              </div>
+            </section>
+          )
+        }
+        {
+          appearances.length > 0 && (
+            <section class="py-12">
+              <h2 class="mb-6 text-2xl font-bold">Appearances</h2>
+              <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+                {appearances.map((appearance) => (
+                  <AppearanceCard appearance={appearance} />
+                ))}
+              </div>
+            </section>
+          )
+        }
+      </div>
+      <article class="prose prose-invert mx-auto max-w-screen-md py-12">
+        <Content />
+      </article>
+    </Wrapper>
+  </div>
 </Layout>
