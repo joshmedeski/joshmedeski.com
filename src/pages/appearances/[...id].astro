@@ -1,0 +1,108 @@
+---
+import { getCollection, render } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
+import { Image } from 'astro:assets'
+import Layout from '~/components/Layout.astro'
+import Wrapper from '~/components/Wrapper.astro'
+import AppearanceMeta from '~/components/appearance/AppearanceMeta.astro'
+import ProjectCard from '~/components/project/ProjectCard.astro'
+import { resolveThemeArea } from '~/utils/areas'
+
+export async function getStaticPaths() {
+  const appearances = await getCollection('appearances')
+  return appearances.map((appearance) => ({
+    params: { id: appearance.id },
+    props: { appearance },
+  }))
+}
+
+interface Props {
+  appearance: CollectionEntry<'appearances'>
+}
+
+const { appearance } = Astro.props
+const areas = await getCollection('areas')
+const themeColor =
+  resolveThemeArea(appearance, areas)?.data.themeColor ?? 'bg-neutral-900'
+
+const projectIds = new Set(appearance.data.projects?.map((p) => p.id) ?? [])
+const projects = (await getCollection('projects'))
+  .filter((project) => projectIds.has(project.id))
+  .sort((a, b) => a.data.title.localeCompare(b.data.title))
+
+const { Content } = await render(appearance)
+---
+
+<Layout
+  title={appearance.data.title}
+  description={appearance.data.description}
+  image={appearance.data.heroImage}
+  themeColor={themeColor}
+>
+  <div data-pagefind-body>
+    <div class={themeColor}>
+      <section class="pb-64 pt-16">
+        <Wrapper>
+          <header class="flex flex-col gap-6">
+            <div
+              class="relative mx-auto mb-12 aspect-video w-full max-w-[810px]"
+            >
+              <Image
+                class="absolute inset-0 z-10 aspect-video w-full rounded-xl bg-black shadow-lg"
+                src={appearance.data.heroImage}
+                width="1920"
+                height="1080"
+                alt={`${appearance.data.title} hero`}
+                transition:name={`appearance-${appearance.id}-thumb`}
+              />
+            </div>
+
+            <div class="text-center">
+              <h1
+                class="mb-4 text-balance text-4xl font-extrabold md:text-6xl"
+                transition:name={`appearance-${appearance.id}-title`}
+              >
+                {appearance.data.title}
+              </h1>
+              <AppearanceMeta appearance={appearance} size="lg" />
+              <a
+                href={appearance.data.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-6 inline-block rounded-full bg-white px-6 py-3 text-lg font-bold text-black no-underline shadow-lg transition-colors hover:bg-neutral-200"
+              >
+                View on {appearance.data.publisher}
+              </a>
+            </div>
+          </header>
+        </Wrapper>
+      </section>
+    </div>
+
+    <div
+      class="-mt-48 mx-auto max-w-[760px] rounded-t-[2.5rem] bg-black px-6 pt-8 md:px-10 md:pt-10"
+    >
+      <main class="prose prose-invert prose-lg max-w-full pb-16 md:pb-20">
+        <p class="lead">{appearance.data.description}</p>
+        <Content />
+      </main>
+    </div>
+
+    {
+      projects.length > 0 && (
+        <Wrapper>
+          <div data-pagefind-ignore>
+            <section class="py-12">
+              <h2 class="mb-6 text-2xl font-bold">Projects</h2>
+              <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+                {projects.map((project) => (
+                  <ProjectCard project={project} />
+                ))}
+              </div>
+            </section>
+          </div>
+        </Wrapper>
+      )
+    }
+  </div>
+</Layout>

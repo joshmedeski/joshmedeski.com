@@ -10,7 +10,7 @@ const { appearance } = Astro.props
 ---
 
 <EntityCard
-  href={appearance.data.url}
+  href={`/appearances/${appearance.id}`}
   title={appearance.data.title}
   description={appearance.data.description}
   image={appearance.data.heroImage}
