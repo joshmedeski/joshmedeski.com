@@ -1,5 +1,6 @@
 import { glob } from 'astro/loaders'
-import { z, defineCollection, reference } from 'astro:content'
+import { defineCollection, reference } from 'astro:content'
+import { z } from 'astro/zod'
 
 const postsCollection = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './content/posts' }),
@@ -102,7 +103,7 @@ const appearancesCollection = defineCollection({
       title: z.string(),
       description: z.string(),
       publisher: z.string(),
-      url: z.string().url(),
+      url: z.url(),
       pubDate: z.date(),
       areas: z.array(reference('areas')).optional(),
       projects: z.array(reference('projects')).optional(),

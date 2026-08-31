@@ -1,9 +1,9 @@
 @import 'tailwindcss';
-@import 'rehype-callouts/theme/obsidian';
+@import 'satteri-callouts/theme/obsidian';
 @plugin "@tailwindcss/typography";
 
 /* Force dark-mode callout styles (site only has a dark theme).
-   Otherwise rehype-callouts' `.dark` scoped rules don't apply and
+   Otherwise satteri-callouts' `.dark` scoped rules don't apply and
    callouts fade into the black background. */
 .callout {
   mix-blend-mode: lighten !important;

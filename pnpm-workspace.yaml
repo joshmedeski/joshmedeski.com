@@ -9,3 +9,10 @@ onlyBuiltDependencies:
   - prisma
   - sharp
   - unix-dgram
+
+# satteri-callouts@1.0.0 declares `satteri@^0.9.4`, but Astro 7 ships 0.10.5.
+# Verified: callout markup is byte-identical to the previous rehype-callouts
+# output. Drop this once the plugin widens its peer range.
+peerDependencyRules:
+  allowedVersions:
+    'satteri-callouts>satteri': '0.10.5'

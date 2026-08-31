@@ -5,11 +5,11 @@ import tailwindcss from '@tailwindcss/vite'
 import expressiveCode from 'astro-expressive-code'
 import pagefind from 'astro-pagefind'
 import { defineConfig } from 'astro/config'
+import { satteri } from '@astrojs/markdown-satteri'
 
-import remarkDirective from 'remark-directive'
-import rehypeCallouts from 'rehype-callouts'
+import satteriCallouts from 'satteri-callouts'
 
-import remarkGhRepoDirective from './src/utils/remarkGhRepoDirective'
+import ghRepoDirective from './src/utils/ghRepoDirective'
 
 // https://astro.build/config
 export default defineConfig({
@@ -35,8 +35,13 @@ export default defineConfig({
   ],
 
   markdown: {
-    remarkPlugins: [remarkDirective, remarkGhRepoDirective],
-    rehypePlugins: [rehypeCallouts],
+    processor: satteri({
+      // `::gh-repo{repo="..."}` uses remark-directive syntax, which Sätteri's
+      // parser supports natively once this feature is enabled.
+      features: { directive: true },
+      mdastPlugins: [ghRepoDirective],
+      hastPlugins: [satteriCallouts()],
+    }),
   },
 
   vite: {

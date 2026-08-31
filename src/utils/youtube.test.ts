@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest'
 import { http, HttpResponse } from 'msw'
-// @ts-expect-error - cjs mock module has no types
 import { server } from '../../mocks/index.cjs'
 import {
   extractVideoId,
