@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets'
-import { CollectionEntry, getCollection } from 'astro:content'
+import { getCollection } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
 
 interface Props {
   guide: string
@@ -79,7 +80,7 @@ const posts = await getCollection(
                 width="400"
                 height="216"
                 class="w-full rounded-2xl shadow-lg"
-                src={post.data.thumbnail}
+                src={post.data.thumbnail ?? post.data.heroImage}
               />
 
               <h3 class="mt-6 text-lg font-extrabold leading-tight tracking-tight text-white before:mb-1 before:block before:font-mono before:text-lg before:text-primary-300 before:content-[counter(video,decimal-leading-zero)]">
