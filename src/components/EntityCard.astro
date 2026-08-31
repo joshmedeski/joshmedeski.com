@@ -13,8 +13,8 @@ interface Props {
   /** Prefix for the `transition:name` pair, e.g. `post-my-slug`. */
   transitionPrefix: string
   /** Renders a hidden full-size image so the detail page loads instantly. */
-  preloadWidth?: string
-  preloadHeight?: string
+  preloadWidth?: `${number}`
+  preloadHeight?: `${number}`
 }
 
 const {

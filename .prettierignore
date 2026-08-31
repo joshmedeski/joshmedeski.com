@@ -1,3 +1,9 @@
 pnpm-lock.yaml
 dist/
 .astro/
+
+# Superpowers planning/spec artifacts. Generated, not authored, and their code
+# fences are deliberate fragments that prettier cannot parse as whole files.
+# .superpowers/ self-gitignores; prettier does not read .gitignore.
+.superpowers/
+docs/superpowers/

@@ -13,7 +13,7 @@ areas:
   - neovim
 ---
 
-[LazyVim](https://www.lazyvim.org/) is a Neovim setup powered by [💤 lazy.nvim]() to make it easy to customize and extend your config. It turns Neovim into a IDE with very little effort and offers a simple and flexible structure to modify and extend it to your liking.
+[LazyVim](https://www.lazyvim.org/) is a Neovim setup powered by [💤 lazy.nvim](https://github.com/folke/lazy.nvim) to make it easy to customize and extend your config. It turns Neovim into a IDE with very little effort and offers a simple and flexible structure to modify and extend it to your liking.
 
 ## Install
 

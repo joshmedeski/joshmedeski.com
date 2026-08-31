@@ -2,11 +2,9 @@ import clsx from 'clsx'
 import type { FunctionalComponent, FunctionComponent, JSX } from 'preact'
 import { useState } from 'preact/hooks'
 
-const Button: FunctionComponent<JSX.HTMLAttributes<HTMLButtonElement>> = ({
-  className,
-  children,
-  ...props
-}): JSX.Element => (
+const Button: FunctionComponent<
+  JSX.ButtonHTMLAttributes<HTMLButtonElement>
+> = ({ className, children, ...props }): JSX.Element => (
   <button
     className={clsx(
       'inline-block rounded-lg font-bold tracking-wider',
