@@ -1,5 +1,5 @@
 [build.environment]
-NODE_VERSION = "22.22.2"
+NODE_VERSION = "24.20.0"
 NPM_FLAGS = "--version" # prevent Netlify npm install
 
 [build]
