@@ -1,7 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import type { Plugin } from 'unified'
-import type { Root } from 'mdast'
+import { defineMdastPlugin } from 'satteri'
 
 interface GhRepoRecord {
   fullName?: string
@@ -58,33 +57,16 @@ function renderGhRepo(repo: string): string {
   )
 }
 
-const remarkGhRepoDirective: Plugin<[], Root> = () => {
-  return (tree) => {
-    const visit = (node: any, parent: any, index: number | null) => {
-      if (
-        node &&
-        node.type === 'leafDirective' &&
-        node.name === 'gh-repo' &&
-        parent &&
-        index !== null
-      ) {
-        const repo = (node.attributes && (node.attributes as any).repo) ?? ''
-        if (repo) {
-          parent.children[index] = {
-            type: 'html',
-            value: renderGhRepo(String(repo)),
-          }
-        }
-        return
-      }
-      if (node && Array.isArray(node.children)) {
-        for (let i = 0; i < node.children.length; i++) {
-          visit(node.children[i], node, i)
-        }
-      }
-    }
-    visit(tree, null, null)
-  }
-}
+const ghRepoDirective = defineMdastPlugin({
+  name: 'gh-repo',
+  leafDirective(node) {
+    if (node.name !== 'gh-repo') return
+    const repo = node.attributes?.repo
+    if (!repo) return
+    // A verbatim html node, not `{ raw }` — `raw` is re-parsed as Markdown,
+    // which would wrap this single-line markup in a paragraph.
+    return { type: 'html', value: renderGhRepo(String(repo)) }
+  },
+})
 
-export default remarkGhRepoDirective
+export default ghRepoDirective
