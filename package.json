@@ -40,7 +40,7 @@
     "pagefind": "^1.5.2",
     "preact": "^10.29.8",
     "satteri": "^0.10.5",
-    "satteri-callouts": "^1.0.0",
+    "satteri-callouts": "^1.0.1",
     "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3"
   },
