@@ -9,5 +9,19 @@ const bundlePath = join(import.meta.env.BASE_URL, 'pagefind/')
 ></script>
 
 <pagefind-config bundle-path={bundlePath}></pagefind-config>
-<pagefind-modal id="site-search-modal" class="custom-pagefind-ui"
-></pagefind-modal>
+<pagefind-modal
+  id="site-search-modal"
+  class="custom-pagefind-ui"
+  data-pf-theme="dark"
+>
+  <pagefind-modal-header>
+    <pagefind-input></pagefind-input>
+  </pagefind-modal-header>
+  <pagefind-modal-body>
+    <pagefind-summary></pagefind-summary>
+    <pagefind-results show-images></pagefind-results>
+  </pagefind-modal-body>
+  <pagefind-modal-footer>
+    <pagefind-keyboard-hints></pagefind-keyboard-hints>
+  </pagefind-modal-footer>
+</pagefind-modal>
