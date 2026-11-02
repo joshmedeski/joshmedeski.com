@@ -60,7 +60,6 @@ const PostCtaInput: FunctionalComponent<{ topic?: string }> = ({ topic }) => {
       })
       // TODO: add fathom to window type
       // @ts-ignore
-      // cSpell:words XYTTAMX5
       if (window.fathom) window.fathom.trackGoal('XYTTAMX5', 0)
       setIsSubscribed(true)
     } catch (error: any) {
