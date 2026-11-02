@@ -320,23 +320,23 @@
       var(--theme-color-neutral-900) var(--area-neutral-mix)
     );
   }
+}
 
-  .custom-pagefind-ui {
-    --pagefind-ui-scale: 1;
-    --pagefind-ui-primary: var(--color-white);
-    --pagefind-ui-text: var(--color-white);
-    --pagefind-ui-background: var(--color-black);
-    --pagefind-ui-border: var(--color-neutral-800);
-    --pagefind-ui-tag: var(--color-black);
-    --pagefind-ui-border-width: 2px;
-    --pagefind-ui-border-radius: 8px;
-    --pagefind-ui-image-border-radius: 8px;
-    --pagefind-ui-image-box-ratio: 3 / 2;
-    --pagefind-ui-font:
-      system, -apple-system, 'BlinkMacSystemFont', '.SFNSText-Regular',
-      'San Francisco', 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Lucida Grande',
-      'Ubuntu', 'arial', sans-serif;
-  }
+.custom-pagefind-ui[data-pf-theme='dark'] {
+  --pf-text: var(--color-white);
+  --pf-text-secondary: var(--color-neutral-400);
+  --pf-text-muted: var(--color-neutral-500);
+  --pf-background: var(--color-black);
+  --pf-border: var(--color-neutral-800);
+  --pf-border-focus: var(--color-neutral-600);
+  --pf-hover: var(--color-neutral-900);
+  --pf-skeleton: var(--color-neutral-900);
+  --pf-skeleton-shine: var(--color-neutral-800);
+  --pf-mark: var(--color-white);
+  --pf-outline-focus: var(--color-primary-500);
+  --pf-border-radius: 8px;
+  --pf-image-width: 80px;
+  --pf-image-height: 45px;
 }
 
 @utility prose {
