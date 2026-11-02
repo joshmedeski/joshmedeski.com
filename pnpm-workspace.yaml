@@ -1,6 +1,5 @@
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - esbuild
-  - msw
-  - sharp
-  - unix-dgram
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  lefthook: true
+  msw: true
