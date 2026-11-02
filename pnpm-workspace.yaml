@@ -1,11 +1,6 @@
 onlyBuiltDependencies:
-  - '@biomejs/biome'
   - '@parcel/watcher'
-  - '@prisma/client'
-  - '@prisma/engines'
   - esbuild
   - msw
-  - netlify-cli
-  - prisma
   - sharp
   - unix-dgram
