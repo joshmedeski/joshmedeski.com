@@ -17,6 +17,11 @@ command = "npm run start"
 targetPort = 4321
 
 [[headers]]
+  for = "/.well-known/josh"
+  [headers.values]
+    Content-Type = "application/json"
+
+[[headers]]
   for = "/_astro/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
