@@ -1,22 +1,177 @@
 ---
-import Layout from '../components/Layout.astro'
-import RecentPosts from '../components/RecentPosts.astro'
-// import LiveStreaming from '../components/sections/LiveStreaming.astro'
-import Areas from '~/components/sections/Areas.astro'
-import Projects from '~/components/sections/Projects.astro'
-import Wallpapers from '~/components/sections/Wallpapers.astro'
-import StaticImageGrid from '~/components/sections/StaticImageGrid.astro'
+import { Image, getImage } from 'astro:assets'
+import { getCollection } from 'astro:content'
+import Layout from '~/components/Layout.astro'
+import Wrapper from '~/components/Wrapper.astro'
+import SocialLinks from '~/components/SocialLinks.astro'
+import AreaIcon from '~/components/AreaIcon.astro'
+import BentoHeader from '~/components/BentoHeader.astro'
+import PostCard from '~/components/post/PostCard.astro'
+import PostCtaInput from '~/components/cta/PostCtaInput.tsx'
+import { SITE_TITLE, SITE_DESCRIPTION } from '~/config'
+import { topLevelAreas, subAreasOf, areaHref } from '~/utils/areas'
+import profileCircle from '~/assets/joshmedeski-profile-circle.png'
+import gridImage from '~/assets/grid.png'
+
+const includeDrafts = import.meta.env.DEV
+const posts = (
+  await getCollection('posts', ({ data }) => includeDrafts || !data.draft)
+).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+const [latest, ...rest] = posts
+const recent = rest.slice(0, 2)
+
+const featuredProjects = [
+  'obsidian-dynamic-wallpapers',
+  'pst',
+  'second-brain-starter-vault',
+]
+const projects = (await getCollection('projects'))
+  .filter((project) => featuredProjects.includes(project.id))
+  .sort(
+    (a, b) => featuredProjects.indexOf(a.id) - featuredProjects.indexOf(b.id),
+  )
+const allAreas = await getCollection('areas')
+const areaChips = topLevelAreas(allAreas).flatMap((top) =>
+  [top, ...subAreasOf(top, allAreas)].map((area) => ({
+    area,
+    isTop: area === top,
+    themeColor: top.data.themeColor ?? 'bg-neutral-800',
+  })),
+)
+const wallpapers = (await getCollection('wallpapers')).sort(
+  (a, b) => (b.data.added?.getTime() ?? 0) - (a.data.added?.getTime() ?? 0),
+)
+
+const grid = await getImage({ src: gridImage, format: 'webp', width: 1200 })
+
+const tile =
+  'group relative overflow-hidden rounded-3xl bg-neutral-900 p-6 ring-1 ring-white/10 transition hover:ring-white/30'
 ---
 
-<Layout
-  title="Home"
-  description="Empowering developers and creatives to build and grow with intention, by sharing insights and tools."
-  noIndex
->
-  <StaticImageGrid />
-  <RecentPosts />
-  <Areas />
-  <Projects />
-  <Wallpapers />
-  {/* <LiveStreaming /> */}
+<Layout title="Home" description={SITE_DESCRIPTION} noIndex>
+  <Wrapper>
+    <div class="grid items-start gap-4 py-8 lg:grid-cols-2">
+      <div class="flex flex-col gap-4">
+        <section
+          class={`${tile} flex min-h-80 flex-col justify-end gap-4 bg-cover bg-center`}
+          style={{ backgroundImage: `url("${grid.src}")` }}
+        >
+          <Image
+            src={profileCircle}
+            alt="Josh Medeski"
+            width={120}
+            height={120}
+            loading="eager"
+          />
+          <div>
+            <h1 class="text-4xl font-bold tracking-tight md:text-6xl">
+              {SITE_TITLE}
+            </h1>
+            <p class="mt-2 max-w-md text-xl text-neutral-200">
+              {SITE_DESCRIPTION}
+            </p>
+          </div>
+        </section>
+
+        <section class={`${tile} flex flex-col gap-4`}>
+          <h2
+            class="text-xs font-bold uppercase tracking-widest text-neutral-400"
+          >
+            Follow
+          </h2>
+          <SocialLinks iconSize="h-6" showLabels />
+        </section>
+
+        <section class={tile}>
+          <BentoHeader title="Newsletter" href="/rss.xml" linkLabel="RSS" />
+          <p class="mt-2 text-xl font-bold">Get new posts in your inbox.</p>
+          <PostCtaInput client:visible />
+        </section>
+
+        <section class={tile}>
+          <BentoHeader title="Projects" href="/projects" />
+          <ul class="mt-4 divide-y divide-white/10">
+            {
+              projects.map((project) => (
+                <li>
+                  <a
+                    href={`/projects/${project.id}`}
+                    class="flex items-center gap-4 py-3 hover:text-primary-300"
+                  >
+                    <Image
+                      src={project.data.heroImage}
+                      alt=""
+                      width={256}
+                      class="aspect-video w-32 shrink-0 rounded-lg object-cover"
+                    />
+                    <span>
+                      <span class="block font-bold">{project.data.title}</span>
+                      <span class="line-clamp-1 text-sm text-neutral-400">
+                        {project.data.description}
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <section class={tile}>
+          <BentoHeader
+            title="Wallpapers"
+            href="/wallpapers"
+            linkLabel={`All ${wallpapers.length}`}
+          />
+          <div class="mt-4 grid grid-cols-3 gap-2">
+            {
+              wallpapers.slice(0, 3).map((wallpaper) => (
+                <a href={`/wallpapers/${wallpaper.id}`}>
+                  <Image
+                    src={wallpaper.data.image}
+                    alt={wallpaper.data.title}
+                    width={280}
+                    class="aspect-video w-full rounded-lg object-cover transition hover:brightness-110"
+                  />
+                </a>
+              ))
+            }
+          </div>
+        </section>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <section class="flex flex-col gap-4">
+          <div class="px-2 pt-2">
+            <BentoHeader
+              title="Latest content"
+              href="/content"
+              linkLabel={`All ${posts.length}`}
+            />
+          </div>
+          {latest && <PostCard post={latest} size="lg" eager />}
+          <div class="grid gap-4 sm:grid-cols-2">
+            {recent.map((post) => <PostCard post={post} />)}
+          </div>
+        </section>
+
+        <section class={tile}>
+          <BentoHeader title="Areas" href="/areas" />
+          <div class="mt-4 flex flex-wrap gap-2">
+            {
+              areaChips.map(({ area, isTop, themeColor }) => (
+                <a
+                  href={areaHref(area)}
+                  class={`inline-flex items-center gap-2 rounded-full px-4 py-2 transition hover:brightness-125 ${isTop ? 'font-bold' : 'opacity-80'} ${themeColor}`}
+                >
+                  <AreaIcon icon={area.data.icon} />
+                  {area.data.title}
+                </a>
+              ))
+            }
+          </div>
+        </section>
+      </div>
+    </div>
+  </Wrapper>
 </Layout>

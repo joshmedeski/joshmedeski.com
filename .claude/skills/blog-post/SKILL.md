@@ -38,6 +38,7 @@ category: dotfiles
 
 ```yaml
 youtubeUrl: https://www.youtube.com/embed/VIDEO_ID
+videoType: video
 duration: '5:22'
 draft: true
 thumbnail: ../../assets/posts/post-slug-thumb.jpeg
@@ -46,13 +47,15 @@ guide:
   position: 1
 ```
 
+`videoType` is required whenever `youtubeUrl` is set: `video` for an edited upload, `livestream` for a recorded live stream. The build fails without it.
+
 ## Workflow
 
 1. Ask user for the blog post content (brain dump, outline, or draft)
 2. Ask clarifying questions:
    - What category fits best?
    - Is a hero image available or should a placeholder be used?
-   - Any YouTube video to embed?
+   - Any YouTube video to embed? If so, is it an edited video or a live stream?
    - Is this a draft or ready to publish?
 3. Generate kebab-case filename from title
 4. Create MDX file in `src/data/posts/`

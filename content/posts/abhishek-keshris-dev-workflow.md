@@ -4,6 +4,7 @@ description: >-
   Abhishek shares his Neovim and tmux dev workflow. We discuss our use of
   various tools and plugins to be productive as developers.
 youtubeUrl: 'https://www.youtube.com/embed/KhQG3gku618'
+videoType: video
 duration: '1:02:53'
 heroImage: >-
   ../attachments/posts/abhishek-keshris-dev-workflow/abhishek-keshris-dev-workflow.jpeg

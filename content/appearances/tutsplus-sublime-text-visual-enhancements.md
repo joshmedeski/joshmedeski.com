@@ -1,6 +1,7 @@
 ---
 title: Simple Visual Enhancements for Better Coding in Sublime Text
 publisher: Tuts+ Web Design
+format: article
 url: https://webdesign.tutsplus.com/simple-visual-enhancements-for-better-coding-in-sublime-text--webdesign-18052a
 pubDate: 2014-02-03
 description:

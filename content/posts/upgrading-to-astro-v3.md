@@ -2,6 +2,7 @@
 title: Upgrading to Astro v3
 description: Code along with me as I upgrade my website to Astro 3.0! It's 30% faster and more powerful than ever.
 youtubeUrl: 'https://www.youtube.com/embed/dqvjutA_N2c'
+videoType: livestream
 duration: '03:17:16'
 heroImage: ../attachments/posts/upgrading-to-astro-v3/upgrading-to-astro-v3.jpeg
 pubDate: 2023-08-31T12:00:00.000Z

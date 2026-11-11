@@ -1,25 +1,28 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import EntityCard from '../EntityCard.astro'
+import FeatureCard from '../FeatureCard.astro'
 import PostMeta from './PostMeta.astro'
 
 interface Props {
   post: CollectionEntry<'posts'>
   eager?: boolean
+  eyebrow?: string
+  class?: string
+  size?: 'sm' | 'lg'
 }
-const { post, eager } = Astro.props
+const { post, eager, eyebrow, class: className, size = 'sm' } = Astro.props
 ---
 
-<EntityCard
-  eager={eager}
+<FeatureCard
   href={`/posts/${post.id}`}
+  image={post.data.heroImage}
   title={post.data.title}
   description={post.data.description}
-  image={post.data.heroImage}
-  areas={post.data.areas}
+  eyebrow={eyebrow}
+  eager={eager}
+  class={className}
   transitionPrefix={`post-${post.id}`}
-  preloadWidth="1640"
-  preloadHeight="922.5"
+  size={size}
 >
   {
     post.data.draft && (
@@ -32,4 +35,4 @@ const { post, eager } = Astro.props
     )
   }
   <PostMeta slot="meta" post={post} align="left" />
-</EntityCard>
+</FeatureCard>

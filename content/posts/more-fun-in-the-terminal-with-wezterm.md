@@ -2,6 +2,7 @@
 title: More fun in the terminal with Wezterm!
 description: Wezterm is my new favorite terminal emulator. It's been fun to create some customizations for it using the lua programming language.
 youtubeUrl: 'https://www.youtube.com/embed/hqP0XdB7VcA'
+videoType: video
 duration: '05:13'
 heroImage: >-
   ../attachments/posts/more-fun-in-the-terminal-with-wezterm/more-fun-in-the-terminal-with-wezterm.jpeg

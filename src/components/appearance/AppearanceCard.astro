@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import EntityCard from '../EntityCard.astro'
+import FeatureCard from '../FeatureCard.astro'
 import AppearanceMeta from './AppearanceMeta.astro'
 
 interface Props {
@@ -10,14 +10,14 @@ interface Props {
 const { appearance, eager } = Astro.props
 ---
 
-<EntityCard
-  eager={eager}
+<FeatureCard
   href={`/appearances/${appearance.id}`}
+  image={appearance.data.heroImage}
   title={appearance.data.title}
   description={appearance.data.description}
-  image={appearance.data.heroImage}
-  areas={appearance.data.areas}
+  eager={eager}
+  size="sm"
   transitionPrefix={`appearance-${appearance.id}`}
 >
   <AppearanceMeta slot="meta" appearance={appearance} align="left" />
-</EntityCard>
+</FeatureCard>

@@ -4,6 +4,7 @@ description: >-
   I've set up a clutter free environment for myself on macOS. I'll show you a
   few tips on how.
 youtubeUrl: 'https://www.youtube.com/embed/-44ll9mDaag'
+videoType: video
 duration: '3:29'
 heroImage: ../attachments/posts/clutter-free-macos/clutter-free-macos.jpeg
 pubDate: 2022-12-14T18:00:00.000Z

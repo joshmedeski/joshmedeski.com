@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content'
 import AreaBadges from '../AreaBadges.astro'
 import { pillClass, type PillSize } from '~/utils/pills'
+import { APPEARANCE_FORMATS } from '~/utils/content'
 
 interface Props {
   appearance: CollectionEntry<'appearances'>
@@ -13,7 +14,7 @@ const {
   align = 'center',
   size = 'sm',
   appearance: {
-    data: { publisher, pubDate, areas },
+    data: { publisher, format, pubDate, areas },
   },
 } = Astro.props
 
@@ -28,8 +29,8 @@ const pill = pillClass(size)
 >
   <AreaBadges areas={areas} pillClass={pill} />
 
-  <div class={pill}>
-    <span aria-hidden="true">📰</span>
+  <div class={pill} title={APPEARANCE_FORMATS[format].label}>
+    <span aria-hidden="true">{APPEARANCE_FORMATS[format].icon}</span>
     <span>{publisher}</span>
   </div>
 

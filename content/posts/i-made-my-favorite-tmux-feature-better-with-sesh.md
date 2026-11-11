@@ -2,6 +2,7 @@
 title: I made my favorite tmux feature better with sesh
 pubDate: 2025-03-24T22:00:00.000Z
 youtubeUrl: 'https://www.youtube.com/embed/6I5xOAdSqLM'
+videoType: video
 duration: '5:03'
 heroImage: >-
   ../attachments/posts/i-made-my-favorite-tmux-feature-better-with-sesh/i-made-my-favorite-tmux-feature-better.jpeg

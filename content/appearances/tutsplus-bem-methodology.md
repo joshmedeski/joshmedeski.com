@@ -1,6 +1,7 @@
 ---
 title: An Introduction to the BEM Methodology
 publisher: Tuts+ Web Design
+format: article
 url: https://webdesign.tutsplus.com/an-introduction-to-the-bem-methodology--cms-19403a
 pubDate: 2014-02-28
 description:

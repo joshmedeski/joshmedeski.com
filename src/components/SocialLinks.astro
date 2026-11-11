@@ -12,9 +12,10 @@ import {
 
 interface Props {
   iconSize?: string
+  showLabels?: boolean
 }
 
-const { iconSize = 'h-10' } = Astro.props
+const { iconSize = 'h-10', showLabels = false } = Astro.props
 const links = [
   ['YouTube', SOCIAL_LINKS.YouTube, YouTubeIcon],
   ['GitHub', SOCIAL_LINKS.GitHub, GitHubIcon],
@@ -25,11 +26,25 @@ const links = [
 ] as const
 ---
 
-<div class="flex gap-4">
+<div
+  class:list={showLabels
+    ? 'grid grid-cols-2 gap-2 sm:grid-cols-3'
+    : 'flex gap-4'}
+>
   {
     links.map(([label, href, Icon]) => (
-      <Link href={href} target="_blank" aria-label={label}>
+      <Link
+        href={href}
+        target="_blank"
+        aria-label={label}
+        class={
+          showLabels
+            ? 'flex items-center gap-3 rounded-xl bg-white/5 px-3 py-2 font-bold transition hover:bg-white/10'
+            : undefined
+        }
+      >
         <Icon class={iconSize} />
+        {showLabels && <span>{label === 'RSS feed' ? 'RSS' : label}</span>}
       </Link>
     ))
   }

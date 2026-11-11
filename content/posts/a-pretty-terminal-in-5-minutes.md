@@ -2,6 +2,7 @@
 title: A Pretty Terminal in 5 minutes!
 pubDate: 2022-07-05T12:00:00.000Z
 youtubeUrl: 'https://www.youtube.com/embed/Mu4frtvHPOY'
+videoType: video
 duration: '5:22'
 heroImage: >-
   ../attachments/posts/a-pretty-terminal-in-5-minutes/a-pretty-terminal-in-5-minutes.jpeg

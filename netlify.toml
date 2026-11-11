@@ -63,3 +63,18 @@ force = true
   from = "/categories/*"
   to = "/areas"
   status = 301
+
+[[redirects]]
+  from = "/posts"
+  to = "/content?type=writing"
+  status = 301
+
+[[redirects]]
+  from = "/videos"
+  to = "/content?type=video,livestream"
+  status = 301
+
+[[redirects]]
+  from = "/appearances"
+  to = "/content?type=appearance"
+  status = 301

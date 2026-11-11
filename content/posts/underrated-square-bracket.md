@@ -7,6 +7,7 @@ description: >-
 heroImage: >-
   ../attachments/posts/underrated-square-bracket/the-underrated-square-bracket.jpeg
 youtubeUrl: 'https://www.youtube.com/embed/vHNtl9gTWSU?si=8aaJVNu-Da45cZLq'
+videoType: video
 duration: '03:23'
 areas:
   - neovim

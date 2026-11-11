@@ -1,6 +1,7 @@
 ---
 title: No One Talks About This Side of Tech YouTube…
 publisher: linkarzu
+format: video
 url: https://www.youtube.com/watch?v=m2MeLxz-s_w
 pubDate: 2025-05-15
 description:

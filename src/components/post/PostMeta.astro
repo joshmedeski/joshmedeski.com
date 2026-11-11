@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content'
 import AreaBadges from '../AreaBadges.astro'
 import { GuideIcon } from '../icons/index.astro'
 import { pillClass, type PillSize } from '~/utils/pills'
+import { readingMinutes } from '~/utils/posts'
 
 interface Props {
   post: CollectionEntry<'posts'>
@@ -15,7 +16,8 @@ const {
   align = 'center',
   size = 'sm',
   post: {
-    data: { pubDate, duration, guide: postGuide, areas },
+    body,
+    data: { pubDate, duration, videoType, guide: postGuide, areas },
   },
 } = Astro.props
 
@@ -58,10 +60,20 @@ if (postGuide) guide = await getEntry(postGuide.ref)
   </div>
 
   {
-    duration && (
+    duration ? (
       <div class={pill}>
-        <span aria-hidden="true">🎬</span>
-        <span>{duration}</span>
+        <span aria-hidden="true">
+          {videoType === 'livestream' ? '🔴' : '🎬'}
+        </span>
+        <span>
+          {videoType === 'livestream' && 'Live · '}
+          {duration}
+        </span>
+      </div>
+    ) : (
+      <div class={pill}>
+        <span aria-hidden="true">📖</span>
+        <span>{readingMinutes(body)} min read</span>
       </div>
     )
   }

@@ -145,7 +145,7 @@ const { Content } = await render(area)
           videos.length > 0 && (
             <section class="py-12">
               <h2 class="mb-6 text-2xl font-bold">Videos</h2>
-              <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+              <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
                 {videos.map((video) => (
                   <PostCard post={video} />
                 ))}
@@ -157,7 +157,7 @@ const { Content } = await render(area)
           posts.length > 0 && (
             <section class="py-12">
               <h2 class="mb-6 text-2xl font-bold">Posts</h2>
-              <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+              <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
                 {posts.map((post) => (
                   <PostCard post={post} />
                 ))}
@@ -181,7 +181,7 @@ const { Content } = await render(area)
           appearances.length > 0 && (
             <section class="py-12">
               <h2 class="mb-6 text-2xl font-bold">Appearances</h2>
-              <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
+              <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
                 {appearances.map((appearance) => (
                   <AppearanceCard appearance={appearance} />
                 ))}

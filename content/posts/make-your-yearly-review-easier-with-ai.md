@@ -5,6 +5,7 @@ description: >-
   easier! I'll go over the AI prompt and process that I used this year for my
   yearly review.
 youtubeUrl: 'https://www.youtube.com/embed/7TNGf11x6Tc'
+videoType: video
 duration: '05:52'
 heroImage: >-
   ../attachments/posts/make-your-yearly-review-easier-with-ai/make-your-yearly-review-easier-with-ai.jpeg

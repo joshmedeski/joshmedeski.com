@@ -4,6 +4,7 @@ description: >-
   Let's integrate GitHub into the terminal using the GitHub CLI, gh-dash, and
   the Octo Neovim plugin.
 youtubeUrl: 'https://www.youtube.com/embed/TzAi3IcltkY'
+videoType: livestream
 duration: '1:20:07'
 heroImage: ../attachments/posts/github-in-the-terminal/github-in-the-terminal.jpeg
 pubDate: 2023-08-16T21:00:00.000Z

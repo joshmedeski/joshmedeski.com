@@ -3,6 +3,7 @@ title: Top 4 Fuzzy CLIs
 description: My list of the top 4 fuzzy command-line interfaces that I've used and like.
 duration: '04:31'
 youtubeUrl: 'https://www.youtube.com/embed/T0O2qrOhauY'
+videoType: video
 heroImage: ../attachments/posts/top-4-fuzzy-clis/top-4-fuzzy-clis.jpeg
 pubDate: 2024-01-22T09:00:00.000Z
 areas:

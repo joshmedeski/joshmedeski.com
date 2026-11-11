@@ -1,26 +1,24 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import EntityCard from '../EntityCard.astro'
+import FeatureCard from '../FeatureCard.astro'
 import GuideMeta from './GuideMeta.astro'
 
 interface Props {
   guide: CollectionEntry<'guides'>
   eager?: boolean
+  class?: string
 }
 
-const { guide, eager } = Astro.props
+const { guide, eager, class: className } = Astro.props
 ---
 
-<EntityCard
-  eager={eager}
+<FeatureCard
   href={`/guides/${guide.id}`}
+  image={guide.data.heroImage}
   title={guide.data.title}
   description={guide.data.description}
-  image={guide.data.heroImage}
-  areas={guide.data.areas}
-  transitionPrefix={`guide-${guide.id}`}
-  preloadWidth="1640"
-  preloadHeight="922.5"
+  eager={eager}
+  class={className}
 >
   <GuideMeta slot="meta" guide={guide} align="left" />
-</EntityCard>
+</FeatureCard>

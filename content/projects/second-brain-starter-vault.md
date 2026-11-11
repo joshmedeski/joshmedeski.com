@@ -2,7 +2,7 @@
 title: Second Brain Starter Vault
 repo: joshmedeski/second-brain-starter-vault
 description: A minimal Obsidian vault with a PARA-inspired structure, ready to write in.
-heroImage: ../attachments/projects/second-brain-starter-vault-project-preview.png
+heroImage: ../attachments/wallpapers/grand-obsidian-cave.jpg
 areas:
   - obsidian
   - productivity

@@ -3,6 +3,7 @@ title: How To Use Git Worktrees to Switch Contexts Quickly and Easily
 pubDate: 2026-01-05T18:00:00.000Z
 heroImage: ../attachments/posts/how-to-use-git-worktrees/how-to-use-git-worktrees.jpeg
 youtubeUrl: 'https://www.youtube.com/embed/b46GKAnH89I'
+videoType: video
 duration: '18:44'
 description: How I set up my Git Worktrees and how I use them to stay productive.
 areas:

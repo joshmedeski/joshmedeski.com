@@ -1,6 +1,7 @@
 ---
 title: 'Quick Tip: Use CodeKit 2.0 for Local WordPress Development'
 publisher: Tuts+ Web Design
+format: article
 url: https://webdesign.tutsplus.com/quick-tip-use-codekit-20-for-local-wordpress-development--cms-19402t
 pubDate: 2014-06-17
 description:

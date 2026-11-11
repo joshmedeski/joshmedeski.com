@@ -1,6 +1,7 @@
 ---
 title: Replacing Tmux-Sessionizer with Sesh
 publisher: linkarzu
+format: video
 url: https://www.youtube.com/watch?v=xxxjOEFvyi0
 pubDate: 2025-04-01
 description:

@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import EntityCard from '../EntityCard.astro'
+import FeatureCard from '../FeatureCard.astro'
 import ProjectMeta from './ProjectMeta.astro'
 
 interface Props {
@@ -10,14 +10,13 @@ interface Props {
 const { project, eager } = Astro.props
 ---
 
-<EntityCard
-  eager={eager}
+<FeatureCard
   href={`/projects/${project.id}`}
+  image={project.data.heroImage}
   title={project.data.title}
   description={project.data.description}
-  image={project.data.heroImage}
-  areas={project.data.areas}
+  eager={eager}
   transitionPrefix={`project-${project.id}`}
 >
   <ProjectMeta slot="meta" project={project} align="left" />
-</EntityCard>
+</FeatureCard>

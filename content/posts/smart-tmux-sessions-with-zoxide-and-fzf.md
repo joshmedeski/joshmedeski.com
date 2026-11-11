@@ -2,6 +2,7 @@
 title: Smart tmux sessions with zoxide and fzf
 pubDate: 2022-08-12T12:00:00.000Z
 youtubeUrl: 'https://www.youtube.com/embed/l_TTxc0AcCw'
+videoType: video
 duration: '14:55'
 heroImage: >-
   ../attachments/posts/smart-tmux-sessions-with-zoxide-and-fzf/smart-tmux-sessions-with-zoxide-and-fzf.jpeg

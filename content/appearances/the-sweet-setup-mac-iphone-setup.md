@@ -1,6 +1,7 @@
 ---
 title: Josh Medeski's Mac and iPhone Setup
 publisher: The Sweet Setup
+format: interview
 url: https://thesweetsetup.com/josh-medeskis-mac-and-iphone-setup/
 pubDate: 2016-02-15
 description:

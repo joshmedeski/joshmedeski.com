@@ -3,13 +3,13 @@ title: Blazing Fast Window Management on macOS
 titleClasses: 'max-w-[500px] mx-auto'
 pubDate: 2022-05-22T12:00:00.000Z
 youtubeUrl: 'https://www.youtube.com/embed/fYsCAOfGjxE'
+videoType: video
 duration: '19:06'
 heroImage: >-
   ../attachments/posts/blazing-fast-window-management-on-macos/blazing-fast-window-management-on-macos.jpeg
 description: An overview of how to manage macOS windows and desktops at blazing speeds!
 areas:
   - macos
-  - productivity
 ---
 
 An overview of how to manage macOS windows and desktops at blazing speeds!

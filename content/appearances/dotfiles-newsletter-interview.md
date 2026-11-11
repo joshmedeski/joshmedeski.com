@@ -1,6 +1,7 @@
 ---
 title: 'Issue 3: Josh Medeski'
 publisher: .dotfiles
+format: interview
 url: https://dotfiles.substack.com/p/3-josh-medeski
 pubDate: 2023-06-19
 description:

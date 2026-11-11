@@ -2,7 +2,7 @@
 title: pst
 repo: joshmedeski/pst
 description: Local-first speech tooling for macOS, packaged as a Claude Code plugin.
-heroImage: ../attachments/projects/pst-project-preview.png
+heroImage: ../attachments/projects/pst-desk-cover.jpeg
 areas:
   - claude-code
   - audio

@@ -1,6 +1,7 @@
 ---
 title: Josh Medeski — Full-Stack Developer
 publisher: ZSA
+format: interview
 url: https://people.zsa.io/josh-medeski
 pubDate: 2021-02-18
 description:
