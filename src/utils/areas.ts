@@ -52,6 +52,25 @@ export function contentForArea<T extends Taggable>(
   return items.filter((item) => areaIdsFor(item).some((id) => scope.has(id)))
 }
 
+export function groupByDirectArea<T extends Taggable>(
+  areas: Area[],
+  items: T[],
+  order: string[] = [],
+): { area: Area; items: T[] }[] {
+  const rank = (area: Area) => {
+    const i = order.indexOf(area.id)
+    return i === -1 ? order.length : i
+  }
+  return topLevelAreas(areas)
+    .flatMap((top) => [top, ...subAreasOf(top, areas)])
+    .map((area) => ({
+      area,
+      items: items.filter((item) => areaIdsFor(item).includes(area.id)),
+    }))
+    .filter((group) => group.items.length > 0)
+    .sort((a, b) => rank(a.area) - rank(b.area))
+}
+
 export function areaHref(area: Pick<Area, 'id'>): string {
   return `/areas/${area.id}`
 }
