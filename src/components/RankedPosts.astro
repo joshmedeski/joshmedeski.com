@@ -35,6 +35,7 @@ const maxViews = Math.max(0, ...posts.map(({ pageviews }) => pageviews))
               alt=""
               width={192}
               height={108}
+              loading={index === 0 ? 'eager' : 'lazy'}
               class="aspect-video w-20 shrink-0 rounded-md bg-black object-cover outline outline-1 -outline-offset-1 outline-black/10 sm:w-24 dark:outline-white/10"
             />
             <div class="min-w-0 flex-1">

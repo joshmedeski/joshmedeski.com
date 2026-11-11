@@ -1,5 +1,5 @@
 ---
-title: Carlos Beckers's Dev Workflow
+title: Carlos Becker's Dev Workflow
 description: >-
   In this interview I talk with Carlos, creator of Go Releaser, about his
   workflow

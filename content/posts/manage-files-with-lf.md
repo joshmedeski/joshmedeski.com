@@ -3,7 +3,7 @@ title: Manage Files with lf
 pubDate: 2023-06-26T12:00:00.000Z
 heroImage: ../attachments/posts/manage-files-with-lf/manage-files-with-lf.jpeg
 thumbnail: ../attachments/posts/manage-files-with-lf/manage-files-with-lf-thumb.jpeg
-description: LazyVim allows you to quickly setup an IDE for Neovim.
+description: lf is a terminal file manager that lets you navigate your filesystem and preview files with vim-like commands.
 guide:
   ref: dev-workflow-intro
   position: 8

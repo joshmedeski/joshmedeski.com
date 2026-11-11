@@ -15,6 +15,7 @@ interface Props {
   /** Renders a hidden full-size image so the detail page loads instantly. */
   preloadWidth?: `${number}`
   preloadHeight?: `${number}`
+  eager?: boolean
 }
 
 const {
@@ -26,6 +27,7 @@ const {
   transitionPrefix,
   preloadWidth,
   preloadHeight,
+  eager,
 } = Astro.props
 
 const hasMeta = Astro.slots.has('meta')
@@ -60,6 +62,7 @@ const borderColor = `var(${themeColor.replace('bg-', '--color-')})`
           alt={title}
           width="500"
           height="281.25"
+          loading={eager ? 'eager' : 'lazy'}
           class="mb-2 aspect-video w-full rounded-lg bg-black object-cover shadow-md md:mb-8"
           transition:name={`${transitionPrefix}-thumb`}
           style={{ backgroundColor: '#000' }}

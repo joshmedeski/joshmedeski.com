@@ -19,8 +19,8 @@ const appearances = (await getCollection('appearances')).sort(
     </p>
     <div class="grid grid-cols-1 gap-8 pb-12 sm:grid-cols-2">
       {
-        appearances.map((appearance) => (
-          <AppearanceCard appearance={appearance} />
+        appearances.map((appearance, i) => (
+          <AppearanceCard appearance={appearance} eager={i < 2} />
         ))
       }
     </div>

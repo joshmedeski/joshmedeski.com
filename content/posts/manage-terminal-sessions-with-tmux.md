@@ -5,7 +5,7 @@ heroImage: >-
   ../attachments/posts/manage-terminal-sessions-with-tmux/manage-terminal-sessions-with-tmux.jpeg
 thumbnail: >-
   ../attachments/posts/manage-terminal-sessions-with-tmux/manage-terminal-sessions-with-tmux-thumb.jpeg
-description: tmux is a terminal multiplexer with lets you create multiple terminal session.
+description: tmux is a terminal multiplexer that lets you create multiple terminal sessions.
 guide:
   ref: dev-workflow-intro
   position: 5

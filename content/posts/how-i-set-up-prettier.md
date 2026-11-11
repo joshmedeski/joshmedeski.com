@@ -1,7 +1,7 @@
 ---
 title: How I Set Up Prettier
 description: >-
-  Prettier is a opinionated code formatter that makes it easy to create more
+  Prettier is an opinionated code formatter that makes it easy to create more
   consistent code automatically
 pubDate: 2021-12-28T00:00:00.000Z
 length: 2 mins
@@ -12,7 +12,7 @@ areas:
   - development
 ---
 
-Prettier is a opinionated code formatter that allows you to create more consistent code automatically.
+Prettier is an opinionated code formatter that allows you to create more consistent code automatically.
 
 In this post, we are going to install, configure, and test Prettier on a TypeScript project.
 

@@ -8,38 +8,19 @@ areas:
 image: ../attachments/uses/asus-jelly75-kd201.jpeg
 ---
 
-I picked this up on sale at Micro Center for **$99** (retail $129.99), in the
-Orange Meadow colorway.
+I picked this up on sale at Micro Center for **$99** (retail $129.99).
 
-## Board Build
+## Features
 
-- **Layout:** 75% compact
-- **Mount:** Gasket mount structure — dampens vibration and softens keypress sound
-- **Keycaps:** Anti-slip PC keycaps in Orange Meadow, with a contrasting spacebar and Esc
-- **Backlight:** Soft white illumination
-- **Dimensions:** 326.2 × 142.1 × 39.5 mm
-- **Weight:** 1193 g
-- **Battery:** Li-ion 4000mAh — up to ~8500 hours with backlight off
+- 75% layout
+- Gasket mount that dampens vibration and softens the typing sound
+- Anti-slip PC keycaps in the Orange Meadow colorway, with a contrasting spacebar and Esc
+- Pre-lubed, hot-swappable linear switches with 4.0 mm travel
+- Tri-mode connectivity: USB-C wired, 2.4 GHz wireless, and Bluetooth (up to 5 devices)
+- 4000 mAh battery and soft white backlight
+- Windows and macOS toggle
 
-## Switches
-
-- Orange Meadow style linear mechanical switches (purple stem)
-- Pre-lubed for a smooth, quiet, consistent keypress
-- 4.0 mm total travel
-- ~50 million click lifespan
-- Hot-swappable — swap switches without soldering
-
-## Connectivity — Tri-Mode
-
-| Mode               | Polling Rate |
-| ------------------ | ------------ |
-| USB-C (wired)      | 1000 Hz      |
-| RF 2.4GHz (dongle) | 500 Hz       |
-| Bluetooth          | 133 Hz       |
-
-- Pairs with up to 5 devices
-- USB-C for both wired use and charging
-- Windows / macOS toggle
+[View on ASUS](https://www.asus.com/accessories/keyboards/asus-keyboard/asus-jelly75-keyboard-kd201/)
 
 ## My Review
 

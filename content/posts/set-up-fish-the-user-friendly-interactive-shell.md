@@ -7,7 +7,8 @@ thumbnail: >-
   ../attachments/posts/set-up-fish-the-user-friendly-interactive-shell/get-started-with-fish-the-smart-and-user-friendly-shell-thumb.jpeg
 description: >-
   Fish (Friendly Interactive SHell) is a Unix shell designed to be user-friendly
-  and interactive. It features syntax highlighting, autosuggestions
+  and interactive. It features syntax highlighting, autosuggestions, and a
+  built-in help system.
 guide:
   ref: dev-workflow-intro
   position: 3

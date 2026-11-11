@@ -71,12 +71,12 @@ const posts = await getCollection(
       class="grid grid-cols-1 gap-x-8 gap-y-10 [counter-reset:video] sm:grid-cols-2 lg:grid-cols-4"
     >
       {
-        posts.map((post) => (
+        posts.map((post, i) => (
           <li class="[counter-increment:video]">
             <a href={`/posts/${post.id}`}>
               <Image
                 alt={post.data.title}
-                loading="lazy"
+                loading={i < 4 ? 'eager' : 'lazy'}
                 width="400"
                 height="216"
                 class="w-full rounded-2xl shadow-lg"

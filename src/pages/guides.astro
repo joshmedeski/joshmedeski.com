@@ -16,7 +16,7 @@ const guides = await getCollection('guides').then((g) =>
   <Wrapper>
     <PageTitle>Guides</PageTitle>
     <div class="grid items-stretch gap-4 pb-12 sm:grid-cols-2 sm:gap-8">
-      {guides.map((guide) => <GuideCard guide={guide} />)}
+      {guides.map((guide, i) => <GuideCard guide={guide} eager={i < 2} />)}
     </div>
   </Wrapper>
 </Layout>

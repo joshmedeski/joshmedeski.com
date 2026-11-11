@@ -40,7 +40,6 @@ const { Content } = await render(use)
 >
   <div data-pagefind-body>
     <Wrapper>
-      <a href="/uses" class="mb-2 block text-primary-500">← Back to all uses</a>
       <section class="grid grid-cols-2 gap-6">
         <Image
           src={use.data.image}
@@ -59,20 +58,30 @@ const { Content } = await render(use)
         </div>
       </section>
 
-      {
-        relatedUses.length > 0 && (
-          <footer class="mb-12" data-pagefind-ignore>
+      <footer class="mb-12" data-pagefind-ignore>
+        {
+          relatedUses.length > 0 && (
             <h3 class="mb-4 text-4xl font-bold">Related uses</h3>
-            <div class="grid gap-4 sm:grid-cols-2 sm:gap-8">
-              {relatedUses
-                .sort((a, b) => a.data.title.localeCompare(b.data.title))
-                .map((use) => (
-                  <UseCard use={use} />
-                ))}
-            </div>
-          </footer>
-        )
-      }
+          )
+        }
+        <div
+          class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-10 md:grid-cols-3 lg:grid-cols-4"
+        >
+          {
+            relatedUses
+              .sort((a, b) => a.data.title.localeCompare(b.data.title))
+              .map((use) => <UseCard use={use} />)
+          }
+          <a
+            href="/uses"
+            class="flex aspect-[3/2] flex-col items-center justify-center gap-1 rounded-lg border-2 border-neutral-800 bg-neutral-900 p-3 text-center text-3xl font-bold text-balance shadow-md transition hover:scale-[1.02] hover:border-primary-500"
+            data-astro-prefetch
+          >
+            <span aria-hidden="true" class="text-6xl leading-none">←</span>
+            Back to all
+          </a>
+        </div>
+      </footer>
     </Wrapper>
   </div>
 </Layout>

@@ -136,6 +136,9 @@ This turned out to be the most useful way in. Agents rarely want "all posts". Th
 
 [llms.txt](https://llmstxt.org) is a markdown file at the root of your site that tells agents where to start. I used to have a hand-written one. Now it's generated at build time, so it never goes stale.
 
+> [!NOTE] One catch
+> As I write this, agents don't go looking for `llms.txt` on their own. They land on a page from a search result and read whatever's there, so you still have to point them at it. That's why the markdown link in every page's `<head>` matters. I hope that changes, because a file agents check before anything else is exactly what `llms.txt` should be.
+
 My first version listed every single post. It worked, but it was mostly one long list that got longer every time I published.
 
 What I landed on is a table of contents, not a catalog. It links to the listings instead of repeating them:

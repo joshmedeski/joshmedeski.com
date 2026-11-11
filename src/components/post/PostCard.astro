@@ -5,11 +5,13 @@ import PostMeta from './PostMeta.astro'
 
 interface Props {
   post: CollectionEntry<'posts'>
+  eager?: boolean
 }
-const { post } = Astro.props
+const { post, eager } = Astro.props
 ---
 
 <EntityCard
+  eager={eager}
   href={`/posts/${post.id}`}
   title={post.data.title}
   description={post.data.description}

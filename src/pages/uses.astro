@@ -4,13 +4,12 @@ import Layout from '../components/Layout.astro'
 import PageTitle from '../components/PageTitle.astro'
 import Wrapper from '../components/Wrapper.astro'
 import UseCard from '~/components/uses/UseCard.astro'
-import { topLevelAreas, contentForArea } from '~/utils/areas'
+import { USES_AREA_ORDER } from '~/config'
+import { groupByDirectArea } from '~/utils/areas'
 
 const areas = await getCollection('areas')
 const uses = await getCollection('uses')
-const groups = topLevelAreas(areas)
-  .map((area) => ({ area, uses: contentForArea(area, areas, uses) }))
-  .filter((g) => g.uses.length > 0)
+const groups = groupByDirectArea(areas, uses, USES_AREA_ORDER)
 ---
 
 <Layout title="Uses" noIndex>
@@ -18,14 +17,14 @@ const groups = topLevelAreas(areas)
     <PageTitle>Uses</PageTitle>
     <div class="mb-12 space-y-8 sm:space-y-24">
       {
-        groups.map(({ area, uses }) => (
+        groups.map(({ area, items }, groupIndex) => (
           <section>
             <h2 class="mb-4 text-4xl font-bold">{area.data.title}</h2>
-            <div class="grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8">
-              {uses
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-10 md:grid-cols-3 lg:grid-cols-4">
+              {items
                 .sort((a, b) => a.data.title.localeCompare(b.data.title))
-                .map((use) => (
-                  <UseCard use={use} />
+                .map((use, i) => (
+                  <UseCard use={use} eager={groupIndex === 0 && i < 4} />
                 ))}
             </div>
           </section>

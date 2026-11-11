@@ -7,6 +7,7 @@ import {
   resolveTopLevel,
   resolveThemeArea,
   contentForArea,
+  groupByDirectArea,
   areaScopeIds,
   areaHref,
   validateTwoLevel,
@@ -92,5 +93,42 @@ describe('areas utils', () => {
   it('validateTwoLevel throws for three levels', () => {
     const deep = area('opus', { parent: 'claude-code' })
     expect(() => validateTwoLevel([...areas, deep])).toThrow(/two levels/)
+  })
+})
+
+describe('groupByDirectArea', () => {
+  const audio = area('audio', { title: 'Audio', parent: 'hardware' })
+  const keyboards = area('keyboards', {
+    title: 'Keyboards',
+    parent: 'hardware',
+  })
+  const all = [ai, claude, hardware, audio, keyboards]
+  const laptop = item('hardware')
+  const moonlander = item('keyboards')
+  const headphones = item('audio')
+  const agent = item('claude-code')
+
+  it('groups items by their own area, not their parent', () => {
+    const groups = groupByDirectArea(all, [laptop, moonlander, headphones])
+    expect(groups.map((g) => g.area.id)).toEqual([
+      'hardware',
+      'audio',
+      'keyboards',
+    ])
+    expect(groups[0].items).toEqual([laptop])
+  })
+
+  it('puts ordered areas first and keeps the rest in tree order', () => {
+    const groups = groupByDirectArea(
+      all,
+      [agent, laptop, moonlander, headphones],
+      ['hardware', 'keyboards', 'audio'],
+    )
+    expect(groups.map((g) => g.area.id)).toEqual([
+      'hardware',
+      'keyboards',
+      'audio',
+      'claude-code',
+    ])
   })
 })
