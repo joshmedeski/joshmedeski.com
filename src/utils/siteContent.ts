@@ -1,8 +1,8 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 import { subAreasOf, topLevelAreas } from './areas'
+import type { ContentType } from './markdownAlternate'
 
-export const CONTENT_TYPES = ['posts', 'guides', 'projects', 'uses'] as const
-export type ContentType = (typeof CONTENT_TYPES)[number]
+export { CONTENT_TYPES, type ContentType } from './markdownAlternate'
 
 export const getPublished = <T extends ContentType>(type: T) =>
   getCollection(
