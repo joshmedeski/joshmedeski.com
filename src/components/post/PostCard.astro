@@ -9,8 +9,16 @@ interface Props {
   eyebrow?: string
   class?: string
   size?: 'sm' | 'lg'
+  sizes?: string
 }
-const { post, eager, eyebrow, class: className, size = 'sm' } = Astro.props
+const {
+  post,
+  eager,
+  eyebrow,
+  class: className,
+  size = 'sm',
+  sizes,
+} = Astro.props
 ---
 
 <FeatureCard
@@ -23,6 +31,7 @@ const { post, eager, eyebrow, class: className, size = 'sm' } = Astro.props
   class={className}
   transitionPrefix={`post-${post.id}`}
   size={size}
+  sizes={sizes}
 >
   {
     post.data.draft && (

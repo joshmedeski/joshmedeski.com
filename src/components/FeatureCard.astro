@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets'
+import { HERO_WIDTHS, IMAGE_WIDTH } from '~/utils/images'
 import type { ImageMetadata } from 'astro'
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
   class?: string
   transitionPrefix?: string
   size?: 'sm' | 'lg'
+  sizes?: string
 }
 
 const {
@@ -24,6 +26,7 @@ const {
   class: className,
   transitionPrefix,
   size = 'lg',
+  sizes = '(min-width: 640px) 400px, 100vw',
 } = Astro.props
 const sm = size === 'sm'
 ---
@@ -41,7 +44,9 @@ const sm = size === 'sm'
       <Image
         src={image}
         alt=""
-        width={820}
+        width={IMAGE_WIDTH.hero}
+        widths={HERO_WIDTHS}
+        sizes={sizes}
         loading={eager ? 'eager' : 'lazy'}
         class:list={[
           'aspect-video w-full object-cover transition duration-300 group-hover:brightness-110',

@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import { Image } from 'astro:assets'
+import { HERO_WIDTHS, IMAGE_WIDTH } from '~/utils/images'
 import Layout from '~/components/Layout.astro'
 import Wrapper from '~/components/Wrapper.astro'
 import AppearanceMeta from '~/components/appearance/AppearanceMeta.astro'
@@ -50,8 +51,9 @@ const { Content } = await render(appearance)
               <Image
                 class="absolute inset-0 z-10 aspect-video w-full rounded-xl bg-black shadow-lg"
                 src={appearance.data.heroImage}
-                width="1920"
-                height="1080"
+                width={IMAGE_WIDTH.hero}
+                widths={HERO_WIDTHS}
+                sizes="(min-width: 860px) 810px, 100vw"
                 alt={`${appearance.data.title} hero`}
                 transition:name={`appearance-${appearance.id}-thumb`}
               />

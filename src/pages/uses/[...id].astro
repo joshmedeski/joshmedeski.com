@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import { Image } from 'astro:assets'
+import { HERO_WIDTHS, IMAGE_WIDTH } from '~/utils/images'
 import GhRepo from '../../components/GhRepo.astro'
 import Layout from '~/components/Layout.astro'
 import Wrapper from '~/components/Wrapper.astro'
@@ -40,12 +41,14 @@ const { Content } = await render(use)
 >
   <div data-pagefind-body>
     <Wrapper>
-      <section class="grid grid-cols-2 gap-6">
+      <section class="grid gap-6 pt-16 md:grid-cols-2">
         <Image
           src={use.data.image}
           alt={use.data.title}
-          width="1640"
-          height="1094"
+          width={IMAGE_WIDTH.hero}
+          height={1280}
+          widths={HERO_WIDTHS}
+          sizes="(min-width: 768px) 50vw, 100vw"
           class="mb-2 w-full rounded-lg bg-black shadow-md md:mb-8"
           transition:name={`use-${use.data.title}-thumb`}
         />

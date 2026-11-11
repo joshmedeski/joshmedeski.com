@@ -5,6 +5,7 @@ import Layout from '../Layout.astro'
 import Wrapper from '../Wrapper.astro'
 import PostMeta from './PostMeta.astro'
 import { Image } from 'astro:assets'
+import { HERO_WIDTHS, IMAGE_WIDTH } from '~/utils/images'
 import { resolveThemeArea } from '~/utils/areas'
 
 interface Props {
@@ -52,8 +53,9 @@ const themeColor =
                   'absolute inset-0 z-10 aspect-video w-full rounded-xl bg-black shadow-lg',
                 ]}
                 src={post.data.heroImage}
-                width="1920"
-                height="1080"
+                width={IMAGE_WIDTH.hero}
+                widths={HERO_WIDTHS}
+                sizes="(min-width: 860px) 810px, 100vw"
                 alt={`${post.data.title} hero`}
                 transition:name={`post-${post.id}-thumb`}
               />

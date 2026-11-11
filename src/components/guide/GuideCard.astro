@@ -7,9 +7,10 @@ interface Props {
   guide: CollectionEntry<'guides'>
   eager?: boolean
   class?: string
+  sizes?: string
 }
 
-const { guide, eager, class: className } = Astro.props
+const { guide, eager, class: className, sizes } = Astro.props
 ---
 
 <FeatureCard
@@ -19,6 +20,7 @@ const { guide, eager, class: className } = Astro.props
   description={guide.data.description}
   eager={eager}
   class={className}
+  sizes={sizes}
 >
   <GuideMeta slot="meta" guide={guide} align="left" />
 </FeatureCard>

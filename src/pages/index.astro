@@ -1,5 +1,6 @@
 ---
 import { Image, getImage } from 'astro:assets'
+import { IMAGE_WIDTH } from '~/utils/images'
 import { getCollection } from 'astro:content'
 import Layout from '~/components/Layout.astro'
 import Wrapper from '~/components/Wrapper.astro'
@@ -61,6 +62,7 @@ const tile =
             alt="Josh Medeski"
             width={120}
             height={120}
+            densities={[1, 2]}
             loading="eager"
           />
           <div>
@@ -101,7 +103,7 @@ const tile =
                     <Image
                       src={project.data.heroImage}
                       alt=""
-                      width={256}
+                      width={IMAGE_WIDTH.thumb}
                       class="aspect-video w-32 shrink-0 rounded-lg object-cover"
                     />
                     <span>
@@ -130,7 +132,7 @@ const tile =
                   <Image
                     src={wallpaper.data.image}
                     alt={wallpaper.data.title}
-                    width={280}
+                    width={IMAGE_WIDTH.small}
                     class="aspect-video w-full rounded-lg object-cover transition hover:brightness-110"
                   />
                 </a>
@@ -149,7 +151,16 @@ const tile =
               linkLabel={`All ${posts.length}`}
             />
           </div>
-          {latest && <PostCard post={latest} size="lg" eager />}
+          {
+            latest && (
+              <PostCard
+                post={latest}
+                size="lg"
+                sizes="(min-width: 1024px) 700px, 100vw"
+                eager
+              />
+            )
+          }
           <div class="grid gap-4 sm:grid-cols-2">
             {recent.map((post) => <PostCard post={post} />)}
           </div>
