@@ -75,6 +75,41 @@ An agent that lands on a page from a search result doesn't know there's a cleane
 
 It's the same tag RSS readers have used for years to find feeds. Not every agent looks for it yet, but it costs one line in my layout.
 
+## Answer agents that ask for markdown
+
+Some agents skip the link and ask for markdown up front, with an `Accept: text/markdown` header on the normal URL. Others don't ask at all, but say who they are in their user agent. A static site ignores both and sends HTML anyway.
+
+So a small [Netlify edge function](https://docs.netlify.com/build/edge-functions/overview/) sits in front of every page that has a markdown version. If the request asks for markdown, or comes from a known AI agent, it returns the `.md` file. Otherwise it passes the request through untouched:
+
+```ts title="netlify/edge-functions/markdown.ts"
+export default async (request: Request, context: Context) => {
+  const markdownPath = markdownPathFor(new URL(request.url).pathname)
+  if (!markdownPath) return
+
+  const asMarkdown =
+    wantsMarkdown(request.headers.get('accept')) ||
+    isAgent(request.headers.get('user-agent'))
+
+  const response = asMarkdown
+    ? await fetch(new URL(markdownPath, request.url))
+    : await context.next()
+
+  const headers = new Headers(response.headers)
+  headers.append('Vary', 'Accept, User-Agent')
+  return new Response(response.body, { status: response.status, headers })
+}
+```
+
+`isAgent` only matches the fetchers that run while someone is waiting on an answer: `ChatGPT-User`, `Claude-User`, and `Perplexity-User`. I left crawlers like `GPTBot` and Googlebot alone, so search engines see the same page as everyone else.
+
+The `Vary` header matters. Without it, a cache could store the markdown and hand it to the next person who opens the page in a browser.
+
+Try it yourself:
+
+```sh
+curl -H "Accept: text/markdown" https://www.joshmedeski.com/projects/sesh/
+```
+
 ## Every list gets a markdown page too
 
 Single pages weren't enough. An agent also needs to know what exists before it can read it.
@@ -115,7 +150,7 @@ What I landed on is a table of contents, not a catalog. It links to the listings
 
 The few exceptions are things worth having up front. My projects are listed inline, because there are only six and they're the thing people ask about most. Every area is listed with a short explanation of how area pages work. Then there's a section for the newsletter, my RSS feed, and my social links.
 
-The whole file is 69 lines, and publishing a new post doesn't make it any longer.
+The whole file is 67 lines, and publishing a new post doesn't make it any longer.
 
 ## Email sign-up was easy
 
