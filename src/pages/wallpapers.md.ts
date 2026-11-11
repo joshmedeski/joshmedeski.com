@@ -7,7 +7,7 @@ export async function GET({ site }: APIContext) {
   const wallpapers = (await getCollection('wallpapers')).sort(byLatest)
   return markdownResponse([
     '# Wallpapers',
-    `A collection of free desktop wallpapers created by Josh Medeski. Each link is a wallpaper's page with an HD download, plus 4K and 5K where the source is large enough. Browse them all at ${new URL('/wallpapers/', site)}.`,
+    `A collection of free desktop wallpapers created by Josh Medeski. Each link is a wallpaper's page with downloads in every size the source supports, from SD (1280×720) up through HD, 4K, and 5K. Browse them all at ${new URL('/wallpapers/', site)}.`,
     wallpapers
       .map(({ id, data }) => {
         const note = [
