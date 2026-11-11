@@ -36,9 +36,7 @@ export async function GET({ site }: APIContext) {
     ),
     [
       '## Areas',
-      'Areas are the topics (also called categories or tags) that Josh writes and makes things about. Sub-areas are indented under their parent. Each area link returns everything in that area as markdown: guides, videos, posts, projects, uses, and appearances. For example, ' +
-        new URL('/areas/claude-code.md', site) +
-        ' lists all content about Claude Code. A parent area also includes the content of its sub-areas.',
+      'Each area page lists everything Josh has made on that topic. Parent areas include their sub-areas.',
       areaLinks(site, areas).join('\n'),
     ].join('\n\n'),
     markdownSection('More', [
@@ -70,7 +68,6 @@ export async function GET({ site }: APIContext) {
         '{"email": "you@example.com"}',
         '```',
       ].join('\n'),
-      'A `201` response means the address is subscribed. A `400` means the email is missing or invalid.',
     ].join('\n\n'),
     markdownSection('Follow Josh', [
       markdownLink(
