@@ -16,7 +16,7 @@ const url = data?.url ?? `https://github.com/${repo}`
 <a
   href={url}
   target="_blank"
-  class="not-prose mb-4 block no-underline text-gh-light"
+  class="not-prose mb-4 block no-underline text-white"
 >
   <section
     class="flex flex-col gap-2 rounded bg-gh-dark p-2 sm:flex-row sm:gap-4 sm:p-4"
@@ -28,7 +28,7 @@ const url = data?.url ?? `https://github.com/${repo}`
       </div>
       {
         description && (
-          <p class="sm:text-md text-sm leading-none text-white">
+          <p class="sm:text-md text-sm leading-none text-neutral-300">
             {description}
           </p>
         )
