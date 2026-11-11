@@ -5,11 +5,13 @@ import ProjectMeta from './ProjectMeta.astro'
 
 interface Props {
   project: CollectionEntry<'projects'>
+  eager?: boolean
 }
-const { project } = Astro.props
+const { project, eager } = Astro.props
 ---
 
 <EntityCard
+  eager={eager}
   href={`/projects/${project.id}`}
   title={project.data.title}
   description={project.data.description}

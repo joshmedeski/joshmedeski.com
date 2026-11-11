@@ -5,12 +5,14 @@ import UseMeta from './UseMeta.astro'
 
 interface Props {
   use: CollectionEntry<'uses'>
+  eager?: boolean
 }
 
-const { use } = Astro.props
+const { use, eager } = Astro.props
 ---
 
 <EntityCard
+  eager={eager}
   href={`/uses/${use.id}`}
   title={use.data.title}
   description={use.data.description}

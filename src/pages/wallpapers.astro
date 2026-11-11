@@ -17,7 +17,9 @@ const wallpapers = await getCollection('wallpapers')
       {
         wallpapers
           .sort((a, b) => a.data.title.localeCompare(b.data.title))
-          .map((wallpaper) => <WallpaperCard wallpaper={wallpaper} />)
+          .map((wallpaper, i) => (
+            <WallpaperCard wallpaper={wallpaper} eager={i < 4} />
+          ))
       }
     </div>
   </Wrapper>

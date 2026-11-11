@@ -5,11 +5,13 @@ import AppearanceMeta from './AppearanceMeta.astro'
 
 interface Props {
   appearance: CollectionEntry<'appearances'>
+  eager?: boolean
 }
-const { appearance } = Astro.props
+const { appearance, eager } = Astro.props
 ---
 
 <EntityCard
+  eager={eager}
   href={`/appearances/${appearance.id}`}
   title={appearance.data.title}
   description={appearance.data.description}

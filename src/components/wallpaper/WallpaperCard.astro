@@ -4,9 +4,10 @@ import { Image } from 'astro:assets'
 
 interface Props {
   wallpaper: CollectionEntry<'wallpapers'>
+  eager?: boolean
 }
 
-const { wallpaper } = Astro.props
+const { wallpaper, eager } = Astro.props
 
 const { width, favorite } = wallpaper.data
 const resLabel =
@@ -24,6 +25,7 @@ const resLabel =
       alt={wallpaper.data.title}
       width="558"
       height="314"
+      loading={eager ? 'eager' : 'lazy'}
       class="w-full rounded-lg bg-black shadow-md mb-4"
       transition:name={`wallpaper-${wallpaper.id}-thumb`}
     />

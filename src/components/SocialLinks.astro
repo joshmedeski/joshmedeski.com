@@ -16,19 +16,19 @@ interface Props {
 
 const { iconSize = 'h-10' } = Astro.props
 const links = [
-  [SOCIAL_LINKS.YouTube, YouTubeIcon],
-  [SOCIAL_LINKS.GitHub, GitHubIcon],
-  [SOCIAL_LINKS.Discord, DiscordIcon],
-  [SOCIAL_LINKS.X, TwitterIcon],
-  [SOCIAL_LINKS.TikTok, TikTokIcon],
-  ['/rss.xml', RssIcon],
+  ['YouTube', SOCIAL_LINKS.YouTube, YouTubeIcon],
+  ['GitHub', SOCIAL_LINKS.GitHub, GitHubIcon],
+  ['Discord', SOCIAL_LINKS.Discord, DiscordIcon],
+  ['X', SOCIAL_LINKS.X, TwitterIcon],
+  ['TikTok', SOCIAL_LINKS.TikTok, TikTokIcon],
+  ['RSS feed', '/rss.xml', RssIcon],
 ] as const
 ---
 
 <div class="flex gap-4">
   {
-    links.map(([href, Icon]) => (
-      <Link href={href} target="_blank">
+    links.map(([label, href, Icon]) => (
+      <Link href={href} target="_blank" aria-label={label}>
         <Icon class={iconSize} />
       </Link>
     ))

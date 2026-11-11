@@ -5,12 +5,14 @@ import GuideMeta from './GuideMeta.astro'
 
 interface Props {
   guide: CollectionEntry<'guides'>
+  eager?: boolean
 }
 
-const { guide } = Astro.props
+const { guide, eager } = Astro.props
 ---
 
 <EntityCard
+  eager={eager}
   href={`/guides/${guide.id}`}
   title={guide.data.title}
   description={guide.data.description}
