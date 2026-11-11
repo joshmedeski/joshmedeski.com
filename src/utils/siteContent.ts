@@ -37,7 +37,9 @@ export const entryLink = (
   markdownLink(
     site,
     `/${type}/${id}.md`,
-    data.title,
+    'videoType' in data && data.videoType === 'livestream'
+      ? `${data.title} (live stream)`
+      : data.title,
     'pubDate' in data
       ? `${isoDate(data.pubDate)} · ${data.description}`
       : data.description,

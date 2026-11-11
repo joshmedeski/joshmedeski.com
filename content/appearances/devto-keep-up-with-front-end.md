@@ -1,6 +1,7 @@
 ---
 title: How to Keep Up with the Front-End Industry
 publisher: DEV
+format: article
 url: https://dev.to/joshmedeski/how-to-keep-up-with-the-front-end-industry-1mkf
 pubDate: 2019-06-28
 description: An article I wrote about staying current without burning out — the

@@ -2,6 +2,7 @@
 title: My Dev Workflow - How I use fish, tmux, lazygit and neovim
 pubDate: 2022-05-11T03:09:27.000Z
 youtubeUrl: 'https://www.youtube.com/embed/D0RvVkebVSY'
+videoType: video
 duration: '6:24'
 heroImage: >-
   ../attachments/posts/my-dev-workflow-how-i-use-fish-tmux-lazygit-and-neovim/my-dev-workflow-how-i-use-fish-tmux-lazygit-and-neovim.jpeg

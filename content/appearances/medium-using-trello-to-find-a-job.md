@@ -1,6 +1,7 @@
 ---
 title: Using Trello to Find a Job
 publisher: Medium
+format: article
 url: https://medium.com/productivity-chat/using-trello-to-find-a-job-724e92ee6635
 pubDate: 2014-04-15
 description:

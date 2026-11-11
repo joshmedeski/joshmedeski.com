@@ -3,22 +3,23 @@ import { getCollection } from 'astro:content'
 import Layout from '../components/Layout.astro'
 import PageTitle from '../components/PageTitle.astro'
 import Wrapper from '../components/Wrapper.astro'
-import Posts from '../components/Posts.astro'
+import Content from '../components/Content.astro'
 
 const includeDrafts = import.meta.env.DEV
 const posts = await getCollection(
   'posts',
   ({ data: { draft } }) => includeDrafts || !draft,
-).then((p) =>
-  p.sort(
-    ({ data: a }, { data: b }) => b.pubDate.getTime() - a.pubDate.getTime(),
-  ),
 )
+const appearances = await getCollection('appearances')
 ---
 
-<Layout title="Posts" noIndex>
+<Layout
+  title="Content"
+  description="Writing, videos, live streams, and appearances by Josh Medeski."
+  noIndex
+>
   <Wrapper>
-    <PageTitle>Posts</PageTitle>
-    <Posts posts={posts} />
+    <PageTitle>Content</PageTitle>
+    <Content posts={posts} appearances={appearances} />
   </Wrapper>
 </Layout>

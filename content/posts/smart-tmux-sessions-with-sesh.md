@@ -2,6 +2,7 @@
 title: Smart tmux sessions with sesh
 pubDate: 2024-05-10T11:00:00.000Z
 youtubeUrl: 'https://www.youtube.com/embed/-yX3GjZfb5Y'
+videoType: video
 duration: '9:27'
 heroImage: >-
   ../attachments/posts/smart-tmux-sessions-with-sesh/smart-tmux-sessions-with-sesh.jpeg

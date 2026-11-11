@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import { Image } from 'astro:assets'
+import { IMAGE_WIDTH } from '~/utils/images'
 import { serviceId, wallpaperSize } from '~/utils/wallpapers'
 import WallpaperBadge from './WallpaperBadge.astro'
 
@@ -29,8 +30,7 @@ const size = wallpaperSize(width)
     <Image
       src={wallpaper.data.image}
       alt={wallpaper.data.title}
-      width="558"
-      height="314"
+      width={IMAGE_WIDTH.card}
       loading={eager ? 'eager' : 'lazy'}
       class="w-full rounded-lg bg-black shadow-md mb-4"
       transition:name={`wallpaper-${wallpaper.id}-thumb`}

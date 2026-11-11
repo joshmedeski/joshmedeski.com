@@ -5,27 +5,33 @@ import { z } from 'astro/zod'
 const postsCollection = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './content/posts' }),
   schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      pubDate: z.date(),
-      areas: z.array(reference('areas')).optional(),
-      projects: z.array(reference('projects')).optional(),
-      duration: z.string().optional(),
-      heroImage: image(),
-      draft: z.boolean().optional(),
-      titleClasses: z.string().optional(),
-      updatedDate: z.string().optional(),
-      youtubeUrl: z.string().optional(),
-      heroClasses: z.string().optional(),
-      thumbnail: image().optional(),
-      guide: z
-        .object({
-          ref: reference('guides'),
-          position: z.number(),
-        })
-        .optional(),
-    }),
+    z
+      .object({
+        title: z.string(),
+        description: z.string(),
+        pubDate: z.date(),
+        areas: z.array(reference('areas')).optional(),
+        projects: z.array(reference('projects')).optional(),
+        duration: z.string().optional(),
+        heroImage: image(),
+        draft: z.boolean().optional(),
+        titleClasses: z.string().optional(),
+        updatedDate: z.string().optional(),
+        youtubeUrl: z.string().optional(),
+        videoType: z.enum(['video', 'livestream']).optional(),
+        heroClasses: z.string().optional(),
+        thumbnail: image().optional(),
+        guide: z
+          .object({
+            ref: reference('guides'),
+            position: z.number(),
+          })
+          .optional(),
+      })
+      .refine((data) => !data.youtubeUrl || data.videoType, {
+        message: 'videoType (video | livestream) is required with youtubeUrl',
+        path: ['videoType'],
+      }),
 })
 
 const usesCollection = defineCollection({
@@ -47,6 +53,9 @@ const areasCollection = defineCollection({
       icon: z.string().optional(),
       parent: reference('areas').optional(),
       themeColor: z.string().optional(),
+      texture: z
+        .enum(['film', 'grit', 'halftone', 'bold-halftone', 'brushed', 'paper'])
+        .optional(),
       cover: image().optional(),
       description: z.string().optional(),
     }),
@@ -108,6 +117,7 @@ const appearancesCollection = defineCollection({
       title: z.string(),
       description: z.string(),
       publisher: z.string(),
+      format: z.enum(['podcast', 'article', 'interview', 'video']),
       url: z.url(),
       pubDate: z.date(),
       areas: z.array(reference('areas')).optional(),

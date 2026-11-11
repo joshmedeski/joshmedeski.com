@@ -5,7 +5,8 @@ import {
   topLevelAreas,
   subAreasOf,
   resolveTopLevel,
-  resolveThemeArea,
+  resolveThemeAreas,
+  areaTexture,
   contentForArea,
   groupByDirectArea,
   areaScopeIds,
@@ -15,7 +16,12 @@ import {
 
 const area = (
   id: string,
-  opts: { title?: string; parent?: string; themeColor?: string } = {},
+  opts: {
+    title?: string
+    parent?: string
+    themeColor?: string
+    texture?: string
+  } = {},
 ): CollectionEntry<'areas'> =>
   ({
     id,
@@ -25,6 +31,7 @@ const area = (
         ? { collection: 'areas', id: opts.parent }
         : undefined,
       themeColor: opts.themeColor,
+      texture: opts.texture,
     },
   }) as unknown as CollectionEntry<'areas'>
 
@@ -33,13 +40,23 @@ const item = (...areaIds: string[]) =>
     data: { areas: areaIds.map((id) => ({ collection: 'areas', id })) },
   }) as unknown as { data: { areas?: { id: string }[] } }
 
-const ai = area('ai', { title: 'AI', themeColor: 'bg-indigo-900' })
+const ai = area('ai', {
+  title: 'AI',
+  themeColor: 'bg-indigo-900',
+  texture: 'film',
+})
 const claude = area('claude-code', { title: 'Claude Code', parent: 'ai' })
 const hardware = area('hardware', {
   title: 'Hardware',
   themeColor: 'bg-slate-800',
 })
+const audio = area('audio', {
+  parent: 'hardware',
+  themeColor: 'bg-area-audio',
+  texture: 'grit',
+})
 const areas = [claude, ai, hardware]
+const withAudio = [...areas, audio]
 
 describe('areas utils', () => {
   it('isTopLevel is true only when no parent', () => {
@@ -61,9 +78,20 @@ describe('areas utils', () => {
     expect(resolveTopLevel(ai, areas).id).toBe('ai')
   })
 
-  it('resolveThemeArea uses areas[0] resolved to its top-level ancestor', () => {
-    expect(resolveThemeArea(item('claude-code'), areas)?.id).toBe('ai')
-    expect(resolveThemeArea(item(), areas)).toBeUndefined()
+  it('resolveThemeAreas resolves every area to a unique top-level ancestor', () => {
+    const ids = (...a: string[]) =>
+      resolveThemeAreas(item(...a), areas).map((x) => x.id)
+    expect(ids('claude-code', 'ai')).toEqual(['ai'])
+    expect(ids()).toEqual([])
+    expect(ids('hardware', 'claude-code')).toEqual(['hardware', 'ai'])
+    expect(
+      resolveThemeAreas(item('audio', 'hardware'), withAudio).map((x) => x.id),
+    ).toEqual(['audio', 'hardware'])
+  })
+
+  it('areaTexture prefers the area and falls back to its parent', () => {
+    expect(areaTexture(audio, withAudio)).toBe('grit')
+    expect(areaTexture(claude, areas)).toBe('film')
   })
 
   it('areaScopeIds includes the area plus its sub-areas', () => {

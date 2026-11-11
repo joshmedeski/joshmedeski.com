@@ -1,6 +1,7 @@
 ---
 title: 'Compressed.fm 140: Creating a Developer Environment in the Terminal'
 publisher: Compressed.fm
+format: podcast
 url: https://www.compressed.fm/episode/140
 pubDate: 2023-06-30
 description:

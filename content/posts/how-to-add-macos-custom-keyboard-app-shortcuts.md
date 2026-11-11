@@ -2,6 +2,7 @@
 title: How to add macOS Custom Keyboard App Shortcuts
 pubDate: 2022-01-11T22:16:20.000Z
 youtubeUrl: 'https://www.youtube.com/embed/qAo1tDLfBsg'
+videoType: video
 duration: '4:57'
 heroImage: >-
   ../attachments/posts/how-to-add-macos-custom-keyboard-app-shortcuts/how-to-add-macos-custom-keyboard-app-shortcuts.jpeg
@@ -10,7 +11,6 @@ description: >-
   using the built-in System Preferences — no extra tools required.
 areas:
   - macos
-  - productivity
 ---
 
 macOS lets you assign your own keyboard shortcut to almost any menu command, in almost any app, right from System Preferences. It's one of those built-in features that's easy to overlook but pays off every day once you set it up.

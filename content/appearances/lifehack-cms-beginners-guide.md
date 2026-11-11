@@ -1,6 +1,7 @@
 ---
 title: The Beginner's Guide to Content Management Systems
 publisher: Lifehack
+format: article
 url: https://www.lifehack.org/articles/technology/the-beginners-guide-to-content-management-systems.html
 pubDate: 2013-03-12
 description:

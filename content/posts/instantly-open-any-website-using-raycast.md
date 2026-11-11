@@ -2,6 +2,7 @@
 title: Instantly Open Any Website Using Raycast
 pubDate: 2025-05-20T21:00:00.000Z
 youtubeUrl: 'https://www.youtube.com/embed/Xd-xmPtLoqI'
+videoType: video
 duration: '4:05'
 heroImage: >-
   ../attachments/posts/instantly-open-any-website-using-raycast/instantly-open-any-website-using-raycast.jpeg
@@ -10,7 +11,6 @@ description: >-
   want instantly.
 areas:
   - macos
-  - productivity
 ---
 
 Using an open-source search engine and Raycast, I can get to any website I want instantly. In this post, I’ll show you how it works and why it’s changed the way I browse the web.

@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import { Image, getImage } from 'astro:assets'
+import { HERO_WIDTHS, IMAGE_WIDTH } from '~/utils/images'
 import Layout from '~/components/Layout.astro'
 import Wrapper from '~/components/Wrapper.astro'
 import WallpaperBadge from '~/components/wallpaper/WallpaperBadge.astro'
@@ -77,8 +78,9 @@ const downloads = await Promise.all(
           <Image
             src={wallpaper.data.image}
             alt={wallpaper.data.title}
-            width="1920"
-            height="1080"
+            width={IMAGE_WIDTH.hero}
+            widths={HERO_WIDTHS}
+            sizes="(min-width: 1024px) 75vw, 100vw"
             class="w-full rounded-2xl bg-black shadow-md"
             transition:name={`wallpaper-${wallpaper.id}-thumb`}
           />

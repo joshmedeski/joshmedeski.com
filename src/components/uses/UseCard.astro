@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import { Image } from 'astro:assets'
+import { IMAGE_WIDTH } from '~/utils/images'
 
 interface Props {
   use: CollectionEntry<'uses'>
@@ -14,8 +15,8 @@ const { use, eager } = Astro.props
   <Image
     src={use.data.image}
     alt={use.data.title}
-    width="558"
-    height="372"
+    width={IMAGE_WIDTH.card}
+    height={547}
     loading={eager ? 'eager' : 'lazy'}
     class="mb-4 aspect-[3/2] w-full rounded-lg bg-black object-cover shadow-md transition group-hover:scale-[1.02]"
     transition:name={`use-${use.data.title}-thumb`}

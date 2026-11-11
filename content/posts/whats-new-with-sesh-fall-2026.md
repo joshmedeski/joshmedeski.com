@@ -3,6 +3,7 @@ title: What's New With Sesh (Fall 2026)
 description: A new picker with aliases, first-class worktrees mapped to GitHub issues, faster caching, and more.
 pubDate: 2026-10-19T12:00:00.000Z
 youtubeUrl: 'https://www.youtube.com/embed/pAPlS9s4nMA'
+videoType: video
 duration: '10:29'
 heroImage: ../attachments/posts/whats-new-with-sesh-fall-2026/whats-new-with-sesh-fall-2026.jpeg
 areas:

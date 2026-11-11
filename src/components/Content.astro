@@ -1,0 +1,430 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content'
+import PostCard from './post/PostCard.astro'
+import AppearanceCard from './appearance/AppearanceCard.astro'
+import AreaIcon from './AreaIcon.astro'
+import {
+  areaIdsFor,
+  contentForArea,
+  resolveTopLevel,
+  subAreasOf,
+  topLevelAreas,
+} from '~/utils/areas'
+import { postMinutes, postType } from '~/utils/posts'
+import {
+  APPEARANCE_FORMATS,
+  LENGTH_BUCKETS,
+  UNKNOWN_LENGTH,
+  byLongest,
+  byNewest,
+  byOldest,
+  byShortest,
+  lengthBucket,
+  type AppearanceFormat,
+} from '~/utils/content'
+
+interface Props {
+  posts: CollectionEntry<'posts'>[]
+  appearances: CollectionEntry<'appearances'>[]
+}
+
+type Item = {
+  key: string
+  title: string
+  date: Date
+  minutes?: number
+  type: string
+  areaIds: string[]
+  post?: CollectionEntry<'posts'>
+  appearance?: CollectionEntry<'appearances'>
+}
+
+const items: Item[] = [
+  ...Astro.props.posts.map((post) => ({
+    key: `post-${post.id}`,
+    post,
+    title: post.data.title,
+    date: post.data.pubDate,
+    minutes: postMinutes(post),
+    type: postType(post),
+    areaIds: areaIdsFor(post),
+  })),
+  ...Astro.props.appearances.map((appearance) => ({
+    key: `appearance-${appearance.id}`,
+    appearance,
+    title: appearance.data.title,
+    date: appearance.data.pubDate,
+    type: `appearance-${appearance.data.format}`,
+    areaIds: areaIdsFor(appearance),
+  })),
+].sort(byNewest)
+
+const areas = await getCollection('areas')
+
+const topAreaTitle = (item: Item) => {
+  const area = areas.find((a) => a.id === item.areaIds[0])
+  return area ? resolveTopLevel(area, areas).data.title : '~'
+}
+
+const byArea = (a: Item, b: Item) =>
+  topAreaTitle(a).localeCompare(topAreaTitle(b)) || byNewest(a, b)
+
+const sorts = [
+  { id: 'latest', label: 'Latest' },
+  { id: 'oldest', label: 'Oldest', compare: byOldest },
+  { id: 'longest', label: 'Longest', compare: byLongest },
+  { id: 'shortest', label: 'Shortest', compare: byShortest },
+  { id: 'area', label: 'Area', compare: byArea },
+]
+
+const orderStyle = (item: Item) =>
+  sorts
+    .flatMap(({ id, compare }) =>
+      compare ? `--order-${id}:${[...items].sort(compare).indexOf(item)}` : [],
+    )
+    .join(';')
+
+const countType = (id: string) => items.filter((i) => i.type === id).length
+
+const typeOptions = [
+  { id: 'writing', label: '📝 Writing' },
+  { id: 'video', label: '🎬 Video' },
+  { id: 'livestream', label: '🔴 Live stream' },
+]
+  .map((option) => ({ ...option, count: countType(option.id) }))
+  .filter(({ count }) => count > 0)
+
+const appearanceOptions = (
+  Object.keys(APPEARANCE_FORMATS) as AppearanceFormat[]
+)
+  .map((format) => ({
+    id: `appearance-${format}`,
+    label: `${APPEARANCE_FORMATS[format].icon} ${APPEARANCE_FORMATS[format].label}`,
+    count: countType(`appearance-${format}`),
+  }))
+  .filter(({ count }) => count > 0)
+
+const appearanceCount = appearanceOptions.reduce((n, o) => n + o.count, 0)
+
+const lengthOptions = LENGTH_BUCKETS.map(({ id, label }) => ({
+  id,
+  label,
+  count: items.filter((i) => lengthBucket(i.minutes) === id).length,
+})).filter(({ count }) => count > 0)
+
+const areaOptions = topLevelAreas(areas)
+  .map((area) => ({
+    area,
+    count: contentForArea(
+      area,
+      areas,
+      items.map((i) => ({ data: { areas: i.areaIds.map((id) => ({ id })) } })),
+    ).length,
+    children: subAreasOf(area, areas)
+      .map((sub) => ({
+        area: sub,
+        count: items.filter((i) => i.areaIds.includes(sub.id)).length,
+      }))
+      .filter(({ count }) => count > 0),
+  }))
+  .filter(({ count }) => count > 0)
+
+const hideUnless = (group: string, checked: string, item: string) =>
+  `#library:has(.${group}:checked)${checked ? `:not(:has(${checked}))` : ''} ${item}{display:none}`
+
+const areaCombos = [...new Set(items.map((i) => i.areaIds.join(' ')))]
+
+const filterCss = [
+  ...[...typeOptions, ...appearanceOptions].map(({ id }) =>
+    hideUnless('type-filter', `#type-${id}:checked`, `[data-type="${id}"]`),
+  ),
+  ...lengthOptions.map(({ id }) =>
+    hideUnless(
+      'length-filter',
+      `#length-${id}:checked`,
+      `[data-length="${id}"]`,
+    ),
+  ),
+  hideUnless('length-filter', '', `[data-length="${UNKNOWN_LENGTH}"]`),
+  ...areaCombos.map((combo) =>
+    hideUnless(
+      'area-filter',
+      combo
+        .split(' ')
+        .filter(Boolean)
+        .map((id) => `#area-${id}:checked`)
+        .join(','),
+      `[data-areas="${combo}"]`,
+    ),
+  ),
+  `#library .filter-clear{display:none}`,
+  `#library fieldset:has(:checked) .filter-clear{display:block}`,
+  ...sorts.flatMap(({ id, compare }) =>
+    compare
+      ? `#library:has(#sort-${id}:checked) [data-areas]{order:var(--order-${id})}`
+      : [],
+  ),
+].join('')
+
+const fieldset = 'min-w-40'
+const legend = 'mb-2 font-bold'
+const option = 'flex cursor-pointer items-center gap-2 py-1'
+const nested = `${option} ml-6 text-sm`
+const input = 'size-4 accent-primary-500'
+const count = 'text-neutral-400'
+const clear =
+  'filter-clear mt-1 text-sm text-neutral-400 underline-offset-4 hover:text-white hover:underline'
+---
+
+<style is:inline set:html={filterCss}></style>
+<div id="library" class="mb-32 grid gap-10 lg:grid-cols-4">
+  <aside class="flex flex-wrap content-start gap-8 lg:order-last lg:flex-col">
+    <fieldset class={fieldset} data-group="sort">
+      <legend class={legend}>Sort</legend>
+      {
+        sorts.map(({ id, label }, i) => (
+          <label class={option}>
+            <input
+              type="radio"
+              name="sort"
+              id={`sort-${id}`}
+              data-value={id}
+              checked={i === 0}
+              class={input}
+            />
+            {label}
+          </label>
+        ))
+      }
+    </fieldset>
+
+    <fieldset class={fieldset} data-group="type">
+      <legend class={legend}>Type</legend>
+      {
+        typeOptions.map(({ id, label, count: n }) => (
+          <label class={option}>
+            <input
+              type="checkbox"
+              id={`type-${id}`}
+              data-value={id}
+              class={`type-filter ${input}`}
+            />
+            {label}
+            <span class={count}>({n})</span>
+          </label>
+        ))
+      }
+      {
+        appearanceOptions.length > 0 && (
+          <div data-filter-group>
+            <label class={option}>
+              <input
+                type="checkbox"
+                id="type-appearance"
+                data-value="appearance"
+                data-parent
+                data-toggle-only
+                class={input}
+              />
+              🎙️ Appearances
+              <span class={count}>({appearanceCount})</span>
+            </label>
+            {appearanceOptions.map(({ id, label, count: n }) => (
+              <label class={nested}>
+                <input
+                  type="checkbox"
+                  id={`type-${id}`}
+                  data-value={id}
+                  class={`type-filter ${input}`}
+                />
+                {label}
+                <span class={count}>({n})</span>
+              </label>
+            ))}
+          </div>
+        )
+      }
+      <button type="button" data-clear class={clear}>Clear</button>
+    </fieldset>
+
+    <fieldset class={fieldset} data-group="length">
+      <legend class={legend}>Length</legend>
+      {
+        lengthOptions.map(({ id, label, count: n }) => (
+          <label class={option}>
+            <input
+              type="checkbox"
+              id={`length-${id}`}
+              data-value={id}
+              class={`length-filter ${input}`}
+            />
+            {label}
+            <span class={count}>({n})</span>
+          </label>
+        ))
+      }
+      <button type="button" data-clear class={clear}>Clear</button>
+    </fieldset>
+
+    <fieldset class={fieldset} data-group="area">
+      <legend class={legend}>Area</legend>
+      {
+        areaOptions.map(({ area, count: n, children }) => (
+          <div data-filter-group>
+            <label class={option}>
+              <input
+                type="checkbox"
+                id={`area-${area.id}`}
+                data-value={area.id}
+                data-parent
+                class={`area-filter ${input}`}
+              />
+              <AreaIcon icon={area.data.icon} />
+              {area.data.title}
+              <span class={count}>({n})</span>
+            </label>
+            {children.map(({ area: sub, count: subCount }) => (
+              <label class={nested}>
+                <input
+                  type="checkbox"
+                  id={`area-${sub.id}`}
+                  data-value={sub.id}
+                  class={`area-filter ${input}`}
+                />
+                <AreaIcon icon={sub.data.icon} />
+                {sub.data.title}
+                <span class={count}>({subCount})</span>
+              </label>
+            ))}
+          </div>
+        ))
+      }
+      <button type="button" data-clear class={clear}>Clear</button>
+    </fieldset>
+  </aside>
+
+  <div
+    class="grid content-start gap-4 sm:grid-cols-2 lg:col-span-3 lg:gap-6 xl:grid-cols-3"
+  >
+    {
+      items.map((item, i) => (
+        <div
+          class="grid"
+          data-areas={item.areaIds.join(' ')}
+          data-type={item.type}
+          data-length={lengthBucket(item.minutes)}
+          style={orderStyle(item)}
+        >
+          {item.post ? (
+            <PostCard post={item.post} eager={i < 3} />
+          ) : (
+            item.appearance && (
+              <AppearanceCard appearance={item.appearance} eager={i < 3} />
+            )
+          )}
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const GROUPS = ['type', 'length', 'area'] as const
+
+  const library = () => document.getElementById('library')
+
+  const boxesIn = (group: string) => [
+    ...(library()?.querySelectorAll<HTMLInputElement>(
+      `fieldset[data-group="${group}"] input[type="checkbox"]`,
+    ) ?? []),
+  ]
+
+  const parentOf = (box: HTMLInputElement) =>
+    box
+      .closest('[data-filter-group]')
+      ?.querySelector<HTMLInputElement>('[data-parent]')
+
+  const childrenOf = (parent: HTMLInputElement) => [
+    ...(parent
+      .closest('[data-filter-group]')
+      ?.querySelectorAll<HTMLInputElement>(
+        'input[type="checkbox"]:not([data-parent])',
+      ) ?? []),
+  ]
+
+  const readUrl = () => {
+    const params = new URLSearchParams(location.search)
+    for (const group of GROUPS) {
+      const values = new Set(params.get(group)?.split(',').filter(Boolean))
+      const boxes = boxesIn(group)
+      boxes.forEach((box) => (box.checked = values.has(box.dataset.value!)))
+      boxes
+        .filter((box) => 'parent' in box.dataset && box.checked)
+        .forEach((parent) => {
+          const children = childrenOf(parent)
+          if (!children.some((child) => values.has(child.dataset.value!)))
+            children.forEach((child) => (child.checked = true))
+        })
+    }
+    const sort = library()?.querySelector<HTMLInputElement>(
+      `input[name="sort"][data-value="${params.get('sort') ?? 'latest'}"]`,
+    )
+    if (sort) sort.checked = true
+  }
+
+  const coveredByParent = (box: HTMLInputElement) => {
+    const parent = parentOf(box)
+    return (
+      !!parent &&
+      parent !== box &&
+      parent.checked &&
+      childrenOf(parent).every((child) => child.checked)
+    )
+  }
+
+  const writeUrl = () => {
+    const params = new URLSearchParams()
+    const sort = library()?.querySelector<HTMLInputElement>(
+      'input[name="sort"]:checked',
+    )?.dataset.value
+    if (sort && sort !== 'latest') params.set('sort', sort)
+    for (const group of GROUPS) {
+      const values = boxesIn(group)
+        .filter((box) => box.checked && !coveredByParent(box))
+        .map((box) => box.dataset.value)
+      if (values.length) params.set(group, values.join(','))
+    }
+    const query = params.toString().replaceAll('%2C', ',')
+    history.replaceState(
+      history.state,
+      '',
+      query ? `?${query}` : location.pathname,
+    )
+  }
+
+  document.addEventListener('change', (event) => {
+    const box = event.target
+    if (!(box instanceof HTMLInputElement) || !library()?.contains(box)) return
+    if ('parent' in box.dataset)
+      childrenOf(box).forEach((child) => (child.checked = box.checked))
+    const parent = parentOf(box)
+    if (parent && parent !== box && 'toggleOnly' in parent.dataset)
+      parent.checked = childrenOf(parent).every((child) => child.checked)
+    writeUrl()
+  })
+
+  document.addEventListener('click', (event) => {
+    const button =
+      event.target instanceof Element && event.target.closest('[data-clear]')
+    if (!button) return
+    button
+      .closest('fieldset')
+      ?.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')
+      .forEach((box) => (box.checked = false))
+    writeUrl()
+  })
+
+  document.addEventListener('astro:page-load', () => {
+    if (library()) readUrl()
+  })
+</script>

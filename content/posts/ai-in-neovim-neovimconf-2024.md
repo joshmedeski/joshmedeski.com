@@ -7,6 +7,7 @@ description: >-
 heroImage: >-
   ../attachments/posts/ai-in-neovim-neovimconf-2024/ai-in-neovim-neovimconf-2024.jpeg
 youtubeUrl: 'https://www.youtube.com/embed/GKQ9rJ12hjc?si=Wn_klpgsSU431AIL'
+videoType: video
 duration: '17:57'
 areas:
   - neovim

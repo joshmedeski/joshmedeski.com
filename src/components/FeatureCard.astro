@@ -1,0 +1,91 @@
+---
+import { Image } from 'astro:assets'
+import { HERO_WIDTHS, IMAGE_WIDTH } from '~/utils/images'
+import type { ImageMetadata } from 'astro'
+
+interface Props {
+  href: string
+  image: ImageMetadata
+  title: string
+  description: string
+  eyebrow?: string
+  eager?: boolean
+  class?: string
+  transitionPrefix?: string
+  size?: 'sm' | 'lg'
+  sizes?: string
+}
+
+const {
+  href,
+  image,
+  title,
+  description,
+  eyebrow,
+  eager,
+  class: className,
+  transitionPrefix,
+  size = 'lg',
+  sizes = '(min-width: 640px) 400px, 100vw',
+} = Astro.props
+const sm = size === 'sm'
+---
+
+<div
+  class:list={[
+    'flex flex-col bg-neutral-900 ring-1 ring-white/10 transition hover:ring-white/30',
+    sm ? 'rounded-2xl p-3' : 'rounded-3xl p-4 md:p-5',
+    className,
+  ]}
+>
+  <a href={href} class="group block" data-astro-prefetch>
+    <div class="relative">
+      <slot name="badge" />
+      <Image
+        src={image}
+        alt=""
+        width={IMAGE_WIDTH.hero}
+        widths={HERO_WIDTHS}
+        sizes={sizes}
+        loading={eager ? 'eager' : 'lazy'}
+        class:list={[
+          'aspect-video w-full object-cover transition duration-300 group-hover:brightness-110',
+          sm ? 'rounded-xl' : 'rounded-2xl',
+        ]}
+        transition:name={transitionPrefix && `${transitionPrefix}-thumb`}
+      />
+    </div>
+    {
+      eyebrow && (
+        <p class="mt-5 text-xs font-bold uppercase tracking-widest text-neutral-400">
+          {eyebrow}
+        </p>
+      )
+    }
+    <h2
+      class:list={[
+        'font-bold leading-tight decoration-2 underline-offset-4 group-hover:underline',
+        sm ? 'text-xl' : 'text-2xl md:text-3xl',
+        eyebrow ? 'mt-2' : sm ? 'mt-4' : 'mt-5',
+      ]}
+      transition:name={transitionPrefix && `${transitionPrefix}-title`}
+    >
+      {title}
+    </h2>
+    <p
+      class:list={[
+        'mt-2 text-neutral-400',
+        sm ? 'line-clamp-2 text-sm' : 'text-lg',
+      ]}
+    >
+      {description}
+    </p>
+  </a>
+  {
+    Astro.slots.has('meta') && (
+      <div class:list={['mt-auto', sm ? 'pt-3' : 'pt-4']}>
+        <slot name="meta" />
+      </div>
+    )
+  }
+</div>

@@ -2,6 +2,7 @@
 title: 'Abbreviate Everything: Lessons from a Stenographer'
 pubDate: 2021-11-15T12:00:00.000Z
 youtubeUrl: 'https://www.youtube.com/embed/G0pmpc9JAI4'
+videoType: video
 duration: '20:17'
 heroImage: ../attachments/posts/abbreviate-everything/abbreviate-everything.jpg
 description: What a stenographer taught me about using text expanders and shorthand to type less and get more done.

@@ -4,6 +4,7 @@ description: >-
   In this interview I talk with Carlos, creator of Go Releaser, about his
   workflow
 youtubeUrl: 'https://www.youtube.com/embed/_QTejJ4O-n4'
+videoType: video
 duration: '37:33'
 heroImage: >-
   ../attachments/posts/carlos-beckers-dev-workflow/carlos-beckers-dev-workflow.jpeg

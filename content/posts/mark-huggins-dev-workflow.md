@@ -5,6 +5,7 @@ description: >-
   share my dev workflow as well.
 duration: '50:13'
 youtubeUrl: 'https://www.youtube.com/embed/9Zq3pyufesI'
+videoType: video
 heroImage: ../attachments/posts/mark-huggins-dev-workflow/mark-huggins-dev-workflow.jpeg
 pubDate: 2023-05-20T16:00:00.000Z
 areas:

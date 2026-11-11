@@ -8,14 +8,22 @@ import SocialLinks from './SocialLinks.astro'
 import Wrapper from './Wrapper.astro'
 import Hero from './dev-workflow-intro-guide/Hero.astro'
 import profileCircle from '~/assets/joshmedeski-profile-circle.png'
-import { topLevelAreas, subAreasOf, areaHref } from '~/utils/areas'
+import {
+  topLevelAreas,
+  subAreasOf,
+  areaHref,
+  resolveThemeAreas,
+} from '~/utils/areas'
 
 const areas = await getCollection('areas')
 const areaChips = topLevelAreas(areas).flatMap((top) =>
-  [top, ...subAreasOf(top, areas)].map((area) => ({
-    area,
-    themeColor: top.data.themeColor ?? 'bg-neutral-900',
-  })),
+  [top, ...subAreasOf(top, areas)].map((area) => {
+    const color = resolveThemeAreas(
+      { data: { areas: [area] } },
+      areas,
+    )[0]?.data.themeColor?.replace(/^bg-/, '--theme-color-')
+    return { area, style: color ? `--pill: var(${color})` : undefined }
+  }),
 )
 const today = new Date()
 interface Props {
@@ -53,8 +61,9 @@ const { hideCta } = Astro.props
             <Image
               src={profileCircle}
               alt="Josh's profile"
-              width={40}
-              height={40}
+              width={32}
+              height={32}
+              densities={[1, 2]}
               class="w-8 shrink-0"
               loading="lazy"
             />
@@ -67,11 +76,12 @@ const { hideCta } = Astro.props
         <div>
           <h3 class="mb-3 font-bold">Content</h3>
           <ul class="space-y-2 text-neutral-400">
-            <li><Link href="/posts">Posts</Link></li>
-            <li><Link href="/videos">Videos</Link></li>
+            <li><Link href="/content">All content</Link></li>
+            <li><Link href="/content?type=writing">Writing</Link></li>
+            <li><Link href="/content?type=video,livestream">Videos</Link></li>
+            <li><Link href="/content?type=appearance">Appearances</Link></li>
             <li><Link href="/projects">Projects</Link></li>
             <li><Link href="/guides">Guides</Link></li>
-            <li><Link href="/areas">Areas</Link></li>
           </ul>
         </div>
 
@@ -82,20 +92,24 @@ const { hideCta } = Astro.props
             <li><Link href="/wallpapers">Wallpapers</Link></li>
             <li><Link href="/uses">Uses</Link></li>
             <li><Link href="/stats">Stats</Link></li>
-            <li><Link href="/appearances">Appearances</Link></li>
+            <li><Link href="/areas">Areas</Link></li>
           </ul>
         </div>
       </div>
 
       <div class="w-full md:min-w-0 md:flex-1">
-        <h3 class="mb-3 font-bold">Areas</h3>
+        <h3 class="mb-1 font-bold">Areas</h3>
+        <p class="mb-3 text-sm text-neutral-500">
+          The topics I focus on. Pick one to see everything I've made about it.
+        </p>
         <ul class="flex flex-wrap gap-2">
           {
-            areaChips.map(({ area, themeColor }) => (
+            areaChips.map(({ area, style }) => (
               <li>
                 <a
                   href={areaHref(area)}
-                  class={`inline-flex items-center gap-2 rounded-full px-4 py-1 text-sm transition-opacity hover:opacity-80 ${themeColor}`}
+                  class="area-chip inline-flex items-center gap-2 rounded-full px-4 py-1 text-sm"
+                  style={style}
                 >
                   <AreaIcon icon={area.data.icon} />
                   {area.data.title}

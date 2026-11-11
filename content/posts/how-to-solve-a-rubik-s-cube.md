@@ -2,6 +2,7 @@
 title: How to Solve a Rubik's Cube
 pubDate: 2016-02-11T04:48:54.000Z
 youtubeUrl: 'https://www.youtube.com/embed/adyf508ZMi8'
+videoType: video
 duration: '4:46'
 heroImage: >-
   ../attachments/posts/how-to-solve-a-rubik-s-cube/how-to-solve-a-rubik-s-cube.jpeg

@@ -6,6 +6,7 @@ description: >-
   A bunch of tips and best practices for getting the most out of Obsidian for
   content creation and digital gardening
 youtubeUrl: 'https://www.youtube.com/embed/rm_BDdEPR8w'
+videoType: video
 heroImage: >-
   ../attachments/posts/optimizing-obsidian-for-content-creation/optimizing-obsidian-for-content-creation.jpeg
 areas:

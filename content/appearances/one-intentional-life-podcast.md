@@ -1,6 +1,7 @@
 ---
 title: One Intentional Life
 publisher: Apple Podcasts
+format: podcast
 url: https://podcasts.apple.com/us/podcast/one-intentional-life/id906575918
 pubDate: 2014-07-07
 description:

@@ -2,6 +2,7 @@
 title: macOS Keyboard Shortcuts for tmux
 pubDate: 2021-07-16T17:55:00.000Z
 youtubeUrl: 'https://www.youtube.com/embed/BLp61-Lq0kQ'
+videoType: video
 duration: '17:49'
 heroImage: >-
   ../attachments/posts/macos-keyboard-shortcuts-for-tmux/macos-keyboard-shortcuts-for-tmux-thumbnail.jpeg
