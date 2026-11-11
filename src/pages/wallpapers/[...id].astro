@@ -4,7 +4,9 @@ import type { CollectionEntry } from 'astro:content'
 import { Image, getImage } from 'astro:assets'
 import Layout from '~/components/Layout.astro'
 import Wrapper from '~/components/Wrapper.astro'
-import PageTitle from '~/components/PageTitle.astro'
+import WallpaperBadge from '~/components/wallpaper/WallpaperBadge.astro'
+import WallpaperCard from '~/components/wallpaper/WallpaperCard.astro'
+import { byLatest, wallpaperSize } from '~/utils/wallpapers'
 
 export async function getStaticPaths() {
   const wallpapers = await getCollection('wallpapers')
@@ -22,66 +24,223 @@ interface Props {
 
 const { wallpaper } = Astro.props
 
-const download1080p = await getImage({
-  src: wallpaper.data.image,
-  format: 'jpeg',
-  width: 1920,
-  height: 1080,
-})
+const {
+  width = 0,
+  height = 0,
+  favorite,
+  created,
+  service,
+  model,
+  prompt,
+  sourceUrl,
+} = wallpaper.data
 
-const { width = 0, height = 0 } = wallpaper.data
-const is4k = width >= 3840 && height >= 2160
+const all = (await getCollection('wallpapers')).sort(byLatest)
+const index = all.findIndex((w) => w.id === wallpaper.id)
+const others = [...all.slice(index + 1), ...all.slice(0, index)].slice(0, 2)
+const prev = all.at(index - 1)!
+const next = all[(index + 1) % all.length]
 
-const download4k = is4k
-  ? await getImage({
-      src: wallpaper.data.image,
-      format: 'jpeg',
-      width: 3840,
-      height: 2160,
-    })
-  : null
+const downloads = await Promise.all(
+  [
+    { label: 'HD', name: '1080p', width: 1920, height: 1080 },
+    { label: '4K', name: '4K', width: 3840, height: 2160 },
+    { label: '5K', name: '5K', width: 5120, height: 2880 },
+  ]
+    .filter(
+      (size, i) => i === 0 || (width >= size.width && height >= size.height),
+    )
+    .map(async (size) => ({
+      ...size,
+      src: (
+        await getImage({
+          src: wallpaper.data.image,
+          format: 'jpeg',
+          width: size.width,
+          height: size.height,
+        })
+      ).src,
+    })),
+).then((sizes) => sizes.reverse())
 ---
 
 <Layout title={wallpaper.data.title} image={wallpaper.data.image}>
   <div data-pagefind-body>
     <Wrapper>
-      <a href="/wallpapers" class="mt-8 block text-primary-500"
-        >← Back to all wallpapers</a
+      <div
+        class="mt-8 mb-16 grid gap-10 lg:grid-cols-4"
+        data-wallpaper-prev={`/wallpapers/${prev.id}`}
+        data-wallpaper-next={`/wallpapers/${next.id}`}
       >
+        <div class="min-w-0 lg:col-span-3">
+          <Image
+            src={wallpaper.data.image}
+            alt={wallpaper.data.title}
+            width="1920"
+            height="1080"
+            class="w-full rounded-2xl bg-black shadow-md"
+            transition:name={`wallpaper-${wallpaper.id}-thumb`}
+          />
 
-      <PageTitle>
-        {wallpaper.data.title}
-      </PageTitle>
+          <div class="mt-8 grid gap-8 md:grid-cols-3">
+            <div class="md:col-span-2">
+              <h1
+                class="text-4xl font-bold leading-none md:text-5xl"
+                transition:name={`wallpaper-${wallpaper.id}-title`}
+              >
+                {wallpaper.data.title}
+              </h1>
+              <div class="mt-3 flex flex-wrap gap-1">
+                {
+                  favorite && (
+                    <a href="/wallpapers/?favorites" title="Show all favorites">
+                      <WallpaperBadge favorite>Favorite</WallpaperBadge>
+                    </a>
+                  )
+                }
+                <WallpaperBadge>{wallpaperSize(width)}</WallpaperBadge>
+              </div>
+              {
+                prompt && (
+                  <figure class="mt-8">
+                    <figcaption class="mb-2 text-sm font-bold uppercase tracking-wide text-neutral-400">
+                      Prompt
+                    </figcaption>
+                    <blockquote class="max-w-prose border-l-2 border-neutral-700 pl-4 text-neutral-300">
+                      {prompt}
+                    </blockquote>
+                  </figure>
+                )
+              }
+            </div>
 
-      <div class="flex flex-wrap justify-center gap-4 mb-6">
-        <a
-          href={download1080p.src}
-          download={wallpaper.data.title + ' 1080p.jpeg'}
-          class="rounded-lg bg-primary-500 px-6 py-3 font-bold text-white"
-        >
-          Download HD
-        </a>
-        {
-          download4k && (
-            <a
-              href={download4k.src}
-              download={wallpaper.data.title + ' 4K.jpeg'}
-              class="rounded-lg bg-primary-500 px-6 py-3 font-bold text-white"
+            <div
+              class="flex flex-col gap-3 self-start rounded-xl border border-neutral-800 bg-neutral-900 p-5"
             >
-              Download 4K
-            </a>
-          )
-        }
-      </div>
+              <h2
+                class="text-sm font-bold uppercase tracking-wide text-neutral-400"
+              >
+                Download
+              </h2>
+              {
+                downloads.map((download, i) => (
+                  <a
+                    href={download.src}
+                    download={`${wallpaper.data.title} ${download.name}.jpeg`}
+                    class:list={[
+                      'flex items-center justify-between rounded-lg border-2 px-4 py-2.5 font-bold text-white transition',
+                      i === 0
+                        ? 'border-primary-500 bg-primary-500 hover:bg-primary-600'
+                        : 'border-neutral-700 hover:border-primary-500',
+                    ]}
+                  >
+                    {download.label}
+                    <span class="text-sm font-normal opacity-75">
+                      {download.width} × {download.height}
+                    </span>
+                  </a>
+                ))
+              }
+              {
+                (created || service || model || sourceUrl) && (
+                  <dl class="mt-2 grid gap-2 border-t border-neutral-800 pt-4 text-sm">
+                    {created && (
+                      <div class="flex justify-between gap-4">
+                        <dt class="text-neutral-400">Created</dt>
+                        <dd>
+                          <time datetime={created.toISOString().slice(0, 10)}>
+                            {created.toLocaleDateString('en-US', {
+                              dateStyle: 'medium',
+                              timeZone: 'UTC',
+                            })}
+                          </time>
+                        </dd>
+                      </div>
+                    )}
+                    {service && (
+                      <div class="flex justify-between gap-4">
+                        <dt class="text-neutral-400">Service</dt>
+                        <dd>{service}</dd>
+                      </div>
+                    )}
+                    {model && (
+                      <div class="flex justify-between gap-4">
+                        <dt class="text-neutral-400">Model</dt>
+                        <dd>{model}</dd>
+                      </div>
+                    )}
+                    {sourceUrl && (
+                      <div class="flex justify-between gap-4">
+                        <dt class="text-neutral-400">Source</dt>
+                        <dd>
+                          <a
+                            href={sourceUrl}
+                            class="text-primary-500 hover:underline"
+                            target="_blank"
+                            rel="noopener"
+                          >
+                            {service ?? 'View'} ↗
+                          </a>
+                        </dd>
+                      </div>
+                    )}
+                  </dl>
+                )
+              }
+            </div>
+          </div>
+        </div>
 
-      <Image
-        src={wallpaper.data.image}
-        alt={wallpaper.data.title}
-        width="1920"
-        height="1080"
-        class="mb-16 w-full rounded-2xl bg-black shadow-md"
-        transition:name={`wallpaper-${wallpaper.id}-thumb`}
-      />
+        <aside
+          class="grid grid-cols-1 content-start gap-6 sm:grid-cols-3 lg:grid-cols-1"
+          data-pagefind-ignore
+        >
+          <a
+            href="/wallpapers"
+            class="flex aspect-video flex-col items-center justify-center gap-1 rounded-lg border-2 border-neutral-800 bg-neutral-900 p-3 text-center text-3xl font-bold text-balance shadow-md transition hover:scale-[1.02] hover:border-primary-500"
+            data-astro-prefetch
+          >
+            <span aria-hidden="true" class="text-6xl leading-none">←</span>
+            Back to all
+          </a>
+          {others.map((other) => <WallpaperCard wallpaper={other} />)}
+        </aside>
+      </div>
     </Wrapper>
   </div>
 </Layout>
+
+<script>
+  import { navigate } from 'astro:transitions/client'
+
+  const keys: Record<string, 'prev' | 'next'> = {
+    ArrowUp: 'prev',
+    k: 'prev',
+    ArrowDown: 'next',
+    j: 'next',
+  }
+
+  document.addEventListener('keydown', (event) => {
+    const direction = keys[event.key]
+    const nav = document.querySelector<HTMLElement>('[data-wallpaper-next]')
+    const target = event.target
+    if (
+      !direction ||
+      !nav ||
+      event.defaultPrevented ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.altKey ||
+      event.shiftKey ||
+      (target instanceof Element &&
+        target.closest(
+          'input, textarea, select, [contenteditable], dialog, #site-search-modal',
+        ))
+    )
+      return
+    event.preventDefault()
+    navigate(
+      nav.dataset[direction === 'prev' ? 'wallpaperPrev' : 'wallpaperNext']!,
+    )
+  })
+</script>
