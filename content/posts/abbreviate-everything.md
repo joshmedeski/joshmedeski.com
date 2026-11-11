@@ -4,7 +4,7 @@ pubDate: 2021-11-15T12:00:00.000Z
 youtubeUrl: 'https://www.youtube.com/embed/G0pmpc9JAI4'
 duration: '20:17'
 heroImage: ../attachments/posts/abbreviate-everything/abbreviate-everything.jpg
-description: An overview of how to manage macOS windows and desktops at blazing speeds!
+description: What a stenographer taught me about using text expanders and shorthand to type less and get more done.
 areas:
   - fish
   - productivity
