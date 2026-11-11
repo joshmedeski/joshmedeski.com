@@ -4,23 +4,171 @@ import Layout from '../components/Layout.astro'
 import PageTitle from '../components/PageTitle.astro'
 import Wrapper from '../components/Wrapper.astro'
 import WallpaperCard from '~/components/wallpaper/WallpaperCard.astro'
+import WallpaperBadge from '~/components/wallpaper/WallpaperBadge.astro'
+import {
+  UNKNOWN_SERVICE,
+  WALLPAPER_SIZES,
+  byLargest,
+  byLatest,
+  bySmallest,
+  byTitle,
+  serviceId,
+  wallpaperSize,
+} from '~/utils/wallpapers'
 
-const wallpapers = await getCollection('wallpapers')
+const wallpapers = (await getCollection('wallpapers')).sort(byLatest)
+
+const sorts = [
+  { id: 'latest', label: 'Latest' },
+  { id: 'title', label: 'A–Z', compare: byTitle },
+  { id: 'largest', label: 'Largest', compare: byLargest },
+  { id: 'smallest', label: 'Smallest', compare: bySmallest },
+]
+
+const orderStyle = (wallpaper: (typeof wallpapers)[number]) =>
+  sorts
+    .flatMap(({ id, compare }) =>
+      compare
+        ? `--order-${id}:${[...wallpapers].sort(compare).indexOf(wallpaper)}`
+        : [],
+    )
+    .join(';')
+
+const sizes = WALLPAPER_SIZES.map((size) => ({
+  size,
+  count: wallpapers.filter((w) => wallpaperSize(w.data.width) === size).length,
+})).filter(({ count }) => count > 0)
+
+const serviceOf = (w: (typeof wallpapers)[number]) =>
+  w.data.service ?? UNKNOWN_SERVICE
+
+const services = [...new Set(wallpapers.map(serviceOf))]
+  .map((service) => ({
+    service,
+    id: serviceId(service),
+    count: wallpapers.filter((w) => serviceOf(w) === service).length,
+  }))
+  .sort(
+    (a, b) =>
+      Number(a.service === UNKNOWN_SERVICE) -
+        Number(b.service === UNKNOWN_SERVICE) || b.count - a.count,
+  )
+
+const favoriteCount = wallpapers.filter((w) => w.data.favorite).length
+
+const filterCss = [
+  ...sizes.map(
+    ({ size }) =>
+      `#wallpapers:has(#size-${size}:not(:checked)) [data-size="${size}"]{display:none}`,
+  ),
+  ...services.map(
+    ({ id }) =>
+      `#wallpapers:has(#service-${id}:not(:checked)) [data-service="${id}"]{display:none}`,
+  ),
+  `#wallpapers:has(#favorites-only:checked) [data-favorite="false"]{display:none}`,
+  ...sorts.flatMap(({ id, compare }) =>
+    compare
+      ? `#wallpapers:has(#sort-${id}:checked) [data-size]{order:var(--order-${id})}`
+      : [],
+  ),
+].join('')
 ---
 
 <Layout title="Wallpapers" noIndex>
+  <style is:inline set:html={filterCss}></style>
   <Wrapper>
     <PageTitle>Wallpapers</PageTitle>
-    <div
-      class="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-10 md:grid-cols-3 lg:grid-cols-4"
-    >
-      {
-        wallpapers
-          .sort((a, b) => a.data.title.localeCompare(b.data.title))
-          .map((wallpaper, i) => (
-            <WallpaperCard wallpaper={wallpaper} eager={i < 4} />
+    <div id="wallpapers" class="mb-12 grid gap-10 lg:grid-cols-4">
+      <aside
+        class="flex flex-wrap content-start gap-8 lg:order-last lg:flex-col"
+      >
+        <fieldset>
+          <legend class="mb-2 font-bold">Sort</legend>
+          {
+            sorts.map(({ id, label }, i) => (
+              <label class="flex cursor-pointer items-center gap-2 py-1">
+                <input
+                  type="radio"
+                  name="sort"
+                  id={`sort-${id}`}
+                  checked={i === 0}
+                  class="size-4 accent-primary-500"
+                />
+                {label}
+              </label>
+            ))
+          }
+        </fieldset>
+        <fieldset>
+          <legend class="mb-2 font-bold">Size</legend>
+          {
+            sizes.map(({ size, count }) => (
+              <label class="flex cursor-pointer items-center gap-2 py-1">
+                <input
+                  type="checkbox"
+                  id={`size-${size}`}
+                  checked
+                  class="size-4 accent-primary-500"
+                />
+                <WallpaperBadge>{size}</WallpaperBadge>
+                <span class="text-neutral-400">({count})</span>
+              </label>
+            ))
+          }
+        </fieldset>
+        <fieldset>
+          <legend class="mb-2 font-bold">Service</legend>
+          {
+            services.map(({ service, id, count }) => (
+              <label class="flex cursor-pointer items-center gap-2 py-1">
+                <input
+                  type="checkbox"
+                  id={`service-${id}`}
+                  checked
+                  class="size-4 accent-primary-500"
+                />
+                {service}
+                <span class="text-neutral-400">({count})</span>
+              </label>
+            ))
+          }
+        </fieldset>
+        <fieldset>
+          <legend class="mb-2 font-bold">Filter</legend>
+          <label class="flex cursor-pointer items-center gap-2 py-1">
+            <input
+              type="checkbox"
+              id="favorites-only"
+              class="size-4 accent-primary-500"
+            />
+            <WallpaperBadge favorite>Favorite</WallpaperBadge>
+            <span class="text-neutral-400">({favoriteCount})</span>
+          </label>
+        </fieldset>
+      </aside>
+      <div
+        class="grid grid-cols-1 content-start gap-4 sm:grid-cols-2 sm:gap-10 md:grid-cols-3 lg:col-span-3"
+      >
+        {
+          wallpapers.map((wallpaper, i) => (
+            <WallpaperCard
+              wallpaper={wallpaper}
+              eager={i < 4}
+              style={orderStyle(wallpaper)}
+            />
           ))
-      }
+        }
+      </div>
     </div>
   </Wrapper>
 </Layout>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const favorites = document.getElementById(
+      'favorites-only',
+    ) as HTMLInputElement | null
+    if (favorites && new URLSearchParams(location.search).has('favorites'))
+      favorites.checked = true
+  })
+</script>
