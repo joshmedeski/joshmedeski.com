@@ -1,6 +1,6 @@
 ---
 title: What is the terminal?
-description: Terminology related to the terminal are often misinterpreted. The terminal is
+description: Terminology related to the terminal is often misinterpreted. Let's demystify how it works and break down the different terms.
 youtubeUrl: 'https://www.youtube.com/embed/bbc0ex3eNKk'
 duration: '15:16'
 heroImage: ../attachments/posts/what-is-the-terminal/what-is-the-terminal.jpeg
@@ -9,7 +9,7 @@ areas:
   - terminal
 ---
 
-Terminology related to the terminal are often misinterpreted. The terminal is kind of a scary thing for some people. So I want to demystify how it works and break down the different terms.
+Terminology related to the terminal is often misinterpreted. The terminal is kind of a scary thing for some people. So I want to demystify how it works and break down the different terms.
 
 ## Terminal App
 

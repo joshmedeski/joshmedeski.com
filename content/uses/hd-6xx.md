@@ -1,5 +1,5 @@
 ---
-title: Senheiser HD 6XX
+title: Sennheiser HD 6XX
 description: Over-ear headphones with open-back design and a detachable cable.
 areas:
   - audio

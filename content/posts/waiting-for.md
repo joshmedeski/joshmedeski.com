@@ -3,7 +3,8 @@ title: Can't Keep up? Make a Waiting For List
 pubDate: 2014-06-26T00:00:00.000Z
 description: >-
   You live in a world that depends on other people to get work done. On any day
-  you could be waiting for a handful of people to take action
+  you could be waiting for a handful of people to take action. A "waiting for"
+  list helps you keep track of it all.
 heroImage: ../attachments/posts/waiting-for/waiting-for-thumb.jpeg
 areas:
   - productivity

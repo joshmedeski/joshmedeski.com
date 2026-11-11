@@ -10,7 +10,7 @@ areas:
   - macos
 ---
 
-If you're a macOS user who enjoys using the [yabai window manager](https://duckduckgo.com/?q=yabai&ia=web), you may find yourself wanting to customize your keyboard bindings to better suit your workflow. Luckily, with the help of [Hammerspoon](https://www.hammerspoon.org/) and the [Lua programming language](https://www.lua.org/), you can easily create custom keyboard shortcuts to control yabai.
+If you're a macOS user who enjoys using the [yabai window manager](https://github.com/koekeishiya/yabai), you may find yourself wanting to customize your keyboard bindings to better suit your workflow. Luckily, with the help of [Hammerspoon](https://www.hammerspoon.org/) and the [Lua programming language](https://www.lua.org/), you can easily create custom keyboard shortcuts to control yabai.
 
 ## What is yabai?
 
