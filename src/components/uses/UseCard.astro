@@ -21,6 +21,7 @@ const { use, eager } = Astro.props
   transitionPrefix={`use-${use.data.title}`}
   preloadWidth="1640"
   preloadHeight="1094"
+  thumbnailAspect="photo"
 >
   <UseMeta slot="meta" use={use} align="left" />
 </EntityCard>
