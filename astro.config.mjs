@@ -10,6 +10,7 @@ import { satteri } from '@astrojs/markdown-satteri'
 import satteriCallouts from 'satteri-callouts'
 
 import ghRepoDirective from './src/utils/ghRepoDirective'
+import usesLinksNewTab from './src/utils/usesLinksNewTab'
 
 // https://astro.build/config
 export default defineConfig({
@@ -40,7 +41,7 @@ export default defineConfig({
       // parser supports natively once this feature is enabled.
       features: { directive: true },
       mdastPlugins: [ghRepoDirective],
-      hastPlugins: [satteriCallouts()],
+      hastPlugins: [satteriCallouts(), usesLinksNewTab],
     }),
   },
 
