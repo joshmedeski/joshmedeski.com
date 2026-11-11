@@ -1,31 +1,26 @@
 ---
+import AreaHero from '~/components/AreaHero.astro'
 import type { CollectionEntry } from 'astro:content'
-import { getCollection } from 'astro:content'
 import Layout from '../Layout.astro'
 import Wrapper from '../Wrapper.astro'
 import PostMeta from './PostMeta.astro'
 import { Image } from 'astro:assets'
 import { HERO_WIDTHS, IMAGE_WIDTH } from '~/utils/images'
-import { resolveThemeArea } from '~/utils/areas'
 
 interface Props {
   post: CollectionEntry<'posts'>
 }
 
 const { post } = Astro.props
-const areas = await getCollection('areas')
-const themeColor =
-  resolveThemeArea(post, areas)?.data.themeColor ?? 'bg-neutral-900'
 ---
 
 <Layout
   title={post.data.title}
   description={post.data.description}
   image={post.data.heroImage}
-  themeColor={themeColor}
 >
   <div data-pagefind-body>
-    <div class={themeColor}>
+    <AreaHero item={post} composition="mesh">
       <section class="pt-16 pb-64">
         <Wrapper>
           <header class="flex flex-col gap-6">
@@ -70,10 +65,10 @@ const themeColor =
           </header>
         </Wrapper>
       </section>
-    </div>
+    </AreaHero>
 
     <div
-      class="mx-auto max-w-[760px] -mt-48 rounded-t-[2.5rem] bg-black px-6 pt-8 md:px-10 md:pt-10"
+      class="relative mx-auto max-w-[760px] -mt-48 rounded-t-[2.5rem] bg-black px-6 pt-8 md:px-10 md:pt-10"
     >
       <main class="prose prose-invert prose-lg max-w-full pb-16 md:pb-20">
         <slot />

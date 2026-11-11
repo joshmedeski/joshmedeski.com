@@ -1,5 +1,6 @@
 ---
 title: Claude Code
-icon: ✴️
+icon: 👾
+themeColor: bg-area-claude-code
 parent: ai
 ---

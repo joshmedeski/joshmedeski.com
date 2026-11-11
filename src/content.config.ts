@@ -53,6 +53,9 @@ const areasCollection = defineCollection({
       icon: z.string().optional(),
       parent: reference('areas').optional(),
       themeColor: z.string().optional(),
+      texture: z
+        .enum(['film', 'grit', 'halftone', 'bold-halftone', 'brushed', 'paper'])
+        .optional(),
       cover: image().optional(),
       description: z.string().optional(),
     }),

@@ -8,14 +8,22 @@ import SocialLinks from './SocialLinks.astro'
 import Wrapper from './Wrapper.astro'
 import Hero from './dev-workflow-intro-guide/Hero.astro'
 import profileCircle from '~/assets/joshmedeski-profile-circle.png'
-import { topLevelAreas, subAreasOf, areaHref } from '~/utils/areas'
+import {
+  topLevelAreas,
+  subAreasOf,
+  areaHref,
+  resolveThemeAreas,
+} from '~/utils/areas'
 
 const areas = await getCollection('areas')
 const areaChips = topLevelAreas(areas).flatMap((top) =>
-  [top, ...subAreasOf(top, areas)].map((area) => ({
-    area,
-    themeColor: top.data.themeColor ?? 'bg-neutral-900',
-  })),
+  [top, ...subAreasOf(top, areas)].map((area) => {
+    const color = resolveThemeAreas(
+      { data: { areas: [area] } },
+      areas,
+    )[0]?.data.themeColor?.replace(/^bg-/, '--theme-color-')
+    return { area, style: color ? `--pill: var(${color})` : undefined }
+  }),
 )
 const today = new Date()
 interface Props {
@@ -96,11 +104,12 @@ const { hideCta } = Astro.props
         </p>
         <ul class="flex flex-wrap gap-2">
           {
-            areaChips.map(({ area, themeColor }) => (
+            areaChips.map(({ area, style }) => (
               <li>
                 <a
                   href={areaHref(area)}
-                  class={`inline-flex items-center gap-2 rounded-full px-4 py-1 text-sm transition-opacity hover:opacity-80 ${themeColor}`}
+                  class="area-chip inline-flex items-center gap-2 rounded-full px-4 py-1 text-sm"
+                  style={style}
                 >
                   <AreaIcon icon={area.data.icon} />
                   {area.data.title}

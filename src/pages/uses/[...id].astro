@@ -6,6 +6,7 @@ import { HERO_WIDTHS, IMAGE_WIDTH } from '~/utils/images'
 import GhRepo from '../../components/GhRepo.astro'
 import Layout from '~/components/Layout.astro'
 import Wrapper from '~/components/Wrapper.astro'
+import AreaHero from '~/components/AreaHero.astro'
 import UseCard from '~/components/uses/UseCard.astro'
 import { areaIdsFor } from '~/utils/areas'
 
@@ -40,27 +41,31 @@ const { Content } = await render(use)
   image={use.data.image}
 >
   <div data-pagefind-body>
-    <Wrapper>
-      <section class="grid gap-6 pt-16 md:grid-cols-2">
-        <Image
-          src={use.data.image}
-          alt={use.data.title}
-          width={IMAGE_WIDTH.hero}
-          height={1280}
-          widths={HERO_WIDTHS}
-          sizes="(min-width: 768px) 50vw, 100vw"
-          class="mb-2 w-full rounded-lg bg-black shadow-md md:mb-8"
-          transition:name={`use-${use.data.title}-thumb`}
-        />
-        <div class="space-y-4">
-          <h1 class="text-5xl font-bold">{use.data.title}</h1>
-          <p>{use.data.description}</p>
-          <div class="prose prose-invert max-w-full">
-            <Content components={{ GhRepo, Image }} />
+    <AreaHero item={use} composition="diagonal">
+      <Wrapper>
+        <section class="grid gap-6 pt-16 pb-16 md:grid-cols-2">
+          <Image
+            src={use.data.image}
+            alt={use.data.title}
+            width={IMAGE_WIDTH.hero}
+            height={1280}
+            widths={HERO_WIDTHS}
+            sizes="(min-width: 768px) 50vw, 100vw"
+            class="mb-2 w-full rounded-lg bg-black shadow-md md:mb-8"
+            transition:name={`use-${use.data.title}-thumb`}
+          />
+          <div class="space-y-4">
+            <h1 class="text-5xl font-bold">{use.data.title}</h1>
+            <p>{use.data.description}</p>
+            <div class="prose prose-invert max-w-full">
+              <Content components={{ GhRepo, Image }} />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Wrapper>
+    </AreaHero>
 
+    <Wrapper>
       <footer class="mb-12" data-pagefind-ignore>
         {
           relatedUses.length > 0 && (

@@ -10,6 +10,7 @@ import ProjectCard from '~/components/project/ProjectCard.astro'
 import GuideCard from '~/components/guide/GuideCard.astro'
 import AppearanceCard from '~/components/appearance/AppearanceCard.astro'
 import AreaIcon from '~/components/AreaIcon.astro'
+import AreaHero from '~/components/AreaHero.astro'
 import {
   contentForArea,
   resolveTopLevel,
@@ -64,59 +65,59 @@ const appearances = contentForArea(area, areas, allAppearances).sort(
 
 const parent = area.data.parent ? resolveTopLevel(area, areas) : undefined
 const themeArea = parent ?? area
-const themeColor = themeArea.data.themeColor ?? 'bg-neutral-900'
 const { Content } = await render(area)
 ---
 
 <Layout
   title={area.data.title}
   description={area.data.description ?? `Content in ${area.data.title}`}
-  themeColor={themeColor}
 >
   <div data-pagefind-body>
-    <header class={`py-16 text-center ${themeColor}`}>
-      <Wrapper>
-        {
-          parent && (
-            <a href={areaHref(parent)} class="mb-2 inline-block opacity-80">
-              ← {parent.data.title}
-            </a>
-          )
-        }
-        {
-          themeArea.data.cover && (
-            <Image
-              src={themeArea.data.cover}
-              alt={area.data.title}
-              width="1200"
-              height="480"
-              class="mx-auto mb-6 aspect-[5/2] w-full max-w-3xl rounded-2xl object-cover shadow-lg"
-            />
-          )
-        }
-        <div class="text-5xl"><AreaIcon icon={area.data.icon} /></div>
-        {
-          /*
+    <AreaHero item={{ data: { areas: [area] } }} composition="mesh">
+      <header class="pt-16 pb-[36rem] text-center">
+        <Wrapper>
+          {
+            parent && (
+              <a href={areaHref(parent)} class="mb-2 inline-block opacity-80">
+                ← {parent.data.title}
+              </a>
+            )
+          }
+          {
+            themeArea.data.cover && (
+              <Image
+                src={themeArea.data.cover}
+                alt={area.data.title}
+                width="1200"
+                height="480"
+                class="mx-auto mb-6 aspect-[5/2] w-full max-w-3xl rounded-2xl object-cover shadow-lg"
+              />
+            )
+          }
+          <div class="text-5xl"><AreaIcon icon={area.data.icon} /></div>
+          {
+            /*
           Areas are hub pages, so they should outrank individual entities that
           only mention the term. Pagefind gives an h1 weight 7 by default; 10 is
           the max. Weight it here rather than on the pagefind-body wrapper --
           weighting the whole body also inflates the page's effective length,
           which the length normalisation then cancels back out.
         */
-        }
-        <h1 class="mt-4 text-4xl font-extrabold" data-pagefind-weight="10">
-          {area.data.title}
-        </h1>
-        {
-          area.data.description && (
-            <p class="mt-2 opacity-80">{area.data.description}</p>
-          )
-        }
-      </Wrapper>
-    </header>
+          }
+          <h1 class="mt-4 text-4xl font-extrabold" data-pagefind-weight="10">
+            {area.data.title}
+          </h1>
+          {
+            area.data.description && (
+              <p class="mt-2 opacity-80">{area.data.description}</p>
+            )
+          }
+        </Wrapper>
+      </header>
+    </AreaHero>
 
     <Wrapper>
-      <div data-pagefind-ignore>
+      <div class="relative -mt-[30rem]" data-pagefind-ignore>
         {
           projects.length > 0 && (
             <section class="py-12">

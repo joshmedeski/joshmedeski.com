@@ -29,14 +29,16 @@ export function areaIdsFor(item: Taggable): string[] {
   return item.data.areas?.map((a) => a.id) ?? []
 }
 
-export function resolveThemeArea(
-  item: Taggable,
-  areas: Area[],
-): Area | undefined {
-  const firstId = item.data.areas?.[0]?.id
-  if (!firstId) return undefined
-  const area = areas.find((a) => a.id === firstId)
-  return area ? resolveTopLevel(area, areas) : undefined
+export function resolveThemeAreas(item: Taggable, areas: Area[]): Area[] {
+  const themed = areaIdsFor(item)
+    .map((id) => areas.find((a) => a.id === id))
+    .filter((a): a is Area => !!a)
+    .map((a) => (a.data.themeColor ? a : resolveTopLevel(a, areas)))
+  return [...new Map(themed.map((a) => [a.id, a])).values()]
+}
+
+export function areaTexture(area: Area, areas: Area[]): string | undefined {
+  return area.data.texture ?? resolveTopLevel(area, areas).data.texture
 }
 
 export function areaScopeIds(area: Area, areas: Area[]): string[] {

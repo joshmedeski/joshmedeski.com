@@ -1,4 +1,5 @@
 ---
+import AreaHero from '~/components/AreaHero.astro'
 import { getCollection, render } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import { Image } from 'astro:assets'
@@ -7,7 +8,6 @@ import Layout from '~/components/Layout.astro'
 import Wrapper from '~/components/Wrapper.astro'
 import AppearanceMeta from '~/components/appearance/AppearanceMeta.astro'
 import ProjectCard from '~/components/project/ProjectCard.astro'
-import { resolveThemeArea } from '~/utils/areas'
 
 export async function getStaticPaths() {
   const appearances = await getCollection('appearances')
@@ -22,9 +22,6 @@ interface Props {
 }
 
 const { appearance } = Astro.props
-const areas = await getCollection('areas')
-const themeColor =
-  resolveThemeArea(appearance, areas)?.data.themeColor ?? 'bg-neutral-900'
 
 const projectIds = new Set(appearance.data.projects?.map((p) => p.id) ?? [])
 const projects = (await getCollection('projects'))
@@ -38,10 +35,9 @@ const { Content } = await render(appearance)
   title={appearance.data.title}
   description={appearance.data.description}
   image={appearance.data.heroImage}
-  themeColor={themeColor}
 >
   <div data-pagefind-body>
-    <div class={themeColor}>
+    <AreaHero item={appearance} composition="diagonal">
       <section class="pb-64 pt-16">
         <Wrapper>
           <header class="flex flex-col gap-6">
@@ -79,10 +75,10 @@ const { Content } = await render(appearance)
           </header>
         </Wrapper>
       </section>
-    </div>
+    </AreaHero>
 
     <div
-      class="-mt-48 mx-auto max-w-[760px] rounded-t-[2.5rem] bg-black px-6 pt-8 md:px-10 md:pt-10"
+      class="relative -mt-48 mx-auto max-w-[760px] rounded-t-[2.5rem] bg-black px-6 pt-8 md:px-10 md:pt-10"
     >
       <main class="prose prose-invert prose-lg max-w-full pb-16 md:pb-20">
         <p class="lead">{appearance.data.description}</p>

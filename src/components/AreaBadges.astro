@@ -1,6 +1,6 @@
 ---
-import { getEntry } from 'astro:content'
-import { areaHref } from '~/utils/areas'
+import { getCollection, getEntry } from 'astro:content'
+import { areaHref, resolveThemeAreas } from '~/utils/areas'
 import AreaIcon from './AreaIcon.astro'
 import { pillClass as defaultPill } from '~/utils/pills'
 
@@ -9,9 +9,15 @@ interface Props {
   pillClass?: string
 }
 const { areas = [], pillClass = defaultPill() } = Astro.props
+const all = await getCollection('areas')
 const resolved = (
   await Promise.all((areas ?? []).map((ref) => getEntry(ref)))
 ).filter((a) => a != null)
+const pillColor = (area: (typeof resolved)[number]) => {
+  const themed = resolveThemeAreas({ data: { areas: [area] } }, all)[0]
+  const v = themed?.data.themeColor?.replace(/^bg-/, '--theme-color-')
+  return v ? `--pill: var(${v})` : undefined
+}
 ---
 
 {
@@ -19,7 +25,11 @@ const resolved = (
     <ul class="contents">
       {resolved.map((area) => (
         <li>
-          <a href={areaHref(area)} class={`${pillClass} hover:bg-neutral-700`}>
+          <a
+            href={areaHref(area)}
+            class={`${pillClass} area-chip`}
+            style={pillColor(area)}
+          >
             <AreaIcon icon={area.data.icon} />
             <span>{area.data.title}</span>
           </a>
