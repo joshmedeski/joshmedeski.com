@@ -1,4 +1,5 @@
 ---
+import { SOCIAL_LINKS } from '../config'
 import Link from './Link.astro'
 import {
   DiscordIcon,
@@ -14,25 +15,22 @@ interface Props {
 }
 
 const { iconSize = 'h-10' } = Astro.props
+const links = [
+  [SOCIAL_LINKS.YouTube, YouTubeIcon],
+  [SOCIAL_LINKS.GitHub, GitHubIcon],
+  [SOCIAL_LINKS.Discord, DiscordIcon],
+  [SOCIAL_LINKS.X, TwitterIcon],
+  [SOCIAL_LINKS.TikTok, TikTokIcon],
+  ['/rss.xml', RssIcon],
+] as const
 ---
 
 <div class="flex gap-4">
-  <Link href="https://www.youtube.com/joshmedeski" target="_blank">
-    <YouTubeIcon class={iconSize} />
-  </Link>
-  <Link href="https://github.com/joshmedeski" target="_blank">
-    <GitHubIcon class={iconSize} />
-  </Link>
-  <Link href="https://discord.gg/RQnZH7fFse" target="_blank">
-    <DiscordIcon class={iconSize} />
-  </Link>
-  <Link href="https://x.com/joshmedeski" target="_blank">
-    <TwitterIcon class={iconSize} />
-  </Link>
-  <Link href="https://www.tiktok.com/@joshmedeski" target="_blank">
-    <TikTokIcon class={iconSize} />
-  </Link>
-  <Link href="/rss.xml" target="_blank">
-    <RssIcon class={iconSize} />
-  </Link>
+  {
+    links.map(([href, Icon]) => (
+      <Link href={href} target="_blank">
+        <Icon class={iconSize} />
+      </Link>
+    ))
+  }
 </div>

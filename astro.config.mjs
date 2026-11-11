@@ -13,7 +13,7 @@ import ghRepoDirective from './src/utils/ghRepoDirective'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://joshmedeski.com/',
+  site: 'https://www.joshmedeski.com/',
   prefetch: true,
   cacheDir: './.astro-cache',
   compressHTML: true,
