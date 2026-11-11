@@ -20,11 +20,11 @@ const groups = groupByDirectArea(areas, uses, USES_AREA_ORDER)
         groups.map(({ area, items }, groupIndex) => (
           <section>
             <h2 class="mb-4 text-4xl font-bold">{area.data.title}</h2>
-            <div class="grid items-stretch gap-4 sm:grid-cols-2 sm:gap-8">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-10 md:grid-cols-3 lg:grid-cols-4">
               {items
                 .sort((a, b) => a.data.title.localeCompare(b.data.title))
                 .map((use, i) => (
-                  <UseCard use={use} eager={groupIndex === 0 && i < 2} />
+                  <UseCard use={use} eager={groupIndex === 0 && i < 4} />
                 ))}
             </div>
           </section>

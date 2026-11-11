@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content'
-import EntityCard from '../EntityCard.astro'
-import UseMeta from './UseMeta.astro'
+import { Image } from 'astro:assets'
 
 interface Props {
   use: CollectionEntry<'uses'>
@@ -11,17 +10,18 @@ interface Props {
 const { use, eager } = Astro.props
 ---
 
-<EntityCard
-  eager={eager}
-  href={`/uses/${use.id}`}
-  title={use.data.title}
-  description={use.data.description}
-  image={use.data.image}
-  areas={use.data.areas}
-  transitionPrefix={`use-${use.data.title}`}
-  preloadWidth="1640"
-  preloadHeight="1094"
-  thumbnailAspect="photo"
->
-  <UseMeta slot="meta" use={use} align="left" />
-</EntityCard>
+<a href={`/uses/${use.id}`} class="group flex flex-col" data-astro-prefetch>
+  <Image
+    src={use.data.image}
+    alt={use.data.title}
+    width="558"
+    height="372"
+    loading={eager ? 'eager' : 'lazy'}
+    class="mb-4 aspect-[3/2] w-full rounded-lg bg-black object-cover shadow-md transition group-hover:scale-[1.02]"
+    transition:name={`use-${use.data.title}-thumb`}
+  />
+  <h3 class="text-xl font-bold leading-tight">{use.data.title}</h3>
+  <p class="mt-1 line-clamp-2 text-sm text-slate-400">
+    {use.data.description}
+  </p>
+</a>
