@@ -6,6 +6,9 @@ heroImage: ../attachments/projects/obsidian-terminal-dispatch.jpeg
 areas:
   - obsidian
   - claude-code
+cta:
+  label: Add to Obsidian
+  url: obsidian://show-plugin?id=terminal-dispatch
 ---
 
 Handing a note to an agent usually means leaving Obsidian, opening a terminal,
@@ -35,8 +38,11 @@ Obsidian stays a launcher.
 
 ## Get started
 
-Install it from the GitHub release, add a recipe in the plugin's settings, and
-reload the plugin so it shows up in the command palette. Next on the roadmap:
+Terminal Dispatch is available on the
+[Obsidian community plugin directory](https://community.obsidian.md/plugins/terminal-dispatch),
+or use the button above to open it straight inside your vault. Once it's
+installed, add a recipe in the plugin's settings and reload the plugin so it
+shows up in the command palette. Next on the roadmap:
 recipes that run automatically when a note is created or modified.
 
 ::gh-repo{repo="joshmedeski/obsidian-terminal-dispatch"}
