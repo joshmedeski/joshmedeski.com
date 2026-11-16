@@ -1,5 +1,6 @@
 ---
 import AreaHero from '~/components/AreaHero.astro'
+import { resolveThemeAreas } from '~/utils/areas'
 import type { CollectionEntry } from 'astro:content'
 import { getCollection } from 'astro:content'
 import { Image } from 'astro:assets'
@@ -36,7 +37,10 @@ const appearances = entriesForProject(
   image={project.data.heroImage}
 >
   <div data-pagefind-body>
-    <AreaHero item={project} composition="sweep">
+    <AreaHero
+      areas={resolveThemeAreas(project, await getCollection('areas'))}
+      composition="sweep"
+    >
       <section class="pb-64 pt-16">
         <Wrapper>
           <header class="flex flex-col gap-6">

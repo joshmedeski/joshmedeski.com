@@ -13,6 +13,7 @@ import AreaIcon from '~/components/AreaIcon.astro'
 import AreaHero from '~/components/AreaHero.astro'
 import {
   contentForArea,
+  resolveThemeAreas,
   resolveTopLevel,
   areaHref,
   validateTwoLevel,
@@ -73,7 +74,10 @@ const { Content } = await render(area)
   description={area.data.description ?? `Content in ${area.data.title}`}
 >
   <div data-pagefind-body>
-    <AreaHero item={{ data: { areas: [area] } }} composition="mesh">
+    <AreaHero
+      areas={resolveThemeAreas({ data: { areas: [area] } }, areas)}
+      composition="mesh"
+    >
       <header class="pt-16 pb-[36rem] text-center">
         <Wrapper>
           {
