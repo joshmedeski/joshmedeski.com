@@ -8,7 +8,7 @@ import Layout from '~/components/Layout.astro'
 import Wrapper from '~/components/Wrapper.astro'
 import AreaHero from '~/components/AreaHero.astro'
 import UseCard from '~/components/uses/UseCard.astro'
-import { areaIdsFor } from '~/utils/areas'
+import { areaIdsFor, resolveThemeAreas } from '~/utils/areas'
 
 export async function getStaticPaths() {
   const uses = await getCollection('uses')
@@ -41,7 +41,10 @@ const { Content } = await render(use)
   image={use.data.image}
 >
   <div data-pagefind-body>
-    <AreaHero item={use} composition="diagonal">
+    <AreaHero
+      areas={resolveThemeAreas(use, await getCollection('areas'))}
+      composition="diagonal"
+    >
       <Wrapper>
         <section class="grid gap-6 pt-16 pb-16 md:grid-cols-2">
           <Image

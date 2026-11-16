@@ -1,6 +1,7 @@
 ---
 import AreaHero from '~/components/AreaHero.astro'
-import type { CollectionEntry } from 'astro:content'
+import { resolveThemeAreas } from '~/utils/areas'
+import { getCollection, type CollectionEntry } from 'astro:content'
 import Layout from '../Layout.astro'
 import Wrapper from '../Wrapper.astro'
 import PostMeta from './PostMeta.astro'
@@ -20,7 +21,10 @@ const { post } = Astro.props
   image={post.data.heroImage}
 >
   <div data-pagefind-body>
-    <AreaHero item={post} composition="mesh">
+    <AreaHero
+      areas={resolveThemeAreas(post, await getCollection('areas'))}
+      composition="mesh"
+    >
       <section class="pt-16 pb-64">
         <Wrapper>
           <header class="flex flex-col gap-6">

@@ -1,29 +1,25 @@
 ---
-import { getCollection } from 'astro:content'
-import { areaTexture, resolveThemeAreas } from '~/utils/areas'
+import type { CollectionEntry } from 'astro:content'
 
 interface Props {
-  item: { data: { areas?: { id: string }[] } }
+  areas: CollectionEntry<'areas'>[]
   composition: 'mesh' | 'sweep' | 'diagonal'
 }
 
-const { item, composition } = Astro.props
-const areas = await getCollection('areas')
-const themeAreas = resolveThemeAreas(item, areas)
-const style = themeAreas
+const { areas, composition } = Astro.props
+const style = areas
   .map((a) => a.data.themeColor?.replace(/^bg-/, '--theme-color-'))
   .filter(Boolean)
   .slice(0, 3)
   .map((v, i) => `--area-${i + 1}: var(${v})`)
   .join(';')
-const texture = themeAreas[0] ? areaTexture(themeAreas[0], areas) : undefined
 ---
 
 <div
   class="area-hero relative"
   style={style}
   data-composition={composition}
-  data-texture={texture ?? 'film'}
+  data-texture={areas[0]?.data.texture ?? 'film'}
 >
   <div class="area-hero-bg" aria-hidden="true"></div>
   <div class="relative"><slot /></div>
