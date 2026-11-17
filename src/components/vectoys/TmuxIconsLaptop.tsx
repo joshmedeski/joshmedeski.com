@@ -1,6 +1,6 @@
 /** @jsxImportSource react */
 import { useEffect, useState } from 'react'
-import { Laptop } from './laptop/laptop'
+import { ScrubLaptop } from './ScrubLaptop'
 import { Prompt, StatusBar, TERMINAL_CLASS } from './terminal'
 
 const WINDOWS = [
@@ -82,12 +82,12 @@ function Terminal() {
 
 export default function TmuxIconsLaptop() {
   return (
-    <Laptop
+    <ScrubLaptop
       label="A tmux status bar with windows zsh, claude and nvim, shown with default names, icons only, or icon and name"
       look="realistic"
       yaw={-12}
     >
       <Terminal />
-    </Laptop>
+    </ScrubLaptop>
   )
 }

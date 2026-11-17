@@ -1,6 +1,6 @@
 /** @jsxImportSource react */
 import { useEffect, useState } from 'react'
-import { Laptop } from './laptop/laptop'
+import { ScrubLaptop } from './ScrubLaptop'
 import { Cursor, Prompt, StatusBar, TERMINAL_CLASS } from './terminal'
 
 type Session = { icon: string; name: string; key?: string }
@@ -247,13 +247,13 @@ export default function SeshLaptop() {
   }, [index])
 
   return (
-    <Laptop
+    <ScrubLaptop
       label="Animation of sesh: typing sesh picker opens the session picker, fuzzy searching jom opens the joshmedeski_com tmux session, then pressing Command K and typing sc jumps straight to sesh config, then Command L switches back to joshmedeski_com, where tmux kill-server ends it all"
       look="realistic"
       yaw={-12}
       pressed={held ? frame.pressed : undefined}
     >
       <Terminal frame={frame} />
-    </Laptop>
+    </ScrubLaptop>
   )
 }

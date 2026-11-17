@@ -1352,17 +1352,27 @@ function Free({
   const given = useRef(pose)
 
   // After every render the frame is drawn whole, the handle's if it still
-  // holds. Turning `free` on or off lets go of the handle's pose.
+  // holds. Turning `free` on or off lets go of the handle's pose; a prop that
+  // changes, as a drag's turn does, takes over only its own field.
   useLayoutEffect(() => {
     given.current = pose
     const hold = set.current
-    if (
-      hold &&
-      (hold.paint !== paint ||
-        hold.free !== free ||
-        FIELDS.some((field) => hold.over[field] !== pose[field]))
-    )
-      set.current = null
+    if (hold && (hold.paint !== paint || hold.free !== free)) set.current = null
+    else if (hold) {
+      const moved = FIELDS.filter((field) => hold.over[field] !== pose[field])
+      if (moved.length)
+        set.current = {
+          ...hold,
+          over: pose,
+          pose: loose(
+            {
+              ...hold.pose,
+              ...Object.fromEntries(moved.map((field) => [field, pose[field]])),
+            },
+            free,
+          ),
+        }
+    }
     paint.reset()
     paint.draw(set.current?.pose ?? pose)
   })
