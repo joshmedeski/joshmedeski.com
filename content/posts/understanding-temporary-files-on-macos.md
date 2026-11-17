@@ -3,7 +3,6 @@ title: Understanding Temporary Files on macOS
 description: I've used /tmp for years and my AI agents use it even more. I finally looked into how it actually works on modern macOS.
 pubDate: 2026-11-17T12:00:00.000Z
 heroImage: ../attachments/posts/understanding-temporary-files-on-macos/understanding-temporary-files-on-macos.jpeg
-draft: true
 areas:
   - macos
   - terminal
