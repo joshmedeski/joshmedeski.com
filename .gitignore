@@ -27,3 +27,6 @@ coverage
 .astro
 .astro-cache
 
+
+# remotion renders
+out/

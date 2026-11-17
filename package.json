@@ -22,7 +22,10 @@
     "sync": "astro sync",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "prepare": "lefthook install"
+    "prepare": "lefthook install",
+    "video": "remotion studio video/index.ts",
+    "video:render": "remotion render video/index.ts",
+    "video:gif": "f() { gifski --fps 20 --width 720 --quality 80 -o out/$1.gif out/$1.mp4; }; f"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.12",
@@ -51,6 +54,8 @@
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
+    "@remotion/cli": "4.0.544",
+    "@remotion/tailwind-v4": "4.0.544",
     "@tailwindcss/typography": "^0.5.20",
     "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
@@ -61,6 +66,7 @@
     "netlify-plugin-cache": "^1.0.3",
     "prettier": "^3.9.10",
     "prettier-plugin-astro": "^0.14.1",
+    "remotion": "4.0.544",
     "typescript": "~6.0.3",
     "vite": "^8.3.5",
     "vitest": "^4.1.12"

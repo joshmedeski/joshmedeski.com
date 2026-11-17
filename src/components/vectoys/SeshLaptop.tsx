@@ -27,7 +27,7 @@ const SITE: Place = { name: 'joshmedeski_com', dir: '~/c/joshmedeski_com' }
 const SESH_CONFIG: Place = { name: 'sesh config', dir: '~/.config/sesh' }
 
 type Screen = 'shell' | 'picker' | 'session'
-type Frame = {
+export type Frame = {
   screen: Screen
   text: string
   ms: number
@@ -39,7 +39,7 @@ type Frame = {
 
 const RHYTHM = [1.3, 0.6, 0.8, 0.5, 1.1, 0.7, 1.4, 0.6, 0.9, 0.5, 1.2]
 const WORD_PAUSE = 2.5
-const KEY_HOLD = 120
+export const KEY_HOLD = 120
 
 const keyFor = (char: string) => (char === ' ' ? 'space' : char)
 
@@ -73,7 +73,7 @@ const chord = (keys: string, pressed: string[]): Frame[] => [
 const inside = (at: Place, frames: Frame[]) =>
   frames.map((frame) => ({ ...frame, at }))
 
-const FRAMES: Frame[] = [
+export const FRAMES: Frame[] = [
   { screen: 'shell', text: '', ms: 1200 },
   ...typing('shell', 'sesh picker', 110),
   ...enter('shell', 'sesh picker'),
@@ -204,7 +204,7 @@ function Picker({ query }: { query: string }) {
   )
 }
 
-function Terminal({ frame }: { frame: Frame }) {
+export function Terminal({ frame }: { frame: Frame }) {
   const { screen, text, at, keys } = frame
 
   return (
