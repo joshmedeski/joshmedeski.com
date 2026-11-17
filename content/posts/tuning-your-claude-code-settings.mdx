@@ -1,7 +1,7 @@
 ---
 title: Tuning Your Claude Code Settings
 pubDate: 2026-07-20T12:00:00.000Z
-updatedDate: '2026-07-20'
+updatedDate: '2026-11-17'
 description: >-
   A short guide to the Claude Code settings I've changed, why I changed them,
   and the community tips I evaluated but skipped.
@@ -52,14 +52,12 @@ Get this right first and everything below becomes self-documenting in your edito
 
 ## Privacy and outbound traffic
 
-I opt out of the outbound analytics. I run client work through Claude, so the less that leaves my machine, the better. These go in the `env` block, plus `feedbackSurveyRate: 0` to kill the "How is Claude doing?" survey.
+I opt out of what I can. I run client work through Claude, so the less that leaves my machine, the better. Error reporting goes in the `env` block, plus `feedbackSurveyRate: 0` to kill the "How is Claude doing?" survey.
 
 ```json
 {
   "env": {
-    "DISABLE_TELEMETRY": "1",
-    "DISABLE_ERROR_REPORTING": "1",
-    "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1"
+    "DISABLE_ERROR_REPORTING": "1"
   },
   "feedbackSurveyRate": 0
 }
@@ -67,15 +65,12 @@ I opt out of the outbound analytics. I run client work through Claude, so the le
 
 Note that `env` values are strings (`"1"`, not `1`), since they're environment variables. `feedbackSurveyRate` is a number between `0` and `1`.
 
-## Context management
+> [!WARNING] Why I left telemetry on
+> I'd rather set `DISABLE_TELEMETRY` too, but it also turns off the feature flags Claude Code downloads from Anthropic, and two features I rely on need them. Auto mode loses its server-side safety check, so actions it can't verify get asked about or denied. Remote Control, which sends my phone notifications during sessions, stops working fully too. Until those work without it, telemetry stays on.
 
-```json
-{
-  "cleanupPeriodDays": 365
-}
-```
+## Session history
 
-- `cleanupPeriodDays: 365` keeps a year of transcript history instead of losing anything older than the default 30 days.
+I leave `cleanupPeriodDays` at its default of 30 days. Claude Code deletes older transcripts from `~/.claude/projects/`, but I don't lose them: [sessions](https://github.com/nicknisi/sessions) archives every transcript into its own vault and indexes them, so I can search and resume past sessions, and give agents recall over earlier work through MCP. Long-term history is its job, not Claude Code's.
 
 ## Update channel
 
@@ -88,6 +83,15 @@ I pin updates to the stable channel. On client work I'd rather the tool not shif
 ```
 
 The other value is `latest`, which pulls new features (and the occasional rough edge) sooner. If you like being on the bleeding edge, flip it.
+
+Switching from `latest` to `stable` has a catch: Claude Code downgrades to the stable version, even when that's older than the one you're running. To avoid that, also set `minimumVersion` to your current version (`claude --version`). Claude Code then stays put until stable catches up.
+
+```json
+{
+  "autoUpdatesChannel": "stable",
+  "minimumVersion": "2.1.326"
+}
+```
 
 ## Permissions
 
@@ -120,7 +124,6 @@ My permissions are curated, not blanket. `defaultMode: auto` lets the classifier
       "Bash(git worktree:*)",
       "Bash(npm *)",
       "Bash(pnpm *)",
-      "Bash(node *)",
       "Bash(ls *)",
       "Bash(which *)",
       "Bash(mkdir *)",
@@ -156,7 +159,8 @@ This is a different token angle from everything above. The privacy settings trim
   "disableWorkflows": true,
   "disableBundledSkills": true,
   "env": {
-    "CLAUDE_CODE_DISABLE_CRON": "1"
+    "CLAUDE_CODE_DISABLE_CRON": "1",
+    "CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES": "1"
   }
 }
 ```
@@ -167,6 +171,7 @@ What each one turns off:
 - `disableWorkflows` — the dynamic Workflow orchestration tool. Big footprint, never used it.
 - `disableBundledSkills` — nukes **all** first-party bundled skills (`/init`, `/run`, `/simplify`, `/keybindings-help`, etc.), not just the one I was after. My plugin skills and custom vault skills are unaffected. I chose the full cut for the token savings.
 - `CLAUDE_CODE_DISABLE_CRON: "1"` — cron / scheduled tasks. This one is env-var only; there's no `settings.json` key for it.
+- `CLAUDE_CODE_DISABLE_AGENT_PROGRESS_SUMMARIES: "1"` — the progress summaries Claude Code writes while subagents run, and the extra model calls that write them.
 
 **What I kept on purpose:** `AskUserQuestion` (I like being asked to choose), and remote control — it exists as `disableRemoteControl`, but leaving it off is what drives my phone push notifications during sessions.
 
@@ -195,7 +200,7 @@ The trimming above shrinks what goes _out_ on every request. These cap what come
     "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "16000",
     "MAX_THINKING_TOKENS": "8000",
     "MAX_MCP_OUTPUT_TOKENS": "25000",
-    "TASK_MAX_OUTPUT_LENGTH": "20000"
+    "CLAUDE_CODE_SUBAGENT_EFFORT": "low"
   }
 }
 ```
@@ -205,19 +210,24 @@ What each one caps:
 - `CLAUDE_CODE_MAX_OUTPUT_TOKENS` — the ceiling on a single response. Keeps replies from running away.
 - `MAX_THINKING_TOKENS` — the extended-thinking budget. `8000` is plenty for the reasoning I want without paying for a marathon.
 - `MAX_MCP_OUTPUT_TOKENS` — how much an MCP tool call can dump back into context. MCP responses are the worst offenders for silently eating the window, so this one earns its keep.
-- `TASK_MAX_OUTPUT_LENGTH` — the cap on what a subagent `Task` returns to the main thread.
+- `CLAUDE_CODE_SUBAGENT_EFFORT` — the effort level for subagents that don't set their own. At `low`, they stop inheriting the main session's effort, so a quick search or lookup doesn't think as hard as the work I'm doing myself.
 
 Same rule as before: these are strings (`"16000"`), since they're environment variables. And as noted in the [Gotchas](#gotchas), Fable 5 ignores `MAX_THINKING_TOKENS` entirely, since it always reasons adaptively.
 
 ## Attribution
 
-I don't want Claude co-authoring my commits.
+I don't want Claude co-authoring my commits or signing my PRs. Empty strings remove the byline from both.
 
 ```json
 {
-  "includeCoAuthoredBy": false
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  }
 }
 ```
+
+This replaces the older `includeCoAuthoredBy: false`, which is deprecated.
 
 ## Spinner verbs
 
@@ -272,7 +282,9 @@ A small joy: I replace the default spinner text with my own list. `mode` is `rep
       "Refining the scary numbers",
       "Trying to exit Vim",
       "Compiling shaders",
-      "Pulling a shot"
+      "Pulling a shot",
+      "Snapping the willow",
+      "Granting your wish, literally"
     ]
   }
 }
