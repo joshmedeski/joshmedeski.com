@@ -4,8 +4,9 @@ import Layout from '../components/Layout.astro'
 import PageTitle from '../components/PageTitle.astro'
 import Wrapper from '../components/Wrapper.astro'
 import ProjectCard from '~/components/project/ProjectCard.astro'
+import { byProjectOrder } from '~/utils/projects'
 
-const projects = await getCollection('projects')
+const projects = (await getCollection('projects')).sort(byProjectOrder)
 ---
 
 <Layout title="Projects" noIndex>

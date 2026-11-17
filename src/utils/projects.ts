@@ -1,6 +1,11 @@
 import type { CollectionEntry } from 'astro:content'
 
 type Project = Pick<CollectionEntry<'projects'>, 'id'>
+
+export const byProjectOrder = (
+  a: CollectionEntry<'projects'>,
+  b: CollectionEntry<'projects'>,
+) => a.data.order - b.data.order
 // Posts and appearances both reference projects and sort by date.
 type Entry = {
   data: { projects?: { id: string }[]; pubDate: Date; youtubeUrl?: string }

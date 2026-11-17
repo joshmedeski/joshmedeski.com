@@ -1,6 +1,7 @@
 ---
 import AreaHero from '~/components/AreaHero.astro'
 import { resolveThemeAreas } from '~/utils/areas'
+import { byProjectOrder } from '~/utils/projects'
 import { getCollection, render } from 'astro:content'
 import type { CollectionEntry } from 'astro:content'
 import { Image } from 'astro:assets'
@@ -27,7 +28,7 @@ const { appearance } = Astro.props
 const projectIds = new Set(appearance.data.projects?.map((p) => p.id) ?? [])
 const projects = (await getCollection('projects'))
   .filter((project) => projectIds.has(project.id))
-  .sort((a, b) => a.data.title.localeCompare(b.data.title))
+  .sort(byProjectOrder)
 
 const { Content } = await render(appearance)
 ---

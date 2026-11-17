@@ -11,6 +11,7 @@ import GuideCard from '~/components/guide/GuideCard.astro'
 import AppearanceCard from '~/components/appearance/AppearanceCard.astro'
 import AreaIcon from '~/components/AreaIcon.astro'
 import AreaHero from '~/components/AreaHero.astro'
+import { byProjectOrder } from '~/utils/projects'
 import {
   contentForArea,
   resolveThemeAreas,
@@ -56,9 +57,7 @@ const posts = areaPosts.filter(({ data }) => !data.youtubeUrl)
 const uses = contentForArea(area, areas, allUses).sort((a, b) =>
   a.data.title.localeCompare(b.data.title),
 )
-const projects = contentForArea(area, areas, allProjects).sort((a, b) =>
-  a.data.title.localeCompare(b.data.title),
-)
+const projects = contentForArea(area, areas, allProjects).sort(byProjectOrder)
 
 const appearances = contentForArea(area, areas, allAppearances).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),

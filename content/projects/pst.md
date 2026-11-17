@@ -1,5 +1,6 @@
 ---
 title: pst
+order: 4
 repo: joshmedeski/pst
 description: Local-first speech tooling for macOS, packaged as a Claude Code plugin.
 heroImage: ../attachments/projects/pst-desk-cover.jpeg
