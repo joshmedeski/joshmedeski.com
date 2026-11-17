@@ -49,14 +49,14 @@ const uses = (await getCollection('uses'))
 const grid = await getImage({ src: gridImage, format: 'webp', width: 1200 })
 
 const tile =
-  'relative overflow-hidden rounded-3xl bg-neutral-900 p-6 ring-1 ring-white/10'
+  'relative overflow-hidden rounded-3xl bg-neutral-900 p-5 ring-1 sm:p-6 ring-white/10'
 ---
 
 <Layout title="Home" description={SITE_DESCRIPTION} noIndex>
   <Wrapper>
     <div class="grid gap-4 py-8 md:grid-cols-2 lg:grid-cols-4">
       <section
-        class={`${tile} flex min-h-80 flex-col justify-end gap-6 bg-cover bg-center md:col-span-2`}
+        class={`${tile} flex flex-col justify-end gap-5 sm:min-h-80 sm:gap-6 bg-cover bg-center md:col-span-2`}
         style={{ backgroundImage: `url("${grid.src}")` }}
       >
         <Image
@@ -66,6 +66,7 @@ const tile =
           height={120}
           densities={[1, 2]}
           loading="eager"
+          class="size-20 sm:size-30"
         />
         <div>
           <h1 class="text-4xl font-bold tracking-tight md:text-6xl">
@@ -75,7 +76,12 @@ const tile =
             {SITE_DESCRIPTION}
           </p>
         </div>
-        <SocialLinks iconSize="h-6" showLabels />
+        <div class="sm:hidden">
+          <SocialLinks iconSize="h-7" />
+        </div>
+        <div class="hidden sm:block">
+          <SocialLinks iconSize="h-6" showLabels />
+        </div>
       </section>
 
       {
@@ -97,18 +103,23 @@ const tile =
           {
             projects.map((project) => (
               <li>
-                <a href={`/projects/${project.id}`} class="group/project block">
+                <a
+                  href={`/projects/${project.id}`}
+                  class="group/project flex items-center gap-4 sm:block"
+                >
                   <Image
                     src={project.data.heroImage}
                     alt=""
                     width={IMAGE_WIDTH.small}
-                    class="aspect-video w-full rounded-lg object-cover transition group-hover/project:brightness-110 motion-safe:group-hover/project:-translate-y-1"
+                    class="aspect-video w-28 shrink-0 rounded-lg object-cover transition sm:w-full group-hover/project:brightness-110 motion-safe:group-hover/project:-translate-y-1"
                   />
-                  <span class="mt-3 block font-bold group-hover/project:text-primary-300">
-                    {project.data.title}
-                  </span>
-                  <span class="mt-1 line-clamp-2 text-sm text-neutral-400">
-                    {project.data.description}
+                  <span class="min-w-0">
+                    <span class="block font-bold group-hover/project:text-primary-300 sm:mt-3">
+                      {project.data.title}
+                    </span>
+                    <span class="mt-1 line-clamp-2 text-sm text-neutral-400">
+                      {project.data.description}
+                    </span>
                   </span>
                 </a>
               </li>
