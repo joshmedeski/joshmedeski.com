@@ -24,6 +24,10 @@
   font-weight: var(--0fw, inherit) !important;
   text-decoration: var(--0td, inherit) !important;
 }
+.expressive-code + .expressive-code {
+  margin-top: 1.25rem;
+}
+
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @custom-variant dark (&:where(.dark, .dark *));
 
