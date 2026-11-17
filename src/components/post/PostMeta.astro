@@ -10,14 +10,23 @@ interface Props {
   post: CollectionEntry<'posts'>
   align?: 'left' | 'center'
   size?: PillSize
+  updated?: boolean
 }
 
 const {
   align = 'center',
   size = 'sm',
+  updated = false,
   post: {
     body,
-    data: { pubDate, duration, videoType, guide: postGuide, areas },
+    data: {
+      pubDate,
+      updatedDate,
+      duration,
+      videoType,
+      guide: postGuide,
+      areas,
+    },
   },
 } = Astro.props
 
@@ -58,6 +67,25 @@ if (postGuide) guide = await getEntry(postGuide.ref)
       </time>
     </span>
   </div>
+
+  {
+    updated && updatedDate && (
+      <div class={pill}>
+        <span aria-hidden="true">🔄</span>
+        <span>
+          Updated{' '}
+          <time datetime={updatedDate}>
+            {new Date(updatedDate).toLocaleDateString('en-US', {
+              month: 'short',
+              day: '2-digit',
+              year: 'numeric',
+              timeZone: 'UTC',
+            })}
+          </time>
+        </span>
+      </div>
+    )
+  }
 
   {
     duration ? (
