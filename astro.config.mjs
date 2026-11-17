@@ -1,5 +1,6 @@
 import mdx from '@astrojs/mdx'
 import preact from '@astrojs/preact'
+import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
 import expressiveCode from 'astro-expressive-code'
@@ -32,7 +33,8 @@ export default defineConfig({
     mdx(),
     pagefind(),
     sitemap(),
-    preact(),
+    preact({ exclude: ['**/vectoys/**'] }),
+    react({ include: ['**/vectoys/**'] }),
   ],
 
   markdown: {
@@ -47,5 +49,8 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react-dom/client', 'react/jsx-runtime'],
+    },
   },
 })

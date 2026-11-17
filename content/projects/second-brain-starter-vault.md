@@ -1,5 +1,6 @@
 ---
 title: Second Brain Starter Vault
+order: 5
 repo: joshmedeski/second-brain-starter-vault
 description: A minimal Obsidian vault with a PARA-inspired structure, ready to write in.
 heroImage: ../attachments/wallpapers/grand-obsidian-cave.jpg

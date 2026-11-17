@@ -1,5 +1,6 @@
 ---
 title: Dynamic Wallpapers
+order: 6
 repo: joshmedeski/obsidian-dynamic-wallpapers
 description: An Obsidian plugin that gives every note a wallpaper, inherited from the notes it links to.
 heroImage: ../attachments/projects/obsidian-dynamic-wallpapers.jpeg

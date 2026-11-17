@@ -98,6 +98,7 @@ const projectsCollection = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
+      order: z.number(),
       repo: z.string(),
       areas: z.array(reference('areas')).optional(),
       heroImage: image(),

@@ -1,0 +1,227 @@
+---
+const WORDS = [
+  ['deno', '🦕', '#94e2d5'],
+  ['nvim', '📝', '#89b4fa'],
+  ['zsh', '🐚', '#a6e3a1'],
+  ['python', '🐍', '#89dceb'],
+  ['claude', '🤖', '#fab387'],
+  ['fish', '🐟', '#f38ba8'],
+  ['ollama', '🦙', '#f5e0dc'],
+  ['gh', '🐙', '#cba6f7'],
+  ['lazygit', '🌱', '#f9e2af'],
+  ['psql', '🐘', '#b4befe'],
+  ['bun', '🥟', '#f5c2e7'],
+  ['ssh', '🔐', '#cba6f7'],
+  ['docker', '🐳', '#74c7ec'],
+  ['tmux', '🪟', '#a6e3a1'],
+] as const
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>tmux-nerd-font-window-name hero</title>
+  </head>
+  <body>
+    <div class="stage">
+      {
+        WORDS.map(([word, icon, color]) => (
+          <>
+            <span class="item word" style={`color:${color}`}>
+              {word}
+            </span>
+            <span class="item icon">{icon}</span>
+          </>
+        ))
+      }
+    </div>
+    <div class="controls">
+      <button id="regenerate" type="button">Regenerate</button>
+      <code id="seed"></code>
+      <button id="copy" type="button">Copy seed</button>
+    </div>
+  </body>
+</html>
+
+<script>
+  const WIDTH = 1600
+  const HEIGHT = 900
+  const HALF = WIDTH / 2
+  const MARGIN = 40
+  const GUTTER = 32
+  const PADDING = 24
+  const MAX_TILT = 8
+  const ATTEMPTS = 2000
+  const SCAN_STEP = 8
+
+  const DEFAULT_SEED = 'en82fj'
+
+  const newSeed = () => Math.random().toString(36).slice(2, 8)
+
+  const hash = (text: string) => {
+    let h = 2166136261
+    for (const char of text) {
+      h ^= char.charCodeAt(0)
+      h = Math.imul(h, 16777619)
+    }
+    return h >>> 0
+  }
+
+  const mulberry32 = (state: number) => () => {
+    state = (state + 0x6d2b79f5) | 0
+    let t = Math.imul(state ^ (state >>> 15), 1 | state)
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
+  }
+
+  type Box = { x: number; y: number; w: number; h: number }
+
+  const overlaps = (a: Box, b: Box) =>
+    Math.abs(a.x - b.x) * 2 < a.w + b.w && Math.abs(a.y - b.y) * 2 < a.h + b.h
+
+  const params = new URLSearchParams(location.search)
+  const seed = params.get('seed') ?? DEFAULT_SEED
+
+  const random = mulberry32(hash(seed))
+  const between = (min: number, max: number) => min + random() * (max - min)
+
+  await document.fonts.ready
+
+  const stage = document.querySelector<HTMLElement>('.stage')!
+  const words = [...stage.querySelectorAll<HTMLElement>('.word')]
+  const icons = [...stage.querySelectorAll<HTMLElement>('.icon')]
+
+  const pairs = words
+    .map((word, i) => ({ word, icon: icons[i] }))
+    .sort((a, b) => b.word.offsetWidth - a.word.offsetWidth)
+
+  const placed: Box[] = []
+
+  const rotatedSize = (el: HTMLElement, radians: number) => ({
+    w:
+      Math.abs(el.offsetWidth * Math.cos(radians)) +
+      Math.abs(el.offsetHeight * Math.sin(radians)),
+    h:
+      Math.abs(el.offsetWidth * Math.sin(radians)) +
+      Math.abs(el.offsetHeight * Math.cos(radians)),
+  })
+
+  const scanForRoom = (w: number, h: number) => {
+    for (let y = MARGIN + h / 2; y <= HEIGHT - MARGIN - h / 2; y += SCAN_STEP)
+      for (let x = MARGIN + w / 2; x <= HALF - GUTTER - w / 2; x += SCAN_STEP) {
+        const box = { x, y, w, h }
+        if (!placed.some((other) => overlaps(box, other))) return box
+      }
+  }
+
+  for (const { word, icon } of pairs) {
+    const degrees = between(-MAX_TILT, MAX_TILT)
+    const radians = (degrees * Math.PI) / 180
+    const wordSize = rotatedSize(word, radians)
+    const iconSize = rotatedSize(icon, radians)
+    const w = Math.max(wordSize.w, iconSize.w) + PADDING
+    const h = Math.max(wordSize.h, iconSize.h) + PADDING
+    let box: Box = { x: 0, y: 0, w, h }
+
+    for (let attempt = 0; attempt < ATTEMPTS; attempt++) {
+      box = {
+        x: between(MARGIN + w / 2, HALF - GUTTER - w / 2),
+        y: between(MARGIN + h / 2, HEIGHT - MARGIN - h / 2),
+        w,
+        h,
+      }
+      if (!placed.some((other) => overlaps(box, other))) break
+      if (attempt === ATTEMPTS - 1)
+        box =
+          scanForRoom(w - PADDING / 2, h - PADDING / 2) ??
+          scanForRoom(w - PADDING, h - PADDING) ??
+          box
+    }
+
+    placed.push(box)
+    for (const [el, x] of [
+      [word, box.x],
+      [icon, box.x + HALF],
+    ] as const) {
+      el.style.left = `${x}px`
+      el.style.top = `${box.y}px`
+      el.style.setProperty('--r', `${degrees}deg`)
+    }
+  }
+
+  stage.classList.add('ready')
+
+  document.querySelector('#seed')!.textContent = seed
+  document.querySelector('#regenerate')!.addEventListener('click', () => {
+    location.search = `?seed=${newSeed()}`
+  })
+  const copy = document.querySelector<HTMLButtonElement>('#copy')!
+  copy.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(seed)
+    copy.textContent = 'Copied'
+  })
+</script>
+
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    color: #cdd6f4;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .stage {
+    position: relative;
+    width: 1600px;
+    height: 900px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgb(0 205 0 / 0.1), transparent 55%),
+      #11111b;
+    font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+    font-weight: 700;
+  }
+
+  .stage:not(.ready) .item {
+    visibility: hidden;
+  }
+
+  .item {
+    position: absolute;
+    transform: translate(-50%, -50%) rotate(var(--r));
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .word {
+    font-size: 64px;
+    text-shadow: 0 0 30px currentColor;
+  }
+
+  .icon {
+    font-size: 88px;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .controls button {
+    cursor: pointer;
+    border: 0;
+    border-radius: 999px;
+    padding: 8px 16px;
+    background: #00cd00;
+    color: #000;
+    font: inherit;
+    font-weight: 600;
+  }
+
+  .controls code {
+    font-size: 18px;
+  }
+</style>

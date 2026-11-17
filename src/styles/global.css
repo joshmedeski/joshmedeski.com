@@ -583,3 +583,50 @@
   filter: drop-shadow(0 1px 1px oklch(0 0 0 / 0.4))
     drop-shadow(0 0 2px oklch(0 0 0 / 0.2));
 }
+
+.vectoys-turntable {
+  position: relative;
+}
+
+.vectoys-turntable-hint {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.vectoys-turntable-full {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--vectoys-hairline, #8a8a8a);
+  border-radius: 8px;
+  background: var(--vectoys-surface, Canvas);
+  color: inherit;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.vectoys-turntable:hover > .vectoys-turntable-full,
+.vectoys-turntable:focus-within > .vectoys-turntable-full,
+.vectoys-turntable[data-full] > .vectoys-turntable-full {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .vectoys-turntable-full {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

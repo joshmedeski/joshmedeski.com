@@ -1,11 +1,15 @@
 ---
 title: tmux-nerd-font-window-name
+order: 2
 repo: joshmedeski/tmux-nerd-font-window-name
 description: Nerd Font icons for your tmux windows
 heroImage: ../attachments/projects/tmux-nerd-font-window-name-preview.jpeg
 areas:
   - tmux
 ---
+
+import GhRepo from '~/components/GhRepo.astro'
+import TmuxIconsLaptop from '~/components/vectoys/TmuxIconsLaptop'
 
 A tmux status bar full of window names like `zsh`, `zsh`, `node`, and `nvim`
 tells you very little at a glance. This plugin watches what's actually running
@@ -29,10 +33,16 @@ find the right window by shape instead of reading every label.
   `automatic-rename-format` to control the whole layout.
 - ❄️ **Nix flake** — install via tpm, or through the flake and Home Manager.
 
+## Demo
+
+<div class="not-prose relative left-1/2 my-8 w-[min(72rem,calc(100vw-2rem))] -translate-x-1/2">
+  <TmuxIconsLaptop client:visible />
+</div>
+
 ## Get started
 
 Install with tpm and hit `prefix + I`. You'll need a Nerd Font configured in
 your terminal. The full list of config options and the icon definitions live
 on GitHub — contributions of new icons are welcome.
 
-::gh-repo{repo="joshmedeski/tmux-nerd-font-window-name"}
+<GhRepo repo="joshmedeski/tmux-nerd-font-window-name" />

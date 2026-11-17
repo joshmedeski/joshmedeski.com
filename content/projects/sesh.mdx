@@ -1,11 +1,15 @@
 ---
 title: sesh
+order: 1
 repo: joshmedeski/sesh
 description: Smart session manager for the terminal
-heroImage: ../attachments/projects/sesh-project-preview.jpeg
+heroImage: ../attachments/wallpapers/lightning-fingertips.jpeg
 areas:
   - tmux
 ---
+
+import GhRepo from '~/components/GhRepo.astro'
+import SeshLaptop from '~/components/vectoys/SeshLaptop'
 
 Sesh is a CLI that creates and manages tmux sessions from anywhere on your
 machine. Instead of remembering which sessions exist and manually `cd`-ing to a
@@ -34,10 +38,16 @@ session doesn't exist yet, sesh creates it and names it for you.
 - ⌨️ **Shell completions** — tab completion for Bash, Zsh, fish, and
   PowerShell.
 
+## Demo
+
+<div class="not-prose relative left-1/2 my-8 w-[min(72rem,calc(100vw-2rem))] -translate-x-1/2">
+  <SeshLaptop client:visible />
+</div>
+
 ## Get started
 
 Sesh installs via Homebrew, Go, Nix, Conda, and the AUR. Installation steps,
 the full `sesh.toml` reference, and example tmux keybindings all live on
 GitHub.
 
-::gh-repo{repo="joshmedeski/sesh"}
+<GhRepo repo="joshmedeski/sesh" />

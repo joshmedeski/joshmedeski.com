@@ -1,5 +1,6 @@
 ---
 title: Terminal Dispatch
+order: 7
 repo: joshmedeski/obsidian-terminal-dispatch
 description: An Obsidian plugin that sends the note you're reading to a terminal command or coding agent, and tells you when it's done.
 heroImage: ../attachments/projects/obsidian-terminal-dispatch.jpeg
