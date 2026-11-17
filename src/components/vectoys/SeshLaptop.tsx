@@ -98,8 +98,6 @@ const FRAMES: Frame[] = [
   ]),
 ]
 
-const PICKER_FRAME = FRAMES.findIndex((f) => f.screen === 'picker')
-
 const fuzzy = (name: string, query: string) => {
   const found: number[] = []
   for (const char of query) {
@@ -230,10 +228,6 @@ export default function SeshLaptop() {
   const frame = FRAMES[index]
 
   useEffect(() => {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setIndex(PICKER_FRAME)
-      return
-    }
     setHeld(true)
     const release = setTimeout(() => setHeld(false), frame.hold ?? KEY_HOLD)
     const next = setTimeout(

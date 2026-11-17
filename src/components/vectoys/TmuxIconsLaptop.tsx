@@ -25,13 +25,6 @@ function Terminal() {
   const [playing, setPlaying] = useState(true)
 
   useEffect(() => {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setPlaying(false)
-      setPhase(PHASES.length - 1)
-    }
-  }, [])
-
-  useEffect(() => {
     if (!playing) return
     const timer = setInterval(
       () => setPhase((p) => (p + 1) % PHASES.length),
