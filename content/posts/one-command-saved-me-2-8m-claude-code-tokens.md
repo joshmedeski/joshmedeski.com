@@ -1,13 +1,13 @@
 ---
 title: One Command Saved Me 2.8M Claude Code Tokens
-description: RTK quietly filters command output before Claude Code reads it. More room before I hit my rate limits, and I haven't changed a thing about how I work.
+description: RTK quietly filters command output before Claude Code reads it. My context stays clean, and I haven't changed a thing about how I work.
 pubDate: 2026-11-18T12:00:00.000Z
 heroImage: ../attachments/posts/one-command-saved-me-2-8m-claude-code-tokens/one-command-saved-me-2-8m-claude-code-tokens.jpeg
 areas:
   - claude-code
 ---
 
-Every command Claude Code runs dumps its output into the context window. A passing test suite, a lint run, an `ls` of an assets folder. Most of that output is noise, but Claude reads all of it. I'm on a Claude plan, so that noise eats into my rate limits. Worse, it fills up the conversation and pushes it toward compaction sooner.
+Every command Claude Code runs dumps its output into the context window. A passing test suite, a lint run, an `ls` of an assets folder. Most of that output is noise, but Claude reads all of it. It clutters the conversation and pushes it toward compaction sooner.
 
 [RTK](https://github.com/rtk-ai/rtk) (Rust Token Killer) fixes this. It's a CLI proxy that sits between Claude and your shell and filters command output down to what the agent actually needs.
 
@@ -112,7 +112,28 @@ Some commands get trimmed, and some get almost erased:
 - **Trimmed.** `read` and `grep` cut 7–29% per call, but Claude runs them constantly. That's over 17,000 calls between them.
 - **Erased.** `go test` and `eslint` output shrinks by more than 99%. A passing test suite doesn't need hundreds of lines of `ok` output, so RTK collapses it to a summary. Claude gets the part that matters.
 
-Those savings also compound. Command output stays in the context for the rest of the session, so it's sent again with every turn after it. Trimming it once keeps the whole conversation lighter, which on my plan means more room before I hit my rate limits.
+Those savings also compound. Command output stays in the context for the rest of the session, so it's sent again with every turn after it. Trimming it once keeps the whole conversation lighter.
+
+## Putting 2.8M in perspective
+
+After this post went out, someone asked me how much RTK actually cuts into my usage window. Fair question, so I ran `rtk cc-economics`, which compares RTK's savings against your Claude Code usage:
+
+```
+Token breakdown:
+  Input:                      37.4M
+  Output:                     8.5M
+  Cache writes:               45.5M
+  Cache reads:                1698.9M
+
+RTK commands:                 33775
+Tokens saved:                 2.8M
+```
+
+RTK estimates that's 0.9% of my total usage. Under 1% looked small at first, until I saw where my usage actually goes: 1.7 billion cache-read tokens. Every turn, Claude Code re-sends the whole conversation, and that dwarfs everything else. RTK only touches one slice of it, the command output, and only for commands it supports.
+
+So 2.8M isn't a big dent in my usage window, and I won't pretend it is. What it is: 2.8M tokens of noise that never made it into a conversation. Within the slice RTK touches, it cuts a quarter overall and more than 99% on the noisiest commands. That's the part I notice day to day, a cleaner context I don't have to babysit. The estimate also prices each saved token once, so it doesn't count the turns where that output would have been re-read.
+
+The percentage only grows as RTK supports more commands, which is where you come in.
 
 ## Finding what it missed
 
@@ -132,7 +153,9 @@ ls -la                      16    rtk ls             ~2.8K tokens
 Total: 176 commands -> ~33.1K tokens saveable
 ```
 
-In my last 30 days, 37% of my Bash commands went through RTK. Most of the rest were commands RTK doesn't support yet, like Python heredocs, `pnpm build`, and `sips`, and those passed through as normal. The commands it could have filtered but missed only add up to about 33K tokens. `discover` lists the unsupported ones too and points you to the [issue tracker](https://github.com/rtk-ai/rtk/issues) if you want to request support.
+In my last 30 days, 37% of my Bash commands went through RTK. Most of the rest were commands RTK doesn't support yet, like Python heredocs, `pnpm build`, and `sips`, and those passed through as normal. The commands it could have filtered but missed only add up to about 33K tokens.
+
+The bigger opportunity is the unsupported list. Every command on it is a filter waiting to be written, and `discover` points you to the [issue tracker](https://github.com/rtk-ai/rtk/issues) to request one. You don't need to know Rust to start, either. RTK reads [custom filters](https://github.com/rtk-ai/rtk#custom-filters) from a `filters.toml`, globally or per project in `.rtk/filters.toml`, where you can match a command, strip noisy lines, and cap the output length. For anything more involved, `rtk plugins new` scaffolds a Rust plugin. If a filter works well for you, send it upstream so everyone gets the savings.
 
 ## A few more commands
 
@@ -142,7 +165,7 @@ In my last 30 days, 37% of my Bash commands went through RTK. Most of the rest w
 
 ## Wrapping up
 
-Most tools that save tokens ask you to change how you work. RTK doesn't. I installed it, ran one command, and seven months later it's still saving me tokens on every session. If you use Claude Code, it's an easy win.
+Most tools that save tokens ask you to change how you work. RTK doesn't. I installed it, ran one command, and seven months later it's still saving me tokens on every session. It won't double your usage window, but it keeps every conversation cleaner, and it gets better with every command the community adds. If you use Claude Code, it's an easy win.
 
 Check out [RTK on GitHub](https://github.com/rtk-ai/rtk), install it, and start saving tokens for yourself. And while you're there, give the project a star.
 
