@@ -5,12 +5,9 @@ import { getCollection } from 'astro:content'
 import Layout from '~/components/Layout.astro'
 import Wrapper from '~/components/Wrapper.astro'
 import SocialLinks from '~/components/SocialLinks.astro'
-import AreaIcon from '~/components/AreaIcon.astro'
 import BentoHeader from '~/components/BentoHeader.astro'
 import PostCard from '~/components/post/PostCard.astro'
-import PostCtaInput from '~/components/cta/PostCtaInput.tsx'
 import { SITE_TITLE, SITE_DESCRIPTION } from '~/config'
-import { topLevelAreas, subAreasOf, areaHref } from '~/utils/areas'
 import profileCircle from '~/assets/joshmedeski-profile-circle.png'
 import gridImage from '~/assets/grid.png'
 
@@ -18,171 +15,166 @@ const includeDrafts = import.meta.env.DEV
 const posts = (
   await getCollection('posts', ({ data }) => includeDrafts || !data.draft)
 ).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-const [latest, ...rest] = posts
-const recent = rest.slice(0, 2)
+const [latest] = posts
 
-const featuredProjects = [
-  'obsidian-dynamic-wallpapers',
-  'pst',
-  'second-brain-starter-vault',
-]
 const projects = (await getCollection('projects'))
-  .filter((project) => featuredProjects.includes(project.id))
-  .sort(
-    (a, b) => featuredProjects.indexOf(a.id) - featuredProjects.indexOf(b.id),
-  )
-const allAreas = await getCollection('areas')
-const areaChips = topLevelAreas(allAreas).flatMap((top) =>
-  [top, ...subAreasOf(top, allAreas)].map((area) => ({
-    area,
-    isTop: area === top,
-    themeColor: top.data.themeColor ?? 'bg-neutral-800',
-  })),
-)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3)
 const wallpapers = (await getCollection('wallpapers')).sort(
   (a, b) => (b.data.added?.getTime() ?? 0) - (a.data.added?.getTime() ?? 0),
 )
+const shownWallpapers = [
+  ...wallpapers.filter((wallpaper) => wallpaper.data.favorite),
+  ...wallpapers.filter((wallpaper) => !wallpaper.data.favorite),
+].slice(0, 10)
+const wallpaperVisibility = (i: number) =>
+  i >= 7
+    ? 'hidden lg:block'
+    : i >= 5
+      ? 'hidden md:block'
+      : i >= 3
+        ? 'hidden sm:block'
+        : ''
+
+const featuredUses = [
+  'apple-mbp',
+  'zsa-moonlander',
+  'audio-engine-a2',
+  'apple-studio-display',
+]
+const uses = (await getCollection('uses'))
+  .filter((use) => featuredUses.includes(use.id))
+  .sort((a, b) => featuredUses.indexOf(a.id) - featuredUses.indexOf(b.id))
 
 const grid = await getImage({ src: gridImage, format: 'webp', width: 1200 })
 
 const tile =
-  'group relative overflow-hidden rounded-3xl bg-neutral-900 p-6 ring-1 ring-white/10 transition hover:ring-white/30'
+  'relative overflow-hidden rounded-3xl bg-neutral-900 p-5 ring-1 sm:p-6 ring-white/10'
 ---
 
 <Layout title="Home" description={SITE_DESCRIPTION} noIndex>
   <Wrapper>
-    <div class="grid items-start gap-4 py-8 lg:grid-cols-2">
-      <div class="flex flex-col gap-4">
-        <section
-          class={`${tile} flex min-h-80 flex-col justify-end gap-4 bg-cover bg-center`}
-          style={{ backgroundImage: `url("${grid.src}")` }}
-        >
-          <Image
-            src={profileCircle}
-            alt="Josh Medeski"
-            width={120}
-            height={120}
-            densities={[1, 2]}
-            loading="eager"
-          />
-          <div>
-            <h1 class="text-4xl font-bold tracking-tight md:text-6xl">
-              {SITE_TITLE}
-            </h1>
-            <p class="mt-2 max-w-md text-xl text-neutral-200">
-              {SITE_DESCRIPTION}
-            </p>
-          </div>
-        </section>
-
-        <section class={`${tile} flex flex-col gap-4`}>
-          <h2
-            class="text-xs font-bold uppercase tracking-widest text-neutral-400"
-          >
-            Follow
-          </h2>
+    <div class="grid gap-4 py-8 md:grid-cols-2 lg:grid-cols-4">
+      <section
+        class={`${tile} flex flex-col justify-end gap-5 sm:min-h-80 sm:gap-6 bg-cover bg-center md:col-span-2`}
+        style={{ backgroundImage: `url("${grid.src}")` }}
+      >
+        <Image
+          src={profileCircle}
+          alt="Josh Medeski"
+          width={120}
+          height={120}
+          densities={[1, 2]}
+          loading="eager"
+          class="size-20 sm:size-30"
+        />
+        <div>
+          <h1 class="text-4xl font-bold tracking-tight md:text-6xl">
+            {SITE_TITLE}
+          </h1>
+          <p class="mt-2 max-w-md text-xl text-neutral-200">
+            {SITE_DESCRIPTION}
+          </p>
+        </div>
+        <div class="sm:hidden">
+          <SocialLinks iconSize="h-7" />
+        </div>
+        <div class="hidden sm:block">
           <SocialLinks iconSize="h-6" showLabels />
-        </section>
+        </div>
+      </section>
 
-        <section class={tile}>
-          <BentoHeader title="Newsletter" href="/rss.xml" linkLabel="RSS" />
-          <p class="mt-2 text-xl font-bold">Get new posts in your inbox.</p>
-          <PostCtaInput client:visible />
-        </section>
-
-        <section class={tile}>
-          <BentoHeader title="Projects" href="/projects" />
-          <ul class="mt-4 divide-y divide-white/10">
-            {
-              projects.map((project) => (
-                <li>
-                  <a
-                    href={`/projects/${project.id}`}
-                    class="flex items-center gap-4 py-3 hover:text-primary-300"
-                  >
-                    <Image
-                      src={project.data.heroImage}
-                      alt=""
-                      width={IMAGE_WIDTH.thumb}
-                      class="aspect-video w-32 shrink-0 rounded-lg object-cover"
-                    />
-                    <span>
-                      <span class="block font-bold">{project.data.title}</span>
-                      <span class="line-clamp-1 text-sm text-neutral-400">
-                        {project.data.description}
-                      </span>
-                    </span>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </section>
-
-        <section class={tile}>
-          <BentoHeader
-            title="Wallpapers"
-            href="/wallpapers"
-            linkLabel={`All ${wallpapers.length}`}
+      {
+        latest && (
+          <PostCard
+            post={latest}
+            eyebrow="Latest Content"
+            size="lg"
+            sizes="(min-width: 1024px) 700px, 100vw"
+            eager
+            class="h-full md:col-span-2"
           />
-          <div class="mt-4 grid grid-cols-3 gap-2">
-            {
-              wallpapers.slice(0, 3).map((wallpaper) => (
-                <a href={`/wallpapers/${wallpaper.id}`}>
-                  <Image
-                    src={wallpaper.data.image}
-                    alt={wallpaper.data.title}
-                    width={IMAGE_WIDTH.small}
-                    class="aspect-video w-full rounded-lg object-cover transition hover:brightness-110"
-                  />
-                </a>
-              ))
-            }
-          </div>
-        </section>
-      </div>
+        )
+      }
 
-      <div class="flex flex-col gap-4">
-        <section class="flex flex-col gap-4">
-          <div class="px-2 pt-2">
-            <BentoHeader
-              title="Latest content"
-              href="/content"
-              linkLabel={`All ${posts.length}`}
-            />
-          </div>
+      <section class={`${tile} md:col-span-2 lg:col-span-3`}>
+        <BentoHeader title="Projects" href="/projects" />
+        <ul class="mt-4 grid gap-4 sm:grid-cols-3">
           {
-            latest && (
-              <PostCard
-                post={latest}
-                size="lg"
-                sizes="(min-width: 1024px) 700px, 100vw"
-                eager
-              />
-            )
-          }
-          <div class="grid gap-4 sm:grid-cols-2">
-            {recent.map((post) => <PostCard post={post} />)}
-          </div>
-        </section>
-
-        <section class={tile}>
-          <BentoHeader title="Areas" href="/areas" />
-          <div class="mt-4 flex flex-wrap gap-2">
-            {
-              areaChips.map(({ area, isTop, themeColor }) => (
+            projects.map((project) => (
+              <li>
                 <a
-                  href={areaHref(area)}
-                  class={`inline-flex items-center gap-2 rounded-full px-4 py-2 transition hover:brightness-125 ${isTop ? 'font-bold' : 'opacity-80'} ${themeColor}`}
+                  href={`/projects/${project.id}`}
+                  class="group/project flex items-center gap-4 sm:block"
                 >
-                  <AreaIcon icon={area.data.icon} />
-                  {area.data.title}
+                  <Image
+                    src={project.data.heroImage}
+                    alt=""
+                    width={IMAGE_WIDTH.small}
+                    class="aspect-video w-28 shrink-0 rounded-lg object-cover transition sm:w-full group-hover/project:brightness-110 motion-safe:group-hover/project:-translate-y-1"
+                  />
+                  <span class="min-w-0">
+                    <span class="block font-bold group-hover/project:text-primary-300 sm:mt-3">
+                      {project.data.title}
+                    </span>
+                    <span class="mt-1 line-clamp-2 text-sm text-neutral-400">
+                      {project.data.description}
+                    </span>
+                  </span>
                 </a>
-              ))
-            }
-          </div>
-        </section>
-      </div>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class={`${tile} md:col-span-2 lg:col-span-1`}>
+        <BentoHeader title="Uses" href="/uses" />
+        <div class="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-2">
+          {
+            uses.map((use) => (
+              <a href={`/uses/${use.id}`} class="group/use">
+                <Image
+                  src={use.data.image}
+                  alt=""
+                  width={IMAGE_WIDTH.small}
+                  class="aspect-[3/2] w-full rounded-lg bg-black object-cover transition group-hover/use:brightness-110 motion-safe:group-hover/use:-translate-y-1"
+                />
+                <span class="mt-2 block text-sm font-bold leading-tight group-hover/use:text-primary-300">
+                  {use.data.title}
+                </span>
+              </a>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class={`${tile} md:col-span-2 lg:col-span-4`}>
+        <BentoHeader
+          title="Wallpapers"
+          href="/wallpapers"
+          linkLabel={`All ${wallpapers.length}`}
+        />
+        <div
+          class="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-5 md:grid-cols-7 lg:grid-cols-10"
+        >
+          {
+            shownWallpapers.map((wallpaper, i) => (
+              <a
+                href={`/wallpapers/${wallpaper.id}`}
+                class={wallpaperVisibility(i)}
+              >
+                <Image
+                  src={wallpaper.data.image}
+                  alt={wallpaper.data.title}
+                  width={IMAGE_WIDTH.small}
+                  class="aspect-video w-full rounded-lg object-cover transition hover:brightness-110 motion-safe:hover:-translate-y-1"
+                />
+              </a>
+            ))
+          }
+        </div>
+      </section>
     </div>
   </Wrapper>
 </Layout>

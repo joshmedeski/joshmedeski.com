@@ -49,7 +49,7 @@ const sm = size === 'sm'
         sizes={sizes}
         loading={eager ? 'eager' : 'lazy'}
         class:list={[
-          'aspect-video w-full object-cover transition duration-300 group-hover:brightness-110',
+          'aspect-video w-full object-cover transition duration-300 group-hover:brightness-110 motion-safe:group-hover:-translate-y-1',
           sm ? 'rounded-xl' : 'rounded-2xl',
         ]}
         transition:name={transitionPrefix && `${transitionPrefix}-thumb`}

@@ -176,6 +176,7 @@
   --color-area-tmux: var(--theme-color-area-tmux);
   --color-area-audio: var(--theme-color-area-audio);
   --color-area-keyboards: var(--theme-color-area-keyboards);
+  --color-area-gaming: var(--theme-color-area-gaming);
   --color-area-growth: var(--theme-color-area-growth);
 }
 
@@ -360,6 +361,11 @@
     --theme-color-area-keyboards: color-mix(
       in oklab,
       oklch(0.52 0.085 100),
+      var(--theme-color-neutral-900) var(--area-neutral-mix)
+    );
+    --theme-color-area-gaming: color-mix(
+      in oklab,
+      oklch(0.52 0.085 300),
       var(--theme-color-neutral-900) var(--area-neutral-mix)
     );
     --theme-color-area-growth: color-mix(

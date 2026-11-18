@@ -4,7 +4,7 @@
 export const SITE_TITLE = 'Josh Medeski'
 export const SITE_DESCRIPTION = 'Building tools for focus and creative flow.'
 
-export const USES_AREA_ORDER = ['hardware', 'keyboards', 'audio']
+export const USES_AREA_ORDER = ['hardware', 'keyboards', 'audio', 'gaming']
 
 export const SOCIAL_LINKS = {
   YouTube: 'https://www.youtube.com/joshmedeski',
