@@ -32,22 +32,13 @@ All three models are small GGUF files that run on your machine. Mine take about 
 
 It also ships an MCP server with five tools: `query`, `get`, `multi_get`, `status`, and `metadata`. That's the part that lets agents use it.
 
-## Install it with its own Node
+## Install it
 
-qmd is an npm package, so it needs Node. Learn from my mistake here: give it a Node of its own.
-
-My first install on the Mac mini lived inside the Node runtime bundled with Hermes Agent, another agent tool I was trying out. When I uninstalled Hermes, qmd went with it. My reindex job kept running on schedule and silently did nothing for eight days before I noticed.
-
-Now it uses a standalone, keg-only Node from Homebrew:
+qmd is installed via npm:
 
 ```sh
-brew install node@24
-export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
 npm install -g @tobilu/qmd
-qmd --version
 ```
-
-That gave me qmd 2.9.0 at `/opt/homebrew/bin/qmd`. Uninstalling some other tool can't take it down anymore.
 
 ## Point it at the vault
 
@@ -159,7 +150,6 @@ Mine does a bit more, because I learned a few things the hard way:
 - **It skips when nothing changed.** `qmd update` clears qmd's query cache every time it runs, even when nothing changed, so search never ran warm. Skipping no-op runs took a repeated query from 3.72s to 1.61s. A full pass still runs every 60 minutes as a backstop.
 - **It uses a lock.** Two processes writing to `index.sqlite` at once is the one thing that corrupts the index, so the launchd job and my Claude Code hook share a `mkdir` lock.
 - **It cleans up rarely.** Editing notes leaves orphaned vectors behind. The script runs `qmd cleanup` only when orphans reach 20%, since cleanup rewrites the whole index file.
-- **It finds a working Node.** launchd starts with a minimal `PATH`, so the script probes for a Node that works with qmd and caches the path.
 
 Everything gets logged to `~/.cache/qmd/vault-reindex.log`. Worst case, a note shows up in search about 15 minutes after I save it, plus whatever lag Syncthing adds.
 
@@ -186,7 +176,7 @@ It binds to localhost only. A second launchd agent keeps it running:
   <string>com.yourname.qmd-mcp</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/opt/homebrew/bin/qmd</string>
+    <string>/usr/local/bin/qmd</string>
     <string>mcp</string>
     <string>--http</string>
     <string>--port</string>
@@ -195,7 +185,7 @@ It binds to localhost only. A second launchd agent keeps it running:
   <key>EnvironmentVariables</key>
   <dict>
     <key>PATH</key>
-    <string>/opt/homebrew/opt/node@24/bin:/opt/homebrew/bin:/usr/bin:/bin</string>
+    <string>/usr/local/bin:/usr/bin:/bin</string>
     <key>QMD_ALLOWED_HOSTS</key>
     <string>your-mac.your-tailnet.ts.net</string>
   </dict>
@@ -211,7 +201,7 @@ It binds to localhost only. A second launchd agent keeps it running:
 </plist>
 ```
 
-`RunAtLoad` starts it at login, and `KeepAlive` restarts it if it dies. The `PATH` matters because the `qmd` launcher runs through `node`, and launchd won't find Homebrew's keg-only Node on its own.
+`RunAtLoad` starts it at login, and `KeepAlive` restarts it if it dies. That `qmd` path is the npm global bin from `which qmd`, and `PATH` includes the same directory.
 
 Load it with `launchctl`:
 
