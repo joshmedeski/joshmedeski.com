@@ -18,19 +18,9 @@ So I gave my agents real semantic search over the whole vault with [qmd](https:/
 
 ## What qmd is
 
-qmd is a small search engine for markdown, written by Tobi Lütke. You point it at a folder, and it builds a local index that supports three kinds of search:
+qmd is a small search engine for markdown, written by Tobi Lütke. You point it at a folder and it builds a local index.
 
-- `qmd search` is BM25 keyword search. It's fast and loads no model.
-- `qmd vsearch` is vector search over embeddings.
-- `qmd query` combines both, expands your query with a small local model, and reranks the results with another one.
-
-All three models are small GGUF files that run on your machine. Mine take about 2.2 GB on disk:
-
-- Embedding: `embeddinggemma-300M-Q8_0`
-- Query expansion: `qmd-query-expansion-1.7B-q4_k_m`
-- Reranking: `qwen3-reranker-0.6b-q8_0`
-
-It also ships an MCP server with five tools: `query`, `get`, `multi_get`, `status`, and `metadata`. That's the part that lets agents use it.
+`qmd search` is keyword search. I use it when I know a title or a phrase. `qmd query` is the one I use when I don't know the words. qmd also ships an MCP server, which is how my agents reach the index.
 
 ## Install it
 
@@ -42,7 +32,7 @@ npm install -g @tobilu/qmd
 
 ## Point it at the vault
 
-I have one collection, `second-brain`, for the whole vault. You can create one with the CLI:
+I have one collection, `second-brain`, for the whole vault:
 
 ```sh
 qmd collection add ~/path/to/vault --name second-brain
@@ -50,60 +40,27 @@ qmd embed
 qmd status
 ```
 
-After that, I manage it in `~/.config/qmd/index.yml`:
+In `~/.config/qmd/index.yml` I only index markdown:
 
 ```yaml
 pattern: "**/*.md"
 ```
 
-Stick to markdown. Other file types bloat the index without much return.
-
-The same rule applies to PDFs. If I want one to be searchable, I convert it to markdown first.
-
-My `ignore` list also excludes a couple of private folders. `ignore` keeps a file out of the index and also blocks `qmd get` from returning it, so an agent can't pull those notes through search at all. If you have notes you never want an agent to see, put them in `ignore` before you build the index.
+My `ignore` list excludes a couple of private folders. `ignore` keeps a file out of the index and also blocks `qmd get` from returning it, so an agent can't pull those notes through search at all. If you have notes you never want an agent to see, put them in `ignore` before you build the index.
 
 <!-- TODO: Optional personal detail. Why you fence some folders off, in general terms only. -->
 
-## Contexts label results, they don't rank them
+## Contexts
 
-qmd lets you attach a description to a path, called a context. I have 14, one per folder in my PARA setup:
+A short context label on each folder helps agents understand the results. I add one per folder:
 
 ```sh
-qmd context add qmd://second-brain "Josh Medeski's personal knowledge base, organized with the PARA method"
 qmd context add "qmd://second-brain/Projects/Active" "Projects Josh is actively working on"
 ```
 
-I assumed contexts would steer the ranking. They don't. The reranker only sees the query and the chunk text, so contexts are labels that come back with results. Asking "what am I working on" can still rank an old archived note first.
-
-The fix is to name what you're after. Specific queries rank well. For "what's active right now," my agents read `Projects/Active/` directly instead of searching.
-
-One more trap if you came from qmd 1.x: 1.x matched lowercase slugs like `projects/active`, and 2.x matches the literal path. After I upgraded, 11 of my 12 contexts at the time silently stopped matching. `qmd context list` shows you what still resolves.
-
-## Pick the right search mode
-
-Speed depends almost entirely on the mode. When I measured it on my vault:
-
-| Command | Time |
-| --- | --- |
-| `qmd search` | 0.08s |
-| `qmd query` | 3.6s |
-| `qmd query`, same query again | 1.6s |
-
-So keyword search goes first when I know a literal phrase, a title, or a name.
-
-The catch is that the score won't tell you when keyword search is wrong. For "keeping private records off the machine that reads my notes," keyword search gave me three hits at 92%, 89%, and 87%. All three were wrong. BM25 percentages are relative to whatever matched. They don't measure whether the question was answered.
-
-So my agents follow three rules instead of judging scores:
-
-1. Zero keyword hits always get re-run as a semantic `query`.
-2. Read the full note before treating a hit as the answer, because search results are snippets.
-3. Only a semantic miss can support "there's no note on this."
-
-A keyword miss tells you about vocabulary. It doesn't tell you what's in the vault.
-
 ## Keep the index fresh with launchd
 
-I never run `qmd update` or `qmd embed` by hand. The vault syncs to the Mac mini with Syncthing, and a launchd agent re-indexes it every 900 seconds at low priority:
+I never run `qmd update` or `qmd embed` by hand. The vault syncs to the Mac mini with Syncthing, and a launchd agent re-indexes it every 15 minutes:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -131,30 +88,18 @@ I never run `qmd update` or `qmd embed` by hand. The vault syncs to the Mac mini
 
 launchd doesn't expand `~` or `$HOME`, so every path in a plist has to be absolute.
 
-Use `StartInterval`, not `WatchPaths`. My first plist watched the vault root, but `WatchPaths` isn't recursive, so it would have missed every edit inside a subfolder. It also never ran once.
-
-At its core, the script runs two commands:
+The script runs two commands:
 
 ```sh
 qmd update   # pick up new, changed, and deleted notes
 qmd embed    # embed anything that changed
 ```
 
-Mine does a bit more, because I learned a few things the hard way:
-
-- **It skips when nothing changed.** `qmd update` clears qmd's query cache every time it runs, even when nothing changed, so search never ran warm. Skipping no-op runs took a repeated query from 3.72s to 1.61s. A full pass still runs every 60 minutes as a backstop.
-- **It uses a lock.** Two processes writing to `index.sqlite` at once is the one thing that corrupts the index, so the launchd job and my Claude Code hook share a `mkdir` lock.
-- **It cleans up rarely.** Editing notes leaves orphaned vectors behind. The script runs `qmd cleanup` only when orphans reach 20%, since cleanup rewrites the whole index file.
-
-Everything gets logged to `~/.cache/qmd/vault-reindex.log`. Worst case, a note shows up in search about 15 minutes after I save it, plus whatever lag Syncthing adds.
-
-<!-- TODO: Consider linking the full reindex-qmd.sh as a gist, once the hardcoded paths are cleaned up. -->
+Logs go to `~/.cache/qmd/vault-reindex.log`. A note shows up in search about 15 minutes after I save it, plus whatever lag Syncthing adds.
 
 ## Serve it as an MCP server
 
-My agents don't have a shell on the Mac mini, so they can't run `qmd query` themselves. They need the MCP server.
-
-qmd's MCP server speaks stdio by default, but it also has an HTTP mode. One long-running server keeps the models loaded between requests instead of starting a new process for every client:
+My agents don't have a shell on the Mac mini, so they can't run `qmd query` themselves. qmd can serve HTTP, and one long-running process keeps the models loaded:
 
 ```sh
 qmd mcp --http --port 8181
@@ -216,7 +161,7 @@ tailscale serve status
 
 `--bg` keeps the config across reboots, so it doesn't need its own launchd job. To turn it off later, run `tailscale serve --https=443 off`.
 
-This is where `QMD_ALLOWED_HOSTS` from the plist comes in. qmd's HTTP server checks the `Host` header to block DNS rebinding attacks. Requests through Tailscale Serve arrive with your `ts.net` hostname, so qmd rejects them with a 403 unless that hostname is on the list. If your connection fails with a 403, check this first. Don't reach for `QMD_ALLOWED_ORIGINS=*`, because it turns the checks off entirely.
+Set `QMD_ALLOWED_HOSTS` in the plist to your tailnet hostname, or requests through Tailscale come back as a 403.
 
 Then check it from another machine on your tailnet:
 
@@ -224,11 +169,9 @@ Then check it from another machine on your tailnet:
 curl https://your-mac.your-tailnet.ts.net/health
 ```
 
-qmd's MCP server has no authentication. My setup relies on the tailnet being private. Never move it to `tailscale funnel`, which exposes it to the public internet, unless you put an auth layer in front of it.
-
 ## Connect your agents
 
-Any MCP client that supports HTTP servers can use the `/mcp` endpoint. I added it to Grok Bot as a custom connector called "qmd," so every one of my bots can search the vault as long as the Mac mini is awake.
+Any MCP client that supports HTTP can use the `/mcp` endpoint. I added it to Grok Bot as a custom connector called "qmd," so every one of my bots can search the vault as long as the Mac mini is awake.
 
 <!-- TODO: Screenshot of the qmd custom connector in Grok Bot's settings. -->
 
@@ -245,35 +188,20 @@ For a client that reads a JSON config, like Claude Code's `.mcp.json`, it looks 
 }
 ```
 
-Tools alone weren't enough, though. I also told my agents when to use them: search with `query` before creating a new note, so they don't duplicate one, and read the full note with `get` before answering from a search result.
+I tell my agents to search with `query` before creating a new note, and to read the full note with `get` before answering from a result.
 
-To confirm it worked, I asked Grok Bot a question only my vault could answer and watched it call `query`, then `get`.
+On my MacBook Pro, Claude Code uses the qmd CLI through a skill instead of the MCP server. I pre-allow the read commands and deny the ones that change the index, like `qmd update` and `qmd cleanup`, so only my scripts touch the index. If you want the details, I covered permissions in [Tuning Your Claude Code Settings](/posts/tuning-your-claude-code-settings).
 
-On my MacBook Pro, Claude Code still uses the qmd CLI through a skill instead of the MCP server. The skill's description tells Claude when to search, and I've found that a much stronger signal than a bare tool name. I pre-allow the read commands in my Claude Code permissions and deny the ones that change the index, like `qmd update` and `qmd cleanup`, so only my scripts touch the index. If you want the details, I covered permissions in [Tuning Your Claude Code Settings](/posts/tuning-your-claude-code-settings).
+## A few things I learned
 
-## Health checks
-
-When something feels off, these three commands tell me where:
-
-```sh
-curl https://your-mac.your-tailnet.ts.net/health
-qmd status
-launchctl print gui/$(id -u)/com.yourname.qmd-watch
-```
-
-`qmd status` shows the document count, whether anything needs embedding, and how many orphaned vectors there are. Right now it reports 4,724 documents in `second-brain`, with nothing waiting to be embedded.
-
-## What I'd still change
-
-The setup works, but a few parts are still tied to my machines:
-
-- The reindex script has my home folder hardcoded in a dozen places. I want it to work out every path from where it lives.
-- The plists and `index.yml` live outside the vault. Moving them into the vault, with an install script that fills in the paths, would let both machines run the same setup.
-- Each machine keeps its own `index.sqlite`, and that stays. Syncing a SQLite file between two machines that both write to it is how you corrupt it.
+- Stick to markdown. Other file types bloat the index, so I convert a PDF to markdown before I index it.
+- Add a short context label to each folder so agents can tell what a result is.
+- Set `QMD_ALLOWED_HOSTS` to your tailnet hostname, or Tailscale requests come back as a 403.
+- Don't expose the MCP server to the public internet. It has no login.
 
 ## Wrapping up
 
-qmd gave my agents a way to find ideas in my vault, not only files. It runs locally, a launchd job keeps it within about 15 minutes of my latest edit, and Tailscale Serve lets every agent I use reach one MCP server without exposing it to the internet. The tradeoffs are real: the MCP server has no auth, contexts don't help ranking, and keyword scores can be confidently wrong. Each of those has a simple workaround once you know about it.
+qmd gave my agents a way to find ideas in my vault, not only files. It runs locally, a launchd job keeps it within about 15 minutes of my latest edit, and Tailscale Serve lets every agent I use reach one MCP server.
 
 If you keep your notes in markdown, try `qmd query` on your own vault this week. Start with the CLI, and add the MCP server once you want other agents to search it too.
 
