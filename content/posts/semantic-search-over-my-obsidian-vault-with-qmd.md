@@ -50,18 +50,13 @@ qmd embed
 qmd status
 ```
 
-After that, I manage it in `~/.config/qmd/index.yml`. These are the two settings that matter most:
+After that, I manage it in `~/.config/qmd/index.yml`:
 
 ```yaml
-pattern: "**/*.md,Assets/**/*.txt"
-ignore:
-  - "**/*.html"
-  - "**/*.csv"
+pattern: "**/*.md"
 ```
 
-The pattern is an allowlist, so I index markdown plus plain-text files under `Assets/`, and nothing else.
-
-I learned this one the hard way. I once widened the pattern to include HTML and CSV, since they're text too. When I measured it, 31 HTML files held 9.1 MB of indexed text, more than all 4,138 markdown notes at the time combined, which came to 7.4 MB. qmd has no HTML or CSV parser. It reads every file as plain text and chunks it, so raw markup and CSV rows got embedded as noise that competed with real notes on every search. I put the allowlist back and ran `qmd cleanup` to reclaim the space.
+Stick to markdown. Other file types bloat the index without much return.
 
 The same rule applies to PDFs. If I want one to be searchable, I convert it to markdown first.
 
