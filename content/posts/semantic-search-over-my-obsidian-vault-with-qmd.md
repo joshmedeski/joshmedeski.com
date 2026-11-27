@@ -1,6 +1,6 @@
 ---
 title: Semantic Search Over My Obsidian Vault with qmd
-description: How I index 4,700 Obsidian notes locally with qmd, keep the index fresh with launchd, and serve it as an MCP server my AI agents reach over Tailscale.
+description: How I index 4,700 Obsidian notes on a Mac mini with qmd, keep the index fresh with launchd, and serve it as an MCP server my agents reach over Tailscale.
 pubDate: 2026-12-01T12:00:00.000Z
 heroImage: ../attachments/posts/semantic-search-over-my-obsidian-vault-with-qmd/semantic-search-over-my-obsidian-vault-with-qmd.jpeg
 areas:
@@ -12,7 +12,7 @@ I ask my agents about my own notes all the time. What did I decide about that pl
 
 Grep can't help with that. When my words don't match the note's words, a keyword search comes back empty, and an empty result looks exactly like "there's no note about this."
 
-So I gave my agents real semantic search over the whole vault with [qmd](https://github.com/tobi/qmd). It indexes about 4,700 notes on a Mac mini, re-indexes itself every 15 minutes, and serves an MCP server that any of my agents can reach over Tailscale. Everything runs locally. No note leaves my machines to get embedded.
+So I gave my agents real semantic search over the whole vault with [qmd](https://github.com/tobi/qmd). It runs on a Mac mini that stays on: one index of about 4,700 notes, a reindex every 15 minutes, and an MCP server the rest of my agents reach over Tailscale. Everything stays on that Mac. No note leaves it to get embedded.
 
 <!-- TODO: Screenshot of an agent answering a vault question, showing the qmd `query` and `get` tool calls. -->
 
@@ -32,7 +32,7 @@ npm install -g @tobilu/qmd
 
 ## Point it at the vault
 
-I have one collection, `second-brain`, for the whole vault:
+I have one collection, `second-brain`, for the whole vault on the Mac mini:
 
 ```sh
 qmd collection add ~/path/to/vault --name second-brain
@@ -60,7 +60,20 @@ qmd context add "qmd://second-brain/Projects/Active" "Projects Josh is actively 
 
 ## Keep the index fresh with launchd
 
-I never run `qmd update` or `qmd embed` by hand. The vault syncs to the Mac mini with Syncthing, and a launchd agent re-indexes it every 15 minutes:
+I never run `qmd update` or `qmd embed` by hand. A launchd agent on the Mac mini runs this every 15 minutes. Save it as `~/bin/reindex-qmd.sh` and make it executable:
+
+```sh
+#!/bin/sh
+log="$HOME/.cache/qmd/vault-reindex.log"
+mkdir -p "$(dirname "$log")"
+{
+  echo "----- $(date)"
+  qmd update
+  qmd embed
+} >> "$log" 2>&1
+```
+
+launchd doesn't expand `~` or `$HOME`, so the plist uses the absolute path. It also puts `/usr/local/bin` on `PATH`, which is where the global npm install puts `qmd`.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -71,9 +84,13 @@ I never run `qmd update` or `qmd embed` by hand. The vault syncs to the Mac mini
   <string>com.yourname.qmd-watch</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/Users/you/path/to/vault/.claude/hooks/reindex-qmd.sh</string>
-    <string>--sync</string>
+    <string>/Users/you/bin/reindex-qmd.sh</string>
   </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
   <key>RunAtLoad</key>
   <true/>
   <key>StartInterval</key>
@@ -86,16 +103,7 @@ I never run `qmd update` or `qmd embed` by hand. The vault syncs to the Mac mini
 </plist>
 ```
 
-launchd doesn't expand `~` or `$HOME`, so every path in a plist has to be absolute.
-
-The script runs two commands:
-
-```sh
-qmd update   # pick up new, changed, and deleted notes
-qmd embed    # embed anything that changed
-```
-
-Logs go to `~/.cache/qmd/vault-reindex.log`. A note shows up in search about 15 minutes after I save it, plus whatever lag Syncthing adds.
+Saving a note doesn't refresh the index on its own. The job does that about 15 minutes later, and writes the result to `~/.cache/qmd/vault-reindex.log`.
 
 ## Serve it as an MCP server
 
@@ -163,7 +171,7 @@ tailscale serve status
 
 Set `QMD_ALLOWED_HOSTS` in the plist to your tailnet hostname, or requests through Tailscale come back as a 403.
 
-Then check it from another machine on your tailnet:
+Then check it from another device on your tailnet:
 
 ```sh
 curl https://your-mac.your-tailnet.ts.net/health
@@ -171,11 +179,11 @@ curl https://your-mac.your-tailnet.ts.net/health
 
 ## Connect your agents
 
-Any MCP client that supports HTTP can use the `/mcp` endpoint. I added it to Grok Bot as a custom connector called "qmd," so every one of my bots can search the vault as long as the Mac mini is awake.
+Any MCP client that supports HTTP can use the `/mcp` endpoint. My laptop, Grok Bot, and Claude Code all point at that URL, so they search the Mac mini as long as it's awake.
 
 <!-- TODO: Screenshot of the qmd custom connector in Grok Bot's settings. -->
 
-For a client that reads a JSON config, like Claude Code's `.mcp.json`, it looks like this:
+A client that reads a JSON config, such as Claude Code's `.mcp.json`, looks like this:
 
 ```json
 {
@@ -190,8 +198,6 @@ For a client that reads a JSON config, like Claude Code's `.mcp.json`, it looks 
 
 I tell my agents to search with `query` before creating a new note, and to read the full note with `get` before answering from a result.
 
-On my MacBook Pro, Claude Code uses the qmd CLI through a skill instead of the MCP server. I pre-allow the read commands and deny the ones that change the index, like `qmd update` and `qmd cleanup`, so only my scripts touch the index. If you want the details, I covered permissions in [Tuning Your Claude Code Settings](/posts/tuning-your-claude-code-settings).
-
 ## A few things I learned
 
 - Stick to markdown. Other file types bloat the index, so I convert a PDF to markdown before I index it.
@@ -201,7 +207,7 @@ On my MacBook Pro, Claude Code uses the qmd CLI through a skill instead of the M
 
 ## Wrapping up
 
-qmd gave my agents a way to find ideas in my vault, not only files. It runs locally, a launchd job keeps it within about 15 minutes of my latest edit, and Tailscale Serve lets every agent I use reach one MCP server.
+qmd gave my agents a way to find ideas in my vault, not only files. It runs on the Mac mini, a launchd job keeps the index within about 15 minutes of my latest edit, and Tailscale Serve lets every agent I use reach that one server.
 
 If you keep your notes in markdown, try `qmd query` on your own vault this week. Start with the CLI, and add the MCP server once you want other agents to search it too.
 
