@@ -14,7 +14,6 @@ const postsCollection = defineCollection({
         projects: z.array(reference('projects')).optional(),
         duration: z.string().optional(),
         heroImage: image(),
-        draft: z.boolean().optional(),
         titleClasses: z.string().optional(),
         updatedDate: z.string().optional(),
         youtubeUrl: z.string().optional(),

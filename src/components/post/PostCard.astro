@@ -33,15 +33,5 @@ const {
   size={size}
   sizes={sizes}
 >
-  {
-    post.data.draft && (
-      <span
-        slot="badge"
-        class="absolute right-2 top-2 z-30 rounded bg-amber-400 px-2 py-0.5 text-xs font-extrabold uppercase tracking-wider text-black shadow-md"
-      >
-        Draft
-      </span>
-    )
-  }
   <PostMeta slot="meta" post={post} align="left" />
 </FeatureCard>

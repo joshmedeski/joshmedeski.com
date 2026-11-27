@@ -5,14 +5,13 @@ import { groupByDirectArea } from '~/utils/areas'
 import {
   byTitle,
   entryLink,
-  getPublished,
   markdownResponse,
   markdownSection,
 } from '~/utils/siteContent'
 
 export async function GET({ site }: APIContext) {
   const areas = await getCollection('areas')
-  const uses = await getPublished('uses')
+  const uses = await getCollection('uses')
   return markdownResponse([
     '# Uses',
     `The hardware, software, and tools Josh Medeski uses, grouped by area. Each link is the plain markdown version of that page. The HTML version is at ${new URL('/uses/', site)}.`,

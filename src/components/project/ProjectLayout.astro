@@ -19,11 +19,7 @@ interface Props {
 
 const { project } = Astro.props
 
-const includeDrafts = import.meta.env.DEV
-const allPosts = await getCollection(
-  'posts',
-  ({ data }) => includeDrafts || !data.draft,
-)
+const allPosts = await getCollection('posts')
 const { videos, articles } = splitVideos(entriesForProject(project, allPosts))
 const appearances = entriesForProject(
   project,

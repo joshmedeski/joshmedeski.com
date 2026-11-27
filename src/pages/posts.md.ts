@@ -1,13 +1,9 @@
 import type { APIContext } from 'astro'
-import {
-  byNewest,
-  entryLink,
-  getPublished,
-  markdownResponse,
-} from '~/utils/siteContent'
+import { getCollection } from 'astro:content'
+import { byNewest, entryLink, markdownResponse } from '~/utils/siteContent'
 
 export async function GET({ site }: APIContext) {
-  const posts = (await getPublished('posts')).sort(byNewest)
+  const posts = (await getCollection('posts')).sort(byNewest)
   return markdownResponse([
     '# Posts',
     `Every post by Josh Medeski, newest first. Each link is the plain markdown version of the post. The HTML version is at ${new URL('/content?type=writing', site)}.`,

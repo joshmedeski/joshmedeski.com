@@ -40,7 +40,6 @@ category: dotfiles
 youtubeUrl: https://www.youtube.com/embed/VIDEO_ID
 videoType: video
 duration: '5:22'
-draft: true
 thumbnail: ../../assets/posts/post-slug-thumb.jpeg
 guide:
   ref: guide-name
@@ -56,7 +55,6 @@ guide:
    - What category fits best?
    - Is a hero image available or should a placeholder be used?
    - Any YouTube video to embed? If so, is it an edited video or a live stream?
-   - Is this a draft or ready to publish?
 3. Generate kebab-case filename from title
 4. Create MDX file in `src/data/posts/`
 
