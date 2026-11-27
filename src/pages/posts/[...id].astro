@@ -6,11 +6,7 @@ import NextGuidePost from '~/components/NextGuidePost.astro'
 import Cta from '../../components/cta/PostCta.astro'
 
 export async function getStaticPaths() {
-  const includeDrafts = import.meta.env.DEV
-  const posts = await getCollection(
-    'posts',
-    ({ data }) => includeDrafts || !data.draft,
-  )
+  const posts = await getCollection('posts')
   return posts.map((post) => {
     return {
       params: { id: post.id },

@@ -5,11 +5,7 @@ import PageTitle from '../components/PageTitle.astro'
 import Wrapper from '../components/Wrapper.astro'
 import Content from '../components/Content.astro'
 
-const includeDrafts = import.meta.env.DEV
-const posts = await getCollection(
-  'posts',
-  ({ data: { draft } }) => includeDrafts || !draft,
-)
+const posts = await getCollection('posts')
 const appearances = await getCollection('appearances')
 ---
 

@@ -6,7 +6,6 @@ import {
   byNewest,
   byTitle,
   entryLink,
-  getPublished,
   markdownResponse,
   markdownSection,
 } from '~/utils/siteContent'
@@ -25,12 +24,12 @@ export const GET: APIRoute<{ area: CollectionEntry<'areas'> }> = async ({
     items: T[],
   ) => contentForArea(area, areas, items)
 
-  const areaPosts = inArea(await getPublished('posts')).sort(byNewest)
+  const areaPosts = inArea(await getCollection('posts')).sort(byNewest)
   const posts = areaPosts.filter(({ data }) => !data.youtubeUrl)
   const videos = areaPosts.filter(({ data }) => data.youtubeUrl)
-  const guides = inArea(await getPublished('guides')).sort(byNewest)
-  const projects = inArea(await getPublished('projects')).sort(byTitle)
-  const uses = inArea(await getPublished('uses')).sort(byTitle)
+  const guides = inArea(await getCollection('guides')).sort(byNewest)
+  const projects = inArea(await getCollection('projects')).sort(byTitle)
+  const uses = inArea(await getCollection('uses')).sort(byTitle)
   const appearances = inArea(await getCollection('appearances')).sort(byNewest)
 
   return markdownResponse([

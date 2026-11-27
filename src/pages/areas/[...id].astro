@@ -31,12 +31,8 @@ interface Props {
 }
 
 const { area } = Astro.props
-const includeDrafts = import.meta.env.DEV
 const areas = await getCollection('areas')
-const allPosts = await getCollection(
-  'posts',
-  ({ data }) => includeDrafts || !data.draft,
-)
+const allPosts = await getCollection('posts')
 const allUses = await getCollection('uses')
 const allProjects = await getCollection('projects')
 const allGuides = await getCollection('guides')

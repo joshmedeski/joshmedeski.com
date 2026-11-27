@@ -29,17 +29,13 @@ My site is built with [Astro](https://astro.build) and deployed on [Netlify](htt
 
 ```ts title="src/pages/[type]/[id].md.ts"
 import type { APIRoute } from 'astro'
-import type { CollectionEntry } from 'astro:content'
-import {
-  CONTENT_TYPES,
-  getPublished,
-  type ContentType,
-} from '~/utils/siteContent'
+import { getCollection, type CollectionEntry } from 'astro:content'
+import { CONTENT_TYPES, type ContentType } from '~/utils/siteContent'
 
 export async function getStaticPaths() {
   const groups = await Promise.all(
     CONTENT_TYPES.map(async (type) =>
-      (await getPublished(type)).map((entry) => ({
+      (await getCollection(type)).map((entry) => ({
         params: { type, id: entry.id },
         props: { entry },
       })),

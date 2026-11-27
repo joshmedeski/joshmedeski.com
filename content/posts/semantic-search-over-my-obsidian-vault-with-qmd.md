@@ -6,7 +6,6 @@ heroImage: ../attachments/posts/semantic-search-over-my-obsidian-vault-with-qmd/
 areas:
   - obsidian
   - ai
-draft: true
 ---
 
 I ask my agents about my own notes all the time. What did I decide about that plugin? Where did I write down that launchd gotcha? The answer is almost always somewhere in my Obsidian vault, but it rarely uses the words I search with.

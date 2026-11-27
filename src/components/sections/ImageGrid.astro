@@ -3,10 +3,9 @@ import { getCollection } from 'astro:content'
 import AboutMe from './AboutMe.astro'
 import Wrapper from '../Wrapper.astro'
 
-const posts = await getCollection(
-  'posts',
-  ({ data: { draft } }) => !draft,
-).then((p) => p.sort(() => Math.random() - 0.5))
+const posts = await getCollection('posts').then((p) =>
+  p.sort(() => Math.random() - 0.5),
+)
 
 const columns = 8
 const itemsPerColumn = 15

@@ -5,14 +5,13 @@ import {
   areaLinks,
   byTitle,
   entryLink,
-  getPublished,
   markdownLink,
   markdownResponse,
   markdownSection,
 } from '~/utils/siteContent'
 
 export async function GET({ site }: APIContext) {
-  const projects = (await getPublished('projects')).sort(byTitle)
+  const projects = (await getCollection('projects')).sort(byTitle)
   const areas = await getCollection('areas')
   const index = (path: string, title: string, note: string) =>
     markdownLink(site, path, title, note)

@@ -1,6 +1,6 @@
 import type { APIContext } from 'astro'
+import { getCollection } from 'astro:content'
 import {
-  getPublished,
   isoDate,
   markdownLink,
   markdownResponse,
@@ -12,7 +12,7 @@ import pageviewSnapshot from '~/data/pageviews.json'
 import youtubeSnapshot from '~/data/youtube-views.json'
 
 export async function GET({ site }: APIContext) {
-  const posts = await getPublished('posts')
+  const posts = await getCollection('posts')
   const videos = rankVideos(posts, viewsFromRecord(youtubeSnapshot.views))
   const pages = rankPosts(
     posts,

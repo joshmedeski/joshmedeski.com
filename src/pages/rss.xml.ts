@@ -5,7 +5,7 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container'
 
 export async function GET(context: { site: URL }) {
   const container = await AstroContainer.create()
-  const posts = await getCollection('posts', ({ data }) => !data.draft)
+  const posts = await getCollection('posts')
   posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 
   const site = context.site ?? new URL(import.meta.env.SITE)

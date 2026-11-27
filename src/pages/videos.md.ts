@@ -1,13 +1,9 @@
 import type { APIContext } from 'astro'
-import {
-  byNewest,
-  entryLink,
-  getPublished,
-  markdownResponse,
-} from '~/utils/siteContent'
+import { getCollection } from 'astro:content'
+import { byNewest, entryLink, markdownResponse } from '~/utils/siteContent'
 
 export async function GET({ site }: APIContext) {
-  const videos = (await getPublished('posts'))
+  const videos = (await getCollection('posts'))
     .filter(({ data }) => 'youtubeUrl' in data && data.youtubeUrl)
     .sort(byNewest)
   return markdownResponse([

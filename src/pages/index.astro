@@ -11,10 +11,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '~/config'
 import profileCircle from '~/assets/joshmedeski-profile-circle.png'
 import gridImage from '~/assets/grid.png'
 
-const includeDrafts = import.meta.env.DEV
-const posts = (
-  await getCollection('posts', ({ data }) => includeDrafts || !data.draft)
-).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+)
 const [latest] = posts
 
 const projects = (await getCollection('projects'))

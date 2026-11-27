@@ -1,14 +1,8 @@
-import { getCollection, type CollectionEntry } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
 import { subAreasOf, topLevelAreas } from './areas'
 import type { ContentType } from './markdownAlternate'
 
 export { CONTENT_TYPES, type ContentType } from './markdownAlternate'
-
-export const getPublished = <T extends ContentType>(type: T) =>
-  getCollection(
-    type,
-    ({ data }) => !('draft' in data && data.draft),
-  ) as Promise<CollectionEntry<T>[]>
 
 export const byNewest = (
   a: { data: { pubDate: Date } },
