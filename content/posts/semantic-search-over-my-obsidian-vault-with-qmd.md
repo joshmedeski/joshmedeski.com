@@ -52,11 +52,27 @@ My `ignore` list excludes a couple of private folders. `ignore` keeps a file out
 
 ## Contexts
 
-A short context label on each folder helps agents understand the results. I add one per folder:
+I label each top-level folder, under `context:` in `~/.config/qmd/index.yml`, so agents know what kind of note a result is.
 
-```sh
-qmd context add "qmd://second-brain/Projects/Active" "Projects Josh is actively working on"
+```yaml
+context:
+  "/Days": "Daily notes and journaling, named YYYY-MM-DD.md."
+  "/Goals": "Measurable personal objectives with timelines."
+  "/Events": "Dated meetings, appointments, trips, shows, and other events."
+  "/Projects": "Project notes organized by commitment status."
+  "/Projects/Active": "Projects currently committed to and actively being worked on."
+  "/Projects/Waiting For": "Delegated or dependent projects waiting on others or external input."
+  "/Projects/Someday Maybe": "Potential future projects not currently committed to."
+  "/Areas": "Ongoing life domains and responsibilities."
+  "/Resources": "Reference materials, tools, templates, and skills."
+  "/Relationships": "People and organization profiles."
+  "/Inbox": "Unsorted captures awaiting processing."
+  "/Archives": "Completed projects and historical documents."
+  "/Assets": "Supporting files and plain-text source material."
+  "/Brain": "Persistent personal knowledge and synthesized notes."
 ```
+
+Nested folders such as `/Projects/Active` get their own label on top of the parent's.
 
 ## Keep the index fresh with launchd
 
